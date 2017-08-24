@@ -6,6 +6,8 @@ namespace DosjunEditor
 {
     public partial class MainForm : Form
     {
+        private bool changed;
+
         public MainForm()
         {
             InitializeComponent();
@@ -20,23 +22,10 @@ namespace DosjunEditor
         public Campaign Campaign { get; set; }
         public Monsters Monsters { get; set; }
         public Items Items { get; set; }
-        public bool Changed { get; private set; }
-
-        public void SetChanged(bool flag)
+        public bool Changed
         {
-            if (Changed != flag)
-            {
-                Changed = flag;
-
-                if (flag)
-                {
-                    Text = "Campaign Editor*";
-                }
-                else
-                {
-                    Text = "Campaign Editor";
-                }
-            }
+            get => changed;
+            set { SetChanged(value); }
         }
 
         public void SaveAll()
@@ -49,7 +38,7 @@ namespace DosjunEditor
             using (Stream file = File.OpenWrite(itmOut)) Items.Write(new BinaryWriter(file));
 
             MessageBox.Show($"Wrote: {cmpOut}, {monOut}, {itmOut}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            SetChanged(false);
+            Changed = false;
         }
 
         public void Exit()
@@ -122,7 +111,7 @@ namespace DosjunEditor
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     form.Apply();
-                    SetChanged(true);
+                    Changed = true;
                 }
 
                 form.Dispose();
@@ -135,6 +124,23 @@ namespace DosjunEditor
             {
                 e.Cancel = true;
                 Exit();
+            }
+        }
+
+        private void SetChanged(bool flag)
+        {
+            if (changed != flag)
+            {
+                changed = flag;
+
+                if (flag)
+                {
+                    Text = "Campaign Editor*";
+                }
+                else
+                {
+                    Text = "Campaign Editor";
+                }
             }
         }
     }
