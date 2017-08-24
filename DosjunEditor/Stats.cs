@@ -4,30 +4,43 @@ namespace DosjunEditor
 {
     public class Stats : IBinaryData
     {
-        public const int Count = (int)Stat._Count;
-
         public void Read(BinaryReader br)
         {
-            Data = new short[Count];
-            for (var i = 0; i < Count; i++) Data[i] = br.ReadInt16();
+            MaxHP = br.ReadInt16();
+            MaxMP = br.ReadInt16();
+            MinDamage = br.ReadInt16();
+            MaxDamage = br.ReadInt16();
+            Armour = br.ReadInt16();
+            Strength = br.ReadInt16();
+            Dexterity = br.ReadInt16();
+            Intelligence = br.ReadInt16();
+            HP = br.ReadInt16();
+            MP = br.ReadInt16();
         }
 
         public void Write(BinaryWriter bw)
         {
-            foreach (short st in Data) bw.Write(st);
+            bw.Write(MaxHP);
+            bw.Write(MaxMP);
+            bw.Write(MinDamage);
+            bw.Write(MaxDamage);
+            bw.Write(Armour);
+            bw.Write(Strength);
+            bw.Write(Dexterity);
+            bw.Write(Intelligence);
+            bw.Write(HP);
+            bw.Write(MP);
         }
 
-        public short[] Data { get; private set; }
-
-        public short MaxHP => Data[(int)Stat.MaxHP];
-        public short MaxMP => Data[(int)Stat.MaxMP];
-        public short MinDamage => Data[(int)Stat.MinDamage];
-        public short MaxDamage => Data[(int)Stat.MaxDamage];
-        public short Armour => Data[(int)Stat.Armour];
-        public short Strength => Data[(int)Stat.Strength];
-        public short Dexterity => Data[(int)Stat.Dexterity];
-        public short Intelligence => Data[(int)Stat.Intelligence];
-        public short HP => Data[(int)Stat.HP];
-        public short MP => Data[(int)Stat.MP];
+        public short MaxHP { get; set; }
+        public short MaxMP { get; set; }
+        public short MinDamage { get; set; }
+        public short MaxDamage { get; set; }
+        public short Armour { get; set; }
+        public short Strength { get; set; }
+        public short Dexterity { get; set; }
+        public short Intelligence { get; set; }
+        public short HP { get; set; }
+        public short MP { get; set; }
     }
 }

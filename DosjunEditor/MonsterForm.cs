@@ -27,6 +27,18 @@ namespace DosjunEditor
             RowBox.SelectedIndex = (int)mon.Row;
 
             AIBox.SelectedIndex = (int)mon.AI;
+
+            StatsBoxes.Stats = mon.Stats;
+        }
+
+        public void Apply()
+        {
+            Monster.Id = (ushort)IDBox.Value;
+            Monster.Name = NameBox.Text;
+            Monster.Image = ImageBox.Text.ToUpper();
+            Monster.Row = (Row)RowBox.SelectedIndex;
+            Monster.AI = (AI)AIBox.SelectedIndex;
+            StatsBoxes.Apply();
         }
     }
 }

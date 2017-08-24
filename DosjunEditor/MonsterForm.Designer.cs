@@ -40,6 +40,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.AIBox = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.StatsBoxes = new DosjunEditor.StatsEditor();
             ((System.ComponentModel.ISupportInitialize)(this.IDBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -166,11 +167,20 @@
             this.label5.TabIndex = 12;
             this.label5.Text = "AI";
             // 
+            // StatsBoxes
+            // 
+            this.StatsBoxes.Location = new System.Drawing.Point(257, 3);
+            this.StatsBoxes.Name = "StatsBoxes";
+            this.StatsBoxes.Size = new System.Drawing.Size(258, 259);
+            this.StatsBoxes.Stats = null;
+            this.StatsBoxes.TabIndex = 13;
+            // 
             // MonsterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(242, 261);
+            this.ClientSize = new System.Drawing.Size(527, 271);
+            this.Controls.Add(this.StatsBoxes);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.AIBox);
             this.Controls.Add(this.label4);
@@ -205,5 +215,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox AIBox;
         private System.Windows.Forms.Label label5;
+        private StatsEditor StatsBoxes;
     }
 }

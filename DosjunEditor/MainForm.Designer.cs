@@ -266,6 +266,7 @@
             this.MainMenuStrip = this.TopMenu;
             this.Name = "MainForm";
             this.Text = "Campaign Editor";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.TopMenu.ResumeLayout(false);
             this.TopMenu.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);

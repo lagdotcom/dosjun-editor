@@ -20,11 +20,53 @@ namespace DosjunEditor
         public Campaign Campaign { get; set; }
         public Monsters Monsters { get; set; }
         public Items Items { get; set; }
+        public bool Changed { get; private set; }
+
+        public void SetChanged(bool flag)
+        {
+            if (Changed != flag)
+            {
+                Changed = flag;
+
+                if (flag)
+                {
+                    Text = "Campaign Editor*";
+                }
+                else
+                {
+                    Text = "Campaign Editor";
+                }
+            }
+        }
+
+        public void SaveAll()
+        {
+            string cmpOut = CampaignFilename + ".TEST";
+            string monOut = MonstersFilename + ".TEST";
+            string itmOut = ItemsFilename + ".TEST";
+            using (Stream file = File.OpenWrite(cmpOut)) Campaign.Write(new BinaryWriter(file));
+            using (Stream file = File.OpenWrite(monOut)) Monsters.Write(new BinaryWriter(file));
+            using (Stream file = File.OpenWrite(itmOut)) Items.Write(new BinaryWriter(file));
+
+            MessageBox.Show($"Wrote: {cmpOut}, {monOut}, {itmOut}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            SetChanged(false);
+        }
+
+        public void Exit()
+        {
+            if (Changed)
+            {
+                DialogResult result = MessageBox.Show("Save changes?", "Don't lose your work!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                if (result == DialogResult.Cancel) return;
+                if (result == DialogResult.OK) SaveAll();
+            }
+
+            Application.Exit();
+        }
 
         private void MenuExit_Click(object sender, EventArgs e)
         {
-            /* TODO */
-            Application.Exit();
+            Exit();
         }
 
         private void MenuOpen_Click(object sender, EventArgs e)
@@ -67,14 +109,7 @@ namespace DosjunEditor
 
         private void MenuSave_Click(object sender, EventArgs e)
         {
-            string cmpOut = CampaignFilename + ".TEST";
-            string monOut = MonstersFilename + ".TEST";
-            string itmOut = ItemsFilename + ".TEST";
-            using (Stream file = File.OpenWrite(cmpOut)) Campaign.Write(new BinaryWriter(file));
-            using (Stream file = File.OpenWrite(monOut)) Monsters.Write(new BinaryWriter(file));
-            using (Stream file = File.OpenWrite(itmOut)) Items.Write(new BinaryWriter(file));
-
-            MessageBox.Show($"Wrote: {cmpOut}, {monOut}, {itmOut}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            SaveAll();
         }
 
         private void MonsterList_DoubleClick(object sender, EventArgs e)
@@ -84,7 +119,22 @@ namespace DosjunEditor
             {
                 MonsterForm form = new MonsterForm();
                 form.Setup(Campaign, target as Monster);
-                form.ShowDialog();
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    form.Apply();
+                    SetChanged(true);
+                }
+
+                form.Dispose();
+            }
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason != CloseReason.ApplicationExitCall)
+            {
+                e.Cancel = true;
+                Exit();
             }
         }
     }
