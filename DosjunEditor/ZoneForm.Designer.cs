@@ -28,11 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DosjunEditor.Wall wall17 = new DosjunEditor.Wall();
-            DosjunEditor.Wall wall18 = new DosjunEditor.Wall();
-            DosjunEditor.Wall wall19 = new DosjunEditor.Wall();
-            DosjunEditor.Wall wall20 = new DosjunEditor.Wall();
+            DosjunEditor.Wall wall1 = new DosjunEditor.Wall();
+            DosjunEditor.Wall wall2 = new DosjunEditor.Wall();
+            DosjunEditor.Wall wall3 = new DosjunEditor.Wall();
+            DosjunEditor.Wall wall4 = new DosjunEditor.Wall();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.AddDescriptionButton = new System.Windows.Forms.Button();
+            this.SelectDescriptionButton = new System.Windows.Forms.Button();
+            this.DescriptionIdLabel = new System.Windows.Forms.Label();
+            this.DescriptionBox = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.CeilingColour = new DosjunEditor.PalettePicker();
             this.label6 = new System.Windows.Forms.Label();
             this.FloorColour = new DosjunEditor.PalettePicker();
@@ -46,11 +51,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.NorthWall = new DosjunEditor.WallEditor();
             this.Map = new DosjunEditor.ZoneView();
-            this.label7 = new System.Windows.Forms.Label();
-            this.DescriptionBox = new System.Windows.Forms.TextBox();
-            this.DescriptionIdLabel = new System.Windows.Forms.Label();
-            this.SelectDescriptionButton = new System.Windows.Forms.Button();
-            this.AddDescriptionButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -80,6 +80,55 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Tile Details";
+            // 
+            // AddDescriptionButton
+            // 
+            this.AddDescriptionButton.Location = new System.Drawing.Point(129, 507);
+            this.AddDescriptionButton.Name = "AddDescriptionButton";
+            this.AddDescriptionButton.Size = new System.Drawing.Size(75, 23);
+            this.AddDescriptionButton.TabIndex = 16;
+            this.AddDescriptionButton.Text = "Add...";
+            this.AddDescriptionButton.UseVisualStyleBackColor = true;
+            this.AddDescriptionButton.Click += new System.EventHandler(this.AddDescriptionButton_Click);
+            // 
+            // SelectDescriptionButton
+            // 
+            this.SelectDescriptionButton.Location = new System.Drawing.Point(10, 507);
+            this.SelectDescriptionButton.Name = "SelectDescriptionButton";
+            this.SelectDescriptionButton.Size = new System.Drawing.Size(75, 23);
+            this.SelectDescriptionButton.TabIndex = 15;
+            this.SelectDescriptionButton.Text = "Select...";
+            this.SelectDescriptionButton.UseVisualStyleBackColor = true;
+            this.SelectDescriptionButton.Click += new System.EventHandler(this.SelectDescriptionButton_Click);
+            // 
+            // DescriptionIdLabel
+            // 
+            this.DescriptionIdLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DescriptionIdLabel.Location = new System.Drawing.Point(144, 390);
+            this.DescriptionIdLabel.Name = "DescriptionIdLabel";
+            this.DescriptionIdLabel.Size = new System.Drawing.Size(60, 13);
+            this.DescriptionIdLabel.TabIndex = 14;
+            this.DescriptionIdLabel.Text = "#";
+            this.DescriptionIdLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // DescriptionBox
+            // 
+            this.DescriptionBox.Location = new System.Drawing.Point(10, 406);
+            this.DescriptionBox.Multiline = true;
+            this.DescriptionBox.Name = "DescriptionBox";
+            this.DescriptionBox.ReadOnly = true;
+            this.DescriptionBox.Size = new System.Drawing.Size(194, 95);
+            this.DescriptionBox.TabIndex = 13;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(6, 390);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(60, 13);
+            this.label7.TabIndex = 12;
+            this.label7.Text = "Description";
             // 
             // CeilingColour
             // 
@@ -137,9 +186,9 @@
             this.WestWall.Size = new System.Drawing.Size(200, 56);
             this.WestWall.TabIndex = 6;
             this.WestWall.Type = DosjunEditor.WallType.Normal;
-            wall17.Texture = ((byte)(0));
-            wall17.Type = DosjunEditor.WallType.Normal;
-            this.WestWall.Wall = wall17;
+            wall1.Texture = ((byte)(0));
+            wall1.Type = DosjunEditor.WallType.Normal;
+            this.WestWall.Wall = wall1;
             this.WestWall.AnyChanged += new System.EventHandler(this.DataElement_Changed);
             // 
             // label3
@@ -160,9 +209,9 @@
             this.SouthWall.Size = new System.Drawing.Size(200, 56);
             this.SouthWall.TabIndex = 4;
             this.SouthWall.Type = DosjunEditor.WallType.Normal;
-            wall18.Texture = ((byte)(0));
-            wall18.Type = DosjunEditor.WallType.Normal;
-            this.SouthWall.Wall = wall18;
+            wall2.Texture = ((byte)(0));
+            wall2.Type = DosjunEditor.WallType.Normal;
+            this.SouthWall.Wall = wall2;
             this.SouthWall.AnyChanged += new System.EventHandler(this.DataElement_Changed);
             // 
             // label2
@@ -183,9 +232,9 @@
             this.EastWall.Size = new System.Drawing.Size(200, 56);
             this.EastWall.TabIndex = 2;
             this.EastWall.Type = DosjunEditor.WallType.Normal;
-            wall19.Texture = ((byte)(0));
-            wall19.Type = DosjunEditor.WallType.Normal;
-            this.EastWall.Wall = wall19;
+            wall3.Texture = ((byte)(0));
+            wall3.Type = DosjunEditor.WallType.Normal;
+            this.EastWall.Wall = wall3;
             this.EastWall.AnyChanged += new System.EventHandler(this.DataElement_Changed);
             // 
             // label1
@@ -206,9 +255,9 @@
             this.NorthWall.Size = new System.Drawing.Size(200, 56);
             this.NorthWall.TabIndex = 0;
             this.NorthWall.Type = DosjunEditor.WallType.Normal;
-            wall20.Texture = ((byte)(0));
-            wall20.Type = DosjunEditor.WallType.Normal;
-            this.NorthWall.Wall = wall20;
+            wall4.Texture = ((byte)(0));
+            wall4.Type = DosjunEditor.WallType.Normal;
+            this.NorthWall.Wall = wall4;
             this.NorthWall.AnyChanged += new System.EventHandler(this.DataElement_Changed);
             // 
             // Map
@@ -221,55 +270,6 @@
             this.Map.TileSize = 16;
             this.Map.Zone = null;
             this.Map.TileSelected += new DosjunEditor.ZoneView.TileEventHandler(this.Map_TileSelected);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(6, 390);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(60, 13);
-            this.label7.TabIndex = 12;
-            this.label7.Text = "Description";
-            // 
-            // DescriptionBox
-            // 
-            this.DescriptionBox.Location = new System.Drawing.Point(10, 406);
-            this.DescriptionBox.Multiline = true;
-            this.DescriptionBox.Name = "DescriptionBox";
-            this.DescriptionBox.ReadOnly = true;
-            this.DescriptionBox.Size = new System.Drawing.Size(194, 95);
-            this.DescriptionBox.TabIndex = 13;
-            // 
-            // DescriptionIdLabel
-            // 
-            this.DescriptionIdLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DescriptionIdLabel.Location = new System.Drawing.Point(144, 390);
-            this.DescriptionIdLabel.Name = "DescriptionIdLabel";
-            this.DescriptionIdLabel.Size = new System.Drawing.Size(60, 13);
-            this.DescriptionIdLabel.TabIndex = 14;
-            this.DescriptionIdLabel.Text = "#";
-            this.DescriptionIdLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // SelectDescriptionButton
-            // 
-            this.SelectDescriptionButton.Location = new System.Drawing.Point(10, 507);
-            this.SelectDescriptionButton.Name = "SelectDescriptionButton";
-            this.SelectDescriptionButton.Size = new System.Drawing.Size(75, 23);
-            this.SelectDescriptionButton.TabIndex = 15;
-            this.SelectDescriptionButton.Text = "Select...";
-            this.SelectDescriptionButton.UseVisualStyleBackColor = true;
-            this.SelectDescriptionButton.Click += new System.EventHandler(this.SelectDescriptionButton_Click);
-            // 
-            // AddDescriptionButton
-            // 
-            this.AddDescriptionButton.Location = new System.Drawing.Point(129, 507);
-            this.AddDescriptionButton.Name = "AddDescriptionButton";
-            this.AddDescriptionButton.Size = new System.Drawing.Size(75, 23);
-            this.AddDescriptionButton.TabIndex = 16;
-            this.AddDescriptionButton.Text = "Add...";
-            this.AddDescriptionButton.UseVisualStyleBackColor = true;
-            this.AddDescriptionButton.Click += new System.EventHandler(this.AddDescriptionButton_Click);
             // 
             // ZoneForm
             // 

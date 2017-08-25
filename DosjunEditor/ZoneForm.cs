@@ -6,6 +6,9 @@ namespace DosjunEditor
 {
     public partial class ZoneForm : Form
     {
+        public const string CrLf = "\r\n";
+        public const string Lf = "\n";
+
         private bool changed;
         private bool addingDescription;
 
@@ -91,7 +94,7 @@ namespace DosjunEditor
             if (addingDescription)
             {
                 Changed = true;
-                Zone.Strings[CurrentTile.DescriptionId - 1] = DescriptionBox.Text;
+                Zone.Strings[CurrentTile.DescriptionId - 1] = DescriptionBox.Text.Replace(CrLf, Lf);
             }
         }
 
@@ -100,7 +103,7 @@ namespace DosjunEditor
             DescriptionBox.ReadOnly = !addingDescription;
             if (CurrentTile.DescriptionId > 0)
             {
-                DescriptionBox.Text = Zone.Strings[CurrentTile.DescriptionId - 1];
+                DescriptionBox.Text = Zone.Strings[CurrentTile.DescriptionId - 1].Replace(Lf, CrLf);
                 DescriptionIdLabel.Text = $"#{CurrentTile.DescriptionId}";
             }
             else
