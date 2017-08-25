@@ -140,6 +140,7 @@
             this.ItemList.Name = "ItemList";
             this.ItemList.Size = new System.Drawing.Size(305, 475);
             this.ItemList.TabIndex = 6;
+            this.ItemList.DoubleClick += new System.EventHandler(this.ItemList_DoubleClick);
             // 
             // panel2
             // 

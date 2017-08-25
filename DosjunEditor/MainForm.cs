@@ -143,5 +143,22 @@ namespace DosjunEditor
                 }
             }
         }
+
+        private void ItemList_DoubleClick(object sender, EventArgs e)
+        {
+            object target = ItemList.SelectedItem;
+            if (target != null)
+            {
+                ItemForm form = new ItemForm();
+                form.Setup(Campaign, target as Item);
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    form.Apply();
+                    Changed = true;
+                }
+
+                form.Dispose();
+            }
+        }
     }
 }
