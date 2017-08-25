@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DosjunEditor.Wall wall9 = new DosjunEditor.Wall();
-            DosjunEditor.Wall wall10 = new DosjunEditor.Wall();
-            DosjunEditor.Wall wall11 = new DosjunEditor.Wall();
-            DosjunEditor.Wall wall12 = new DosjunEditor.Wall();
+            DosjunEditor.Wall wall17 = new DosjunEditor.Wall();
+            DosjunEditor.Wall wall18 = new DosjunEditor.Wall();
+            DosjunEditor.Wall wall19 = new DosjunEditor.Wall();
+            DosjunEditor.Wall wall20 = new DosjunEditor.Wall();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.CeilingColour = new DosjunEditor.PalettePicker();
             this.label6 = new System.Windows.Forms.Label();
@@ -137,9 +137,9 @@
             this.WestWall.Size = new System.Drawing.Size(200, 56);
             this.WestWall.TabIndex = 6;
             this.WestWall.Type = DosjunEditor.WallType.Normal;
-            wall9.Texture = ((byte)(0));
-            wall9.Type = DosjunEditor.WallType.Normal;
-            this.WestWall.Wall = wall9;
+            wall17.Texture = ((byte)(0));
+            wall17.Type = DosjunEditor.WallType.Normal;
+            this.WestWall.Wall = wall17;
             this.WestWall.AnyChanged += new System.EventHandler(this.DataElement_Changed);
             // 
             // label3
@@ -160,9 +160,9 @@
             this.SouthWall.Size = new System.Drawing.Size(200, 56);
             this.SouthWall.TabIndex = 4;
             this.SouthWall.Type = DosjunEditor.WallType.Normal;
-            wall10.Texture = ((byte)(0));
-            wall10.Type = DosjunEditor.WallType.Normal;
-            this.SouthWall.Wall = wall10;
+            wall18.Texture = ((byte)(0));
+            wall18.Type = DosjunEditor.WallType.Normal;
+            this.SouthWall.Wall = wall18;
             this.SouthWall.AnyChanged += new System.EventHandler(this.DataElement_Changed);
             // 
             // label2
@@ -183,9 +183,9 @@
             this.EastWall.Size = new System.Drawing.Size(200, 56);
             this.EastWall.TabIndex = 2;
             this.EastWall.Type = DosjunEditor.WallType.Normal;
-            wall11.Texture = ((byte)(0));
-            wall11.Type = DosjunEditor.WallType.Normal;
-            this.EastWall.Wall = wall11;
+            wall19.Texture = ((byte)(0));
+            wall19.Type = DosjunEditor.WallType.Normal;
+            this.EastWall.Wall = wall19;
             this.EastWall.AnyChanged += new System.EventHandler(this.DataElement_Changed);
             // 
             // label1
@@ -206,9 +206,9 @@
             this.NorthWall.Size = new System.Drawing.Size(200, 56);
             this.NorthWall.TabIndex = 0;
             this.NorthWall.Type = DosjunEditor.WallType.Normal;
-            wall12.Texture = ((byte)(0));
-            wall12.Type = DosjunEditor.WallType.Normal;
-            this.NorthWall.Wall = wall12;
+            wall20.Texture = ((byte)(0));
+            wall20.Type = DosjunEditor.WallType.Normal;
+            this.NorthWall.Wall = wall20;
             this.NorthWall.AnyChanged += new System.EventHandler(this.DataElement_Changed);
             // 
             // Map
@@ -253,13 +253,13 @@
             // 
             // SelectDescriptionButton
             // 
-            this.SelectDescriptionButton.Enabled = false;
             this.SelectDescriptionButton.Location = new System.Drawing.Point(10, 507);
             this.SelectDescriptionButton.Name = "SelectDescriptionButton";
             this.SelectDescriptionButton.Size = new System.Drawing.Size(75, 23);
             this.SelectDescriptionButton.TabIndex = 15;
             this.SelectDescriptionButton.Text = "Select...";
             this.SelectDescriptionButton.UseVisualStyleBackColor = true;
+            this.SelectDescriptionButton.Click += new System.EventHandler(this.SelectDescriptionButton_Click);
             // 
             // AddDescriptionButton
             // 

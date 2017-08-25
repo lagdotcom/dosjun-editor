@@ -95,6 +95,21 @@ namespace DosjunEditor
             }
         }
 
+        private void UpdateDescription()
+        {
+            DescriptionBox.ReadOnly = !addingDescription;
+            if (CurrentTile.DescriptionId > 0)
+            {
+                DescriptionBox.Text = Zone.Strings[CurrentTile.DescriptionId - 1];
+                DescriptionIdLabel.Text = $"#{CurrentTile.DescriptionId}";
+            }
+            else
+            {
+                DescriptionBox.Text = string.Empty;
+                DescriptionIdLabel.Text = "-";
+            }
+        }
+
         private void Map_TileSelected(Tile t)
         {
             CheckAddingDescription();
@@ -109,17 +124,7 @@ namespace DosjunEditor
             FloorColour.Colour = t.Floor;
 
             addingDescription = false;
-            DescriptionBox.ReadOnly = true;
-            if (t.DescriptionId > 0)
-            {
-                DescriptionBox.Text = Zone.Strings[t.DescriptionId - 1];
-                DescriptionIdLabel.Text = $"#{t.DescriptionId}";
-            }
-            else
-            {
-                DescriptionBox.Text = string.Empty;
-                DescriptionIdLabel.Text = "-";
-            }
+            UpdateDescription();
         }
 
         private void ZoneForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -150,14 +155,25 @@ namespace DosjunEditor
 
         private void AddDescriptionButton_Click(object sender, EventArgs e)
         {
-            addingDescription = true;
-
             Zone.Strings.Add(string.Empty);
             CurrentTile.DescriptionId = (ushort)Zone.Strings.Count;
 
-            DescriptionBox.ReadOnly = false;
-            DescriptionBox.Text = string.Empty;
-            DescriptionIdLabel.Text = $"#{CurrentTile.DescriptionId}";
+            addingDescription = true;
+            UpdateDescription();
+        }
+
+        private void SelectDescriptionButton_Click(object sender, EventArgs e)
+        {
+            PickerDialog dlg = new PickerDialog();
+            dlg.Items = Zone.Strings;
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                CurrentTile.DescriptionId = (ushort)(dlg.SelectedIndex + 1);
+
+                UpdateDescription();
+
+                Changed = true;
+            }
         }
     }
 }

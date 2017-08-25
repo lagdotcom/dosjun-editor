@@ -86,6 +86,12 @@
     <Compile Include="PalettePicker.Designer.cs">
       <DependentUpon>PalettePicker.cs</DependentUpon>
     </Compile>
+    <Compile Include="PickerDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PickerDialog.Designer.cs">
+      <DependentUpon>PickerDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Row.cs" />
@@ -132,6 +138,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PalettePicker.resx">
       <DependentUpon>PalettePicker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PickerDialog.resx">
+      <DependentUpon>PickerDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
