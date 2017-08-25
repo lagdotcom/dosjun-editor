@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.IO;
 using System.Windows.Forms;
 
@@ -83,17 +84,16 @@ namespace DosjunEditor
             NewMonsterButton.Enabled = true;
             NewItemButton.Enabled = true;
 
-            ZoneList.Items.Clear();
-            foreach (string zone in Campaign.Zones)
-                ZoneList.Items.Add(zone);
+            UpdateList(ZoneList, Campaign.Zones);
+            UpdateList(MonsterList, Monsters.Data);
+            UpdateList(ItemList, Items.Data);
+        }
 
-            MonsterList.Items.Clear();
-            foreach (Monster m in Monsters.Data)
-                MonsterList.Items.Add(m);
-
-            ItemList.Items.Clear();
-            foreach (Item it in Items.Data)
-                ItemList.Items.Add(it);
+        private void UpdateList(ListBox list, IList data)
+        {
+            list.Items.Clear();
+            foreach (object datum in data)
+                list.Items.Add(datum);
         }
 
         private void MenuSave_Click(object sender, EventArgs e)
@@ -112,6 +112,7 @@ namespace DosjunEditor
                 {
                     form.Apply();
                     Changed = true;
+                    UpdateList(MonsterList, Monsters.Data);
                 }
 
                 form.Dispose();
@@ -155,6 +156,7 @@ namespace DosjunEditor
                 {
                     form.Apply();
                     Changed = true;
+                    UpdateList(ItemList, Items.Data);
                 }
 
                 form.Dispose();
