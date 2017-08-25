@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 
@@ -21,6 +22,8 @@ namespace DosjunEditor
         public string ZonePath { get; private set; }
         public string ZoneName { get; private set; }
         public string ZoneFilename => ZonePath + ZoneName + ".ZON";
+        public string JunFilename => ZonePath + ZoneName + ".JC";
+
         public Zone Zone { get; private set; }
         public Tile CurrentTile { get; private set; }
         public bool Changed
@@ -84,6 +87,19 @@ namespace DosjunEditor
             {
                 Zone = new Zone();
                 using (Stream file = File.OpenRead(ZoneFilename)) Zone.Read(new BinaryReader(file));
+
+                if (File.Exists(JunFilename))
+                {
+                    using (Stream file = File.OpenRead(JunFilename))
+                    {
+                        List<string> lines = new List<string>();
+                        StreamReader sr = new StreamReader(file);
+                        while (!sr.EndOfStream) lines.Add(sr.ReadLine());
+
+                        Jun.Tokenizer tk = new Jun.Tokenizer();
+                        tk.Tokenize(lines);
+                    }
+                }
             }
 
             Map.Zone = Zone;
@@ -167,8 +183,7 @@ namespace DosjunEditor
 
         private void SelectDescriptionButton_Click(object sender, EventArgs e)
         {
-            PickerDialog dlg = new PickerDialog();
-            dlg.Items = Zone.Strings;
+            PickerDialog dlg = new PickerDialog { Items = Zone.Strings };
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 CurrentTile.DescriptionId = (ushort)(dlg.SelectedIndex + 1);

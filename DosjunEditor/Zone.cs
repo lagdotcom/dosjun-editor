@@ -12,7 +12,7 @@ namespace DosjunEditor
             Version = new VersionHeader();
             Tiles = new TileBag();
             Strings = new List<string>();
-            Scripts = new List<Script>();
+            Scripts = new List<CompiledScript>();
             Encounters = new List<Encounter>();
             CodeStrings = new List<string>();
             ETables = new List<ETable>();
@@ -70,7 +70,7 @@ namespace DosjunEditor
                     Tiles.At(x, y).Write(bw);
 
             foreach (string s in Strings) bw.WriteNS(s);
-            foreach (Script sc in Scripts) sc.Write(bw);
+            foreach (CompiledScript sc in Scripts) sc.Write(bw);
             foreach (Encounter en in Encounters) en.Write(bw);
             foreach (string c in CodeStrings) bw.WriteNS(c);
             foreach (ETable et in ETables) et.Write(bw);
@@ -88,7 +88,7 @@ namespace DosjunEditor
 
         public TileBag Tiles { get; private set; }
         public List<string> Strings { get; private set; }
-        public List<Script> Scripts { get; private set; }
+        public List<CompiledScript> Scripts { get; private set; }
         public List<Encounter> Encounters { get; private set; }
         public List<string> CodeStrings { get; private set; }
         public List<ETable> ETables { get; private set; }

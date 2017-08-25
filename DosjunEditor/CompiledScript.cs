@@ -1,11 +1,10 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
 namespace DosjunEditor
 {
-    public class Script : IBinaryData
+    public class CompiledScript : IBinaryData
     {
-        public Script()
+        public CompiledScript()
         {
             Bytecode = new byte[0];
         }

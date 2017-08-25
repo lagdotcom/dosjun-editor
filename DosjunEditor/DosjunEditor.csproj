@@ -66,6 +66,26 @@
     <Compile Include="ItemSpecial.cs" />
     <Compile Include="ItemType.cs" />
     <Compile Include="JascPal.cs" />
+    <Compile Include="Jun\CodeException.cs" />
+    <Compile Include="Jun\Context.cs" />
+    <Compile Include="Jun\Env.cs" />
+    <Compile Include="Jun\ILexerState.cs" />
+    <Compile Include="Jun\Internal.cs" />
+    <Compile Include="Jun\LexerState.cs" />
+    <Compile Include="Jun\Lex\Internal.cs" />
+    <Compile Include="Jun\Lex\Keyword.cs" />
+    <Compile Include="Jun\Lex\Number.cs" />
+    <Compile Include="Jun\Lex\Operator.cs" />
+    <Compile Include="Jun\Lex\String.cs" />
+    <Compile Include="Jun\Lex\StringEscape.cs" />
+    <Compile Include="Jun\Op.cs" />
+    <Compile Include="Jun\Parser.cs" />
+    <Compile Include="Jun\Script.cs" />
+    <Compile Include="Jun\Lex\None.cs" />
+    <Compile Include="Jun\Token.cs" />
+    <Compile Include="Jun\Tokenizer.cs" />
+    <Compile Include="Jun\TokenType.cs" />
+    <Compile Include="Jun\Variable.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,7 +115,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Row.cs" />
-    <Compile Include="Script.cs" />
+    <Compile Include="CompiledScript.cs" />
     <Compile Include="Stats.cs" />
     <Compile Include="StatsEditor.cs">
       <SubType>UserControl</SubType>
