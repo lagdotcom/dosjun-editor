@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 
 namespace DosjunEditor
 {
@@ -37,6 +38,30 @@ namespace DosjunEditor
         {
             string data = new string(br.ReadChars(size));
             return data.TrimEnd('\0');
+        }
+
+        public static T[] ReadArray<T>(this BinaryReader br, int count) where T : IBinaryData, new()
+        {
+            T[] array = new T[count];
+
+            for (int i = 0; i < count; i++)
+            {
+                T item = new T();
+                item.Read(br);
+                array[i] = item;
+            }
+
+            return array;
+        }
+
+        public static void ReadList<T>(this BinaryReader br, List<T> list, int count) where T : IBinaryData, new()
+        {
+            for (int i = 0; i < count; i++)
+            {
+                T item = new T();
+                item.Read(br);
+                list.Add(item);
+            }
         }
     }
 }

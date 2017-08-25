@@ -226,6 +226,7 @@
             this.ZoneList.Name = "ZoneList";
             this.ZoneList.Size = new System.Drawing.Size(303, 475);
             this.ZoneList.TabIndex = 5;
+            this.ZoneList.DoubleClick += new System.EventHandler(this.ZoneList_DoubleClick);
             // 
             // ZoneButtons
             // 

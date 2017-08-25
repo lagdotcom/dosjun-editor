@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DosjunEditor
@@ -17,8 +10,8 @@ namespace DosjunEditor
             InitializeComponent();
         }
 
-        public Campaign Campaign { get; set; }
-        public Item Item { get; set; }
+        public Campaign Campaign { get; private set; }
+        public Item Item { get; private set; }
 
         public void Setup(Campaign campaign, Item it)
         {

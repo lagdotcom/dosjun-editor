@@ -7,6 +7,11 @@ namespace DosjunEditor
     {
         public const int Padding = 26;
 
+        public Monsters()
+        {
+            Data = new List<Monster>();
+        }
+
         public void Read(BinaryReader br)
         {
             Version = new VersionHeader();
@@ -16,13 +21,7 @@ namespace DosjunEditor
 
             br.ReadBytes(Padding);
 
-            Data = new List<Monster>();
-            for (var i = 0; i < count; i++)
-            {
-                Monster m = new Monster();
-                m.Read(br);
-                Data.Add(m);
-            }
+            br.ReadList(Data, count);
         }
 
         public void Write(BinaryWriter bw)
@@ -32,8 +31,7 @@ namespace DosjunEditor
 
             bw.WritePadding(Padding);
 
-            foreach (Monster m in Data)
-                m.Write(bw);
+            foreach (Monster m in Data) m.Write(bw);
         }
 
         public VersionHeader Version { get; set; }

@@ -9,8 +9,8 @@ namespace DosjunEditor
             InitializeComponent();
         }
 
-        public Campaign Campaign { get; set; }
-        public Monster Monster { get; set; }
+        public Campaign Campaign { get; private set; }
+        public Monster Monster { get; private set; }
 
         public void Setup(Campaign cmp, Monster mon)
         {

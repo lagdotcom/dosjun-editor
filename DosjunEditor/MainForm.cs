@@ -196,5 +196,17 @@ namespace DosjunEditor
 
             form.Dispose();
         }
+
+        private void ZoneList_DoubleClick(object sender, EventArgs e)
+        {
+            object target = ZoneList.SelectedItem;
+            if (target != null)
+            {
+                ZoneForm form = new ZoneForm();
+                form.Setup(Campaign, CampaignPath, target as string);
+                form.ShowDialog();
+                form.Dispose();
+            }
+        }
     }
 }
