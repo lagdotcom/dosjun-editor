@@ -6,12 +6,16 @@ namespace DosjunEditor
     {
         public const int Padding = 8;
 
+        public Monster()
+        {
+            Stats = new Stats();
+        }
+
         public void Read(BinaryReader br)
         {
             Name = br.ReadZS(Consts.NameSize);
             Image = br.ReadZS(8);
             Id = br.ReadUInt16();
-            Stats = new Stats();
             Stats.Read(br);
             Row = (Row)br.ReadByte();
             AI = (AI)br.ReadByte();

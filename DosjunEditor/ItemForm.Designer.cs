@@ -38,12 +38,12 @@
             this.label3 = new System.Windows.Forms.Label();
             this.TypeBox = new System.Windows.Forms.ComboBox();
             this.FlagsBox = new System.Windows.Forms.GroupBox();
-            this.LightFlag = new System.Windows.Forms.CheckBox();
-            this.HeavyFlag = new System.Windows.Forms.CheckBox();
-            this.StackedFlag = new System.Windows.Forms.CheckBox();
-            this.MediumFlag = new System.Windows.Forms.CheckBox();
-            this.LongFlag = new System.Windows.Forms.CheckBox();
             this.DexterityFlag = new System.Windows.Forms.CheckBox();
+            this.LongFlag = new System.Windows.Forms.CheckBox();
+            this.MediumFlag = new System.Windows.Forms.CheckBox();
+            this.StackedFlag = new System.Windows.Forms.CheckBox();
+            this.HeavyFlag = new System.Windows.Forms.CheckBox();
+            this.LightFlag = new System.Windows.Forms.CheckBox();
             this.ValueBox = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.SpecialBox = new System.Windows.Forms.ComboBox();
@@ -65,7 +65,7 @@
             this.StatsBoxes.Name = "StatsBoxes";
             this.StatsBoxes.Size = new System.Drawing.Size(258, 259);
             this.StatsBoxes.Stats = null;
-            this.StatsBoxes.TabIndex = 16;
+            this.StatsBoxes.TabIndex = 8;
             // 
             // button2
             // 
@@ -73,7 +73,7 @@
             this.button2.Location = new System.Drawing.Point(176, 239);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 15;
+            this.button2.TabIndex = 101;
             this.button2.Text = "Cancel";
             this.button2.UseVisualStyleBackColor = true;
             // 
@@ -83,7 +83,7 @@
             this.button1.Location = new System.Drawing.Point(12, 239);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 14;
+            this.button1.TabIndex = 100;
             this.button1.Text = "OK";
             this.button1.UseVisualStyleBackColor = true;
             // 
@@ -95,26 +95,16 @@
             0,
             0,
             0});
-            this.IDBox.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             this.IDBox.Name = "IDBox";
             this.IDBox.Size = new System.Drawing.Size(155, 20);
-            this.IDBox.TabIndex = 20;
-            this.IDBox.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.IDBox.TabIndex = 1;
             // 
             // NameBox
             // 
             this.NameBox.Location = new System.Drawing.Point(75, 38);
             this.NameBox.Name = "NameBox";
             this.NameBox.Size = new System.Drawing.Size(155, 20);
-            this.NameBox.TabIndex = 19;
+            this.NameBox.TabIndex = 2;
             // 
             // label2
             // 
@@ -160,7 +150,7 @@
             this.TypeBox.Location = new System.Drawing.Point(75, 64);
             this.TypeBox.Name = "TypeBox";
             this.TypeBox.Size = new System.Drawing.Size(156, 21);
-            this.TypeBox.TabIndex = 22;
+            this.TypeBox.TabIndex = 3;
             // 
             // FlagsBox
             // 
@@ -177,45 +167,15 @@
             this.FlagsBox.TabStop = false;
             this.FlagsBox.Text = "Flags";
             // 
-            // LightFlag
+            // DexterityFlag
             // 
-            this.LightFlag.AutoSize = true;
-            this.LightFlag.Location = new System.Drawing.Point(6, 19);
-            this.LightFlag.Name = "LightFlag";
-            this.LightFlag.Size = new System.Drawing.Size(80, 17);
-            this.LightFlag.TabIndex = 0;
-            this.LightFlag.Text = "Lightweight";
-            this.LightFlag.UseVisualStyleBackColor = true;
-            // 
-            // HeavyFlag
-            // 
-            this.HeavyFlag.AutoSize = true;
-            this.HeavyFlag.Location = new System.Drawing.Point(6, 42);
-            this.HeavyFlag.Name = "HeavyFlag";
-            this.HeavyFlag.Size = new System.Drawing.Size(88, 17);
-            this.HeavyFlag.TabIndex = 1;
-            this.HeavyFlag.Text = "Heavyweight";
-            this.HeavyFlag.UseVisualStyleBackColor = true;
-            // 
-            // StackedFlag
-            // 
-            this.StackedFlag.AutoSize = true;
-            this.StackedFlag.Location = new System.Drawing.Point(6, 65);
-            this.StackedFlag.Name = "StackedFlag";
-            this.StackedFlag.Size = new System.Drawing.Size(66, 17);
-            this.StackedFlag.TabIndex = 2;
-            this.StackedFlag.Text = "Stacked";
-            this.StackedFlag.UseVisualStyleBackColor = true;
-            // 
-            // MediumFlag
-            // 
-            this.MediumFlag.AutoSize = true;
-            this.MediumFlag.Location = new System.Drawing.Point(6, 88);
-            this.MediumFlag.Name = "MediumFlag";
-            this.MediumFlag.Size = new System.Drawing.Size(98, 17);
-            this.MediumFlag.TabIndex = 3;
-            this.MediumFlag.Text = "Medium Range";
-            this.MediumFlag.UseVisualStyleBackColor = true;
+            this.DexterityFlag.AutoSize = true;
+            this.DexterityFlag.Location = new System.Drawing.Point(6, 134);
+            this.DexterityFlag.Name = "DexterityFlag";
+            this.DexterityFlag.Size = new System.Drawing.Size(143, 17);
+            this.DexterityFlag.TabIndex = 14;
+            this.DexterityFlag.Text = "Dexterity-based Weapon";
+            this.DexterityFlag.UseVisualStyleBackColor = true;
             // 
             // LongFlag
             // 
@@ -223,19 +183,49 @@
             this.LongFlag.Location = new System.Drawing.Point(6, 111);
             this.LongFlag.Name = "LongFlag";
             this.LongFlag.Size = new System.Drawing.Size(85, 17);
-            this.LongFlag.TabIndex = 4;
+            this.LongFlag.TabIndex = 13;
             this.LongFlag.Text = "Long Range";
             this.LongFlag.UseVisualStyleBackColor = true;
             // 
-            // DexterityFlag
+            // MediumFlag
             // 
-            this.DexterityFlag.AutoSize = true;
-            this.DexterityFlag.Location = new System.Drawing.Point(6, 134);
-            this.DexterityFlag.Name = "DexterityFlag";
-            this.DexterityFlag.Size = new System.Drawing.Size(143, 17);
-            this.DexterityFlag.TabIndex = 5;
-            this.DexterityFlag.Text = "Dexterity-based Weapon";
-            this.DexterityFlag.UseVisualStyleBackColor = true;
+            this.MediumFlag.AutoSize = true;
+            this.MediumFlag.Location = new System.Drawing.Point(6, 88);
+            this.MediumFlag.Name = "MediumFlag";
+            this.MediumFlag.Size = new System.Drawing.Size(98, 17);
+            this.MediumFlag.TabIndex = 12;
+            this.MediumFlag.Text = "Medium Range";
+            this.MediumFlag.UseVisualStyleBackColor = true;
+            // 
+            // StackedFlag
+            // 
+            this.StackedFlag.AutoSize = true;
+            this.StackedFlag.Location = new System.Drawing.Point(6, 65);
+            this.StackedFlag.Name = "StackedFlag";
+            this.StackedFlag.Size = new System.Drawing.Size(66, 17);
+            this.StackedFlag.TabIndex = 11;
+            this.StackedFlag.Text = "Stacked";
+            this.StackedFlag.UseVisualStyleBackColor = true;
+            // 
+            // HeavyFlag
+            // 
+            this.HeavyFlag.AutoSize = true;
+            this.HeavyFlag.Location = new System.Drawing.Point(6, 42);
+            this.HeavyFlag.Name = "HeavyFlag";
+            this.HeavyFlag.Size = new System.Drawing.Size(88, 17);
+            this.HeavyFlag.TabIndex = 10;
+            this.HeavyFlag.Text = "Heavyweight";
+            this.HeavyFlag.UseVisualStyleBackColor = true;
+            // 
+            // LightFlag
+            // 
+            this.LightFlag.AutoSize = true;
+            this.LightFlag.Location = new System.Drawing.Point(6, 19);
+            this.LightFlag.Name = "LightFlag";
+            this.LightFlag.Size = new System.Drawing.Size(80, 17);
+            this.LightFlag.TabIndex = 9;
+            this.LightFlag.Text = "Lightweight";
+            this.LightFlag.UseVisualStyleBackColor = true;
             // 
             // ValueBox
             // 
@@ -247,7 +237,7 @@
             0});
             this.ValueBox.Name = "ValueBox";
             this.ValueBox.Size = new System.Drawing.Size(155, 20);
-            this.ValueBox.TabIndex = 25;
+            this.ValueBox.TabIndex = 4;
             // 
             // label4
             // 
@@ -267,7 +257,7 @@
             this.SpecialBox.Location = new System.Drawing.Point(75, 115);
             this.SpecialBox.Name = "SpecialBox";
             this.SpecialBox.Size = new System.Drawing.Size(156, 21);
-            this.SpecialBox.TabIndex = 27;
+            this.SpecialBox.TabIndex = 5;
             this.SpecialBox.SelectedIndexChanged += new System.EventHandler(this.SpecialBox_SelectedIndexChanged);
             // 
             // label5
@@ -303,7 +293,7 @@
             -2147483648});
             this.SArg1Box.Name = "SArg1Box";
             this.SArg1Box.Size = new System.Drawing.Size(110, 20);
-            this.SArg1Box.TabIndex = 29;
+            this.SArg1Box.TabIndex = 6;
             // 
             // SArg2Box
             // 
@@ -320,7 +310,7 @@
             -2147483648});
             this.SArg2Box.Name = "SArg2Box";
             this.SArg2Box.Size = new System.Drawing.Size(110, 20);
-            this.SArg2Box.TabIndex = 31;
+            this.SArg2Box.TabIndex = 7;
             // 
             // SArg2Label
             // 

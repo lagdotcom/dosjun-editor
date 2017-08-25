@@ -162,5 +162,39 @@ namespace DosjunEditor
                 form.Dispose();
             }
         }
+
+        private void NewMonsterButton_Click(object sender, EventArgs e)
+        {
+            MonsterForm form = new MonsterForm();
+            Monster data = new Monster();
+            form.Setup(Campaign, data);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                form.Apply();
+                Changed = true;
+
+                Monsters.Data.Add(data);
+                UpdateList(MonsterList, Monsters.Data);
+            }
+
+            form.Dispose();
+        }
+
+        private void NewItemButton_Click(object sender, EventArgs e)
+        {
+            ItemForm form = new ItemForm();
+            Item data = new Item();
+            form.Setup(Campaign, data);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                form.Apply();
+                Changed = true;
+
+                Items.Data.Add(data);
+                UpdateList(ItemList, Items.Data);
+            }
+
+            form.Dispose();
+        }
     }
 }

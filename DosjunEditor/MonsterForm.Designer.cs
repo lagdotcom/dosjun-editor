@@ -59,7 +59,7 @@
             this.button1.Location = new System.Drawing.Point(12, 239);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
+            this.button1.TabIndex = 100;
             this.button1.Text = "OK";
             this.button1.UseVisualStyleBackColor = true;
             // 
@@ -69,7 +69,7 @@
             this.button2.Location = new System.Drawing.Point(176, 239);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 3;
+            this.button2.TabIndex = 101;
             this.button2.Text = "Cancel";
             this.button2.UseVisualStyleBackColor = true;
             // 
@@ -78,7 +78,7 @@
             this.NameBox.Location = new System.Drawing.Point(75, 38);
             this.NameBox.Name = "NameBox";
             this.NameBox.Size = new System.Drawing.Size(155, 20);
-            this.NameBox.TabIndex = 5;
+            this.NameBox.TabIndex = 2;
             // 
             // label2
             // 
@@ -97,19 +97,9 @@
             0,
             0,
             0});
-            this.IDBox.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             this.IDBox.Name = "IDBox";
             this.IDBox.Size = new System.Drawing.Size(155, 20);
-            this.IDBox.TabIndex = 6;
-            this.IDBox.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.IDBox.TabIndex = 1;
             // 
             // ImageBox
             // 
@@ -117,7 +107,7 @@
             this.ImageBox.MaxLength = 8;
             this.ImageBox.Name = "ImageBox";
             this.ImageBox.Size = new System.Drawing.Size(155, 20);
-            this.ImageBox.TabIndex = 8;
+            this.ImageBox.TabIndex = 3;
             // 
             // label3
             // 
@@ -137,7 +127,7 @@
             this.RowBox.Location = new System.Drawing.Point(74, 90);
             this.RowBox.Name = "RowBox";
             this.RowBox.Size = new System.Drawing.Size(156, 21);
-            this.RowBox.TabIndex = 9;
+            this.RowBox.TabIndex = 4;
             // 
             // label4
             // 
@@ -156,7 +146,7 @@
             this.AIBox.Location = new System.Drawing.Point(74, 117);
             this.AIBox.Name = "AIBox";
             this.AIBox.Size = new System.Drawing.Size(156, 21);
-            this.AIBox.TabIndex = 11;
+            this.AIBox.TabIndex = 5;
             // 
             // label5
             // 
@@ -173,7 +163,7 @@
             this.StatsBoxes.Name = "StatsBoxes";
             this.StatsBoxes.Size = new System.Drawing.Size(258, 259);
             this.StatsBoxes.Stats = null;
-            this.StatsBoxes.TabIndex = 13;
+            this.StatsBoxes.TabIndex = 6;
             // 
             // MonsterForm
             // 

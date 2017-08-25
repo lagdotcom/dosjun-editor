@@ -6,6 +6,11 @@ namespace DosjunEditor
     {
         public const int Padding = 6;
 
+        public Item()
+        {
+            Stats = new Stats();
+        }
+
         public void Read(BinaryReader br)
         {
             Name = br.ReadZS(Consts.NameSize);
@@ -17,7 +22,6 @@ namespace DosjunEditor
             SpecialArg1 = br.ReadInt16();
             SpecialArg2 = br.ReadInt16();
             br.ReadBytes(Padding);
-            Stats = new Stats();
             Stats.Read(br);
         }
 

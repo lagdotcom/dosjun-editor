@@ -161,6 +161,7 @@
             this.NewItemButton.TabIndex = 1;
             this.NewItemButton.Text = "&New...";
             this.NewItemButton.UseVisualStyleBackColor = true;
+            this.NewItemButton.Click += new System.EventHandler(this.NewItemButton_Click);
             // 
             // MonsterBox
             // 
@@ -203,6 +204,7 @@
             this.NewMonsterButton.TabIndex = 1;
             this.NewMonsterButton.Text = "&New...";
             this.NewMonsterButton.UseVisualStyleBackColor = true;
+            this.NewMonsterButton.Click += new System.EventHandler(this.NewMonsterButton_Click);
             // 
             // ZoneBox
             // 
