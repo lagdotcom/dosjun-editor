@@ -19,7 +19,7 @@ namespace DosjunEditor
         public Tile At(int x, int y)
         {
             Point p = new Point(x, y);
-            if (!tiles.ContainsKey(p)) tiles[p] = new Tile();
+            if (!tiles.ContainsKey(p)) tiles[p] = new Tile { X = x, Y = y };
 
             return tiles[p];
         }
@@ -28,6 +28,9 @@ namespace DosjunEditor
         {
             if (x >= Width) Width = x + 1;
             if (y >= Height) Height = y + 1;
+
+            t.X = x;
+            t.Y = y;
             tiles[new Point(x, y)] = t;
         }
     }

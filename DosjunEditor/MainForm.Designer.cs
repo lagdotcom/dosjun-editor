@@ -47,7 +47,6 @@
             this.ZoneList = new System.Windows.Forms.ListBox();
             this.ZoneButtons = new System.Windows.Forms.Panel();
             this.NewZoneButton = new System.Windows.Forms.Button();
-            this.AddZoneButton = new System.Windows.Forms.Button();
             this.TopMenu.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.ItemBox.SuspendLayout();
@@ -231,7 +230,6 @@
             // ZoneButtons
             // 
             this.ZoneButtons.Controls.Add(this.NewZoneButton);
-            this.ZoneButtons.Controls.Add(this.AddZoneButton);
             this.ZoneButtons.Dock = System.Windows.Forms.DockStyle.Top;
             this.ZoneButtons.Location = new System.Drawing.Point(3, 16);
             this.ZoneButtons.Name = "ZoneButtons";
@@ -242,23 +240,12 @@
             // 
             this.NewZoneButton.Dock = System.Windows.Forms.DockStyle.Left;
             this.NewZoneButton.Enabled = false;
-            this.NewZoneButton.Location = new System.Drawing.Point(75, 0);
+            this.NewZoneButton.Location = new System.Drawing.Point(0, 0);
             this.NewZoneButton.Name = "NewZoneButton";
             this.NewZoneButton.Size = new System.Drawing.Size(75, 30);
             this.NewZoneButton.TabIndex = 1;
             this.NewZoneButton.Text = "&New...";
             this.NewZoneButton.UseVisualStyleBackColor = true;
-            // 
-            // AddZoneButton
-            // 
-            this.AddZoneButton.Dock = System.Windows.Forms.DockStyle.Left;
-            this.AddZoneButton.Enabled = false;
-            this.AddZoneButton.Location = new System.Drawing.Point(0, 0);
-            this.AddZoneButton.Name = "AddZoneButton";
-            this.AddZoneButton.Size = new System.Drawing.Size(75, 30);
-            this.AddZoneButton.TabIndex = 0;
-            this.AddZoneButton.Text = "&Add...";
-            this.AddZoneButton.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -306,7 +293,6 @@
         private System.Windows.Forms.ListBox ZoneList;
         private System.Windows.Forms.Panel ZoneButtons;
         private System.Windows.Forms.Button NewZoneButton;
-        private System.Windows.Forms.Button AddZoneButton;
     }
 }
 

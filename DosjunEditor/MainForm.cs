@@ -12,6 +12,9 @@ namespace DosjunEditor
         public MainForm()
         {
             InitializeComponent();
+
+            Globals.Palette = new JascPal();
+            Globals.Palette.Load("Game.pal");
         }
 
         public string CampaignFilename { get; set; }
@@ -48,7 +51,7 @@ namespace DosjunEditor
             {
                 DialogResult result = MessageBox.Show("Save changes?", "Don't lose your work!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
                 if (result == DialogResult.Cancel) return;
-                if (result == DialogResult.OK) SaveAll();
+                if (result == DialogResult.Yes) SaveAll();
             }
 
             Application.Exit();
@@ -79,7 +82,6 @@ namespace DosjunEditor
         private void CampaignLoaded()
         {
             MenuSave.Enabled = true;
-            AddZoneButton.Enabled = true;
             NewZoneButton.Enabled = true;
             NewMonsterButton.Enabled = true;
             NewItemButton.Enabled = true;

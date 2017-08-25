@@ -35,6 +35,9 @@ namespace DosjunEditor
             bw.WritePadding(Padding);
         }
 
+        public int X { get; set; }
+        public int Y { get; set; }
+
         public Wall[] Walls { get; private set; }
         public byte Floor { get; set; }
         public byte Ceiling { get; set; }

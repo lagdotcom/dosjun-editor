@@ -49,6 +49,7 @@
     <Compile Include="Consts.cs" />
     <Compile Include="Encounter.cs" />
     <Compile Include="ETable.cs" />
+    <Compile Include="Globals.cs" />
     <Compile Include="IBinaryData.cs" />
     <Compile Include="Campaign.cs" />
     <Compile Include="Direction.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Items.cs" />
     <Compile Include="ItemSpecial.cs" />
     <Compile Include="ItemType.cs" />
+    <Compile Include="JascPal.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,6 +80,12 @@
       <DependentUpon>MonsterForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Monsters.cs" />
+    <Compile Include="PalettePicker.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PalettePicker.Designer.cs">
+      <DependentUpon>PalettePicker.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Row.cs" />
@@ -93,6 +101,12 @@
     <Compile Include="TileBag.cs" />
     <Compile Include="VersionHeader.cs" />
     <Compile Include="Wall.cs" />
+    <Compile Include="WallEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WallEditor.Designer.cs">
+      <DependentUpon>WallEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="WallType.cs" />
     <Compile Include="Zone.cs" />
     <Compile Include="ZoneForm.cs">
@@ -100,6 +114,12 @@
     </Compile>
     <Compile Include="ZoneForm.Designer.cs">
       <DependentUpon>ZoneForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ZoneView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ZoneView.Designer.cs">
+      <DependentUpon>ZoneView.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="ItemForm.resx">
       <DependentUpon>ItemForm.cs</DependentUpon>
@@ -109,6 +129,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MonsterForm.resx">
       <DependentUpon>MonsterForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PalettePicker.resx">
+      <DependentUpon>PalettePicker.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -122,6 +145,18 @@
     <EmbeddedResource Include="StatsEditor.resx">
       <DependentUpon>StatsEditor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="WallEditor.resx">
+      <DependentUpon>WallEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ZoneForm.resx">
+      <DependentUpon>ZoneForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ZoneView.resx">
+      <DependentUpon>ZoneView.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Game.pal">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
