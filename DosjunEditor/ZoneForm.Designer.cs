@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DosjunEditor.Wall wall1 = new DosjunEditor.Wall();
-            DosjunEditor.Wall wall2 = new DosjunEditor.Wall();
-            DosjunEditor.Wall wall3 = new DosjunEditor.Wall();
-            DosjunEditor.Wall wall4 = new DosjunEditor.Wall();
+            DosjunEditor.Wall wall5 = new DosjunEditor.Wall();
+            DosjunEditor.Wall wall6 = new DosjunEditor.Wall();
+            DosjunEditor.Wall wall7 = new DosjunEditor.Wall();
+            DosjunEditor.Wall wall8 = new DosjunEditor.Wall();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.AddDescriptionButton = new System.Windows.Forms.Button();
             this.SelectDescriptionButton = new System.Windows.Forms.Button();
@@ -51,11 +51,21 @@
             this.label1 = new System.Windows.Forms.Label();
             this.NorthWall = new DosjunEditor.WallEditor();
             this.Map = new DosjunEditor.ZoneView();
+            this.TopMenu = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadJCToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label8 = new System.Windows.Forms.Label();
+            this.OnEnterBox = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
+            this.TopMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.OnEnterBox);
+            this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.AddDescriptionButton);
             this.groupBox1.Controls.Add(this.SelectDescriptionButton);
             this.groupBox1.Controls.Add(this.DescriptionIdLabel);
@@ -74,9 +84,9 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.NorthWall);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.groupBox1.Location = new System.Drawing.Point(568, 0);
+            this.groupBox1.Location = new System.Drawing.Point(568, 24);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(216, 561);
+            this.groupBox1.Size = new System.Drawing.Size(216, 737);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Tile Details";
@@ -186,9 +196,9 @@
             this.WestWall.Size = new System.Drawing.Size(200, 56);
             this.WestWall.TabIndex = 6;
             this.WestWall.Type = DosjunEditor.WallType.Normal;
-            wall1.Texture = ((byte)(0));
-            wall1.Type = DosjunEditor.WallType.Normal;
-            this.WestWall.Wall = wall1;
+            wall5.Texture = ((byte)(0));
+            wall5.Type = DosjunEditor.WallType.Normal;
+            this.WestWall.Wall = wall5;
             this.WestWall.AnyChanged += new System.EventHandler(this.DataElement_Changed);
             // 
             // label3
@@ -209,9 +219,9 @@
             this.SouthWall.Size = new System.Drawing.Size(200, 56);
             this.SouthWall.TabIndex = 4;
             this.SouthWall.Type = DosjunEditor.WallType.Normal;
-            wall2.Texture = ((byte)(0));
-            wall2.Type = DosjunEditor.WallType.Normal;
-            this.SouthWall.Wall = wall2;
+            wall6.Texture = ((byte)(0));
+            wall6.Type = DosjunEditor.WallType.Normal;
+            this.SouthWall.Wall = wall6;
             this.SouthWall.AnyChanged += new System.EventHandler(this.DataElement_Changed);
             // 
             // label2
@@ -232,9 +242,9 @@
             this.EastWall.Size = new System.Drawing.Size(200, 56);
             this.EastWall.TabIndex = 2;
             this.EastWall.Type = DosjunEditor.WallType.Normal;
-            wall3.Texture = ((byte)(0));
-            wall3.Type = DosjunEditor.WallType.Normal;
-            this.EastWall.Wall = wall3;
+            wall7.Texture = ((byte)(0));
+            wall7.Type = DosjunEditor.WallType.Normal;
+            this.EastWall.Wall = wall7;
             this.EastWall.AnyChanged += new System.EventHandler(this.DataElement_Changed);
             // 
             // label1
@@ -255,35 +265,100 @@
             this.NorthWall.Size = new System.Drawing.Size(200, 56);
             this.NorthWall.TabIndex = 0;
             this.NorthWall.Type = DosjunEditor.WallType.Normal;
-            wall4.Texture = ((byte)(0));
-            wall4.Type = DosjunEditor.WallType.Normal;
-            this.NorthWall.Wall = wall4;
+            wall8.Texture = ((byte)(0));
+            wall8.Type = DosjunEditor.WallType.Normal;
+            this.NorthWall.Wall = wall8;
             this.NorthWall.AnyChanged += new System.EventHandler(this.DataElement_Changed);
             // 
             // Map
             // 
             this.Map.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Map.Location = new System.Drawing.Point(0, 0);
+            this.Map.Location = new System.Drawing.Point(0, 24);
             this.Map.Name = "Map";
-            this.Map.Size = new System.Drawing.Size(568, 561);
+            this.Map.Size = new System.Drawing.Size(568, 737);
             this.Map.TabIndex = 1;
             this.Map.TileSize = 16;
             this.Map.Zone = null;
             this.Map.TileSelected += new DosjunEditor.ZoneView.TileEventHandler(this.Map_TileSelected);
             // 
+            // TopMenu
+            // 
+            this.TopMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem});
+            this.TopMenu.Location = new System.Drawing.Point(0, 0);
+            this.TopMenu.Name = "TopMenu";
+            this.TopMenu.Size = new System.Drawing.Size(784, 24);
+            this.TopMenu.TabIndex = 2;
+            this.TopMenu.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.loadJCToolStripMenuItem,
+            this.saveToolStripMenuItem,
+            this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "&File";
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Text = "&Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Text = "E&xit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // loadJCToolStripMenuItem
+            // 
+            this.loadJCToolStripMenuItem.Name = "loadJCToolStripMenuItem";
+            this.loadJCToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.loadJCToolStripMenuItem.Text = "&Load JC";
+            this.loadJCToolStripMenuItem.Click += new System.EventHandler(this.loadJCToolStripMenuItem_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(7, 539);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(49, 13);
+            this.label8.TabIndex = 17;
+            this.label8.Text = "On Enter";
+            // 
+            // OnEnterBox
+            // 
+            this.OnEnterBox.FormattingEnabled = true;
+            this.OnEnterBox.Location = new System.Drawing.Point(83, 536);
+            this.OnEnterBox.Name = "OnEnterBox";
+            this.OnEnterBox.Size = new System.Drawing.Size(121, 21);
+            this.OnEnterBox.TabIndex = 18;
+            this.OnEnterBox.SelectedIndexChanged += new System.EventHandler(this.OnEnterBox_SelectedIndexChanged);
+            // 
             // ZoneForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 561);
+            this.ClientSize = new System.Drawing.Size(784, 761);
             this.Controls.Add(this.Map);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.TopMenu);
+            this.MainMenuStrip = this.TopMenu;
             this.Name = "ZoneForm";
             this.Text = "Zone Editor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ZoneForm_FormClosing);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.TopMenu.ResumeLayout(false);
+            this.TopMenu.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -308,5 +383,12 @@
         private System.Windows.Forms.Label DescriptionIdLabel;
         private System.Windows.Forms.Button AddDescriptionButton;
         private System.Windows.Forms.Button SelectDescriptionButton;
+        private System.Windows.Forms.MenuStrip TopMenu;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadJCToolStripMenuItem;
+        private System.Windows.Forms.ComboBox OnEnterBox;
+        private System.Windows.Forms.Label label8;
     }
 }

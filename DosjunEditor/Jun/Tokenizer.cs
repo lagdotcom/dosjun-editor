@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace DosjunEditor.Jun
@@ -25,10 +26,22 @@ namespace DosjunEditor.Jun
             };
         }
 
+        public void Tokenize(string filename)
+        {
+            Filename = filename;
+
+            List<string> lines = new List<string>();
+            using (Stream file = File.OpenRead(filename))
+            {
+                StreamReader sr = new StreamReader(file);
+                while (!sr.EndOfStream) lines.Add(sr.ReadLine());
+            }
+
+            Tokenize(lines);
+        }
+
         public void Tokenize(IEnumerable<string> lines)
         {
-            Tokens.Clear();
-
             Line = -1;
             foreach (string line in lines)
             {
@@ -50,6 +63,17 @@ namespace DosjunEditor.Jun
 
                 // process end of line in case something is missing
                 stateMachine[State].Process('\n', LexerState.EndOfLine);
+
+                // special handling for 'Include'
+                if (Tokens.Count >= 2 && Tokens[Tokens.Count - 2].Value == "Include")
+                {
+                    Token filename = Tokens[Tokens.Count - 1];
+                    Tokens.RemoveRange(Tokens.Count - 2, 2);
+
+                    Tokenizer jt = new Tokenizer();
+                    jt.Tokenize(Path.GetDirectoryName(Filename) + Path.DirectorySeparatorChar + filename.Value);
+                    Tokens.AddRange(jt.Tokens);
+                }
             }
         }
 
@@ -148,6 +172,7 @@ namespace DosjunEditor.Jun
             endOfLine = true;
         }
 
+        public string Filename { get; private set; }
         public LexerState State { get; private set; }
         public List<Token> Tokens { get; private set; }
         public int Line { get; private set; }

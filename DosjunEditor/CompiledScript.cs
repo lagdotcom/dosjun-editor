@@ -21,6 +21,8 @@ namespace DosjunEditor
             bw.Write(Bytecode);
         }
 
-        public byte[] Bytecode { get; private set; }
+        public byte[] Bytecode { get; set; }
+
+        public override string ToString() => $"script, {Bytecode.Length} bytes";
     }
 }

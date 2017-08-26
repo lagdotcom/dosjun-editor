@@ -80,6 +80,7 @@
     <Compile Include="Jun\Lex\StringEscape.cs" />
     <Compile Include="Jun\Op.cs" />
     <Compile Include="Jun\Parser.cs" />
+    <Compile Include="Jun\Scope.cs" />
     <Compile Include="Jun\Script.cs" />
     <Compile Include="Jun\Lex\None.cs" />
     <Compile Include="Jun\Token.cs" />
