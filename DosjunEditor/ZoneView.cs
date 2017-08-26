@@ -93,6 +93,9 @@ namespace DosjunEditor
                     e.Graphics.DrawLine(PalettePen(t.Walls[1].Texture), ex - 1, oy + 2, ex - 1, ey - 2);
                     e.Graphics.DrawLine(PalettePen(t.Walls[2].Texture), ox + 2, ey - 1, ex - 2, ey - 1);
                     e.Graphics.DrawLine(PalettePen(t.Walls[3].Texture), ox + 1, oy + 2, ox + 1, ey - 2);
+
+                    if (t.OnEnterId > 0)
+                        e.Graphics.FillRectangle(Brushes.Yellow, ex - 6, ey - 6, 4, 4);
                 }
             }
         }
