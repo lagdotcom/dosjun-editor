@@ -9,6 +9,8 @@ namespace DosjunEditor
         public Tile()
         {
             Walls = new Wall[4];
+            for (var i = 0; i < 4; i++)
+                Walls[i] = new Wall();
         }
 
         public void Read(BinaryReader br)

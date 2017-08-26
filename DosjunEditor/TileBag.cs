@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 
 namespace DosjunEditor
@@ -19,7 +18,8 @@ namespace DosjunEditor
         public Tile At(int x, int y)
         {
             Point p = new Point(x, y);
-            if (!tiles.ContainsKey(p)) tiles[p] = new Tile { X = x, Y = y };
+            if (!tiles.ContainsKey(p))
+                Set(x, y, new Tile { X = x, Y = y });
 
             return tiles[p];
         }

@@ -268,5 +268,27 @@ namespace DosjunEditor
         {
             CurrentTile.OnEnterId = (ushort)OnEnterBox.SelectedIndex;
         }
+
+        private void Map_KeyUp(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyData)
+            {
+                case Keys.Left:
+                    Map.Carve(-1, 0);
+                    break;
+
+                case Keys.Up:
+                    Map.Carve(0, -1);
+                    break;
+
+                case Keys.Right:
+                    Map.Carve(1, 0);
+                    break;
+
+                case Keys.Down:
+                    Map.Carve(0, 1);
+                    break;
+            }
+        }
     }
 }

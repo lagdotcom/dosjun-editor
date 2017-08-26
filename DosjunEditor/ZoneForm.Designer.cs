@@ -28,11 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DosjunEditor.Wall wall1 = new DosjunEditor.Wall();
-            DosjunEditor.Wall wall2 = new DosjunEditor.Wall();
-            DosjunEditor.Wall wall3 = new DosjunEditor.Wall();
-            DosjunEditor.Wall wall4 = new DosjunEditor.Wall();
+            DosjunEditor.Wall wall9 = new DosjunEditor.Wall();
+            DosjunEditor.Wall wall10 = new DosjunEditor.Wall();
+            DosjunEditor.Wall wall11 = new DosjunEditor.Wall();
+            DosjunEditor.Wall wall12 = new DosjunEditor.Wall();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.OnEnterBox = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.AddDescriptionButton = new System.Windows.Forms.Button();
             this.SelectDescriptionButton = new System.Windows.Forms.Button();
             this.DescriptionIdLabel = new System.Windows.Forms.Label();
@@ -53,11 +55,9 @@
             this.Map = new DosjunEditor.ZoneView();
             this.TopMenu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuLoad = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuSave = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuExit = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuLoad = new System.Windows.Forms.ToolStripMenuItem();
-            this.label8 = new System.Windows.Forms.Label();
-            this.OnEnterBox = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.TopMenu.SuspendLayout();
             this.SuspendLayout();
@@ -90,6 +90,25 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Tile Details";
+            // 
+            // OnEnterBox
+            // 
+            this.OnEnterBox.FormattingEnabled = true;
+            this.OnEnterBox.Location = new System.Drawing.Point(83, 536);
+            this.OnEnterBox.Name = "OnEnterBox";
+            this.OnEnterBox.Size = new System.Drawing.Size(121, 21);
+            this.OnEnterBox.TabIndex = 18;
+            this.OnEnterBox.SelectedIndexChanged += new System.EventHandler(this.OnEnterBox_SelectedIndexChanged);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(7, 539);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(49, 13);
+            this.label8.TabIndex = 17;
+            this.label8.Text = "On Enter";
             // 
             // AddDescriptionButton
             // 
@@ -196,9 +215,9 @@
             this.WestWall.Size = new System.Drawing.Size(200, 56);
             this.WestWall.TabIndex = 6;
             this.WestWall.Type = DosjunEditor.WallType.Normal;
-            wall1.Texture = ((byte)(0));
-            wall1.Type = DosjunEditor.WallType.Normal;
-            this.WestWall.Wall = wall1;
+            wall9.Texture = ((byte)(0));
+            wall9.Type = DosjunEditor.WallType.Normal;
+            this.WestWall.Wall = wall9;
             this.WestWall.AnyChanged += new System.EventHandler(this.DataElement_Changed);
             // 
             // label3
@@ -219,9 +238,9 @@
             this.SouthWall.Size = new System.Drawing.Size(200, 56);
             this.SouthWall.TabIndex = 4;
             this.SouthWall.Type = DosjunEditor.WallType.Normal;
-            wall2.Texture = ((byte)(0));
-            wall2.Type = DosjunEditor.WallType.Normal;
-            this.SouthWall.Wall = wall2;
+            wall10.Texture = ((byte)(0));
+            wall10.Type = DosjunEditor.WallType.Normal;
+            this.SouthWall.Wall = wall10;
             this.SouthWall.AnyChanged += new System.EventHandler(this.DataElement_Changed);
             // 
             // label2
@@ -242,9 +261,9 @@
             this.EastWall.Size = new System.Drawing.Size(200, 56);
             this.EastWall.TabIndex = 2;
             this.EastWall.Type = DosjunEditor.WallType.Normal;
-            wall3.Texture = ((byte)(0));
-            wall3.Type = DosjunEditor.WallType.Normal;
-            this.EastWall.Wall = wall3;
+            wall11.Texture = ((byte)(0));
+            wall11.Type = DosjunEditor.WallType.Normal;
+            this.EastWall.Wall = wall11;
             this.EastWall.AnyChanged += new System.EventHandler(this.DataElement_Changed);
             // 
             // label1
@@ -265,9 +284,9 @@
             this.NorthWall.Size = new System.Drawing.Size(200, 56);
             this.NorthWall.TabIndex = 0;
             this.NorthWall.Type = DosjunEditor.WallType.Normal;
-            wall4.Texture = ((byte)(0));
-            wall4.Type = DosjunEditor.WallType.Normal;
-            this.NorthWall.Wall = wall4;
+            wall12.Texture = ((byte)(0));
+            wall12.Type = DosjunEditor.WallType.Normal;
+            this.NorthWall.Wall = wall12;
             this.NorthWall.AnyChanged += new System.EventHandler(this.DataElement_Changed);
             // 
             // Map
@@ -280,6 +299,7 @@
             this.Map.TileSize = 16;
             this.Map.Zone = null;
             this.Map.TileSelected += new DosjunEditor.ZoneView.TileEventHandler(this.Map_TileSelected);
+            this.Map.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Map_KeyUp);
             // 
             // TopMenu
             // 
@@ -301,45 +321,26 @@
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
+            // MenuLoad
+            // 
+            this.MenuLoad.Name = "MenuLoad";
+            this.MenuLoad.Size = new System.Drawing.Size(115, 22);
+            this.MenuLoad.Text = "&Load JC";
+            this.MenuLoad.Click += new System.EventHandler(this.MenuLoad_Click);
+            // 
             // MenuSave
             // 
             this.MenuSave.Name = "MenuSave";
-            this.MenuSave.Size = new System.Drawing.Size(152, 22);
+            this.MenuSave.Size = new System.Drawing.Size(115, 22);
             this.MenuSave.Text = "&Save";
             this.MenuSave.Click += new System.EventHandler(this.MenuSave_Click);
             // 
             // MenuExit
             // 
             this.MenuExit.Name = "MenuExit";
-            this.MenuExit.Size = new System.Drawing.Size(152, 22);
+            this.MenuExit.Size = new System.Drawing.Size(115, 22);
             this.MenuExit.Text = "E&xit";
             this.MenuExit.Click += new System.EventHandler(this.MenuExit_Click);
-            // 
-            // MenuLoad
-            // 
-            this.MenuLoad.Name = "MenuLoad";
-            this.MenuLoad.Size = new System.Drawing.Size(152, 22);
-            this.MenuLoad.Text = "&Load JC";
-            this.MenuLoad.Click += new System.EventHandler(this.MenuLoad_Click);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(7, 539);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(49, 13);
-            this.label8.TabIndex = 17;
-            this.label8.Text = "On Enter";
-            // 
-            // OnEnterBox
-            // 
-            this.OnEnterBox.FormattingEnabled = true;
-            this.OnEnterBox.Location = new System.Drawing.Point(83, 536);
-            this.OnEnterBox.Name = "OnEnterBox";
-            this.OnEnterBox.Size = new System.Drawing.Size(121, 21);
-            this.OnEnterBox.TabIndex = 18;
-            this.OnEnterBox.SelectedIndexChanged += new System.EventHandler(this.OnEnterBox_SelectedIndexChanged);
             // 
             // ZoneForm
             // 

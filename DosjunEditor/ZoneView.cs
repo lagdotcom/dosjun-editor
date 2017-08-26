@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -50,6 +48,17 @@ namespace DosjunEditor
 
         protected void SelectTile(Tile t)
         {
+            if (selectedTile != null)
+            {
+                int ox = selectedTile.X * tileSize;
+                int oy = selectedTile.Y * tileSize;
+                Invalidate(new Rectangle(ox, oy, tileSize + 1, tileSize + 1));
+            }
+
+            int nx = t.X * tileSize;
+            int ny = t.Y * tileSize;
+            Invalidate(new Rectangle(nx, ny, tileSize + 1, tileSize + 1));
+
             selectedTile = t;
             TileSelected?.Invoke(t);
         }
@@ -69,7 +78,7 @@ namespace DosjunEditor
         protected override void OnPaintBackground(PaintEventArgs e)
         {
             base.OnPaintBackground(e);
-            e.Graphics.FillRectangle(Brushes.Black, e.ClipRectangle);
+            e.Graphics.FillRectangle(Brushes.DarkGray, e.ClipRectangle);
 
             if (zone == null)
             {
@@ -87,6 +96,7 @@ namespace DosjunEditor
                     int ex = ox + tileSize - 1;
                     int ey = oy + tileSize - 1;
 
+                    e.Graphics.FillRectangle(Brushes.Black, ox, oy, tileSize - 1, tileSize - 1);
                     e.Graphics.FillRectangle(PaletteBrush(t.Floor), ox + 2, oy + 2, tileSize - 4, tileSize - 4);
 
                     e.Graphics.DrawLine(PalettePen(t.Walls[0].Texture), ox + 2, oy + 1, ex - 2, oy + 1);
@@ -109,18 +119,7 @@ namespace DosjunEditor
 
             if (zone.Tiles.Width > x && zone.Tiles.Height > y)
             {
-                if (selectedTile != null)
-                {
-                    int ox = selectedTile.X * tileSize;
-                    int oy = selectedTile.Y * tileSize;
-                    Invalidate(new Rectangle(ox, oy, tileSize + 1, tileSize + 1));
-                }
-
                 SelectTile(zone.Tiles.At(x, y));
-
-                int nx = selectedTile.X * tileSize;
-                int ny = selectedTile.Y * tileSize;
-                Invalidate(new Rectangle(nx, ny, tileSize + 1, tileSize + 1));
             }
         }
 
@@ -134,6 +133,16 @@ namespace DosjunEditor
         {
             // TODO: cache
             return new Pen(Globals.Palette[index]);
+        }
+
+        public void Carve(int xmod, int ymod)
+        {
+            int dx = selectedTile.X + xmod;
+            int dy = selectedTile.Y + ymod;
+
+            if (dx < 0 || dy < 0) return;
+
+            SelectTile(zone.Tiles.At(dx, dy));
         }
     }
 }
