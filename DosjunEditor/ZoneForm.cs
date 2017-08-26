@@ -63,10 +63,9 @@ namespace DosjunEditor
                     Zone.Scripts.Add(new CompiledScript { Bytecode = sc.Code.ToArray() });
             }
 
-            string zonOut = ZoneFilename + ".TEST";
-            using (Stream file = File.OpenWrite(zonOut)) Zone.Write(new BinaryWriter(file));
+            using (Stream file = File.OpenWrite(ZoneFilename)) Zone.Write(new BinaryWriter(file));
 
-            MessageBox.Show($"Wrote: {zonOut}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($"Wrote: {ZoneFilename}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Changed = false;
         }
 
@@ -247,12 +246,12 @@ namespace DosjunEditor
             }
         }
 
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        private void MenuSave_Click(object sender, EventArgs e)
         {
             SaveAll();
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void MenuExit_Click(object sender, EventArgs e)
         {
             if (!CheckChanged())
             {
@@ -260,7 +259,7 @@ namespace DosjunEditor
             }
         }
 
-        private void loadJCToolStripMenuItem_Click(object sender, EventArgs e)
+        private void MenuLoad_Click(object sender, EventArgs e)
         {
             LoadJC();
         }

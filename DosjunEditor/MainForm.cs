@@ -34,14 +34,11 @@ namespace DosjunEditor
 
         public void SaveAll()
         {
-            string cmpOut = CampaignFilename + ".TEST";
-            string monOut = MonstersFilename + ".TEST";
-            string itmOut = ItemsFilename + ".TEST";
-            using (Stream file = File.OpenWrite(cmpOut)) Campaign.Write(new BinaryWriter(file));
-            using (Stream file = File.OpenWrite(monOut)) Monsters.Write(new BinaryWriter(file));
-            using (Stream file = File.OpenWrite(itmOut)) Items.Write(new BinaryWriter(file));
+            using (Stream file = File.OpenWrite(CampaignFilename)) Campaign.Write(new BinaryWriter(file));
+            using (Stream file = File.OpenWrite(MonstersFilename)) Monsters.Write(new BinaryWriter(file));
+            using (Stream file = File.OpenWrite(ItemsFilename)) Items.Write(new BinaryWriter(file));
 
-            MessageBox.Show($"Wrote: {cmpOut}, {monOut}, {itmOut}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($"Wrote: {CampaignFilename}, {MonstersFilename}, {ItemsFilename}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Changed = false;
         }
 
