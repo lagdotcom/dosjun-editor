@@ -96,13 +96,19 @@ namespace DosjunEditor
                     int ex = ox + tileSize - 1;
                     int ey = oy + tileSize - 1;
 
-                    e.Graphics.FillRectangle(Brushes.Black, ox, oy, tileSize - 1, tileSize - 1);
-                    e.Graphics.FillRectangle(PaletteBrush(t.Floor), ox + 2, oy + 2, tileSize - 4, tileSize - 4);
+                    e.Graphics.FillRectangle(PaletteBrush(t.Floor), ox, oy, tileSize, tileSize);
 
-                    e.Graphics.DrawLine(PalettePen(t.Walls[0].Texture), ox + 2, oy + 1, ex - 2, oy + 1);
-                    e.Graphics.DrawLine(PalettePen(t.Walls[1].Texture), ex - 1, oy + 2, ex - 1, ey - 2);
-                    e.Graphics.DrawLine(PalettePen(t.Walls[2].Texture), ox + 2, ey - 1, ex - 2, ey - 1);
-                    e.Graphics.DrawLine(PalettePen(t.Walls[3].Texture), ox + 1, oy + 2, ox + 1, ey - 2);
+                    if (t.Walls[0].Texture > 0)
+                        e.Graphics.FillRectangle(PaletteBrush(t.Walls[0].Texture), ox, oy, tileSize, 2);
+
+                    if (t.Walls[1].Texture > 0)
+                        e.Graphics.FillRectangle(PaletteBrush(t.Walls[1].Texture), ex - 1, oy, 2, tileSize);
+
+                    if (t.Walls[2].Texture > 0)
+                        e.Graphics.FillRectangle(PaletteBrush(t.Walls[2].Texture), ox, ey - 1, tileSize, 2);
+
+                    if (t.Walls[3].Texture > 0)
+                        e.Graphics.FillRectangle(PaletteBrush(t.Walls[3].Texture), ox, oy, 2, tileSize);
 
                     if (t.OnEnterId > 0)
                         e.Graphics.FillRectangle(Brushes.Yellow, ex - 6, ey - 6, 4, 4);
