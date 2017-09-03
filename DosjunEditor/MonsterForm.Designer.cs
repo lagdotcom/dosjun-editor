@@ -41,7 +41,9 @@
             this.AIBox = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.StatsBoxes = new DosjunEditor.StatsEditor();
+            this.ImageShow = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.IDBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ImageShow)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -56,7 +58,7 @@
             // button1
             // 
             this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.Location = new System.Drawing.Point(12, 239);
+            this.button1.Location = new System.Drawing.Point(12, 278);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 100;
@@ -66,7 +68,7 @@
             // button2
             // 
             this.button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button2.Location = new System.Drawing.Point(176, 239);
+            this.button2.Location = new System.Drawing.Point(176, 278);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 101;
@@ -108,6 +110,7 @@
             this.ImageBox.Name = "ImageBox";
             this.ImageBox.Size = new System.Drawing.Size(155, 20);
             this.ImageBox.TabIndex = 3;
+            this.ImageBox.TextChanged += new System.EventHandler(this.ImageBox_TextChanged);
             // 
             // label3
             // 
@@ -124,7 +127,7 @@
             this.RowBox.Items.AddRange(new object[] {
             "Front",
             "Back"});
-            this.RowBox.Location = new System.Drawing.Point(74, 90);
+            this.RowBox.Location = new System.Drawing.Point(74, 224);
             this.RowBox.Name = "RowBox";
             this.RowBox.Size = new System.Drawing.Size(156, 21);
             this.RowBox.TabIndex = 4;
@@ -132,7 +135,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 93);
+            this.label4.Location = new System.Drawing.Point(12, 227);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(29, 13);
             this.label4.TabIndex = 10;
@@ -143,7 +146,7 @@
             this.AIBox.FormattingEnabled = true;
             this.AIBox.Items.AddRange(new object[] {
             "Mindless"});
-            this.AIBox.Location = new System.Drawing.Point(74, 117);
+            this.AIBox.Location = new System.Drawing.Point(74, 251);
             this.AIBox.Name = "AIBox";
             this.AIBox.Size = new System.Drawing.Size(156, 21);
             this.AIBox.TabIndex = 5;
@@ -151,7 +154,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 120);
+            this.label5.Location = new System.Drawing.Point(12, 254);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(17, 13);
             this.label5.TabIndex = 12;
@@ -165,11 +168,20 @@
             this.StatsBoxes.Stats = null;
             this.StatsBoxes.TabIndex = 6;
             // 
+            // ImageShow
+            // 
+            this.ImageShow.Location = new System.Drawing.Point(102, 90);
+            this.ImageShow.Name = "ImageShow";
+            this.ImageShow.Size = new System.Drawing.Size(128, 128);
+            this.ImageShow.TabIndex = 102;
+            this.ImageShow.TabStop = false;
+            // 
             // MonsterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(527, 271);
+            this.ClientSize = new System.Drawing.Size(527, 311);
+            this.Controls.Add(this.ImageShow);
             this.Controls.Add(this.StatsBoxes);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.AIBox);
@@ -186,6 +198,7 @@
             this.Name = "MonsterForm";
             this.Text = "Monster Editor";
             ((System.ComponentModel.ISupportInitialize)(this.IDBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ImageShow)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -206,5 +219,6 @@
         private System.Windows.Forms.ComboBox AIBox;
         private System.Windows.Forms.Label label5;
         private StatsEditor StatsBoxes;
+        private System.Windows.Forms.PictureBox ImageShow;
     }
 }

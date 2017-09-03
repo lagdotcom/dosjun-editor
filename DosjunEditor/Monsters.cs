@@ -41,10 +41,7 @@ namespace DosjunEditor
 
         public Monster this[ushort id]
         {
-            get
-            {
-                return Data.First(m => m.Id == id);
-            }
+            get => Data.First(m => m.Id == id);
         }
     }
 }

@@ -8,5 +8,7 @@
         public const int NameSize = 24;
         public const int EncounterSize = 6;
         public const int ETableSize = 6;
+
+        public const string MonsterDirectory = "PICS";
     }
 }

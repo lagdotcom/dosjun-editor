@@ -1,4 +1,6 @@
-﻿using System.Windows.Forms;
+﻿using ImageMagick;
+using System.IO;
+using System.Windows.Forms;
 
 namespace DosjunEditor
 {
@@ -39,6 +41,20 @@ namespace DosjunEditor
             Monster.Row = (Row)RowBox.SelectedIndex;
             Monster.AI = (AI)AIBox.SelectedIndex;
             StatsBoxes.Apply();
+        }
+
+        private void ImageBox_TextChanged(object sender, System.EventArgs e)
+        {
+            string path = $"{Consts.MonsterDirectory}{Path.DirectorySeparatorChar}{ImageBox.Text}.PCX";
+            if (File.Exists(path))
+            {
+                MagickImage img = new MagickImage(path);
+                ImageShow.Image = img.ToBitmap();
+            }
+            else
+            {
+                ImageShow.Image = null;
+            }
         }
     }
 }
