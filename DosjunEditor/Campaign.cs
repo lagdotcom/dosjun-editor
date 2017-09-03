@@ -12,7 +12,7 @@ namespace DosjunEditor
             Version = new VersionHeader();
             Version.Read(br);
 
-            StartZone = br.ReadSByte();
+            StartZone = br.ReadByte();
             StartX = br.ReadByte();
             StartY = br.ReadByte();
             StartFacing = (Direction)br.ReadByte();
@@ -41,7 +41,7 @@ namespace DosjunEditor
         }
 
         public VersionHeader Version { get; set; }
-        public sbyte StartZone { get; set; }
+        public byte StartZone { get; set; }
         public byte StartX { get; set; }
         public byte StartY { get; set; }
         public Direction StartFacing { get; set; }
