@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace DosjunEditor
 {
@@ -28,5 +30,19 @@ namespace DosjunEditor
         public ushort[] MonsterIds { get; private set; }
         public byte[] Minimums { get; private set; }
         public byte[] Maximums { get; private set; }
+
+        private string[] DescriptionStrings(Monsters monsters)
+        {
+            List<string> items = new List<string>();
+            for (var i = 0; i < Consts.EncounterSize; i++)
+            {
+                if (MonsterIds[i] > 0 && Maximums[i] > 0)
+                    items.Add($"{Minimums[i]}-{Maximums[i]}x {monsters[MonsterIds[i]].Name}");
+            }
+
+            return items.ToArray();
+        }
+
+        public string GetDescription(Monsters monsters, string join = "; ") => string.Join(join, DescriptionStrings(monsters));
     }
 }

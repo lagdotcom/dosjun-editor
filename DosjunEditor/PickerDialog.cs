@@ -32,5 +32,10 @@ namespace DosjunEditor
 
             foreach (object o in items) Options.Items.Add(o);
         }
+
+        private void Options_DoubleClick(object sender, System.EventArgs e)
+        {
+            DialogResult = DialogResult.OK;
+        }
     }
 }

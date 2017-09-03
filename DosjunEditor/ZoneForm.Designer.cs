@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DosjunEditor.Wall wall9 = new DosjunEditor.Wall();
-            DosjunEditor.Wall wall10 = new DosjunEditor.Wall();
-            DosjunEditor.Wall wall11 = new DosjunEditor.Wall();
-            DosjunEditor.Wall wall12 = new DosjunEditor.Wall();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            DosjunEditor.Wall wall5 = new DosjunEditor.Wall();
+            DosjunEditor.Wall wall6 = new DosjunEditor.Wall();
+            DosjunEditor.Wall wall7 = new DosjunEditor.Wall();
+            DosjunEditor.Wall wall8 = new DosjunEditor.Wall();
+            this.SidePanel = new System.Windows.Forms.GroupBox();
             this.OnEnterBox = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.AddDescriptionButton = new System.Windows.Forms.Button();
@@ -58,43 +58,55 @@
             this.MenuLoad = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuSave = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuExit = new System.Windows.Forms.ToolStripMenuItem();
-            this.groupBox1.SuspendLayout();
+            this.label9 = new System.Windows.Forms.Label();
+            this.ETableIdLabel = new System.Windows.Forms.Label();
+            this.ETableBox = new System.Windows.Forms.TextBox();
+            this.AddETableButton = new System.Windows.Forms.Button();
+            this.SelectETableButton = new System.Windows.Forms.Button();
+            this.EditETableButton = new System.Windows.Forms.Button();
+            this.SidePanel.SuspendLayout();
             this.TopMenu.SuspendLayout();
             this.SuspendLayout();
             // 
-            // groupBox1
+            // SidePanel
             // 
-            this.groupBox1.Controls.Add(this.OnEnterBox);
-            this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Controls.Add(this.AddDescriptionButton);
-            this.groupBox1.Controls.Add(this.SelectDescriptionButton);
-            this.groupBox1.Controls.Add(this.DescriptionIdLabel);
-            this.groupBox1.Controls.Add(this.DescriptionBox);
-            this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.CeilingColour);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.FloorColour);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.WestWall);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.SouthWall);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.EastWall);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.NorthWall);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.groupBox1.Location = new System.Drawing.Point(568, 24);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(216, 637);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Tile Details";
+            this.SidePanel.Controls.Add(this.EditETableButton);
+            this.SidePanel.Controls.Add(this.AddETableButton);
+            this.SidePanel.Controls.Add(this.SelectETableButton);
+            this.SidePanel.Controls.Add(this.ETableBox);
+            this.SidePanel.Controls.Add(this.ETableIdLabel);
+            this.SidePanel.Controls.Add(this.label9);
+            this.SidePanel.Controls.Add(this.OnEnterBox);
+            this.SidePanel.Controls.Add(this.label8);
+            this.SidePanel.Controls.Add(this.AddDescriptionButton);
+            this.SidePanel.Controls.Add(this.SelectDescriptionButton);
+            this.SidePanel.Controls.Add(this.DescriptionIdLabel);
+            this.SidePanel.Controls.Add(this.DescriptionBox);
+            this.SidePanel.Controls.Add(this.label7);
+            this.SidePanel.Controls.Add(this.CeilingColour);
+            this.SidePanel.Controls.Add(this.label6);
+            this.SidePanel.Controls.Add(this.FloorColour);
+            this.SidePanel.Controls.Add(this.label5);
+            this.SidePanel.Controls.Add(this.label4);
+            this.SidePanel.Controls.Add(this.WestWall);
+            this.SidePanel.Controls.Add(this.label3);
+            this.SidePanel.Controls.Add(this.SouthWall);
+            this.SidePanel.Controls.Add(this.label2);
+            this.SidePanel.Controls.Add(this.EastWall);
+            this.SidePanel.Controls.Add(this.label1);
+            this.SidePanel.Controls.Add(this.NorthWall);
+            this.SidePanel.Dock = System.Windows.Forms.DockStyle.Right;
+            this.SidePanel.Location = new System.Drawing.Point(968, 24);
+            this.SidePanel.Name = "SidePanel";
+            this.SidePanel.Size = new System.Drawing.Size(216, 737);
+            this.SidePanel.TabIndex = 0;
+            this.SidePanel.TabStop = false;
+            this.SidePanel.Text = "Tile Details";
             // 
             // OnEnterBox
             // 
             this.OnEnterBox.FormattingEnabled = true;
-            this.OnEnterBox.Location = new System.Drawing.Point(83, 536);
+            this.OnEnterBox.Location = new System.Drawing.Point(83, 679);
             this.OnEnterBox.Name = "OnEnterBox";
             this.OnEnterBox.Size = new System.Drawing.Size(121, 21);
             this.OnEnterBox.TabIndex = 18;
@@ -104,7 +116,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(7, 539);
+            this.label8.Location = new System.Drawing.Point(7, 682);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(49, 13);
             this.label8.TabIndex = 17;
@@ -112,9 +124,9 @@
             // 
             // AddDescriptionButton
             // 
-            this.AddDescriptionButton.Location = new System.Drawing.Point(129, 507);
+            this.AddDescriptionButton.Location = new System.Drawing.Point(150, 507);
             this.AddDescriptionButton.Name = "AddDescriptionButton";
-            this.AddDescriptionButton.Size = new System.Drawing.Size(75, 23);
+            this.AddDescriptionButton.Size = new System.Drawing.Size(60, 23);
             this.AddDescriptionButton.TabIndex = 16;
             this.AddDescriptionButton.Text = "Add...";
             this.AddDescriptionButton.UseVisualStyleBackColor = true;
@@ -122,9 +134,9 @@
             // 
             // SelectDescriptionButton
             // 
-            this.SelectDescriptionButton.Location = new System.Drawing.Point(10, 507);
+            this.SelectDescriptionButton.Location = new System.Drawing.Point(7, 507);
             this.SelectDescriptionButton.Name = "SelectDescriptionButton";
-            this.SelectDescriptionButton.Size = new System.Drawing.Size(75, 23);
+            this.SelectDescriptionButton.Size = new System.Drawing.Size(60, 23);
             this.SelectDescriptionButton.TabIndex = 15;
             this.SelectDescriptionButton.Text = "Select...";
             this.SelectDescriptionButton.UseVisualStyleBackColor = true;
@@ -142,18 +154,18 @@
             // 
             // DescriptionBox
             // 
-            this.DescriptionBox.Location = new System.Drawing.Point(10, 406);
+            this.DescriptionBox.Location = new System.Drawing.Point(7, 406);
             this.DescriptionBox.Multiline = true;
             this.DescriptionBox.Name = "DescriptionBox";
             this.DescriptionBox.ReadOnly = true;
-            this.DescriptionBox.Size = new System.Drawing.Size(194, 95);
+            this.DescriptionBox.Size = new System.Drawing.Size(203, 95);
             this.DescriptionBox.TabIndex = 13;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(6, 390);
+            this.label7.Location = new System.Drawing.Point(7, 390);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(60, 13);
             this.label7.TabIndex = 12;
@@ -215,9 +227,9 @@
             this.WestWall.Size = new System.Drawing.Size(200, 56);
             this.WestWall.TabIndex = 6;
             this.WestWall.Type = DosjunEditor.WallType.Normal;
-            wall9.Texture = ((byte)(0));
-            wall9.Type = DosjunEditor.WallType.Normal;
-            this.WestWall.Wall = wall9;
+            wall5.Texture = ((byte)(0));
+            wall5.Type = DosjunEditor.WallType.Normal;
+            this.WestWall.Wall = wall5;
             this.WestWall.AnyChanged += new System.EventHandler(this.DataElement_Changed);
             // 
             // label3
@@ -238,9 +250,9 @@
             this.SouthWall.Size = new System.Drawing.Size(200, 56);
             this.SouthWall.TabIndex = 4;
             this.SouthWall.Type = DosjunEditor.WallType.Normal;
-            wall10.Texture = ((byte)(0));
-            wall10.Type = DosjunEditor.WallType.Normal;
-            this.SouthWall.Wall = wall10;
+            wall6.Texture = ((byte)(0));
+            wall6.Type = DosjunEditor.WallType.Normal;
+            this.SouthWall.Wall = wall6;
             this.SouthWall.AnyChanged += new System.EventHandler(this.DataElement_Changed);
             // 
             // label2
@@ -261,9 +273,9 @@
             this.EastWall.Size = new System.Drawing.Size(200, 56);
             this.EastWall.TabIndex = 2;
             this.EastWall.Type = DosjunEditor.WallType.Normal;
-            wall11.Texture = ((byte)(0));
-            wall11.Type = DosjunEditor.WallType.Normal;
-            this.EastWall.Wall = wall11;
+            wall7.Texture = ((byte)(0));
+            wall7.Type = DosjunEditor.WallType.Normal;
+            this.EastWall.Wall = wall7;
             this.EastWall.AnyChanged += new System.EventHandler(this.DataElement_Changed);
             // 
             // label1
@@ -284,9 +296,9 @@
             this.NorthWall.Size = new System.Drawing.Size(200, 56);
             this.NorthWall.TabIndex = 0;
             this.NorthWall.Type = DosjunEditor.WallType.Normal;
-            wall12.Texture = ((byte)(0));
-            wall12.Type = DosjunEditor.WallType.Normal;
-            this.NorthWall.Wall = wall12;
+            wall8.Texture = ((byte)(0));
+            wall8.Type = DosjunEditor.WallType.Normal;
+            this.NorthWall.Wall = wall8;
             this.NorthWall.AnyChanged += new System.EventHandler(this.DataElement_Changed);
             // 
             // Map
@@ -294,7 +306,7 @@
             this.Map.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Map.Location = new System.Drawing.Point(0, 24);
             this.Map.Name = "Map";
-            this.Map.Size = new System.Drawing.Size(568, 637);
+            this.Map.Size = new System.Drawing.Size(968, 737);
             this.Map.TabIndex = 1;
             this.Map.TileSize = 16;
             this.Map.Zone = null;
@@ -307,7 +319,7 @@
             this.fileToolStripMenuItem});
             this.TopMenu.Location = new System.Drawing.Point(0, 0);
             this.TopMenu.Name = "TopMenu";
-            this.TopMenu.Size = new System.Drawing.Size(784, 24);
+            this.TopMenu.Size = new System.Drawing.Size(1184, 24);
             this.TopMenu.TabIndex = 2;
             this.TopMenu.Text = "menuStrip1";
             // 
@@ -342,20 +354,77 @@
             this.MenuExit.Text = "E&xit";
             this.MenuExit.Click += new System.EventHandler(this.MenuExit_Click);
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(7, 533);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(86, 13);
+            this.label9.TabIndex = 19;
+            this.label9.Text = "Encounter Table";
+            // 
+            // ETableIdLabel
+            // 
+            this.ETableIdLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ETableIdLabel.Location = new System.Drawing.Point(144, 533);
+            this.ETableIdLabel.Name = "ETableIdLabel";
+            this.ETableIdLabel.Size = new System.Drawing.Size(60, 13);
+            this.ETableIdLabel.TabIndex = 20;
+            this.ETableIdLabel.Text = "#";
+            this.ETableIdLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // ETableBox
+            // 
+            this.ETableBox.Location = new System.Drawing.Point(7, 549);
+            this.ETableBox.Multiline = true;
+            this.ETableBox.Name = "ETableBox";
+            this.ETableBox.ReadOnly = true;
+            this.ETableBox.Size = new System.Drawing.Size(203, 95);
+            this.ETableBox.TabIndex = 21;
+            // 
+            // AddETableButton
+            // 
+            this.AddETableButton.Location = new System.Drawing.Point(150, 650);
+            this.AddETableButton.Name = "AddETableButton";
+            this.AddETableButton.Size = new System.Drawing.Size(60, 23);
+            this.AddETableButton.TabIndex = 23;
+            this.AddETableButton.Text = "Add...";
+            this.AddETableButton.UseVisualStyleBackColor = true;
+            // 
+            // SelectETableButton
+            // 
+            this.SelectETableButton.Location = new System.Drawing.Point(7, 650);
+            this.SelectETableButton.Name = "SelectETableButton";
+            this.SelectETableButton.Size = new System.Drawing.Size(60, 23);
+            this.SelectETableButton.TabIndex = 22;
+            this.SelectETableButton.Text = "Select...";
+            this.SelectETableButton.UseVisualStyleBackColor = true;
+            this.SelectETableButton.Click += new System.EventHandler(this.SelectETableButton_Click);
+            // 
+            // EditETableButton
+            // 
+            this.EditETableButton.Location = new System.Drawing.Point(79, 650);
+            this.EditETableButton.Name = "EditETableButton";
+            this.EditETableButton.Size = new System.Drawing.Size(59, 23);
+            this.EditETableButton.TabIndex = 24;
+            this.EditETableButton.Text = "Edit...";
+            this.EditETableButton.UseVisualStyleBackColor = true;
+            // 
             // ZoneForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 661);
+            this.ClientSize = new System.Drawing.Size(1184, 761);
             this.Controls.Add(this.Map);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.SidePanel);
             this.Controls.Add(this.TopMenu);
             this.MainMenuStrip = this.TopMenu;
             this.Name = "ZoneForm";
             this.Text = "Zone Editor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ZoneForm_FormClosing);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.SidePanel.ResumeLayout(false);
+            this.SidePanel.PerformLayout();
             this.TopMenu.ResumeLayout(false);
             this.TopMenu.PerformLayout();
             this.ResumeLayout(false);
@@ -365,7 +434,7 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox SidePanel;
         private ZoneView Map;
         private System.Windows.Forms.Label label4;
         private WallEditor WestWall;
@@ -391,5 +460,11 @@
         private System.Windows.Forms.ToolStripMenuItem MenuLoad;
         private System.Windows.Forms.ComboBox OnEnterBox;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button AddETableButton;
+        private System.Windows.Forms.Button SelectETableButton;
+        private System.Windows.Forms.TextBox ETableBox;
+        private System.Windows.Forms.Label ETableIdLabel;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button EditETableButton;
     }
 }

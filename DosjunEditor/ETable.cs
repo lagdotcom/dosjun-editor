@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace DosjunEditor
@@ -29,5 +30,16 @@ namespace DosjunEditor
         public byte Possibilities { get; set; }
         public ushort[] EncounterIds { get; set; }
         public byte[] Percentages { get; set; }
+
+        private string[] DescriptionStrings(Zone zone, Monsters monsters)
+        {
+            List<string> items = new List<string>();
+            for (var i = 0; i < Possibilities; i++)
+                items.Add($"{Percentages[i]}%: {zone.Encounters[EncounterIds[i]].GetDescription(monsters)}");
+
+            return items.ToArray();
+        }
+
+        public string GetDescription(Zone zone, Monsters monsters, string join = ", ") => string.Join(join, DescriptionStrings(zone, monsters));
     }
 }

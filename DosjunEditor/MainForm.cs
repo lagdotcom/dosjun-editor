@@ -202,7 +202,7 @@ namespace DosjunEditor
             if (target != null)
             {
                 ZoneForm form = new ZoneForm();
-                form.Setup(Campaign, CampaignPath, target as string);
+                form.Setup(Campaign, CampaignPath, Monsters, target as string);
                 form.ShowDialog();
                 form.Dispose();
             }

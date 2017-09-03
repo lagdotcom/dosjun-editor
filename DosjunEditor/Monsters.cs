@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace DosjunEditor
 {
@@ -37,5 +38,13 @@ namespace DosjunEditor
         public VersionHeader Version { get; set; }
         public ushort Count => (ushort)Data.Count;
         public List<Monster> Data { get; set; }
+
+        public Monster this[ushort id]
+        {
+            get
+            {
+                return Data.First(m => m.Id == id);
+            }
+        }
     }
 }

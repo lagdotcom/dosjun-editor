@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 
@@ -18,6 +19,7 @@ namespace DosjunEditor
         }
 
         public Campaign Campaign { get; private set; }
+        public Monsters Monsters { get; private set; }
         public string ZonePath { get; private set; }
         public string ZoneName { get; private set; }
         public string ZoneFilename => ZonePath + ZoneName + ".ZON";
@@ -81,9 +83,10 @@ namespace DosjunEditor
             return false;
         }
 
-        public void Setup(Campaign campaign, string path, string zoneName)
+        public void Setup(Campaign campaign, string path, Monsters monsters, string zoneName)
         {
             Campaign = campaign;
+            Monsters = monsters;
             ZonePath = path;
             ZoneName = zoneName;
 
@@ -179,6 +182,18 @@ namespace DosjunEditor
             }
         }
 
+        private string GetETableText(ushort id)
+        {
+            if (id == 0) return "(No encounters)";
+            return Zone.ETables[id - 1].GetDescription(Zone, Monsters, "\n");
+        }
+
+        private void UpdateETable()
+        {
+            ETableIdLabel.Text = CurrentTile.ETableId == 0 ? "-" : $"#{CurrentTile.ETableId}";
+            ETableBox.Text = GetETableText(CurrentTile.ETableId);
+        }
+
         private void Map_TileSelected(Tile t)
         {
             CheckAddingDescription();
@@ -194,6 +209,7 @@ namespace DosjunEditor
 
             addingDescription = false;
             UpdateDescription();
+            UpdateETable();
 
             OnEnterBox.SelectedIndex = t.OnEnterId;
         }
@@ -288,6 +304,28 @@ namespace DosjunEditor
                 case Keys.Down:
                     Map.Carve(0, 1);
                     break;
+            }
+        }
+
+        private void SelectETableButton_Click(object sender, EventArgs e)
+        {
+            List<string> items = new List<string>
+            {
+                GetETableText(0)
+            };
+            foreach (ETable et in Zone.ETables)
+            {
+                items.Add(et.GetDescription(Zone, Monsters));
+            }
+
+            PickerDialog dlg = new PickerDialog { Items = items };
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                CurrentTile.ETableId = (ushort)dlg.SelectedIndex;
+
+                UpdateETable();
+
+                Changed = true;
             }
         }
     }
