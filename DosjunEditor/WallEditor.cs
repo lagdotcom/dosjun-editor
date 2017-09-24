@@ -11,6 +11,9 @@ namespace DosjunEditor
         {
             wall = new Wall();
             InitializeComponent();
+
+            foreach (string name in Tools.GetNames<WallType>())
+                TypeBox.Items.Add(name);
         }
 
         public Wall Wall

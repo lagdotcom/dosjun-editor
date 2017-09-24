@@ -9,7 +9,7 @@ namespace DosjunEditor
             Magic = new string(br.ReadChars(3));
             Version = br.ReadByte();
 
-            if (Magic != Consts.Magic || Version != Consts.Version)
+            if (Magic != Consts.Magic || Version > Consts.Version)
                 throw new InvalidDataException("Version header is wrong");
         }
 
@@ -21,5 +21,7 @@ namespace DosjunEditor
 
         public string Magic { get; set; }
         public byte Version { get; set; }
+
+        public override string ToString() => $"{Magic} v{Version}";
     }
 }

@@ -9,6 +9,7 @@
         public const int EncounterSize = 6;
         public const int ETableSize = 6;
 
+        public const string EmptyItem = "-";
         public const string MonsterDirectory = "PICS";
     }
 }

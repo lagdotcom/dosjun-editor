@@ -10,44 +10,39 @@ namespace DosjunEditor
         public const string CrLf = "\r\n";
         public const string Lf = "\n";
 
-        private bool changed;
         private bool addingDescription;
+        private bool updatingDisplay;
 
         public ZoneForm()
         {
             InitializeComponent();
+
+            foreach (string name in Tools.GetNames<Thing>())
+                ThingBox.Items.Add(name);
         }
 
-        public Campaign Campaign { get; private set; }
-        public Monsters Monsters { get; private set; }
+        public ZoneContext Context { get; private set; }
+
+        public Campaign Campaign => Context.Campaign;
+        public Monsters Monsters => Context.Monsters;
         public string ZonePath { get; private set; }
         public string ZoneName { get; private set; }
         public string ZoneFilename => ZonePath + ZoneName + ".ZON";
         public string JunFilename => ZonePath + ZoneName + ".JC";
 
-        public Zone Zone { get; private set; }
+        public Zone Zone => Context.Zone;
         public Tile CurrentTile { get; private set; }
         public Jun.Parser Parser { get; private set; }
-        public bool Changed
-        {
-            get => changed;
-            set { SetChanged(value); }
-        }
 
-        private void SetChanged(bool flag)
+        private void Context_UnsavedChangesChanged(object sender, EventArgs e)
         {
-            if (changed != flag)
+            if (Context.UnsavedChanges)
             {
-                changed = flag;
-
-                if (flag)
-                {
-                    Text = "Zone Editor*";
-                }
-                else
-                {
-                    Text = "Zone Editor";
-                }
+                Text = "Zone Editor*";
+            }
+            else
+            {
+                Text = "Zone Editor";
             }
         }
 
@@ -68,12 +63,12 @@ namespace DosjunEditor
             using (Stream file = File.OpenWrite(ZoneFilename)) Zone.Write(new BinaryWriter(file));
 
             MessageBox.Show($"Wrote: {ZoneFilename}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            Changed = false;
+            Context.UnsavedChanges = false;
         }
 
         public bool CheckChanged()
         {
-            if (Changed)
+            if (Context.UnsavedChanges)
             {
                 DialogResult result = MessageBox.Show("Save changes?", "Don't lose your work!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
                 if (result == DialogResult.Cancel) return true;
@@ -85,19 +80,24 @@ namespace DosjunEditor
 
         public void Setup(Campaign campaign, string path, Monsters monsters, string zoneName)
         {
-            Campaign = campaign;
-            Monsters = monsters;
+            Context = new ZoneContext
+            {
+                Campaign = campaign,
+                Monsters = monsters,
+            };
+            Context.UnsavedChangesChanged += Context_UnsavedChangesChanged;
+
             ZonePath = path;
             ZoneName = zoneName;
 
             if (string.IsNullOrEmpty(zoneName))
             {
-                Zone = new Zone();
-                Changed = true;
+                Context.Zone = new Zone();
+                Context.UnsavedChanges = true;
             }
             else
             {
-                Zone = new Zone();
+                Context.Zone = new Zone();
                 using (Stream file = File.OpenRead(ZoneFilename)) Zone.Read(new BinaryReader(file));
             }
 
@@ -122,7 +122,9 @@ namespace DosjunEditor
                     jp.Parse(jt.Tokens);
 
                     Parser = jp;
+                    updatingDisplay = true;
                     LoadScriptNames();
+                    updatingDisplay = false;
                     MessageBox.Show($"Loaded {jp.Scripts.Count} scripts", "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
@@ -140,7 +142,7 @@ namespace DosjunEditor
         {
             int oldSelection = OnEnterBox.SelectedIndex;
             OnEnterBox.Items.Clear();
-            OnEnterBox.Items.Add("--");
+            OnEnterBox.Items.Add(Consts.EmptyItem);
 
             if (Parser == null)
             {
@@ -160,7 +162,7 @@ namespace DosjunEditor
         {
             if (addingDescription)
             {
-                Changed = true;
+                Context.UnsavedChanges = true;
                 Zone.Strings[CurrentTile.DescriptionId - 1] = DescriptionBox.Text.Replace(CrLf, Lf);
 
                 DescriptionBox.ReadOnly = true;
@@ -178,7 +180,7 @@ namespace DosjunEditor
             else
             {
                 DescriptionBox.Text = string.Empty;
-                DescriptionIdLabel.Text = "-";
+                DescriptionIdLabel.Text = Consts.EmptyItem;
             }
         }
 
@@ -190,12 +192,14 @@ namespace DosjunEditor
 
         private void UpdateETable()
         {
-            ETableIdLabel.Text = CurrentTile.ETableId == 0 ? "-" : $"#{CurrentTile.ETableId}";
+            ETableIdLabel.Text = CurrentTile.ETableId == 0 ? Consts.EmptyItem : $"#{CurrentTile.ETableId}";
             ETableBox.Text = GetETableText(CurrentTile.ETableId);
         }
 
         private void Map_TileSelected(Tile t)
         {
+            updatingDisplay = true;
+
             CheckAddingDescription();
             CurrentTile = t;
 
@@ -212,6 +216,11 @@ namespace DosjunEditor
             UpdateETable();
 
             OnEnterBox.SelectedIndex = t.OnEnterId;
+            ThingBox.SelectedIndex = (int)t.Thing;
+
+            ImpassableFlag.Checked = t.Flags.HasFlag(TileFlags.Impassable);
+
+            updatingDisplay = false;
         }
 
         private void ZoneForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -224,8 +233,11 @@ namespace DosjunEditor
 
         private void DataElement_Changed(object sender, EventArgs e)
         {
-            Map.UpdateTile();
-            Changed = true;
+            if (!updatingDisplay)
+            {
+                Map.UpdateTile();
+                Context.UnsavedChanges = true;
+            }
         }
 
         private void FloorColour_ColourChanged(object sender, EventArgs e)
@@ -242,11 +254,14 @@ namespace DosjunEditor
 
         private void AddDescriptionButton_Click(object sender, EventArgs e)
         {
-            Zone.Strings.Add(string.Empty);
-            CurrentTile.DescriptionId = (ushort)Zone.Strings.Count;
+            if (!addingDescription)
+            {
+                Zone.Strings.Add(string.Empty);
+                CurrentTile.DescriptionId = (ushort)Zone.Strings.Count;
 
-            addingDescription = true;
-            UpdateDescription();
+                addingDescription = true;
+                UpdateDescription();
+            }
         }
 
         private void SelectDescriptionButton_Click(object sender, EventArgs e)
@@ -255,10 +270,9 @@ namespace DosjunEditor
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 CurrentTile.DescriptionId = (ushort)(dlg.SelectedIndex + 1);
+                Context.UnsavedChanges = true;
 
                 UpdateDescription();
-
-                Changed = true;
             }
         }
 
@@ -269,10 +283,8 @@ namespace DosjunEditor
 
         private void MenuExit_Click(object sender, EventArgs e)
         {
-            if (!CheckChanged())
-            {
-                Close();
-            }
+            // this triggers CheckChanged() anyway
+            Close();
         }
 
         private void MenuLoad_Click(object sender, EventArgs e)
@@ -282,7 +294,11 @@ namespace DosjunEditor
 
         private void OnEnterBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            CurrentTile.OnEnterId = (ushort)OnEnterBox.SelectedIndex;
+            if (!updatingDisplay)
+            {
+                CurrentTile.OnEnterId = (ushort)OnEnterBox.SelectedIndex;
+                Context.UnsavedChanges = true;
+            }
         }
 
         private void Map_KeyUp(object sender, KeyEventArgs e)
@@ -325,7 +341,69 @@ namespace DosjunEditor
 
                 UpdateETable();
 
-                Changed = true;
+                Context.UnsavedChanges = true;
+            }
+        }
+
+        private void EditETableButton_Click(object sender, EventArgs e)
+        {
+            if (CurrentTile.ETableId > 0)
+            {
+                ETableForm form = new ETableForm();
+                form.Setup(Context, Zone.ETables[CurrentTile.ETableId - 1]);
+
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    form.Apply();
+
+                    Context.UnsavedChanges = true;
+                }
+            }
+        }
+
+        private void ImpassableFlag_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!updatingDisplay)
+            {
+                if (ImpassableFlag.Checked) CurrentTile.Flags |= TileFlags.Impassable;
+                else CurrentTile.Flags &= ~TileFlags.Impassable;
+
+                Context.UnsavedChanges = true;
+            }
+        }
+
+        private void ThingBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!updatingDisplay)
+            {
+                CurrentTile.Thing = (Thing)ThingBox.SelectedIndex;
+                Context.UnsavedChanges = true;
+            }
+        }
+
+        private void MenuEncounters_Click(object sender, EventArgs e)
+        {
+            EncountersForm form = new EncountersForm();
+            form.Setup(Context);
+
+            form.Show();
+        }
+
+        private void MenuETables_Click(object sender, EventArgs e)
+        {
+            ETablesForm form = new ETablesForm();
+            form.Setup(Context);
+
+            form.Show();
+        }
+
+        private void AddETableButton_Click(object sender, EventArgs e)
+        {
+            ushort newId = Tools.AddETable(Context);
+            if (newId != 0)
+            {
+                CurrentTile.ETableId = newId;
+                UpdateETable();
             }
         }
     }

@@ -28,11 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DosjunEditor.Wall wall5 = new DosjunEditor.Wall();
-            DosjunEditor.Wall wall6 = new DosjunEditor.Wall();
-            DosjunEditor.Wall wall7 = new DosjunEditor.Wall();
-            DosjunEditor.Wall wall8 = new DosjunEditor.Wall();
+            DosjunEditor.Wall wall9 = new DosjunEditor.Wall();
+            DosjunEditor.Wall wall10 = new DosjunEditor.Wall();
+            DosjunEditor.Wall wall11 = new DosjunEditor.Wall();
+            DosjunEditor.Wall wall12 = new DosjunEditor.Wall();
             this.SidePanel = new System.Windows.Forms.GroupBox();
+            this.ThingBox = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.FlagsBox = new System.Windows.Forms.GroupBox();
+            this.ImpassableFlag = new System.Windows.Forms.CheckBox();
+            this.SelectETableButton = new System.Windows.Forms.Button();
+            this.ETableBox = new System.Windows.Forms.TextBox();
+            this.ETableIdLabel = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.OnEnterBox = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.AddDescriptionButton = new System.Windows.Forms.Button();
@@ -58,18 +66,21 @@
             this.MenuLoad = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuSave = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuExit = new System.Windows.Forms.ToolStripMenuItem();
-            this.label9 = new System.Windows.Forms.Label();
-            this.ETableIdLabel = new System.Windows.Forms.Label();
-            this.ETableBox = new System.Windows.Forms.TextBox();
+            this.tablesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuEncounters = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuETables = new System.Windows.Forms.ToolStripMenuItem();
             this.AddETableButton = new System.Windows.Forms.Button();
-            this.SelectETableButton = new System.Windows.Forms.Button();
             this.EditETableButton = new System.Windows.Forms.Button();
             this.SidePanel.SuspendLayout();
+            this.FlagsBox.SuspendLayout();
             this.TopMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // SidePanel
             // 
+            this.SidePanel.Controls.Add(this.ThingBox);
+            this.SidePanel.Controls.Add(this.label10);
+            this.SidePanel.Controls.Add(this.FlagsBox);
             this.SidePanel.Controls.Add(this.EditETableButton);
             this.SidePanel.Controls.Add(this.AddETableButton);
             this.SidePanel.Controls.Add(this.SelectETableButton);
@@ -98,10 +109,89 @@
             this.SidePanel.Dock = System.Windows.Forms.DockStyle.Right;
             this.SidePanel.Location = new System.Drawing.Point(968, 24);
             this.SidePanel.Name = "SidePanel";
-            this.SidePanel.Size = new System.Drawing.Size(216, 737);
+            this.SidePanel.Size = new System.Drawing.Size(216, 837);
             this.SidePanel.TabIndex = 0;
             this.SidePanel.TabStop = false;
             this.SidePanel.Text = "Tile Details";
+            // 
+            // ThingBox
+            // 
+            this.ThingBox.FormattingEnabled = true;
+            this.ThingBox.Location = new System.Drawing.Point(83, 756);
+            this.ThingBox.Name = "ThingBox";
+            this.ThingBox.Size = new System.Drawing.Size(121, 21);
+            this.ThingBox.TabIndex = 27;
+            this.ThingBox.SelectedIndexChanged += new System.EventHandler(this.ThingBox_SelectedIndexChanged);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(6, 759);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(34, 13);
+            this.label10.TabIndex = 26;
+            this.label10.Text = "Thing";
+            // 
+            // FlagsBox
+            // 
+            this.FlagsBox.Controls.Add(this.ImpassableFlag);
+            this.FlagsBox.Location = new System.Drawing.Point(6, 706);
+            this.FlagsBox.Name = "FlagsBox";
+            this.FlagsBox.Size = new System.Drawing.Size(202, 44);
+            this.FlagsBox.TabIndex = 25;
+            this.FlagsBox.TabStop = false;
+            this.FlagsBox.Text = "Flags";
+            // 
+            // ImpassableFlag
+            // 
+            this.ImpassableFlag.AutoSize = true;
+            this.ImpassableFlag.Location = new System.Drawing.Point(6, 19);
+            this.ImpassableFlag.Name = "ImpassableFlag";
+            this.ImpassableFlag.Size = new System.Drawing.Size(79, 17);
+            this.ImpassableFlag.TabIndex = 0;
+            this.ImpassableFlag.Text = "Impassable";
+            this.ImpassableFlag.UseVisualStyleBackColor = true;
+            this.ImpassableFlag.CheckedChanged += new System.EventHandler(this.ImpassableFlag_CheckedChanged);
+            // 
+            // SelectETableButton
+            // 
+            this.SelectETableButton.Location = new System.Drawing.Point(6, 650);
+            this.SelectETableButton.Name = "SelectETableButton";
+            this.SelectETableButton.Size = new System.Drawing.Size(60, 23);
+            this.SelectETableButton.TabIndex = 22;
+            this.SelectETableButton.Text = "Select...";
+            this.SelectETableButton.UseVisualStyleBackColor = true;
+            this.SelectETableButton.Click += new System.EventHandler(this.SelectETableButton_Click);
+            // 
+            // ETableBox
+            // 
+            this.ETableBox.Location = new System.Drawing.Point(6, 549);
+            this.ETableBox.Multiline = true;
+            this.ETableBox.Name = "ETableBox";
+            this.ETableBox.ReadOnly = true;
+            this.ETableBox.Size = new System.Drawing.Size(203, 95);
+            this.ETableBox.TabIndex = 21;
+            // 
+            // ETableIdLabel
+            // 
+            this.ETableIdLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ETableIdLabel.Location = new System.Drawing.Point(144, 533);
+            this.ETableIdLabel.Name = "ETableIdLabel";
+            this.ETableIdLabel.Size = new System.Drawing.Size(60, 13);
+            this.ETableIdLabel.TabIndex = 20;
+            this.ETableIdLabel.Text = "#";
+            this.ETableIdLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(6, 533);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(86, 13);
+            this.label9.TabIndex = 19;
+            this.label9.Text = "Encounter Table";
             // 
             // OnEnterBox
             // 
@@ -116,7 +206,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(7, 682);
+            this.label8.Location = new System.Drawing.Point(6, 682);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(49, 13);
             this.label8.TabIndex = 17;
@@ -134,7 +224,7 @@
             // 
             // SelectDescriptionButton
             // 
-            this.SelectDescriptionButton.Location = new System.Drawing.Point(7, 507);
+            this.SelectDescriptionButton.Location = new System.Drawing.Point(6, 507);
             this.SelectDescriptionButton.Name = "SelectDescriptionButton";
             this.SelectDescriptionButton.Size = new System.Drawing.Size(60, 23);
             this.SelectDescriptionButton.TabIndex = 15;
@@ -154,7 +244,7 @@
             // 
             // DescriptionBox
             // 
-            this.DescriptionBox.Location = new System.Drawing.Point(7, 406);
+            this.DescriptionBox.Location = new System.Drawing.Point(6, 406);
             this.DescriptionBox.Multiline = true;
             this.DescriptionBox.Name = "DescriptionBox";
             this.DescriptionBox.ReadOnly = true;
@@ -165,7 +255,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(7, 390);
+            this.label7.Location = new System.Drawing.Point(6, 390);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(60, 13);
             this.label7.TabIndex = 12;
@@ -184,7 +274,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(7, 356);
+            this.label6.Location = new System.Drawing.Point(6, 356);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(38, 13);
             this.label6.TabIndex = 10;
@@ -203,7 +293,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(7, 330);
+            this.label5.Location = new System.Drawing.Point(6, 330);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(30, 13);
             this.label5.TabIndex = 8;
@@ -222,14 +312,14 @@
             // WestWall
             // 
             this.WestWall.Colour = ((byte)(0));
-            this.WestWall.Location = new System.Drawing.Point(9, 265);
+            this.WestWall.Location = new System.Drawing.Point(6, 265);
             this.WestWall.Name = "WestWall";
             this.WestWall.Size = new System.Drawing.Size(200, 56);
             this.WestWall.TabIndex = 6;
             this.WestWall.Type = DosjunEditor.WallType.Normal;
-            wall5.Texture = ((byte)(0));
-            wall5.Type = DosjunEditor.WallType.Normal;
-            this.WestWall.Wall = wall5;
+            wall9.Texture = ((byte)(0));
+            wall9.Type = DosjunEditor.WallType.Normal;
+            this.WestWall.Wall = wall9;
             this.WestWall.AnyChanged += new System.EventHandler(this.DataElement_Changed);
             // 
             // label3
@@ -245,14 +335,14 @@
             // SouthWall
             // 
             this.SouthWall.Colour = ((byte)(0));
-            this.SouthWall.Location = new System.Drawing.Point(9, 190);
+            this.SouthWall.Location = new System.Drawing.Point(6, 190);
             this.SouthWall.Name = "SouthWall";
             this.SouthWall.Size = new System.Drawing.Size(200, 56);
             this.SouthWall.TabIndex = 4;
             this.SouthWall.Type = DosjunEditor.WallType.Normal;
-            wall6.Texture = ((byte)(0));
-            wall6.Type = DosjunEditor.WallType.Normal;
-            this.SouthWall.Wall = wall6;
+            wall10.Texture = ((byte)(0));
+            wall10.Type = DosjunEditor.WallType.Normal;
+            this.SouthWall.Wall = wall10;
             this.SouthWall.AnyChanged += new System.EventHandler(this.DataElement_Changed);
             // 
             // label2
@@ -268,14 +358,14 @@
             // EastWall
             // 
             this.EastWall.Colour = ((byte)(0));
-            this.EastWall.Location = new System.Drawing.Point(9, 115);
+            this.EastWall.Location = new System.Drawing.Point(6, 115);
             this.EastWall.Name = "EastWall";
             this.EastWall.Size = new System.Drawing.Size(200, 56);
             this.EastWall.TabIndex = 2;
             this.EastWall.Type = DosjunEditor.WallType.Normal;
-            wall7.Texture = ((byte)(0));
-            wall7.Type = DosjunEditor.WallType.Normal;
-            this.EastWall.Wall = wall7;
+            wall11.Texture = ((byte)(0));
+            wall11.Type = DosjunEditor.WallType.Normal;
+            this.EastWall.Wall = wall11;
             this.EastWall.AnyChanged += new System.EventHandler(this.DataElement_Changed);
             // 
             // label1
@@ -291,14 +381,14 @@
             // NorthWall
             // 
             this.NorthWall.Colour = ((byte)(0));
-            this.NorthWall.Location = new System.Drawing.Point(10, 40);
+            this.NorthWall.Location = new System.Drawing.Point(6, 40);
             this.NorthWall.Name = "NorthWall";
             this.NorthWall.Size = new System.Drawing.Size(200, 56);
             this.NorthWall.TabIndex = 0;
             this.NorthWall.Type = DosjunEditor.WallType.Normal;
-            wall8.Texture = ((byte)(0));
-            wall8.Type = DosjunEditor.WallType.Normal;
-            this.NorthWall.Wall = wall8;
+            wall12.Texture = ((byte)(0));
+            wall12.Type = DosjunEditor.WallType.Normal;
+            this.NorthWall.Wall = wall12;
             this.NorthWall.AnyChanged += new System.EventHandler(this.DataElement_Changed);
             // 
             // Map
@@ -306,7 +396,7 @@
             this.Map.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Map.Location = new System.Drawing.Point(0, 24);
             this.Map.Name = "Map";
-            this.Map.Size = new System.Drawing.Size(968, 737);
+            this.Map.Size = new System.Drawing.Size(968, 837);
             this.Map.TabIndex = 1;
             this.Map.TileSize = 16;
             this.Map.Zone = null;
@@ -316,7 +406,8 @@
             // TopMenu
             // 
             this.TopMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.tablesToolStripMenuItem});
             this.TopMenu.Location = new System.Drawing.Point(0, 0);
             this.TopMenu.Name = "TopMenu";
             this.TopMenu.Size = new System.Drawing.Size(1184, 24);
@@ -354,34 +445,28 @@
             this.MenuExit.Text = "E&xit";
             this.MenuExit.Click += new System.EventHandler(this.MenuExit_Click);
             // 
-            // label9
+            // tablesToolStripMenuItem
             // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(7, 533);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(86, 13);
-            this.label9.TabIndex = 19;
-            this.label9.Text = "Encounter Table";
+            this.tablesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MenuEncounters,
+            this.MenuETables});
+            this.tablesToolStripMenuItem.Name = "tablesToolStripMenuItem";
+            this.tablesToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.tablesToolStripMenuItem.Text = "&Tables";
             // 
-            // ETableIdLabel
+            // MenuEncounters
             // 
-            this.ETableIdLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ETableIdLabel.Location = new System.Drawing.Point(144, 533);
-            this.ETableIdLabel.Name = "ETableIdLabel";
-            this.ETableIdLabel.Size = new System.Drawing.Size(60, 13);
-            this.ETableIdLabel.TabIndex = 20;
-            this.ETableIdLabel.Text = "#";
-            this.ETableIdLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.MenuEncounters.Name = "MenuEncounters";
+            this.MenuEncounters.Size = new System.Drawing.Size(173, 22);
+            this.MenuEncounters.Text = "&Encounters...";
+            this.MenuEncounters.Click += new System.EventHandler(this.MenuEncounters_Click);
             // 
-            // ETableBox
+            // MenuETables
             // 
-            this.ETableBox.Location = new System.Drawing.Point(7, 549);
-            this.ETableBox.Multiline = true;
-            this.ETableBox.Name = "ETableBox";
-            this.ETableBox.ReadOnly = true;
-            this.ETableBox.Size = new System.Drawing.Size(203, 95);
-            this.ETableBox.TabIndex = 21;
+            this.MenuETables.Name = "MenuETables";
+            this.MenuETables.Size = new System.Drawing.Size(173, 22);
+            this.MenuETables.Text = "Encounter &Tables...";
+            this.MenuETables.Click += new System.EventHandler(this.MenuETables_Click);
             // 
             // AddETableButton
             // 
@@ -391,16 +476,7 @@
             this.AddETableButton.TabIndex = 23;
             this.AddETableButton.Text = "Add...";
             this.AddETableButton.UseVisualStyleBackColor = true;
-            // 
-            // SelectETableButton
-            // 
-            this.SelectETableButton.Location = new System.Drawing.Point(7, 650);
-            this.SelectETableButton.Name = "SelectETableButton";
-            this.SelectETableButton.Size = new System.Drawing.Size(60, 23);
-            this.SelectETableButton.TabIndex = 22;
-            this.SelectETableButton.Text = "Select...";
-            this.SelectETableButton.UseVisualStyleBackColor = true;
-            this.SelectETableButton.Click += new System.EventHandler(this.SelectETableButton_Click);
+            this.AddETableButton.Click += new System.EventHandler(this.AddETableButton_Click);
             // 
             // EditETableButton
             // 
@@ -410,12 +486,13 @@
             this.EditETableButton.TabIndex = 24;
             this.EditETableButton.Text = "Edit...";
             this.EditETableButton.UseVisualStyleBackColor = true;
+            this.EditETableButton.Click += new System.EventHandler(this.EditETableButton_Click);
             // 
             // ZoneForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1184, 761);
+            this.ClientSize = new System.Drawing.Size(1184, 861);
             this.Controls.Add(this.Map);
             this.Controls.Add(this.SidePanel);
             this.Controls.Add(this.TopMenu);
@@ -425,6 +502,8 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ZoneForm_FormClosing);
             this.SidePanel.ResumeLayout(false);
             this.SidePanel.PerformLayout();
+            this.FlagsBox.ResumeLayout(false);
+            this.FlagsBox.PerformLayout();
             this.TopMenu.ResumeLayout(false);
             this.TopMenu.PerformLayout();
             this.ResumeLayout(false);
@@ -460,11 +539,18 @@
         private System.Windows.Forms.ToolStripMenuItem MenuLoad;
         private System.Windows.Forms.ComboBox OnEnterBox;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Button AddETableButton;
         private System.Windows.Forms.Button SelectETableButton;
         private System.Windows.Forms.TextBox ETableBox;
         private System.Windows.Forms.Label ETableIdLabel;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.GroupBox FlagsBox;
+        private System.Windows.Forms.CheckBox ImpassableFlag;
+        private System.Windows.Forms.ComboBox ThingBox;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ToolStripMenuItem tablesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem MenuEncounters;
+        private System.Windows.Forms.ToolStripMenuItem MenuETables;
         private System.Windows.Forms.Button EditETableButton;
+        private System.Windows.Forms.Button AddETableButton;
     }
 }

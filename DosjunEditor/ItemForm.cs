@@ -8,6 +8,12 @@ namespace DosjunEditor
         public ItemForm()
         {
             InitializeComponent();
+
+            foreach (string name in Tools.GetNames<ItemType>())
+                TypeBox.Items.Add(name);
+
+            foreach (string name in Tools.GetNames<ItemSpecial>())
+                SpecialBox.Items.Add(name);
         }
 
         public Campaign Campaign { get; private set; }

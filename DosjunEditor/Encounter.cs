@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 
 namespace DosjunEditor
 {
@@ -37,7 +36,12 @@ namespace DosjunEditor
             for (var i = 0; i < Consts.EncounterSize; i++)
             {
                 if (MonsterIds[i] > 0 && Maximums[i] > 0)
-                    items.Add($"{Minimums[i]}-{Maximums[i]}x {monsters[MonsterIds[i]].Name}");
+                {
+                    if (Minimums[i] == Maximums[i])
+                        items.Add($"{Minimums[i]}x {monsters[MonsterIds[i]].Name}");
+                    else
+                        items.Add($"{Minimums[i]}-{Maximums[i]}x {monsters[MonsterIds[i]].Name}");
+                }
             }
 
             return items.ToArray();

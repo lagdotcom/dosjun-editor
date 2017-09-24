@@ -46,10 +46,6 @@
             // TypeBox
             // 
             this.TypeBox.FormattingEnabled = true;
-            this.TypeBox.Items.AddRange(new object[] {
-            "Normal",
-            "Door",
-            "Locked Door"});
             this.TypeBox.Location = new System.Drawing.Point(76, 3);
             this.TypeBox.Name = "TypeBox";
             this.TypeBox.Size = new System.Drawing.Size(121, 21);

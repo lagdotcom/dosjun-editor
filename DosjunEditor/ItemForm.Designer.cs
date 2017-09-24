@@ -136,17 +136,6 @@
             // TypeBox
             // 
             this.TypeBox.FormattingEnabled = true;
-            this.TypeBox.Items.AddRange(new object[] {
-            "Primary Weapon",
-            "Small Weapon",
-            "Two-Handed Weapon",
-            "Shield",
-            "Helmet",
-            "Body Armour",
-            "Footwear",
-            "Jewellery",
-            "Potion",
-            "Scroll"});
             this.TypeBox.Location = new System.Drawing.Point(75, 64);
             this.TypeBox.Name = "TypeBox";
             this.TypeBox.Size = new System.Drawing.Size(156, 21);
@@ -251,9 +240,6 @@
             // SpecialBox
             // 
             this.SpecialBox.FormattingEnabled = true;
-            this.SpecialBox.Items.AddRange(new object[] {
-            "None",
-            "Heal (Use)"});
             this.SpecialBox.Location = new System.Drawing.Point(75, 115);
             this.SpecialBox.Name = "SpecialBox";
             this.SpecialBox.Size = new System.Drawing.Size(156, 21);

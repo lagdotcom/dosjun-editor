@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace DosjunEditor
@@ -74,6 +75,15 @@ namespace DosjunEditor
             foreach (Encounter en in Encounters) en.Write(bw);
             foreach (string c in CodeStrings) bw.WriteNS(c);
             foreach (ETable et in ETables) et.Write(bw);
+        }
+
+        public bool UsingEncounterId(int index)
+        {
+            foreach (ETable et in ETables)
+                for (var i = 0; i < et.Possibilities; i++)
+                    if (et.EncounterIds[i] == index) return true;
+
+            return false;
         }
 
         public VersionHeader Version { get; set; }

@@ -1,4 +1,5 @@
 ﻿using ImageMagick;
+using System;
 using System.IO;
 using System.Windows.Forms;
 
@@ -9,6 +10,9 @@ namespace DosjunEditor
         public MonsterForm()
         {
             InitializeComponent();
+
+            foreach (string name in Tools.GetNames<AI>())
+                AIBox.Items.Add(name);
         }
 
         public Campaign Campaign { get; private set; }

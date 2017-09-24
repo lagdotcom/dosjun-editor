@@ -53,7 +53,31 @@
     <Compile Include="AI.cs" />
     <Compile Include="Consts.cs" />
     <Compile Include="Encounter.cs" />
+    <Compile Include="EncounterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EncounterForm.Designer.cs">
+      <DependentUpon>EncounterForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ETablesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ETablesForm.Designer.cs">
+      <DependentUpon>ETablesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EncountersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EncountersForm.Designer.cs">
+      <DependentUpon>EncountersForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ETable.cs" />
+    <Compile Include="ETableForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ETableForm.Designer.cs">
+      <DependentUpon>ETableForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Globals.cs" />
     <Compile Include="IBinaryData.cs" />
     <Compile Include="Campaign.cs" />
@@ -129,8 +153,11 @@
     <Compile Include="StatsEditor.Designer.cs">
       <DependentUpon>StatsEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Thing.cs" />
     <Compile Include="Tile.cs" />
     <Compile Include="TileBag.cs" />
+    <Compile Include="TileFlags.cs" />
+    <Compile Include="Tools.cs" />
     <Compile Include="VersionHeader.cs" />
     <Compile Include="Wall.cs" />
     <Compile Include="WallEditor.cs">
@@ -141,6 +168,7 @@
     </Compile>
     <Compile Include="WallType.cs" />
     <Compile Include="Zone.cs" />
+    <Compile Include="ZoneContext.cs" />
     <Compile Include="ZoneForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -153,20 +181,39 @@
     <Compile Include="ZoneView.Designer.cs">
       <DependentUpon>ZoneView.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="EncounterForm.resx">
+      <DependentUpon>EncounterForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ETablesForm.resx">
+      <DependentUpon>ETablesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EncountersForm.resx">
+      <DependentUpon>EncountersForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ETableForm.resx">
+      <DependentUpon>ETableForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="ItemForm.resx">
       <DependentUpon>ItemForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="MonsterForm.resx">
       <DependentUpon>MonsterForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="PalettePicker.resx">
       <DependentUpon>PalettePicker.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="PickerDialog.resx">
       <DependentUpon>PickerDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

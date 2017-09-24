@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 
 namespace DosjunEditor
@@ -8,9 +7,11 @@ namespace DosjunEditor
     {
         public ETable()
         {
-            Possibilities = 0;
             EncounterIds = new ushort[Consts.ETableSize];
             Percentages = new byte[Consts.ETableSize];
+
+            Possibilities = 1;
+            Percentages[0] = 100;
         }
 
         public void Read(BinaryReader br)
@@ -41,5 +42,14 @@ namespace DosjunEditor
         }
 
         public string GetDescription(Zone zone, Monsters monsters, string join = ", ") => string.Join(join, DescriptionStrings(zone, monsters));
+
+        public void DeleteEncounterId(ushort index)
+        {
+            for (var i = 0; i < Possibilities; i++)
+            {
+                if (EncounterIds[i] > index)
+                    EncounterIds[i]--;
+            }
+        }
     }
 }

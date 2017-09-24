@@ -144,8 +144,6 @@
             // AIBox
             // 
             this.AIBox.FormattingEnabled = true;
-            this.AIBox.Items.AddRange(new object[] {
-            "Mindless"});
             this.AIBox.Location = new System.Drawing.Point(74, 251);
             this.AIBox.Name = "AIBox";
             this.AIBox.Size = new System.Drawing.Size(156, 21);
