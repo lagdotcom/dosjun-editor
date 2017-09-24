@@ -86,6 +86,7 @@ namespace DosjunEditor
                 Monsters = monsters,
             };
             Context.UnsavedChangesChanged += Context_UnsavedChangesChanged;
+            Context.EncountersChanged += Context_EncountersChanged;
 
             ZonePath = path;
             ZoneName = zoneName;
@@ -105,6 +106,11 @@ namespace DosjunEditor
             LoadScriptNames();
 
             Map.Zone = Zone;
+        }
+
+        private void Context_EncountersChanged(object sender, EventArgs e)
+        {
+            UpdateETable();
         }
 
         private void LoadJC()
@@ -187,7 +193,7 @@ namespace DosjunEditor
         private string GetETableText(ushort id)
         {
             if (id == 0) return "(No encounters)";
-            return Zone.ETables[id - 1].GetDescription(Zone, Monsters, "\n");
+            return Zone.ETables[id - 1].GetDescription(Zone, Monsters, CrLf);
         }
 
         private void UpdateETable()
@@ -355,8 +361,8 @@ namespace DosjunEditor
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     form.Apply();
-
                     Context.UnsavedChanges = true;
+                    Context.UpdateEncounters();
                 }
             }
         }
