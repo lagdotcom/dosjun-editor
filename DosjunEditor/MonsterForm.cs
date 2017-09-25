@@ -52,8 +52,8 @@ namespace DosjunEditor
             string path = $"{Consts.MonsterDirectory}{Path.DirectorySeparatorChar}{ImageBox.Text}.PCX";
             if (File.Exists(path))
             {
-                MagickImage img = new MagickImage(path);
-                ImageShow.Image = img.ToBitmap();
+                using (MagickImage img = new MagickImage(path))
+                    ImageShow.Image = img.ToBitmap();
             }
             else
             {
