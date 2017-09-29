@@ -17,7 +17,7 @@ namespace DosjunEditor
         {
             InitializeComponent();
 
-            foreach (string name in Tools.GetNames<Thing>())
+            foreach (string name in Tools.GetEnumNames<Thing>())
                 ThingBox.Items.Add(name);
         }
 
@@ -101,6 +101,9 @@ namespace DosjunEditor
                 Context.Zone = new Zone();
                 using (Stream file = File.OpenRead(ZoneFilename)) Zone.Read(new BinaryReader(file));
             }
+
+            CeilingTexture.Zone = Context.Zone;
+            FloorTexture.Zone = Context.Zone;
 
             Parser = null;
             LoadScriptNames();
@@ -209,13 +212,13 @@ namespace DosjunEditor
             CheckAddingDescription();
             CurrentTile = t;
 
-            NorthWall.Wall = t.Walls[0];
-            EastWall.Wall = t.Walls[1];
-            SouthWall.Wall = t.Walls[2];
-            WestWall.Wall = t.Walls[3];
+            NorthWall.Setup(Zone, t.Walls[0]);
+            EastWall.Setup(Zone, t.Walls[1]);
+            SouthWall.Setup(Zone, t.Walls[2]);
+            WestWall.Setup(Zone, t.Walls[3]);
 
-            CeilingColour.Colour = t.Ceiling;
-            FloorColour.Colour = t.Floor;
+            CeilingTexture.TextureId = t.CeilingTexture;
+            FloorTexture.TextureId = t.FloorTexture;
 
             addingDescription = false;
             UpdateDescription();
@@ -246,15 +249,15 @@ namespace DosjunEditor
             }
         }
 
-        private void FloorColour_ColourChanged(object sender, EventArgs e)
+        private void FloorTexture_ValueChanged(object sender, EventArgs e)
         {
-            CurrentTile.Floor = FloorColour.Colour;
+            CurrentTile.FloorTexture = FloorTexture.TextureId;
             DataElement_Changed(sender, e);
         }
 
-        private void CeilingColour_ColourChanged(object sender, EventArgs e)
+        private void CeilingTexture_ValueChanged(object sender, EventArgs e)
         {
-            CurrentTile.Ceiling = CeilingColour.Colour;
+            CurrentTile.CeilingTexture = CeilingTexture.TextureId;
             DataElement_Changed(sender, e);
         }
 
@@ -374,7 +377,7 @@ namespace DosjunEditor
                 if (ImpassableFlag.Checked) CurrentTile.Flags |= TileFlags.Impassable;
                 else CurrentTile.Flags &= ~TileFlags.Impassable;
 
-                Context.UnsavedChanges = true;
+                DataElement_Changed(sender, e);
             }
         }
 
@@ -383,7 +386,8 @@ namespace DosjunEditor
             if (!updatingDisplay)
             {
                 CurrentTile.Thing = (Thing)ThingBox.SelectedIndex;
-                Context.UnsavedChanges = true;
+
+                DataElement_Changed(sender, e);
             }
         }
 

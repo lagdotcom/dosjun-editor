@@ -11,5 +11,6 @@
 
         public const string EmptyItem = "-";
         public const string MonsterDirectory = "PICS";
+        public const string WallDirectory = "WALL";
     }
 }

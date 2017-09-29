@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
 
 namespace DosjunEditor
 {
     public static class Tools
     {
-        public static IEnumerable<string> GetNames<T>()
+        public static IEnumerable<string> GetEnumNames<T>()
         {
             foreach (string name in Enum.GetNames(typeof(T)))
                 yield return FormatEnumName(name);
@@ -30,6 +31,19 @@ namespace DosjunEditor
                     return context.Zone.ETableCount;
                 }
                 else return 0;
+            }
+        }
+
+        public static IEnumerable<string> GetTextures()
+        {
+            if (!Directory.Exists(Consts.WallDirectory)) yield break;
+
+            foreach (string filename in Directory.EnumerateFiles(Consts.WallDirectory, "*.PCX"))
+            {
+                if (filename.ToUpper().EndsWith("1.PCX"))
+                {
+                    yield return Path.GetFileName(filename.Substring(0, filename.Length - 5));
+                }
             }
         }
 

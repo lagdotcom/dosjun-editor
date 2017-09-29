@@ -153,6 +153,12 @@
     <Compile Include="StatsEditor.Designer.cs">
       <DependentUpon>StatsEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="TextureComboBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TextureComboBox.Designer.cs">
+      <DependentUpon>TextureComboBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Thing.cs" />
     <Compile Include="Tile.cs" />
     <Compile Include="TileBag.cs" />
@@ -227,6 +233,9 @@
     <EmbeddedResource Include="StatsEditor.resx">
       <DependentUpon>StatsEditor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="TextureComboBox.resx">
+      <DependentUpon>TextureComboBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WallEditor.resx">
       <DependentUpon>WallEditor.cs</DependentUpon>
     </EmbeddedResource>
@@ -252,6 +261,18 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="WALL\TEST1.pcx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="WALL\TEST2.pcx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="WALL\TEST3.pcx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="WALL\TEST4.pcx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

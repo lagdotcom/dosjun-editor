@@ -11,7 +11,7 @@ namespace DosjunEditor
         {
             InitializeComponent();
 
-            foreach (string name in Tools.GetNames<AI>())
+            foreach (string name in Tools.GetEnumNames<AI>())
                 AIBox.Items.Add(name);
         }
 

@@ -5,6 +5,7 @@ namespace DosjunEditor
 {
     public partial class WallEditor : UserControl
     {
+        private bool updatingDisplay;
         private Wall wall;
 
         public WallEditor()
@@ -12,55 +13,45 @@ namespace DosjunEditor
             wall = new Wall();
             InitializeComponent();
 
-            foreach (string name in Tools.GetNames<WallType>())
+            foreach (string name in Tools.GetEnumNames<WallType>())
                 TypeBox.Items.Add(name);
-        }
-
-        public Wall Wall
-        {
-            get => wall;
-            set
-            {
-                Wall w = value;
-                if (w == null) w = new Wall();
-                wall = w;
-
-                TypeBox.SelectedIndex = (int)wall.Type;
-                ColourBox.Colour = wall.Texture;
-            }
         }
 
         public WallType Type
         {
             get => wall.Type;
-            set
-            {
-                wall.Type = value;
-                TypeBox.SelectedIndex = (int)value;
-            }
         }
 
-        public byte Colour
+        public byte Texture
         {
-            get => wall.Texture;
-            set
-            {
-                wall.Texture = value;
-                ColourBox.Colour = value;
-            }
+            get => wall.TextureId;
         }
 
         public event EventHandler AnyChanged;
 
+        public void Setup(Zone z, Wall w)
+        {
+            wall = w;
+
+            updatingDisplay = true;
+            TypeBox.SelectedIndex = (int)wall.Type;
+            TextureBox.Zone = z;
+            TextureBox.TextureId = wall.TextureId;
+            updatingDisplay = false;
+        }
+        
         private void TypeBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            wall.Type = (WallType)TypeBox.SelectedIndex;
-            AnyChanged?.Invoke(this, e);
+            if (!updatingDisplay)
+            {
+                wall.Type = (WallType)TypeBox.SelectedIndex;
+                AnyChanged?.Invoke(this, e);
+            }
         }
 
-        private void ColourBox_ColourChanged(object sender, EventArgs e)
+        private void TextureBox_ValueChanged(object sender, EventArgs e)
         {
-            wall.Texture = ColourBox.Colour;
+            wall.TextureId = TextureBox.TextureId;
             AnyChanged?.Invoke(this, e);
         }
     }

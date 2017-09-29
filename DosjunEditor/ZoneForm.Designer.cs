@@ -28,15 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DosjunEditor.Wall wall9 = new DosjunEditor.Wall();
-            DosjunEditor.Wall wall10 = new DosjunEditor.Wall();
-            DosjunEditor.Wall wall11 = new DosjunEditor.Wall();
-            DosjunEditor.Wall wall12 = new DosjunEditor.Wall();
             this.SidePanel = new System.Windows.Forms.GroupBox();
             this.ThingBox = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.FlagsBox = new System.Windows.Forms.GroupBox();
             this.ImpassableFlag = new System.Windows.Forms.CheckBox();
+            this.EditETableButton = new System.Windows.Forms.Button();
+            this.AddETableButton = new System.Windows.Forms.Button();
             this.SelectETableButton = new System.Windows.Forms.Button();
             this.ETableBox = new System.Windows.Forms.TextBox();
             this.ETableIdLabel = new System.Windows.Forms.Label();
@@ -48,9 +46,7 @@
             this.DescriptionIdLabel = new System.Windows.Forms.Label();
             this.DescriptionBox = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.CeilingColour = new DosjunEditor.PalettePicker();
             this.label6 = new System.Windows.Forms.Label();
-            this.FloorColour = new DosjunEditor.PalettePicker();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.WestWall = new DosjunEditor.WallEditor();
@@ -69,8 +65,8 @@
             this.tablesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuEncounters = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuETables = new System.Windows.Forms.ToolStripMenuItem();
-            this.AddETableButton = new System.Windows.Forms.Button();
-            this.EditETableButton = new System.Windows.Forms.Button();
+            this.FloorTexture = new DosjunEditor.TextureComboBox();
+            this.CeilingTexture = new DosjunEditor.TextureComboBox();
             this.SidePanel.SuspendLayout();
             this.FlagsBox.SuspendLayout();
             this.TopMenu.SuspendLayout();
@@ -78,6 +74,8 @@
             // 
             // SidePanel
             // 
+            this.SidePanel.Controls.Add(this.CeilingTexture);
+            this.SidePanel.Controls.Add(this.FloorTexture);
             this.SidePanel.Controls.Add(this.ThingBox);
             this.SidePanel.Controls.Add(this.label10);
             this.SidePanel.Controls.Add(this.FlagsBox);
@@ -94,9 +92,7 @@
             this.SidePanel.Controls.Add(this.DescriptionIdLabel);
             this.SidePanel.Controls.Add(this.DescriptionBox);
             this.SidePanel.Controls.Add(this.label7);
-            this.SidePanel.Controls.Add(this.CeilingColour);
             this.SidePanel.Controls.Add(this.label6);
-            this.SidePanel.Controls.Add(this.FloorColour);
             this.SidePanel.Controls.Add(this.label5);
             this.SidePanel.Controls.Add(this.label4);
             this.SidePanel.Controls.Add(this.WestWall);
@@ -153,6 +149,26 @@
             this.ImpassableFlag.Text = "Impassable";
             this.ImpassableFlag.UseVisualStyleBackColor = true;
             this.ImpassableFlag.CheckedChanged += new System.EventHandler(this.ImpassableFlag_CheckedChanged);
+            // 
+            // EditETableButton
+            // 
+            this.EditETableButton.Location = new System.Drawing.Point(79, 650);
+            this.EditETableButton.Name = "EditETableButton";
+            this.EditETableButton.Size = new System.Drawing.Size(59, 23);
+            this.EditETableButton.TabIndex = 24;
+            this.EditETableButton.Text = "Edit...";
+            this.EditETableButton.UseVisualStyleBackColor = true;
+            this.EditETableButton.Click += new System.EventHandler(this.EditETableButton_Click);
+            // 
+            // AddETableButton
+            // 
+            this.AddETableButton.Location = new System.Drawing.Point(150, 650);
+            this.AddETableButton.Name = "AddETableButton";
+            this.AddETableButton.Size = new System.Drawing.Size(60, 23);
+            this.AddETableButton.TabIndex = 23;
+            this.AddETableButton.Text = "Add...";
+            this.AddETableButton.UseVisualStyleBackColor = true;
+            this.AddETableButton.Click += new System.EventHandler(this.AddETableButton_Click);
             // 
             // SelectETableButton
             // 
@@ -261,15 +277,6 @@
             this.label7.TabIndex = 12;
             this.label7.Text = "Description";
             // 
-            // CeilingColour
-            // 
-            this.CeilingColour.Colour = ((byte)(0));
-            this.CeilingColour.Location = new System.Drawing.Point(83, 353);
-            this.CeilingColour.Name = "CeilingColour";
-            this.CeilingColour.Size = new System.Drawing.Size(121, 20);
-            this.CeilingColour.TabIndex = 11;
-            this.CeilingColour.ColourChanged += new System.EventHandler(this.CeilingColour_ColourChanged);
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -279,15 +286,6 @@
             this.label6.Size = new System.Drawing.Size(38, 13);
             this.label6.TabIndex = 10;
             this.label6.Text = "Ceiling";
-            // 
-            // FloorColour
-            // 
-            this.FloorColour.Colour = ((byte)(0));
-            this.FloorColour.Location = new System.Drawing.Point(83, 327);
-            this.FloorColour.Name = "FloorColour";
-            this.FloorColour.Size = new System.Drawing.Size(121, 20);
-            this.FloorColour.TabIndex = 9;
-            this.FloorColour.ColourChanged += new System.EventHandler(this.FloorColour_ColourChanged);
             // 
             // label5
             // 
@@ -311,15 +309,10 @@
             // 
             // WestWall
             // 
-            this.WestWall.Colour = ((byte)(0));
             this.WestWall.Location = new System.Drawing.Point(6, 265);
             this.WestWall.Name = "WestWall";
             this.WestWall.Size = new System.Drawing.Size(200, 56);
             this.WestWall.TabIndex = 6;
-            this.WestWall.Type = DosjunEditor.WallType.Normal;
-            wall9.Texture = ((byte)(0));
-            wall9.Type = DosjunEditor.WallType.Normal;
-            this.WestWall.Wall = wall9;
             this.WestWall.AnyChanged += new System.EventHandler(this.DataElement_Changed);
             // 
             // label3
@@ -334,15 +327,10 @@
             // 
             // SouthWall
             // 
-            this.SouthWall.Colour = ((byte)(0));
             this.SouthWall.Location = new System.Drawing.Point(6, 190);
             this.SouthWall.Name = "SouthWall";
             this.SouthWall.Size = new System.Drawing.Size(200, 56);
             this.SouthWall.TabIndex = 4;
-            this.SouthWall.Type = DosjunEditor.WallType.Normal;
-            wall10.Texture = ((byte)(0));
-            wall10.Type = DosjunEditor.WallType.Normal;
-            this.SouthWall.Wall = wall10;
             this.SouthWall.AnyChanged += new System.EventHandler(this.DataElement_Changed);
             // 
             // label2
@@ -357,15 +345,10 @@
             // 
             // EastWall
             // 
-            this.EastWall.Colour = ((byte)(0));
             this.EastWall.Location = new System.Drawing.Point(6, 115);
             this.EastWall.Name = "EastWall";
             this.EastWall.Size = new System.Drawing.Size(200, 56);
             this.EastWall.TabIndex = 2;
-            this.EastWall.Type = DosjunEditor.WallType.Normal;
-            wall11.Texture = ((byte)(0));
-            wall11.Type = DosjunEditor.WallType.Normal;
-            this.EastWall.Wall = wall11;
             this.EastWall.AnyChanged += new System.EventHandler(this.DataElement_Changed);
             // 
             // label1
@@ -380,15 +363,10 @@
             // 
             // NorthWall
             // 
-            this.NorthWall.Colour = ((byte)(0));
             this.NorthWall.Location = new System.Drawing.Point(6, 40);
             this.NorthWall.Name = "NorthWall";
             this.NorthWall.Size = new System.Drawing.Size(200, 56);
             this.NorthWall.TabIndex = 0;
-            this.NorthWall.Type = DosjunEditor.WallType.Normal;
-            wall12.Texture = ((byte)(0));
-            wall12.Type = DosjunEditor.WallType.Normal;
-            this.NorthWall.Wall = wall12;
             this.NorthWall.AnyChanged += new System.EventHandler(this.DataElement_Changed);
             // 
             // Map
@@ -468,25 +446,27 @@
             this.MenuETables.Text = "Encounter &Tables...";
             this.MenuETables.Click += new System.EventHandler(this.MenuETables_Click);
             // 
-            // AddETableButton
+            // FloorTexture
             // 
-            this.AddETableButton.Location = new System.Drawing.Point(150, 650);
-            this.AddETableButton.Name = "AddETableButton";
-            this.AddETableButton.Size = new System.Drawing.Size(60, 23);
-            this.AddETableButton.TabIndex = 23;
-            this.AddETableButton.Text = "Add...";
-            this.AddETableButton.UseVisualStyleBackColor = true;
-            this.AddETableButton.Click += new System.EventHandler(this.AddETableButton_Click);
+            this.FloorTexture.Location = new System.Drawing.Point(82, 327);
+            this.FloorTexture.Name = "FloorTexture";
+            this.FloorTexture.Size = new System.Drawing.Size(121, 21);
+            this.FloorTexture.TabIndex = 28;
+            this.FloorTexture.Texture = null;
+            this.FloorTexture.TextureId = ((byte)(0));
+            this.FloorTexture.Zone = null;
+            this.FloorTexture.ValueChanged += new System.EventHandler(this.FloorTexture_ValueChanged);
             // 
-            // EditETableButton
+            // CeilingTexture
             // 
-            this.EditETableButton.Location = new System.Drawing.Point(79, 650);
-            this.EditETableButton.Name = "EditETableButton";
-            this.EditETableButton.Size = new System.Drawing.Size(59, 23);
-            this.EditETableButton.TabIndex = 24;
-            this.EditETableButton.Text = "Edit...";
-            this.EditETableButton.UseVisualStyleBackColor = true;
-            this.EditETableButton.Click += new System.EventHandler(this.EditETableButton_Click);
+            this.CeilingTexture.Location = new System.Drawing.Point(82, 354);
+            this.CeilingTexture.Name = "CeilingTexture";
+            this.CeilingTexture.Size = new System.Drawing.Size(121, 21);
+            this.CeilingTexture.TabIndex = 29;
+            this.CeilingTexture.Texture = null;
+            this.CeilingTexture.TextureId = ((byte)(0));
+            this.CeilingTexture.Zone = null;
+            this.CeilingTexture.ValueChanged += new System.EventHandler(this.CeilingTexture_ValueChanged);
             // 
             // ZoneForm
             // 
@@ -523,9 +503,7 @@
         private WallEditor EastWall;
         private System.Windows.Forms.Label label1;
         private WallEditor NorthWall;
-        private PalettePicker CeilingColour;
         private System.Windows.Forms.Label label6;
-        private PalettePicker FloorColour;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox DescriptionBox;
         private System.Windows.Forms.Label label7;
@@ -552,5 +530,7 @@
         private System.Windows.Forms.ToolStripMenuItem MenuETables;
         private System.Windows.Forms.Button EditETableButton;
         private System.Windows.Forms.Button AddETableButton;
+        private TextureComboBox CeilingTexture;
+        private TextureComboBox FloorTexture;
     }
 }

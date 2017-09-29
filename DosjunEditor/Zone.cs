@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 
 namespace DosjunEditor
 {
     public class Zone : IBinaryData
     {
-        public const int Padding = 8;
+        public const int Padding = 6;
 
         public Zone()
         {
@@ -17,6 +16,7 @@ namespace DosjunEditor
             Encounters = new List<Encounter>();
             CodeStrings = new List<string>();
             ETables = new List<ETable>();
+            Textures = new List<string>();
         }
 
         public void Read(BinaryReader br)
@@ -31,6 +31,7 @@ namespace DosjunEditor
             ushort encounterCount = br.ReadUInt16();
             ushort codeStringCount = br.ReadUInt16();
             ushort etableCount = br.ReadUInt16();
+            ushort textureCount = br.ReadUInt16();
 
             br.ReadBytes(Padding);
 
@@ -47,6 +48,7 @@ namespace DosjunEditor
             br.ReadList(Encounters, encounterCount);
             for (int i = 0; i < codeStringCount; i++) CodeStrings.Add(br.ReadNS());
             br.ReadList(ETables, etableCount);
+            for (int i = 0; i < textureCount; i++) Textures.Add(br.ReadNS());
         }
 
         public void Write(BinaryWriter bw)
@@ -63,6 +65,7 @@ namespace DosjunEditor
             bw.Write(EncounterCount);
             bw.Write(CodeStringCount);
             bw.Write(ETableCount);
+            bw.Write(TextureCount);
 
             bw.WritePadding(Padding);
 
@@ -75,6 +78,7 @@ namespace DosjunEditor
             foreach (Encounter en in Encounters) en.Write(bw);
             foreach (string c in CodeStrings) bw.WriteNS(c);
             foreach (ETable et in ETables) et.Write(bw);
+            foreach (string tex in Textures) bw.WriteNS(tex);
         }
 
         public bool UsingEncounterId(int index)
@@ -86,6 +90,14 @@ namespace DosjunEditor
             return false;
         }
 
+        public ushort GetTextureId(string textureName)
+        {
+            if (!Textures.Contains(textureName))
+                Textures.Add(textureName);
+
+            return (ushort)(Textures.IndexOf(textureName) + 1);
+        }
+
         public VersionHeader Version { get; set; }
         public string CampaignName { get; set; }
         public byte Width { get; set; }
@@ -95,6 +107,7 @@ namespace DosjunEditor
         public ushort EncounterCount => (ushort)Encounters.Count;
         public ushort CodeStringCount => (ushort)CodeStrings.Count;
         public ushort ETableCount => (ushort)ETables.Count;
+        public ushort TextureCount => (ushort)Textures.Count;
 
         public TileBag Tiles { get; private set; }
         public List<string> Strings { get; private set; }
@@ -102,5 +115,6 @@ namespace DosjunEditor
         public List<Encounter> Encounters { get; private set; }
         public List<string> CodeStrings { get; private set; }
         public List<ETable> ETables { get; private set; }
+        public List<string> Textures { get; private set; }
     }
 }

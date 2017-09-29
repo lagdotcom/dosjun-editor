@@ -9,10 +9,10 @@ namespace DosjunEditor
         {
             InitializeComponent();
 
-            foreach (string name in Tools.GetNames<ItemType>())
+            foreach (string name in Tools.GetEnumNames<ItemType>())
                 TypeBox.Items.Add(name);
 
-            foreach (string name in Tools.GetNames<ItemSpecial>())
+            foreach (string name in Tools.GetEnumNames<ItemSpecial>())
                 SpecialBox.Items.Add(name);
         }
 

@@ -8,7 +8,7 @@ namespace DosjunEditor
 
         public void Read(BinaryReader br)
         {
-            Texture = br.ReadByte();
+            TextureId = br.ReadByte();
             Type = (WallType)br.ReadByte();
 
             br.ReadBytes(Padding);
@@ -16,15 +16,15 @@ namespace DosjunEditor
 
         public void Write(BinaryWriter bw)
         {
-            bw.Write(Texture);
+            bw.Write(TextureId);
             bw.Write((byte)Type);
 
             bw.WritePadding(Padding);
         }
 
-        public byte Texture { get; set; }
+        public byte TextureId { get; set; }
         public WallType Type { get; set; }
 
-        public override string ToString() => $"{Type} #{Texture}";
+        public override string ToString() => $"{Type} #{TextureId}";
     }
 }

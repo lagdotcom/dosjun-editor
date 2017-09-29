@@ -30,8 +30,8 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.TypeBox = new System.Windows.Forms.ComboBox();
-            this.ColourBox = new DosjunEditor.PalettePicker();
             this.label2 = new System.Windows.Forms.Label();
+            this.TextureBox = new DosjunEditor.TextureComboBox();
             this.SuspendLayout();
             // 
             // label1
@@ -52,30 +52,32 @@
             this.TypeBox.TabIndex = 1;
             this.TypeBox.SelectedIndexChanged += new System.EventHandler(this.TypeBox_SelectedIndexChanged);
             // 
-            // ColourBox
-            // 
-            this.ColourBox.Colour = ((byte)(0));
-            this.ColourBox.Location = new System.Drawing.Point(76, 30);
-            this.ColourBox.Name = "ColourBox";
-            this.ColourBox.Size = new System.Drawing.Size(121, 20);
-            this.ColourBox.TabIndex = 2;
-            this.ColourBox.ColourChanged += new System.EventHandler(this.ColourBox_ColourChanged);
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(3, 32);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(37, 13);
+            this.label2.Size = new System.Drawing.Size(43, 13);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Colour";
+            this.label2.Text = "Texture";
+            // 
+            // TextureBox
+            // 
+            this.TextureBox.Location = new System.Drawing.Point(76, 30);
+            this.TextureBox.Name = "TextureBox";
+            this.TextureBox.Size = new System.Drawing.Size(121, 21);
+            this.TextureBox.TabIndex = 5;
+            this.TextureBox.Texture = null;
+            this.TextureBox.TextureId = ((byte)(0));
+            this.TextureBox.Zone = null;
+            this.TextureBox.ValueChanged += new System.EventHandler(this.TextureBox_ValueChanged);
             // 
             // WallEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.TextureBox);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.ColourBox);
             this.Controls.Add(this.TypeBox);
             this.Controls.Add(this.label1);
             this.Name = "WallEditor";
@@ -89,7 +91,7 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox TypeBox;
-        private PalettePicker ColourBox;
         private System.Windows.Forms.Label label2;
+        private TextureComboBox TextureBox;
     }
 }

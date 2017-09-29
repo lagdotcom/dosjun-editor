@@ -78,7 +78,7 @@ namespace DosjunEditor
         protected override void OnPaintBackground(PaintEventArgs e)
         {
             base.OnPaintBackground(e);
-            e.Graphics.FillRectangle(Brushes.DarkGray, e.ClipRectangle);
+            e.Graphics.FillRectangle(Brushes.Black, e.ClipRectangle);
 
             if (zone == null)
             {
@@ -96,19 +96,23 @@ namespace DosjunEditor
                     int ex = ox + tileSize - 1;
                     int ey = oy + tileSize - 1;
 
-                    e.Graphics.FillRectangle(PaletteBrush(t.Floor), ox, oy, tileSize, tileSize);
+                    if (t.Flags.HasFlag(TileFlags.Impassable))
+                    {
+                        e.Graphics.DrawLine(Pens.Red, ox, oy, ex, ey);
+                        e.Graphics.DrawLine(Pens.Red, ex, oy, ox, ey);
+                    }
 
-                    if (t.Walls[0].Texture > 0)
-                        e.Graphics.FillRectangle(PaletteBrush(t.Walls[0].Texture), ox, oy, tileSize, 2);
+                    if (t.Walls[0].TextureId > 0)
+                        e.Graphics.FillRectangle(PaletteBrush(t.Walls[0].TextureId), ox, oy, tileSize, 2);
 
-                    if (t.Walls[1].Texture > 0)
-                        e.Graphics.FillRectangle(PaletteBrush(t.Walls[1].Texture), ex - 1, oy, 2, tileSize);
+                    if (t.Walls[1].TextureId > 0)
+                        e.Graphics.FillRectangle(PaletteBrush(t.Walls[1].TextureId), ex - 1, oy, 2, tileSize);
 
-                    if (t.Walls[2].Texture > 0)
-                        e.Graphics.FillRectangle(PaletteBrush(t.Walls[2].Texture), ox, ey - 1, tileSize, 2);
+                    if (t.Walls[2].TextureId > 0)
+                        e.Graphics.FillRectangle(PaletteBrush(t.Walls[2].TextureId), ox, ey - 1, tileSize, 2);
 
-                    if (t.Walls[3].Texture > 0)
-                        e.Graphics.FillRectangle(PaletteBrush(t.Walls[3].Texture), ox, oy, 2, tileSize);
+                    if (t.Walls[3].TextureId > 0)
+                        e.Graphics.FillRectangle(PaletteBrush(t.Walls[3].TextureId), ox, oy, 2, tileSize);
 
                     if (t.OnEnterId > 0)
                         e.Graphics.FillRectangle(Brushes.Yellow, ex - 6, ey - 6, 4, 4);
