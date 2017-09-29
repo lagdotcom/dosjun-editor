@@ -30,6 +30,7 @@ namespace DosjunEditor.Jun
             "Script",
             "SetTileColour",
             "SetTileDescription",
+            "SetTileThing",
             "Teleport",
             "Text",
             "Unlock"

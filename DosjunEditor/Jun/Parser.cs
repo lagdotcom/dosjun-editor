@@ -26,8 +26,9 @@ namespace DosjunEditor.Jun
                 ["Unlock"] = CallUnlock,
                 ["GiveItem"] = CallGiveItem,
                 ["EquipItem"] = CallEquipItem,
-                ["SetTileDescription"] = CallSetTileDescription,
                 ["SetTileColour"] = CallSetTileColour,
+                ["SetTileDescription"] = CallSetTileDescription,
+                ["SetTileThing"] = CallSetTileThing,
 
                 ["If"] = If,
                 ["ElseIf"] = ElseIf,
@@ -463,6 +464,19 @@ namespace DosjunEditor.Jun
             EmitArgument(y);
             EmitArgument(x);
             Emit(Op.SetTileColour);
+        }
+
+        private void CallSetTileThing()
+        {
+            Consume();
+            Token x = Consume();
+            Token y = Consume();
+            Token thing = Consume();
+
+            EmitArgument(thing);
+            EmitArgument(y);
+            EmitArgument(x);
+            Emit(Op.SetTileThing);
         }
 
         private void If()

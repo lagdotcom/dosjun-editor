@@ -38,6 +38,7 @@
         EquipItem,
         SetTileDescription,
         SetTileColour,
-        Teleport
+        Teleport,
+        SetTileThing
     }
 }
