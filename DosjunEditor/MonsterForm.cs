@@ -1,5 +1,4 @@
-﻿using ImageMagick;
-using System;
+﻿using System;
 using System.IO;
 using System.Windows.Forms;
 
@@ -52,16 +51,7 @@ namespace DosjunEditor
 
         private void ImageBox_TextChanged(object sender, EventArgs e)
         {
-            string path = $"{Consts.MonsterDirectory}{Path.DirectorySeparatorChar}{ImageBox.Text}.PCX";
-            if (File.Exists(path))
-            {
-                using (MagickImage img = new MagickImage(path))
-                    ImageShow.Image = img.ToBitmap();
-            }
-            else
-            {
-                ImageShow.Image = null;
-            }
+            ImageShow.Image = Tools.GetPCX($"{Consts.MonsterDirectory}{Path.DirectorySeparatorChar}{ImageBox.Text}.PCX").ToBitmap();
         }
     }
 }

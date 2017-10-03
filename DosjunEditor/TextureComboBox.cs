@@ -1,11 +1,8 @@
-﻿using System;
+﻿using ImageMagick;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
 
 namespace DosjunEditor
@@ -13,6 +10,18 @@ namespace DosjunEditor
     public partial class TextureComboBox : UserControl
     {
         public const string NoTexture = "(None)";
+
+        private static Dictionary<WallLocation, Rectangle> slices = new Dictionary<WallLocation, Rectangle>
+        {
+            { WallLocation.North, new Rectangle(32, 64, 64, 64) },
+            { WallLocation.East, new Rectangle(32, 64, 64, 64) },
+            { WallLocation.South, new Rectangle(32, 64, 64, 64) },
+            { WallLocation.West, new Rectangle(32, 64, 64, 64) },
+            { WallLocation.Ceiling, new Rectangle(1, 0, 126, 32) },
+            { WallLocation.Floor, new Rectangle(1, 160, 126, 32) }
+        };
+            
+
         private string texture;
         private bool updatingDisplay;
 
@@ -29,6 +38,7 @@ namespace DosjunEditor
         }
 
         public Zone Zone { get; set; }
+        public WallLocation Face { get; set; }
 
         public event EventHandler ValueChanged;
 
@@ -68,12 +78,34 @@ namespace DosjunEditor
                 texture = Box.SelectedIndex == 0 ? null : (string)Box.SelectedItem;
                 ValueChanged?.Invoke(this, e);
             }
+
+            UpdatePicture();
         }
 
         private int ConvertTextureId(byte textureId)
         {
             if (textureId == 0 || textureId > Zone.TextureCount) return 0;
             return Box.Items.IndexOf(Zone.Textures[textureId - 1]);
+        }
+
+        private void UpdatePicture()
+        {
+            if (Box.SelectedIndex == 0)
+            {
+                Picture.Image = null;
+                return;
+            }
+
+            Rectangle slice = slices[Face];
+            MagickImage texture = Tools.GetPCX($"{Consts.WallDirectory}{Path.DirectorySeparatorChar}{Box.SelectedItem}1.PCX");
+
+            if (texture != null)
+            {
+                texture.Crop(slice.X, slice.Y, slice.Width, slice.Height);
+                Picture.Image = texture.ToBitmap();
+            }
+            else
+                Picture.Image = null;
         }
     }
 }

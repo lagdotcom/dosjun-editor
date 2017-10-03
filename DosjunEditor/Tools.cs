@@ -1,5 +1,7 @@
-﻿using System;
+﻿using ImageMagick;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
@@ -45,6 +47,16 @@ namespace DosjunEditor
                     yield return Path.GetFileName(filename.Substring(0, filename.Length - 5));
                 }
             }
+        }
+
+        public static MagickImage GetPCX(string filename)
+        {
+            if (File.Exists(filename))
+            {
+                return new MagickImage(filename);
+            }
+
+            return null;
         }
 
         private static string FormatEnumName(string name)

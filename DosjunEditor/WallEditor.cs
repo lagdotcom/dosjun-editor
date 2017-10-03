@@ -27,6 +27,15 @@ namespace DosjunEditor
             get => wall.TextureId;
         }
 
+        public WallLocation Face
+        {
+            get => TextureBox.Face;
+            set
+            {
+                TextureBox.Face = value;
+            }
+        }
+
         public event EventHandler AnyChanged;
 
         public void Setup(Zone z, Wall w)
@@ -53,6 +62,16 @@ namespace DosjunEditor
         {
             wall.TextureId = TextureBox.TextureId;
             AnyChanged?.Invoke(this, e);
+        }
+
+        private void WallEditor_Resize(object sender, EventArgs e)
+        {
+            TypeBox.Left = Width * 40 / 100;
+            TextureBox.Left = TypeBox.Left;
+
+            TypeBox.Width = Width - TypeBox.Left;
+            TextureBox.Width = TypeBox.Width;
+            TextureBox.Height = Height - TextureBox.Top;
         }
     }
 }

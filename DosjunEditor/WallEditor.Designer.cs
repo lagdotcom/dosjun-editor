@@ -37,7 +37,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 6);
+            this.label1.Location = new System.Drawing.Point(0, 3);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(31, 13);
             this.label1.TabIndex = 0;
@@ -46,7 +46,7 @@
             // TypeBox
             // 
             this.TypeBox.FormattingEnabled = true;
-            this.TypeBox.Location = new System.Drawing.Point(76, 3);
+            this.TypeBox.Location = new System.Drawing.Point(76, 0);
             this.TypeBox.Name = "TypeBox";
             this.TypeBox.Size = new System.Drawing.Size(121, 21);
             this.TypeBox.TabIndex = 1;
@@ -55,7 +55,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 32);
+            this.label2.Location = new System.Drawing.Point(0, 30);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(43, 13);
             this.label2.TabIndex = 3;
@@ -63,9 +63,10 @@
             // 
             // TextureBox
             // 
-            this.TextureBox.Location = new System.Drawing.Point(76, 30);
+            this.TextureBox.Face = DosjunEditor.WallLocation.North;
+            this.TextureBox.Location = new System.Drawing.Point(76, 27);
             this.TextureBox.Name = "TextureBox";
-            this.TextureBox.Size = new System.Drawing.Size(121, 21);
+            this.TextureBox.Size = new System.Drawing.Size(121, 142);
             this.TextureBox.TabIndex = 5;
             this.TextureBox.Texture = null;
             this.TextureBox.TextureId = ((byte)(0));
@@ -81,7 +82,8 @@
             this.Controls.Add(this.TypeBox);
             this.Controls.Add(this.label1);
             this.Name = "WallEditor";
-            this.Size = new System.Drawing.Size(200, 56);
+            this.Size = new System.Drawing.Size(198, 169);
+            this.Resize += new System.EventHandler(this.WallEditor_Resize);
             this.ResumeLayout(false);
             this.PerformLayout();
 

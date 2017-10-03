@@ -172,6 +172,7 @@
     <Compile Include="WallEditor.Designer.cs">
       <DependentUpon>WallEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="WallLocation.cs" />
     <Compile Include="WallType.cs" />
     <Compile Include="Zone.cs" />
     <Compile Include="ZoneContext.cs" />
