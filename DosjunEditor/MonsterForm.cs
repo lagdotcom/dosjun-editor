@@ -34,6 +34,8 @@ namespace DosjunEditor
 
             AIBox.SelectedIndex = (int)mon.AI;
 
+            XPBox.Value = mon.Experience;
+
             StatsBoxes.Stats = mon.Stats;
         }
 
@@ -44,10 +46,11 @@ namespace DosjunEditor
             Monster.Image = ImageBox.Text.ToUpper();
             Monster.Row = (Row)RowBox.SelectedIndex;
             Monster.AI = (AI)AIBox.SelectedIndex;
+            Monster.Experience = (uint)XPBox.Value;
             StatsBoxes.Apply();
         }
 
-        private void ImageBox_TextChanged(object sender, System.EventArgs e)
+        private void ImageBox_TextChanged(object sender, EventArgs e)
         {
             string path = $"{Consts.MonsterDirectory}{Path.DirectorySeparatorChar}{ImageBox.Text}.PCX";
             if (File.Exists(path))

@@ -4,7 +4,7 @@ namespace DosjunEditor
 {
     public class Monster : IBinaryData
     {
-        public const int Padding = 8;
+        public const int Padding = 4;
 
         public Monster()
         {
@@ -19,6 +19,7 @@ namespace DosjunEditor
             Stats.Read(br);
             Row = (Row)br.ReadByte();
             AI = (AI)br.ReadByte();
+            Experience = br.ReadUInt32();
 
             br.ReadBytes(Padding);
         }
@@ -31,6 +32,7 @@ namespace DosjunEditor
             Stats.Write(bw);
             bw.Write((byte)Row);
             bw.Write((byte)AI);
+            bw.Write(Experience);
 
             bw.WritePadding(Padding);
         }
@@ -41,6 +43,7 @@ namespace DosjunEditor
         public Stats Stats { get; set; }
         public Row Row { get; set; }
         public AI AI { get; set; }
+        public uint Experience { get; set; }
 
         public override string ToString() => Name;
     }

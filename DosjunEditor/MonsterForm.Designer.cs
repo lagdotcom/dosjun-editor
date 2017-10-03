@@ -42,8 +42,11 @@
             this.label5 = new System.Windows.Forms.Label();
             this.StatsBoxes = new DosjunEditor.StatsEditor();
             this.ImageShow = new System.Windows.Forms.PictureBox();
+            this.XPBox = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.IDBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ImageShow)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.XPBox)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -58,7 +61,7 @@
             // button1
             // 
             this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.Location = new System.Drawing.Point(12, 278);
+            this.button1.Location = new System.Drawing.Point(15, 324);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 100;
@@ -68,7 +71,7 @@
             // button2
             // 
             this.button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button2.Location = new System.Drawing.Point(176, 278);
+            this.button2.Location = new System.Drawing.Point(220, 324);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 101;
@@ -79,7 +82,7 @@
             // 
             this.NameBox.Location = new System.Drawing.Point(75, 38);
             this.NameBox.Name = "NameBox";
-            this.NameBox.Size = new System.Drawing.Size(155, 20);
+            this.NameBox.Size = new System.Drawing.Size(220, 20);
             this.NameBox.TabIndex = 2;
             // 
             // label2
@@ -100,7 +103,7 @@
             0,
             0});
             this.IDBox.Name = "IDBox";
-            this.IDBox.Size = new System.Drawing.Size(155, 20);
+            this.IDBox.Size = new System.Drawing.Size(220, 20);
             this.IDBox.TabIndex = 1;
             // 
             // ImageBox
@@ -108,7 +111,7 @@
             this.ImageBox.Location = new System.Drawing.Point(75, 64);
             this.ImageBox.MaxLength = 8;
             this.ImageBox.Name = "ImageBox";
-            this.ImageBox.Size = new System.Drawing.Size(155, 20);
+            this.ImageBox.Size = new System.Drawing.Size(220, 20);
             this.ImageBox.TabIndex = 3;
             this.ImageBox.TextChanged += new System.EventHandler(this.ImageBox_TextChanged);
             // 
@@ -127,9 +130,9 @@
             this.RowBox.Items.AddRange(new object[] {
             "Front",
             "Back"});
-            this.RowBox.Location = new System.Drawing.Point(74, 224);
+            this.RowBox.Location = new System.Drawing.Point(75, 224);
             this.RowBox.Name = "RowBox";
-            this.RowBox.Size = new System.Drawing.Size(156, 21);
+            this.RowBox.Size = new System.Drawing.Size(220, 21);
             this.RowBox.TabIndex = 4;
             // 
             // label4
@@ -144,9 +147,9 @@
             // AIBox
             // 
             this.AIBox.FormattingEnabled = true;
-            this.AIBox.Location = new System.Drawing.Point(74, 251);
+            this.AIBox.Location = new System.Drawing.Point(75, 251);
             this.AIBox.Name = "AIBox";
-            this.AIBox.Size = new System.Drawing.Size(156, 21);
+            this.AIBox.Size = new System.Drawing.Size(220, 21);
             this.AIBox.TabIndex = 5;
             // 
             // label5
@@ -160,7 +163,7 @@
             // 
             // StatsBoxes
             // 
-            this.StatsBoxes.Location = new System.Drawing.Point(257, 3);
+            this.StatsBoxes.Location = new System.Drawing.Point(301, 8);
             this.StatsBoxes.Name = "StatsBoxes";
             this.StatsBoxes.Size = new System.Drawing.Size(258, 259);
             this.StatsBoxes.Stats = null;
@@ -168,17 +171,40 @@
             // 
             // ImageShow
             // 
-            this.ImageShow.Location = new System.Drawing.Point(102, 90);
+            this.ImageShow.Location = new System.Drawing.Point(167, 90);
             this.ImageShow.Name = "ImageShow";
             this.ImageShow.Size = new System.Drawing.Size(128, 128);
             this.ImageShow.TabIndex = 102;
             this.ImageShow.TabStop = false;
             // 
+            // XPBox
+            // 
+            this.XPBox.Location = new System.Drawing.Point(75, 278);
+            this.XPBox.Maximum = new decimal(new int[] {
+            -1,
+            0,
+            0,
+            0});
+            this.XPBox.Name = "XPBox";
+            this.XPBox.Size = new System.Drawing.Size(220, 20);
+            this.XPBox.TabIndex = 104;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(12, 280);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(60, 13);
+            this.label6.TabIndex = 103;
+            this.label6.Text = "Experience";
+            // 
             // MonsterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(527, 311);
+            this.ClientSize = new System.Drawing.Size(571, 359);
+            this.Controls.Add(this.XPBox);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.ImageShow);
             this.Controls.Add(this.StatsBoxes);
             this.Controls.Add(this.label5);
@@ -197,6 +223,7 @@
             this.Text = "Monster Editor";
             ((System.ComponentModel.ISupportInitialize)(this.IDBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ImageShow)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.XPBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -218,5 +245,7 @@
         private System.Windows.Forms.Label label5;
         private StatsEditor StatsBoxes;
         private System.Windows.Forms.PictureBox ImageShow;
+        private System.Windows.Forms.NumericUpDown XPBox;
+        private System.Windows.Forms.Label label6;
     }
 }
