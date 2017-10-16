@@ -61,7 +61,7 @@
             // button1
             // 
             this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.Location = new System.Drawing.Point(15, 324);
+            this.button1.Location = new System.Drawing.Point(15, 390);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 100;
@@ -71,7 +71,7 @@
             // button2
             // 
             this.button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button2.Location = new System.Drawing.Point(220, 324);
+            this.button2.Location = new System.Drawing.Point(220, 390);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 101;
@@ -165,7 +165,7 @@
             // 
             this.StatsBoxes.Location = new System.Drawing.Point(301, 8);
             this.StatsBoxes.Name = "StatsBoxes";
-            this.StatsBoxes.Size = new System.Drawing.Size(258, 259);
+            this.StatsBoxes.Size = new System.Drawing.Size(258, 405);
             this.StatsBoxes.Stats = null;
             this.StatsBoxes.TabIndex = 6;
             // 
@@ -202,7 +202,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(571, 359);
+            this.ClientSize = new System.Drawing.Size(571, 425);
             this.Controls.Add(this.XPBox);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.ImageShow);

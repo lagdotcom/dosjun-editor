@@ -63,14 +63,14 @@
             // 
             this.StatsBoxes.Location = new System.Drawing.Point(257, 3);
             this.StatsBoxes.Name = "StatsBoxes";
-            this.StatsBoxes.Size = new System.Drawing.Size(258, 259);
+            this.StatsBoxes.Size = new System.Drawing.Size(258, 403);
             this.StatsBoxes.Stats = null;
             this.StatsBoxes.TabIndex = 8;
             // 
             // button2
             // 
             this.button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button2.Location = new System.Drawing.Point(176, 239);
+            this.button2.Location = new System.Drawing.Point(176, 383);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 101;
@@ -80,7 +80,7 @@
             // button1
             // 
             this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.Location = new System.Drawing.Point(12, 239);
+            this.button1.Location = new System.Drawing.Point(15, 383);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 100;
@@ -311,7 +311,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(788, 271);
+            this.ClientSize = new System.Drawing.Size(788, 411);
             this.Controls.Add(this.SArg2Box);
             this.Controls.Add(this.SArg2Label);
             this.Controls.Add(this.SArg1Box);

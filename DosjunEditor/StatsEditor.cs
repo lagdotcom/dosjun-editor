@@ -33,7 +33,13 @@ namespace DosjunEditor
             stats.Dexterity = (short)DexterityBox.Value;
             stats.Intelligence = (short)IntelligenceBox.Value;
             stats.HP = (short)HPBox.Value;
-            stats.HP = (short)HPBox.Value;
+            stats.MP = (short)MPBox.Value;
+            stats.HitBonus = (short)HitBonusBox.Value;
+            stats.DodgeBonus = (short)DodgeBonusBox.Value;
+            stats.Unused1 = (short)U1Box.Value;
+            stats.Unused2 = (short)U2Box.Value;
+            stats.Unused3 = (short)U3Box.Value;
+            stats.Unused4 = (short)U4Box.Value;
         }
 
         private void UpdateFields()
@@ -48,6 +54,12 @@ namespace DosjunEditor
             IntelligenceBox.Value = stats.Intelligence;
             HPBox.Value = stats.HP;
             MPBox.Value = stats.MP;
+            HitBonusBox.Value = stats.HitBonus;
+            DodgeBonusBox.Value = stats.DodgeBonus;
+            U1Box.Value = stats.Unused1;
+            U2Box.Value = stats.Unused2;
+            U3Box.Value = stats.Unused3;
+            U4Box.Value = stats.Unused4;
         }
     }
 }

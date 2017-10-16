@@ -52,6 +52,18 @@
             this.label1 = new System.Windows.Forms.Label();
             this.numericUpDown9 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown10 = new System.Windows.Forms.NumericUpDown();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.HitBonusBox = new System.Windows.Forms.NumericUpDown();
+            this.DodgeBonusBox = new System.Windows.Forms.NumericUpDown();
+            this.U1Box = new System.Windows.Forms.NumericUpDown();
+            this.U2Box = new System.Windows.Forms.NumericUpDown();
+            this.U3Box = new System.Windows.Forms.NumericUpDown();
+            this.U4Box = new System.Windows.Forms.NumericUpDown();
             this.Outside.SuspendLayout();
             this.TableLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MPBox)).BeginInit();
@@ -66,6 +78,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.MaxHPBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HitBonusBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DodgeBonusBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.U1Box)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.U2Box)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.U3Box)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.U4Box)).BeginInit();
             this.SuspendLayout();
             // 
             // Outside
@@ -74,7 +92,7 @@
             this.Outside.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Outside.Location = new System.Drawing.Point(0, 0);
             this.Outside.Name = "Outside";
-            this.Outside.Size = new System.Drawing.Size(258, 259);
+            this.Outside.Size = new System.Drawing.Size(258, 400);
             this.Outside.TabIndex = 0;
             this.Outside.TabStop = false;
             this.Outside.Text = "Stats";
@@ -84,6 +102,12 @@
             this.TableLayout.ColumnCount = 2;
             this.TableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
             this.TableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.TableLayout.Controls.Add(this.U4Box, 1, 15);
+            this.TableLayout.Controls.Add(this.U3Box, 1, 14);
+            this.TableLayout.Controls.Add(this.U2Box, 1, 13);
+            this.TableLayout.Controls.Add(this.U1Box, 1, 12);
+            this.TableLayout.Controls.Add(this.DodgeBonusBox, 1, 11);
+            this.TableLayout.Controls.Add(this.HitBonusBox, 1, 10);
             this.TableLayout.Controls.Add(this.MPBox, 1, 9);
             this.TableLayout.Controls.Add(this.HPBox, 1, 8);
             this.TableLayout.Controls.Add(this.IntelligenceBox, 1, 7);
@@ -104,10 +128,16 @@
             this.TableLayout.Controls.Add(this.label2, 0, 1);
             this.TableLayout.Controls.Add(this.MaxHPBox, 1, 0);
             this.TableLayout.Controls.Add(this.label1, 0, 0);
+            this.TableLayout.Controls.Add(this.label11, 0, 10);
+            this.TableLayout.Controls.Add(this.label12, 0, 11);
+            this.TableLayout.Controls.Add(this.label13, 0, 12);
+            this.TableLayout.Controls.Add(this.label14, 0, 13);
+            this.TableLayout.Controls.Add(this.label15, 0, 14);
+            this.TableLayout.Controls.Add(this.label16, 0, 15);
             this.TableLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TableLayout.Location = new System.Drawing.Point(3, 16);
             this.TableLayout.Name = "TableLayout";
-            this.TableLayout.RowCount = 10;
+            this.TableLayout.RowCount = 16;
             this.TableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
             this.TableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
             this.TableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
@@ -118,11 +148,13 @@
             this.TableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
             this.TableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
             this.TableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
-            this.TableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.TableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.TableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.TableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.TableLayout.Size = new System.Drawing.Size(252, 240);
+            this.TableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
+            this.TableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
+            this.TableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
+            this.TableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
+            this.TableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
+            this.TableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
+            this.TableLayout.Size = new System.Drawing.Size(252, 381);
             this.TableLayout.TabIndex = 9;
             // 
             // MPBox
@@ -441,13 +473,181 @@
             this.numericUpDown10.Size = new System.Drawing.Size(146, 20);
             this.numericUpDown10.TabIndex = 31;
             // 
+            // label11
+            // 
+            this.label11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label11.Location = new System.Drawing.Point(3, 241);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(94, 23);
+            this.label11.TabIndex = 30;
+            this.label11.Text = "Hit Bonus";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label12
+            // 
+            this.label12.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label12.Location = new System.Drawing.Point(3, 264);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(94, 24);
+            this.label12.TabIndex = 31;
+            this.label12.Text = "Dodge Bonus";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label13
+            // 
+            this.label13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label13.Location = new System.Drawing.Point(3, 288);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(94, 24);
+            this.label13.TabIndex = 32;
+            this.label13.Text = "UNUSED";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label14
+            // 
+            this.label14.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label14.Location = new System.Drawing.Point(3, 312);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(94, 24);
+            this.label14.TabIndex = 33;
+            this.label14.Text = "UNUSED";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label15
+            // 
+            this.label15.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label15.Location = new System.Drawing.Point(3, 336);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(94, 24);
+            this.label15.TabIndex = 34;
+            this.label15.Text = "UNUSED";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label16
+            // 
+            this.label16.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label16.Location = new System.Drawing.Point(3, 360);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(94, 24);
+            this.label16.TabIndex = 35;
+            this.label16.Text = "UNUSED";
+            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // HitBonusBox
+            // 
+            this.HitBonusBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.HitBonusBox.Location = new System.Drawing.Point(103, 244);
+            this.HitBonusBox.Maximum = new decimal(new int[] {
+            32767,
+            0,
+            0,
+            0});
+            this.HitBonusBox.Minimum = new decimal(new int[] {
+            32768,
+            0,
+            0,
+            -2147483648});
+            this.HitBonusBox.Name = "HitBonusBox";
+            this.HitBonusBox.Size = new System.Drawing.Size(146, 20);
+            this.HitBonusBox.TabIndex = 36;
+            // 
+            // DodgeBonusBox
+            // 
+            this.DodgeBonusBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DodgeBonusBox.Location = new System.Drawing.Point(103, 267);
+            this.DodgeBonusBox.Maximum = new decimal(new int[] {
+            32767,
+            0,
+            0,
+            0});
+            this.DodgeBonusBox.Minimum = new decimal(new int[] {
+            32768,
+            0,
+            0,
+            -2147483648});
+            this.DodgeBonusBox.Name = "DodgeBonusBox";
+            this.DodgeBonusBox.Size = new System.Drawing.Size(146, 20);
+            this.DodgeBonusBox.TabIndex = 37;
+            // 
+            // U1Box
+            // 
+            this.U1Box.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.U1Box.Location = new System.Drawing.Point(103, 291);
+            this.U1Box.Maximum = new decimal(new int[] {
+            32767,
+            0,
+            0,
+            0});
+            this.U1Box.Minimum = new decimal(new int[] {
+            32768,
+            0,
+            0,
+            -2147483648});
+            this.U1Box.Name = "U1Box";
+            this.U1Box.Size = new System.Drawing.Size(146, 20);
+            this.U1Box.TabIndex = 38;
+            // 
+            // U2Box
+            // 
+            this.U2Box.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.U2Box.Location = new System.Drawing.Point(103, 315);
+            this.U2Box.Maximum = new decimal(new int[] {
+            32767,
+            0,
+            0,
+            0});
+            this.U2Box.Minimum = new decimal(new int[] {
+            32768,
+            0,
+            0,
+            -2147483648});
+            this.U2Box.Name = "U2Box";
+            this.U2Box.Size = new System.Drawing.Size(146, 20);
+            this.U2Box.TabIndex = 39;
+            // 
+            // U3Box
+            // 
+            this.U3Box.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.U3Box.Location = new System.Drawing.Point(103, 339);
+            this.U3Box.Maximum = new decimal(new int[] {
+            32767,
+            0,
+            0,
+            0});
+            this.U3Box.Minimum = new decimal(new int[] {
+            32768,
+            0,
+            0,
+            -2147483648});
+            this.U3Box.Name = "U3Box";
+            this.U3Box.Size = new System.Drawing.Size(146, 20);
+            this.U3Box.TabIndex = 40;
+            // 
+            // U4Box
+            // 
+            this.U4Box.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.U4Box.Location = new System.Drawing.Point(103, 363);
+            this.U4Box.Maximum = new decimal(new int[] {
+            32767,
+            0,
+            0,
+            0});
+            this.U4Box.Minimum = new decimal(new int[] {
+            32768,
+            0,
+            0,
+            -2147483648});
+            this.U4Box.Name = "U4Box";
+            this.U4Box.Size = new System.Drawing.Size(146, 20);
+            this.U4Box.TabIndex = 41;
+            // 
             // StatsEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.Outside);
             this.Name = "StatsEditor";
-            this.Size = new System.Drawing.Size(258, 259);
+            this.Size = new System.Drawing.Size(258, 400);
             this.Outside.ResumeLayout(false);
             this.TableLayout.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.MPBox)).EndInit();
@@ -462,6 +662,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.MaxHPBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HitBonusBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DodgeBonusBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.U1Box)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.U2Box)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.U3Box)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.U4Box)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -492,5 +698,17 @@
         private System.Windows.Forms.NumericUpDown ArmourBox;
         private System.Windows.Forms.NumericUpDown MaxDamageBox;
         private System.Windows.Forms.NumericUpDown MinDamageBox;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.NumericUpDown U4Box;
+        private System.Windows.Forms.NumericUpDown U3Box;
+        private System.Windows.Forms.NumericUpDown U2Box;
+        private System.Windows.Forms.NumericUpDown U1Box;
+        private System.Windows.Forms.NumericUpDown DodgeBonusBox;
+        private System.Windows.Forms.NumericUpDown HitBonusBox;
     }
 }
