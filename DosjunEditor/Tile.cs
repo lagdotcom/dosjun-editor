@@ -4,7 +4,7 @@ namespace DosjunEditor
 {
     public class Tile : IBinaryData
     {
-        public const int Padding = 5;
+        public const int Padding = 4;
 
         public Tile()
         {
@@ -23,6 +23,7 @@ namespace DosjunEditor
             ETableId = br.ReadUInt16();
             Flags = (TileFlags)br.ReadUInt16();
             Thing = (Thing)br.ReadByte();
+            Danger = br.ReadByte();
 
             br.ReadBytes(Padding);
         }
@@ -37,6 +38,7 @@ namespace DosjunEditor
             bw.Write(ETableId);
             bw.Write((ushort)Flags);
             bw.Write((byte)Thing);
+            bw.Write(Danger);
 
             bw.WritePadding(Padding);
         }
@@ -52,5 +54,6 @@ namespace DosjunEditor
         public ushort ETableId { get; set; }
         public TileFlags Flags { get; set; }
         public Thing Thing { get; set; }
+        public byte Danger { get; set; }
     }
 }

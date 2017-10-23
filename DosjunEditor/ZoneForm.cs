@@ -226,6 +226,7 @@ namespace DosjunEditor
 
             OnEnterBox.SelectedIndex = t.OnEnterId;
             ThingBox.SelectedIndex = (int)t.Thing;
+            DangerBox.Value = t.Danger;
 
             ImpassableFlag.Checked = t.Flags.HasFlag(TileFlags.Impassable);
 
@@ -415,6 +416,12 @@ namespace DosjunEditor
                 CurrentTile.ETableId = newId;
                 UpdateETable();
             }
+        }
+
+        private void DangerBox_ValueChanged(object sender, EventArgs e)
+        {
+            CurrentTile.Danger = (byte)DangerBox.Value;
+            DataElement_Changed(sender, e);
         }
     }
 }

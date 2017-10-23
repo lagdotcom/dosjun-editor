@@ -67,13 +67,18 @@
             this.tablesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuEncounters = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuETables = new System.Windows.Forms.ToolStripMenuItem();
+            this.label11 = new System.Windows.Forms.Label();
+            this.DangerBox = new System.Windows.Forms.NumericUpDown();
             this.SidePanel.SuspendLayout();
             this.FlagsBox.SuspendLayout();
             this.TopMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DangerBox)).BeginInit();
             this.SuspendLayout();
             // 
             // SidePanel
             // 
+            this.SidePanel.Controls.Add(this.DangerBox);
+            this.SidePanel.Controls.Add(this.label11);
             this.SidePanel.Controls.Add(this.WestWall);
             this.SidePanel.Controls.Add(this.CeilingTexture);
             this.SidePanel.Controls.Add(this.FloorTexture);
@@ -105,7 +110,7 @@
             this.SidePanel.Dock = System.Windows.Forms.DockStyle.Right;
             this.SidePanel.Location = new System.Drawing.Point(934, 24);
             this.SidePanel.Name = "SidePanel";
-            this.SidePanel.Size = new System.Drawing.Size(250, 837);
+            this.SidePanel.Size = new System.Drawing.Size(250, 937);
             this.SidePanel.TabIndex = 0;
             this.SidePanel.TabStop = false;
             this.SidePanel.Text = "Tile Details";
@@ -401,7 +406,7 @@
             this.Map.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Map.Location = new System.Drawing.Point(0, 24);
             this.Map.Name = "Map";
-            this.Map.Size = new System.Drawing.Size(934, 837);
+            this.Map.Size = new System.Drawing.Size(934, 937);
             this.Map.TabIndex = 1;
             this.Map.TileSize = 16;
             this.Map.Zone = null;
@@ -473,11 +478,34 @@
             this.MenuETables.Text = "Encounter &Tables...";
             this.MenuETables.Click += new System.EventHandler(this.MenuETables_Click);
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(6, 839);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(72, 13);
+            this.label11.TabIndex = 31;
+            this.label11.Text = "Danger Value";
+            // 
+            // DangerBox
+            // 
+            this.DangerBox.Location = new System.Drawing.Point(112, 837);
+            this.DangerBox.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.DangerBox.Name = "DangerBox";
+            this.DangerBox.Size = new System.Drawing.Size(126, 20);
+            this.DangerBox.TabIndex = 32;
+            this.DangerBox.ValueChanged += new System.EventHandler(this.DangerBox_ValueChanged);
+            // 
             // ZoneForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1184, 861);
+            this.ClientSize = new System.Drawing.Size(1184, 961);
             this.Controls.Add(this.Map);
             this.Controls.Add(this.SidePanel);
             this.Controls.Add(this.TopMenu);
@@ -491,6 +519,7 @@
             this.FlagsBox.PerformLayout();
             this.TopMenu.ResumeLayout(false);
             this.TopMenu.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DangerBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -537,5 +566,7 @@
         private TextureComboBox CeilingTexture;
         private TextureComboBox FloorTexture;
         private WallEditor WestWall;
+        private System.Windows.Forms.NumericUpDown DangerBox;
+        private System.Windows.Forms.Label label11;
     }
 }
