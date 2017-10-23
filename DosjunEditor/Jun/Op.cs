@@ -39,6 +39,7 @@
         SetTileDescription,
         SetTileColour,
         Teleport,
-        SetTileThing
+        SetTileThing,
+        SetDanger
     }
 }

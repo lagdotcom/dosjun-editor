@@ -29,6 +29,7 @@ namespace DosjunEditor.Jun
                 ["SetTileColour"] = CallSetTileColour,
                 ["SetTileDescription"] = CallSetTileDescription,
                 ["SetTileThing"] = CallSetTileThing,
+                ["SetDanger"] = CallSetDanger,
 
                 ["If"] = If,
                 ["ElseIf"] = ElseIf,
@@ -477,6 +478,15 @@ namespace DosjunEditor.Jun
             EmitArgument(y);
             EmitArgument(x);
             Emit(Op.SetTileThing);
+        }
+
+        private void CallSetDanger()
+        {
+            Consume();
+            Token danger = Consume();
+
+            EmitArgument(danger);
+            Emit(Op.SetDanger);
         }
 
         private void If()

@@ -5,6 +5,7 @@
         X = 0,
         Y,
         Facing,
+        Danger,
 
         Invalid = 0xFF
     }

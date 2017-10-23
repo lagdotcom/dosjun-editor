@@ -6,6 +6,7 @@ namespace DosjunEditor.Jun
     {
         public static Dictionary<string, Internal> Internals = new Dictionary<string, Internal>
         {
+            ["Danger"] = Internal.Danger,
             ["Facing"] = Internal.Facing,
             ["X"] = Internal.X,
             ["Y"] = Internal.Y
@@ -28,6 +29,7 @@ namespace DosjunEditor.Jun
             "PcSpeak",
             "Return",
             "Script",
+            "SetDanger",
             "SetTileColour",
             "SetTileDescription",
             "SetTileThing",
