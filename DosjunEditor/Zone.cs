@@ -5,7 +5,7 @@ namespace DosjunEditor
 {
     public class Zone : IBinaryData
     {
-        public const int Padding = 6;
+        public const int Padding = 2;
 
         public Zone()
         {
@@ -32,6 +32,8 @@ namespace DosjunEditor
             ushort codeStringCount = br.ReadUInt16();
             ushort etableCount = br.ReadUInt16();
             ushort textureCount = br.ReadUInt16();
+            EnterScript = br.ReadUInt16();
+            MoveScript = br.ReadUInt16();
 
             br.ReadBytes(Padding);
 
@@ -66,6 +68,8 @@ namespace DosjunEditor
             bw.Write(CodeStringCount);
             bw.Write(ETableCount);
             bw.Write(TextureCount);
+            bw.Write(EnterScript);
+            bw.Write(MoveScript);
 
             bw.WritePadding(Padding);
 
@@ -102,6 +106,8 @@ namespace DosjunEditor
         public string CampaignName { get; set; }
         public byte Width { get; set; }
         public byte Height { get; set; }
+        public ushort EnterScript { get; set; }
+        public ushort MoveScript { get; set; }
         public ushort StringCount => (ushort)Strings.Count;
         public ushort ScriptCount => (ushort)Scripts.Count;
         public ushort EncounterCount => (ushort)Encounters.Count;

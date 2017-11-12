@@ -9,6 +9,7 @@ namespace DosjunEditor
         public Campaign Campaign { get; set; }
         public Monsters Monsters { get; set; }
         public Zone Zone { get; set; }
+        public string[] ScriptNames { get; set; }
 
         public bool UnsavedChanges
         {

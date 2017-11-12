@@ -176,6 +176,12 @@
     <Compile Include="WallType.cs" />
     <Compile Include="Zone.cs" />
     <Compile Include="ZoneContext.cs" />
+    <Compile Include="ZoneDataForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ZoneDataForm.Designer.cs">
+      <DependentUpon>ZoneDataForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ZoneForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -239,6 +245,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="WallEditor.resx">
       <DependentUpon>WallEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ZoneDataForm.resx">
+      <DependentUpon>ZoneDataForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ZoneForm.resx">
       <DependentUpon>ZoneForm.cs</DependentUpon>

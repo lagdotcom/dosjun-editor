@@ -149,21 +149,24 @@ namespace DosjunEditor
 
         private void LoadScriptNames()
         {
+            List<String> scriptNames = new List<string> { Consts.EmptyItem };
+
             int oldSelection = OnEnterBox.SelectedIndex;
             OnEnterBox.Items.Clear();
-            OnEnterBox.Items.Add(Consts.EmptyItem);
 
             if (Parser == null)
             {
                 for (var i = 0; i < Zone.ScriptCount; i++)
-                    OnEnterBox.Items.Add($"Script #{i + 1}");
+                    scriptNames.Add($"Script #{i + 1}");
             }
             else
             {
                 foreach (Jun.Script sc in Parser.Scripts)
-                    OnEnterBox.Items.Add(sc.Name);
+                    scriptNames.Add(sc.Name);
             }
 
+            OnEnterBox.Items.AddRange(scriptNames.ToArray());
+            Context.ScriptNames = scriptNames.ToArray();
             OnEnterBox.SelectedIndex = oldSelection;
         }
 
@@ -422,6 +425,20 @@ namespace DosjunEditor
         {
             CurrentTile.Danger = (byte)DangerBox.Value;
             DataElement_Changed(sender, e);
+        }
+
+        private void MenuZone_Click(object sender, EventArgs e)
+        {
+            using (ZoneDataForm form = new ZoneDataForm())
+            {
+                form.Setup(Context);
+
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    form.Apply();
+                    Context.UnsavedChanges = true;
+                }
+            }
         }
     }
 }
