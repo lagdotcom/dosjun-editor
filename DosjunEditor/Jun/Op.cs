@@ -18,6 +18,8 @@
         Sub,
         Mul,
         Div,
+        And,
+        Or,
 
         EQ = 0x40,
         NEQ,
@@ -40,6 +42,7 @@
         SetTileColour,
         Teleport,
         SetTileThing,
-        SetDanger
+        SetDanger,
+        Safe
     }
 }

@@ -30,6 +30,7 @@ namespace DosjunEditor.Jun
                 ["SetTileDescription"] = CallSetTileDescription,
                 ["SetTileThing"] = CallSetTileThing,
                 ["SetDanger"] = CallSetDanger,
+                ["Safe"] = CallSafe,
 
                 ["If"] = If,
                 ["ElseIf"] = ElseIf,
@@ -487,6 +488,13 @@ namespace DosjunEditor.Jun
 
             EmitArgument(danger);
             Emit(Op.SetDanger);
+        }
+
+        private void CallSafe()
+        {
+            Consume();
+
+            Emit(Op.Safe);
         }
 
         private void If()

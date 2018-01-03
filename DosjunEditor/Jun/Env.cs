@@ -28,6 +28,7 @@ namespace DosjunEditor.Jun
             "Local",
             "PcSpeak",
             "Return",
+            "Safe",
             "Script",
             "SetDanger",
             "SetTileColour",
