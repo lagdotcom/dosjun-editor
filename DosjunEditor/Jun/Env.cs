@@ -9,7 +9,8 @@ namespace DosjunEditor.Jun
             ["Danger"] = Internal.Danger,
             ["Facing"] = Internal.Facing,
             ["X"] = Internal.X,
-            ["Y"] = Internal.Y
+            ["Y"] = Internal.Y,
+            ["JustMoved"] = Internal.JustMoved
         };
 
         public static string[] Keywords = new string[]

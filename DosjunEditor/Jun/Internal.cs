@@ -6,6 +6,7 @@
         Y,
         Facing,
         Danger,
+        JustMoved,
 
         Invalid = 0xFF
     }
