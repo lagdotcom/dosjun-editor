@@ -4,6 +4,7 @@
     {
         None,
         CommentStart,
+        Separator,
         Number,
         String,
         StringEscape,

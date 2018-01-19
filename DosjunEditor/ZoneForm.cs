@@ -58,6 +58,11 @@ namespace DosjunEditor
                 Zone.CodeStrings.AddRange(Parser.Strings);
                 foreach (Jun.Script sc in Parser.Scripts)
                     Zone.Scripts.Add(new CompiledScript { Bytecode = sc.Code.ToArray() });
+
+                string dump = Jun.Visualizer.Show(Parser.Scripts);
+                using (Stream file = File.OpenWrite(ZoneFilename + ".TXT"))
+                    using (StreamWriter writer = new StreamWriter(file))
+                        writer.Write(dump);
             }
 
             using (Stream file = File.OpenWrite(ZoneFilename)) Zone.Write(new BinaryWriter(file));

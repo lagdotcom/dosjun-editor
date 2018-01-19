@@ -7,6 +7,7 @@ namespace DosjunEditor.Jun
     {
         private Dictionary<string, Action> globalKeywordAction;
         private Dictionary<string, Action> scriptKeywordAction;
+        private Dictionary<TokenType, int> precedence;
 
         public Parser()
         {
@@ -38,6 +39,23 @@ namespace DosjunEditor.Jun
 
                 ["Return"] = Return,
                 ["EndScript"] = EndScript
+            };
+
+            // these precedences are taken from C
+            precedence = new Dictionary<TokenType, int>
+            {
+                [TokenType.Divide] = 3,
+                [TokenType.Multiply] = 3,
+                [TokenType.Add] = 4,
+                [TokenType.Subtract] = 4,
+                [TokenType.GT] = 6,
+                [TokenType.GTE] = 6,
+                [TokenType.LT] = 6,
+                [TokenType.LTE] = 6,
+                [TokenType.Equals] = 7,
+                [TokenType.NotEqual] = 7,
+                [TokenType.And] = 8,
+                [TokenType.Or] = 10,
             };
 
             Constants = new Dictionary<string, ushort>();
@@ -75,6 +93,11 @@ namespace DosjunEditor.Jun
 
                     case TokenType.Identifier:
                         Identifier();
+                        break;
+
+                    // Ignore EOL tokens entirely
+                    case TokenType.EOL:
+                        Consume();
                         break;
 
                     default:
@@ -118,6 +141,58 @@ namespace DosjunEditor.Jun
             if (tok.Type != expected) throw Error("Unexpected keyword type");
 
             return tok;
+        }
+
+        private Token Expression()
+        {
+            List<Token> tokens = new List<Token>();
+            Token next;
+            bool isEnd = false;
+            bool lastWasOperator = false;
+
+            // grab tokens until we have a whole expression
+            while (!isEnd)
+            {
+                next = Peek();
+                
+                switch (next.Type)
+                {
+                    case TokenType.EOL:
+                    case TokenType.Separator:
+                        if (lastWasOperator) throw Error("Ended expression after an operator");
+                        Consume();
+                        isEnd = true;
+                        break;
+
+                    case TokenType.Assignment: throw Error("Can't assign in an expression");
+
+                    case TokenType.Add:
+                    case TokenType.And:
+                    case TokenType.Divide:
+                    case TokenType.Equals:
+                    case TokenType.GT:
+                    case TokenType.GTE:
+                    case TokenType.LT:
+                    case TokenType.LTE:
+                    case TokenType.Multiply:
+                    case TokenType.NotEqual:
+                    case TokenType.Or:
+                    case TokenType.Subtract:
+                        lastWasOperator = true;
+                        tokens.Add(next);
+                        Consume();
+                        break;
+
+                    default:
+                        lastWasOperator = false;
+                        tokens.Add(next);
+                        Consume();
+                        break;
+                }
+            }
+
+            if (tokens.Count == 1) return tokens[0];
+            return new ExpressionToken(tokens);
         }
 
         public void AddConstant(string name, ushort value)
@@ -245,11 +320,15 @@ namespace DosjunEditor.Jun
                     Emit((byte)Env.Internals[tok.Value]);
                     break;
 
+                case TokenType.Expression:
+                    EmitExpression((tok as ExpressionToken).Tokens);
+                    break;
+
                 default: throw Error("Cannot emit");
             }
         }
 
-        public void EmitComparison(Token tok)
+        public void EmitOperator(Token tok)
         {
             switch (tok.Type)
             {
@@ -277,8 +356,75 @@ namespace DosjunEditor.Jun
                     Emit(Op.GTE);
                     return;
 
+                case TokenType.Add:
+                    Emit(Op.Add);
+                    return;
+
+                case TokenType.And:
+                    Emit(Op.And);
+                    return;
+
+                case TokenType.Divide:
+                    Emit(Op.Div);
+                    return;
+
+                case TokenType.Multiply:
+                    Emit(Op.Mul);
+                    return;
+
+                case TokenType.Or:
+                    Emit(Op.Or);
+                    return;
+
+                case TokenType.Subtract:
+                    Emit(Op.Sub);
+                    return;
+
                 default: throw Error("Not a comparison");
             }
+        }
+        
+        public void EmitExpression(IEnumerable<Token> tokens)
+        {
+            Stack<Token> operators = new Stack<Token>();
+            Token important;
+            int topPrecedence;
+
+            // convert Infix to Postfix
+            foreach (Token tok in tokens)
+            {
+                switch (tok.Type)
+                {
+                    case TokenType.Add:
+                    case TokenType.And:
+                    case TokenType.Divide:
+                    case TokenType.Equals:
+                    case TokenType.GT:
+                    case TokenType.GTE:
+                    case TokenType.LT:
+                    case TokenType.LTE:
+                    case TokenType.Multiply:
+                    case TokenType.NotEqual:
+                    case TokenType.Or:
+                    case TokenType.Subtract:
+                        topPrecedence = operators.Count > 0 ? precedence[operators.Peek().Type] : 15;
+                        if (topPrecedence < precedence[tok.Type])
+                        {
+                            important = operators.Pop();
+                            EmitOperator(important);
+                        }
+
+                        operators.Push(tok);
+                        break;
+
+                    default:
+                        EmitArgument(tok);
+                        break;
+                }
+            }
+
+            while (operators.Count > 0)
+                EmitOperator(operators.Pop());
         }
 
         public void EmitUnknown()
@@ -377,7 +523,7 @@ namespace DosjunEditor.Jun
         private void CallCombat()
         {
             Consume();
-            Token combat = Consume();
+            Token combat = Expression();
 
             EmitArgument(combat);
             Emit(Op.Combat);
@@ -386,18 +532,18 @@ namespace DosjunEditor.Jun
         private void CallPcSpeak()
         {
             Consume();
-            Token speaker = Consume();
-            Token index = Consume();
+            Token speaker = Expression();
+            Token index = Expression();
 
-            EmitArgument(index);
             EmitArgument(speaker);
+            EmitArgument(index);
             Emit(Op.PcSpeak);
         }
 
         private void CallText()
         {
             Consume();
-            Token index = Consume();
+            Token index = Expression();
 
             EmitArgument(index);
             Emit(Op.Text);
@@ -406,85 +552,85 @@ namespace DosjunEditor.Jun
         private void CallUnlock()
         {
             Consume();
-            Token x = Consume();
-            Token y = Consume();
-            Token dir = Consume();
+            Token x = Expression();
+            Token y = Expression();
+            Token dir = Expression();
 
-            EmitArgument(dir);
-            EmitArgument(y);
             EmitArgument(x);
+            EmitArgument(y);
+            EmitArgument(dir);
             Emit(Op.Unlock);
         }
 
         private void CallGiveItem()
         {
             Consume();
-            Token pc = Consume();
-            Token item = Consume();
-            Token qty = Consume();
+            Token pc = Expression();
+            Token item = Expression();
+            Token qty = Expression();
 
-            EmitArgument(qty);
-            EmitArgument(item);
             EmitArgument(pc);
+            EmitArgument(item);
+            EmitArgument(qty);
             Emit(Op.GiveItem);
         }
 
         private void CallEquipItem()
         {
             Consume();
-            Token pc = Consume();
-            Token item = Consume();
+            Token pc = Expression();
+            Token item = Expression();
 
-            EmitArgument(item);
             EmitArgument(pc);
+            EmitArgument(item);
             Emit(Op.EquipItem);
         }
 
         private void CallSetTileDescription()
         {
             Consume();
-            Token x = Consume();
-            Token y = Consume();
-            Token index = Consume();
+            Token x = Expression();
+            Token y = Expression();
+            Token index = Expression();
 
-            EmitArgument(index);
-            EmitArgument(y);
             EmitArgument(x);
+            EmitArgument(y);
+            EmitArgument(index);
             Emit(Op.SetTileDescription);
         }
 
         private void CallSetTileColour()
         {
             Consume();
-            Token x = Consume();
-            Token y = Consume();
-            Token surface = Consume();
-            Token colour = Consume();
+            Token x = Expression();
+            Token y = Expression();
+            Token surface = Expression();
+            Token colour = Expression();
 
-            EmitArgument(colour);
-            EmitArgument(surface);
-            EmitArgument(y);
             EmitArgument(x);
+            EmitArgument(y);
+            EmitArgument(surface);
+            EmitArgument(colour);
             Emit(Op.SetTileColour);
         }
 
         private void CallSetTileThing()
         {
             Consume();
-            Token x = Consume();
-            Token y = Consume();
-            Token thing = Consume();
+            Token x = Expression();
+            Token y = Expression();
+            Token thing = Expression();
 
-            EmitArgument(thing);
-            EmitArgument(y);
             EmitArgument(x);
+            EmitArgument(y);
+            EmitArgument(thing);
             Emit(Op.SetTileThing);
         }
 
         private void CallSetDanger()
         {
             Consume();
-            Token danger = Consume();
+            Token danger = Expression();
 
             EmitArgument(danger);
             Emit(Op.SetDanger);
@@ -500,13 +646,9 @@ namespace DosjunEditor.Jun
         private void If()
         {
             Consume();
-            Token left = Consume();
-            Token comparator = Consume();
-            Token right = Consume();
+            Token expression = Expression();
 
-            EmitArgument(right);
-            EmitArgument(left);
-            EmitComparison(comparator);
+            EmitArgument(expression);
             Emit(Op.JumpFalse);
             AddContext("If");
             EmitUnknown();
@@ -522,13 +664,9 @@ namespace DosjunEditor.Jun
             ResolveJump(2);
             EmitUnknown();
 
-            Token left = Consume();
-            Token comparator = Consume();
-            Token right = Consume();
+            Token expression = Expression();
 
-            EmitArgument(right);
-            EmitArgument(left);
-            EmitComparison(comparator);
+            EmitArgument(expression);
             Emit(Op.JumpFalse);
             RenewContext();
             EmitUnknown();
@@ -575,17 +713,8 @@ namespace DosjunEditor.Jun
             Token equals = Consume();
             if (equals.Type != TokenType.Assignment) throw Error("Expected assignment");
 
-            Token destToken = Consume();
-            if (destToken.Type == TokenType.Number)
-            {
-                EmitArgument(destToken);
-            }
-            else if (destToken.Type == TokenType.Identifier)
-            {
-                Variable dest = Resolve(destToken.Value);
-                if (dest == null) throw Error("Unknown identifier");
-                EmitPush(dest);
-            }
+            Token destToken = Expression();
+            EmitArgument(destToken);
 
             EmitPop(target);
         }

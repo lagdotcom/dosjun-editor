@@ -98,24 +98,19 @@
     <Compile Include="Jun\CodeException.cs" />
     <Compile Include="Jun\Context.cs" />
     <Compile Include="Jun\Env.cs" />
+    <Compile Include="Jun\ExpressionToken.cs" />
     <Compile Include="Jun\ILexerState.cs" />
     <Compile Include="Jun\Internal.cs" />
     <Compile Include="Jun\LexerState.cs" />
-    <Compile Include="Jun\Lex\Internal.cs" />
-    <Compile Include="Jun\Lex\Keyword.cs" />
-    <Compile Include="Jun\Lex\Number.cs" />
-    <Compile Include="Jun\Lex\Operator.cs" />
-    <Compile Include="Jun\Lex\String.cs" />
-    <Compile Include="Jun\Lex\StringEscape.cs" />
     <Compile Include="Jun\Op.cs" />
     <Compile Include="Jun\Parser.cs" />
     <Compile Include="Jun\Scope.cs" />
     <Compile Include="Jun\Script.cs" />
-    <Compile Include="Jun\Lex\None.cs" />
     <Compile Include="Jun\Token.cs" />
     <Compile Include="Jun\Tokenizer.cs" />
     <Compile Include="Jun\TokenType.cs" />
     <Compile Include="Jun\Variable.cs" />
+    <Compile Include="Jun\Visualizer.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

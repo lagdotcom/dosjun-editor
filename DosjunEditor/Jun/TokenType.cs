@@ -3,18 +3,30 @@
     public enum TokenType
     {
         Unknown,
-        Comment,
+        Expression,
+
+        EOL,
+        Separator,
+
         Keyword,
         Identifier,
         Internal,
         String,
         Number,
+
         Assignment,
         Equals,
         NotEqual,
         LT,
         LTE,
         GT,
-        GTE
+        GTE,
+
+        Add,
+        Subtract,
+        Multiply,
+        Divide,
+        And,
+        Or,
     }
 }

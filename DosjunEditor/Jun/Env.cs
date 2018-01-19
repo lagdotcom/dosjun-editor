@@ -48,7 +48,13 @@ namespace DosjunEditor.Jun
             [">="] = TokenType.GTE,
             ["<"] = TokenType.LT,
             [">"] = TokenType.GT,
-            ["="] = TokenType.Assignment
+            ["="] = TokenType.Assignment,
+            ["+"] = TokenType.Add,
+            ["-"] = TokenType.Subtract,
+            ["*"] = TokenType.Multiply,
+            ["/"] = TokenType.Divide,
+            ["&"] = TokenType.And,
+            ["|"] = TokenType.Or,
         };
     }
 }
