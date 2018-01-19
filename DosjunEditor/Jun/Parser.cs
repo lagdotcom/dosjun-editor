@@ -56,6 +56,7 @@ namespace DosjunEditor.Jun
                 [TokenType.NotEqual] = 7,
                 [TokenType.And] = 8,
                 [TokenType.Or] = 10,
+                [TokenType.LeftParens] = 100,
             };
 
             Constants = new Dictionary<string, ushort>();
@@ -387,7 +388,6 @@ namespace DosjunEditor.Jun
         public void EmitExpression(IEnumerable<Token> tokens)
         {
             Stack<Token> operators = new Stack<Token>();
-            Token important;
             int topPrecedence;
 
             // convert Infix to Postfix
@@ -395,6 +395,22 @@ namespace DosjunEditor.Jun
             {
                 switch (tok.Type)
                 {
+                    case TokenType.LeftParens:
+                        operators.Push(tok);
+                        break;
+
+                    case TokenType.RightParens:
+                        while (true)
+                        {
+                            if (operators.Count == 0)
+                                throw Error("Right parenthesis without left");
+
+                            Token important = operators.Pop();
+                            if (important.Type == TokenType.LeftParens) break;
+                            else EmitOperator(important);
+                        }
+                        break;
+
                     case TokenType.Add:
                     case TokenType.And:
                     case TokenType.Divide:
@@ -407,10 +423,10 @@ namespace DosjunEditor.Jun
                     case TokenType.NotEqual:
                     case TokenType.Or:
                     case TokenType.Subtract:
-                        topPrecedence = operators.Count > 0 ? precedence[operators.Peek().Type] : 15;
+                        topPrecedence = operators.Count > 0 ? precedence[operators.Peek().Type] : 100;
                         if (topPrecedence < precedence[tok.Type])
                         {
-                            important = operators.Pop();
+                            Token important = operators.Pop();
                             EmitOperator(important);
                         }
 

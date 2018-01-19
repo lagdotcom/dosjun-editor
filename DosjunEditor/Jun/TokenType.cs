@@ -28,5 +28,8 @@
         Divide,
         And,
         Or,
+
+        LeftParens,
+        RightParens,
     }
 }

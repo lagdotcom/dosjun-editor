@@ -101,6 +101,8 @@ namespace DosjunEditor.Jun
                 case '@':  return LexerState.Internal;
                 case ',':  return LexerState.Separator;
 
+                case '(':  return LexerState.LeftParens;
+                case ')':  return LexerState.RightParens;
 
                 case '0':
                 case '1':
@@ -216,6 +218,7 @@ namespace DosjunEditor.Jun
         protected void Rewind()
         {
             Column--;
+            endOfLine = false;
         }
 
         protected void AddKeywordToken()
@@ -230,8 +233,17 @@ namespace DosjunEditor.Jun
             AddToken(tt);
         }
 
-        protected void AddToken(TokenType tt)
+        protected void AddParenthesis(char ch)
         {
+            if (ch == '(') AddToken(TokenType.LeftParens, "(");
+            else AddToken(TokenType.RightParens, ")");
+        }
+
+        protected void AddToken(TokenType tt, string replace = "")
+        {
+            if (!string.IsNullOrWhiteSpace(replace))
+                currentToken = replace;
+
             if (!string.IsNullOrWhiteSpace(currentToken))
             {
                 Tokens.Add(new Token { Type = tt, Value = currentToken });
@@ -269,6 +281,11 @@ namespace DosjunEditor.Jun
                 case LexerState.String:
                 case LexerState.Separator:
                     return guess;
+
+                case LexerState.LeftParens:
+                case LexerState.RightParens:
+                    AddParenthesis(ch);
+                    return State;
 
                 case LexerState.KeywordOrIdent:
                 case LexerState.Number:
@@ -315,6 +332,7 @@ namespace DosjunEditor.Jun
         {
             switch (guess)
             {
+                // some operators are multi-character
                 case LexerState.Operator:
                     Append(ch);
                     return State;
@@ -323,6 +341,7 @@ namespace DosjunEditor.Jun
                 case LexerState.KeywordOrIdent:
                 case LexerState.Number:
                 case LexerState.String:
+                case LexerState.LeftParens:
                     Rewind();
                     AddOperatorToken();
                     return LexerState.None;
@@ -354,6 +373,7 @@ namespace DosjunEditor.Jun
 
                 case LexerState.Separator:
                 case LexerState.Operator:
+                case LexerState.RightParens:
                     Rewind();
                     AddToken(TokenType.Number);
                     return LexerState.None;
@@ -370,14 +390,12 @@ namespace DosjunEditor.Jun
                 case LexerState.KeywordOrIdent:
                 case LexerState.Number:
                 case LexerState.String:
-                    Append(',');
-                    AddToken(TokenType.Separator);
+                    AddToken(TokenType.Separator, ",");
                     Rewind();
                     return LexerState.None;
 
                 case LexerState.Whitespace:
-                    Append(',');
-                    AddToken(TokenType.Separator);
+                    AddToken(TokenType.Separator, ",");
                     return LexerState.None;
 
                 default: throw Error("Invalid transition");

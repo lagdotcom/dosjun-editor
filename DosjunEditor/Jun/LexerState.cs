@@ -12,6 +12,9 @@
         Internal,
         Operator,
         Whitespace,
-        EndOfLine
+        EndOfLine,
+
+        LeftParens,
+        RightParens,
     }
 }
