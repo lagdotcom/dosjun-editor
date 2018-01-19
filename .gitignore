@@ -1,4 +1,6 @@
 /.vs
+/CompilerTest/bin
+/CompilerTest/obj
 /DosjunEditor/bin
 /DosjunEditor/obj
 /packages

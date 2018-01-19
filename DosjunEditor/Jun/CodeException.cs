@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace DosjunEditor.Jun
 {
     [Serializable]
-    internal class CodeException : Exception
+    public class CodeException : Exception
     {
         public CodeException()
         {
