@@ -229,7 +229,7 @@ namespace DosjunEditor.Jun
         protected void AddOperatorToken()
         {
             TokenType tt = OperatorType();
-            if (tt == TokenType.Unknown) throw Error("Unknown operator");
+            if (tt == TokenType.Unknown) throw Error($"Unknown operator: {currentToken}");
             AddToken(tt);
         }
 
@@ -296,7 +296,7 @@ namespace DosjunEditor.Jun
                 case LexerState.Whitespace:
                     return State;
 
-                default: throw Error("Invalid transition");
+                default: throw Error($"Invalid transition: {State} => {guess}");
             }
         }
 
@@ -324,7 +324,7 @@ namespace DosjunEditor.Jun
                     Rewind();
                     return LexerState.None;
 
-                default: throw Error("Invalid transition");
+                default: throw Error($"Invalid transition: {State} => {guess}");
             }
         }
 
@@ -350,7 +350,7 @@ namespace DosjunEditor.Jun
                     AddOperatorToken();
                     return LexerState.None;
 
-                default: throw Error("Invalid transition");
+                default: throw Error($"Invalid transition: {State} => {guess}");
             }
         }
 
@@ -378,7 +378,7 @@ namespace DosjunEditor.Jun
                     AddToken(TokenType.Number);
                     return LexerState.None;
 
-                default: throw Error("Invalid transition");
+                default: throw Error($"Invalid transition: {State} => {guess}");
             }
         }
 
@@ -398,7 +398,7 @@ namespace DosjunEditor.Jun
                     AddToken(TokenType.Separator, ",");
                     return LexerState.None;
 
-                default: throw Error("Invalid transition");
+                default: throw Error($"Invalid transition: {State} => {guess}");
             }
         }
 
@@ -460,9 +460,8 @@ namespace DosjunEditor.Jun
                     Rewind();
                     return LexerState.None;
 
-                default: throw Error("Invalid character in internal");
+                default: throw Error($"Invalid character in internal: {ch}");
             }
         }
     }
 }
-

@@ -86,7 +86,8 @@ namespace DosjunEditor.Jun
 
             while (Index < Tokens.Count)
             {
-                switch (Peek().Type)
+                Token tok = Peek();
+                switch (tok.Type)
                 {
                     case TokenType.Keyword:
                         Keyword();
@@ -102,7 +103,7 @@ namespace DosjunEditor.Jun
                         break;
 
                     default:
-                        throw Error("Invalid starting token");
+                        throw Error($"Cannot start line with {tok}");
                 }
             }
         }
@@ -113,12 +114,12 @@ namespace DosjunEditor.Jun
             if (!InScript)
             {
                 if (globalKeywordAction.ContainsKey(top)) globalKeywordAction[top]();
-                else throw Error("Unexpected global keyword");
+                else throw Error($"Unexpected global keyword: {top}");
             }
             else
             {
                 if (scriptKeywordAction.ContainsKey(top)) scriptKeywordAction[top]();
-                else throw Error("Unexpected keyword");
+                else throw Error($"Unexpected keyword: {top}");
             }
         }
 
@@ -136,10 +137,11 @@ namespace DosjunEditor.Jun
         {
             return Tokens[Index++];
         }
+
         public Token Consume(TokenType expected)
         {
-            Token tok = Tokens[Index++];
-            if (tok.Type != expected) throw Error("Unexpected keyword type");
+            Token tok = Consume();
+            if (tok.Type != expected) throw Error($"Wanted {expected}, got {tok.Type}");
 
             return tok;
         }
@@ -198,7 +200,7 @@ namespace DosjunEditor.Jun
 
         public void AddConstant(string name, ushort value)
         {
-            if (Constants.ContainsKey(name)) throw Error("Redefinition of constant");
+            if (Constants.ContainsKey(name)) throw Error($"Redefinition of constant: {name}");
             Constants[name] = value;
             AddVariable(Scope.Const, name);
         }
@@ -210,7 +212,7 @@ namespace DosjunEditor.Jun
 
         public Variable AddVariable(Scope scope, string name)
         {
-            if (Variables.ContainsKey(name)) throw Error("Redefinition of variable");
+            if (Variables.ContainsKey(name)) throw Error($"Redefinition of {scope} variable: {name}");
             Variables[name] = new Variable { Scope = scope, Name = name, Index = Counts[scope] };
             Counts[scope]++;
 
@@ -311,12 +313,12 @@ namespace DosjunEditor.Jun
 
                 case TokenType.Identifier:
                     Variable var = Resolve(tok.Value);
-                    if (var == null) throw Error("Unknown identifier");
+                    if (var == null) throw Error($"Unknown identifier: {tok.Value}");
                     EmitPush(var);
                     break;
 
                 case TokenType.Internal:
-                    if (!Env.Internals.ContainsKey(tok.Value)) throw Error("Unknown internal");
+                    if (!Env.Internals.ContainsKey(tok.Value)) throw Error($"Unknown internal: {tok.Value}");
                     Emit(Op.PushInternal);
                     Emit((byte)Env.Internals[tok.Value]);
                     break;
@@ -325,7 +327,7 @@ namespace DosjunEditor.Jun
                     EmitExpression((tok as ExpressionToken).Tokens);
                     break;
 
-                default: throw Error("Cannot emit");
+                default: throw Error($"Cannot emit {tok}");
             }
         }
 
@@ -381,7 +383,7 @@ namespace DosjunEditor.Jun
                     Emit(Op.Sub);
                     return;
 
-                default: throw Error("Not a comparison");
+                default: throw Error($"Not a comparison: {tok}");
             }
         }
         
@@ -706,7 +708,7 @@ namespace DosjunEditor.Jun
 
         private void EndScript()
         {
-            if (Contexts.Count > 0) throw Error("Unclosed scope");
+            if (Contexts.Count > 0) throw Error($"Unclosed scope: {Contexts.Peek().Name}");
 
             Consume();
             Emit(Op.Return);
@@ -726,12 +728,9 @@ namespace DosjunEditor.Jun
 
             if (target.Scope == Scope.Const) throw Error("Cannot assign to const");
 
-            Token equals = Consume();
-            if (equals.Type != TokenType.Assignment) throw Error("Expected assignment");
-
+            Token equals = Consume(TokenType.Assignment);
             Token destToken = Expression();
             EmitArgument(destToken);
-
             EmitPop(target);
         }
     }
