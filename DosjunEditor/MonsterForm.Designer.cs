@@ -44,9 +44,12 @@
             this.ImageShow = new System.Windows.Forms.PictureBox();
             this.XPBox = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
+            this.SkillsBox = new System.Windows.Forms.GroupBox();
+            this.SkillsList = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.IDBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ImageShow)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.XPBox)).BeginInit();
+            this.SkillsBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -198,11 +201,32 @@
             this.label6.TabIndex = 103;
             this.label6.Text = "Experience";
             // 
+            // SkillsBox
+            // 
+            this.SkillsBox.Controls.Add(this.SkillsList);
+            this.SkillsBox.Location = new System.Drawing.Point(565, 8);
+            this.SkillsBox.Name = "SkillsBox";
+            this.SkillsBox.Size = new System.Drawing.Size(157, 405);
+            this.SkillsBox.TabIndex = 105;
+            this.SkillsBox.TabStop = false;
+            this.SkillsBox.Text = "Skills";
+            // 
+            // SkillsList
+            // 
+            this.SkillsList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SkillsList.FormattingEnabled = true;
+            this.SkillsList.Location = new System.Drawing.Point(3, 16);
+            this.SkillsList.Name = "SkillsList";
+            this.SkillsList.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.SkillsList.Size = new System.Drawing.Size(151, 386);
+            this.SkillsList.TabIndex = 0;
+            // 
             // MonsterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(571, 425);
+            this.ClientSize = new System.Drawing.Size(734, 425);
+            this.Controls.Add(this.SkillsBox);
             this.Controls.Add(this.XPBox);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.ImageShow);
@@ -224,6 +248,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.IDBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ImageShow)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.XPBox)).EndInit();
+            this.SkillsBox.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -247,5 +272,7 @@
         private System.Windows.Forms.PictureBox ImageShow;
         private System.Windows.Forms.NumericUpDown XPBox;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.GroupBox SkillsBox;
+        private System.Windows.Forms.ListBox SkillsList;
     }
 }

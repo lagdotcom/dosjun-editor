@@ -63,5 +63,37 @@ namespace DosjunEditor
                 list.Add(item);
             }
         }
+
+        public static List<short> ReadIntList(this BinaryReader br)
+        {
+            List<short> list = new List<short>();
+            ushort type, osize, size, capacity;
+
+            type = br.ReadUInt16();
+            osize = br.ReadUInt16();
+            size = br.ReadUInt16();
+            capacity = br.ReadUInt16();
+
+            if (type != 1) throw new IOException("Not an int list");
+            if (osize != 0) throw new IOException("ints should have size 0");
+
+            for (int i = 0; i < size; i++)
+                list.Add(br.ReadInt16());
+
+            return list;
+        }
+
+        public static void WriteIntList(this BinaryWriter bw, List<short> list)
+        {
+            ushort size = (ushort)list.Count;
+
+            bw.Write((ushort)1);
+            bw.Write((ushort)0);
+            bw.Write(size);
+            bw.Write(size);
+
+            foreach (short item in list)
+                bw.Write(item);
+        }
     }
 }

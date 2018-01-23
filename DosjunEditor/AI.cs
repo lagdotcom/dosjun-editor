@@ -2,6 +2,7 @@
 {
     public enum AI : byte
     {
-        Mindless = 0
+        Mindless = 0,
+        Rogue,
     }
 }

@@ -118,6 +118,7 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Monster.cs" />
+    <Compile Include="MonsterFlags.cs" />
     <Compile Include="MonsterForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -141,6 +142,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Row.cs" />
     <Compile Include="CompiledScript.cs" />
+    <Compile Include="Skill.cs" />
     <Compile Include="Stats.cs" />
     <Compile Include="StatsEditor.cs">
       <SubType>UserControl</SubType>
