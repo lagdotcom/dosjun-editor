@@ -32,6 +32,7 @@ namespace DosjunEditor.Jun
                 ["SetTileThing"] = CallSetTileThing,
                 ["SetDanger"] = CallSetDanger,
                 ["Safe"] = CallSafe,
+                ["RemoveWall"] = CallRemoveWall,
 
                 ["If"] = If,
                 ["ElseIf"] = ElseIf,
@@ -659,6 +660,19 @@ namespace DosjunEditor.Jun
             Consume();
 
             Emit(Op.Safe);
+        }
+
+        private void CallRemoveWall()
+        {
+            Consume();
+            Token x = Expression();
+            Token y = Expression();
+            Token dir = Expression();
+
+            EmitArgument(x);
+            EmitArgument(y);
+            EmitArgument(dir);
+            Emit(Op.RemoveWall);
         }
 
         private void If()

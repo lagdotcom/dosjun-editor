@@ -43,6 +43,7 @@
         Teleport,
         SetTileThing,
         SetDanger,
-        Safe
+        Safe,
+        RemoveWall,
     }
 }
