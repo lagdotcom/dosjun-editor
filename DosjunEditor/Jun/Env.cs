@@ -28,6 +28,7 @@ namespace DosjunEditor.Jun
             "Include",
             "Local",
             "PcSpeak",
+            "Refresh",
             "RemoveWall",
             "Return",
             "Safe",

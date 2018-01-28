@@ -33,6 +33,7 @@ namespace DosjunEditor.Jun
                 ["SetDanger"] = CallSetDanger,
                 ["Safe"] = CallSafe,
                 ["RemoveWall"] = CallRemoveWall,
+                ["Refresh"] = CallRefresh,
 
                 ["If"] = If,
                 ["ElseIf"] = ElseIf,
@@ -673,6 +674,13 @@ namespace DosjunEditor.Jun
             EmitArgument(y);
             EmitArgument(dir);
             Emit(Op.RemoveWall);
+        }
+
+        private void CallRefresh()
+        {
+            Consume();
+
+            Emit(Op.Refresh);
         }
 
         private void If()

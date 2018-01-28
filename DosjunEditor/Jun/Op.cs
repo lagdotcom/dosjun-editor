@@ -45,5 +45,6 @@
         SetDanger,
         Safe,
         RemoveWall,
+        Refresh,
     }
 }
