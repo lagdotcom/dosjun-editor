@@ -48,7 +48,20 @@ namespace DosjunEditor
             TextureBox.TextureId = wall.TextureId;
             updatingDisplay = false;
         }
-        
+
+        public void CycleType()
+        {
+            int index = TypeBox.SelectedIndex + 1;
+            if (index == (int)WallType.Invalid) index = 0;
+
+            TypeBox.SelectedIndex = index;
+        }
+
+        public void CycleTexture()
+        {
+            TextureBox.Cycle();
+        }
+
         private void TypeBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (!updatingDisplay)

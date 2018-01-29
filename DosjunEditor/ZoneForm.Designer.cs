@@ -63,13 +63,13 @@
             this.Map = new DosjunEditor.ZoneView();
             this.TopMenu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuZone = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuLoad = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuSave = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.tablesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuEncounters = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuETables = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuZone = new System.Windows.Forms.ToolStripMenuItem();
             this.SidePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DangerBox)).BeginInit();
             this.FlagsBox.SuspendLayout();
@@ -146,6 +146,7 @@
             this.WestWall.Name = "WestWall";
             this.WestWall.Size = new System.Drawing.Size(116, 80);
             this.WestWall.TabIndex = 30;
+            this.WestWall.AnyChanged += new System.EventHandler(this.DataElement_Changed);
             // 
             // CeilingTexture
             // 
@@ -422,7 +423,7 @@
             this.NorthWall.Location = new System.Drawing.Point(66, 32);
             this.NorthWall.Name = "NorthWall";
             this.NorthWall.Size = new System.Drawing.Size(116, 80);
-            this.NorthWall.TabIndex = 0;
+            this.NorthWall.TabIndex = 1;
             this.NorthWall.AnyChanged += new System.EventHandler(this.DataElement_Changed);
             // 
             // Map
@@ -431,7 +432,7 @@
             this.Map.Location = new System.Drawing.Point(0, 24);
             this.Map.Name = "Map";
             this.Map.Size = new System.Drawing.Size(934, 937);
-            this.Map.TabIndex = 1;
+            this.Map.TabIndex = 0;
             this.Map.TileSize = 16;
             this.Map.Zone = null;
             this.Map.TileSelected += new DosjunEditor.ZoneView.TileEventHandler(this.Map_TileSelected);
@@ -459,24 +460,31 @@
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
+            // MenuZone
+            // 
+            this.MenuZone.Name = "MenuZone";
+            this.MenuZone.Size = new System.Drawing.Size(148, 22);
+            this.MenuZone.Text = "&Zone Details...";
+            this.MenuZone.Click += new System.EventHandler(this.MenuZone_Click);
+            // 
             // MenuLoad
             // 
             this.MenuLoad.Name = "MenuLoad";
-            this.MenuLoad.Size = new System.Drawing.Size(152, 22);
+            this.MenuLoad.Size = new System.Drawing.Size(148, 22);
             this.MenuLoad.Text = "&Load JC";
             this.MenuLoad.Click += new System.EventHandler(this.MenuLoad_Click);
             // 
             // MenuSave
             // 
             this.MenuSave.Name = "MenuSave";
-            this.MenuSave.Size = new System.Drawing.Size(152, 22);
+            this.MenuSave.Size = new System.Drawing.Size(148, 22);
             this.MenuSave.Text = "&Save";
             this.MenuSave.Click += new System.EventHandler(this.MenuSave_Click);
             // 
             // MenuExit
             // 
             this.MenuExit.Name = "MenuExit";
-            this.MenuExit.Size = new System.Drawing.Size(152, 22);
+            this.MenuExit.Size = new System.Drawing.Size(148, 22);
             this.MenuExit.Text = "E&xit";
             this.MenuExit.Click += new System.EventHandler(this.MenuExit_Click);
             // 
@@ -502,13 +510,6 @@
             this.MenuETables.Size = new System.Drawing.Size(173, 22);
             this.MenuETables.Text = "Encounter &Tables...";
             this.MenuETables.Click += new System.EventHandler(this.MenuETables_Click);
-            // 
-            // MenuZone
-            // 
-            this.MenuZone.Name = "MenuZone";
-            this.MenuZone.Size = new System.Drawing.Size(152, 22);
-            this.MenuZone.Text = "&Zone Details...";
-            this.MenuZone.Click += new System.EventHandler(this.MenuZone_Click);
             // 
             // ZoneForm
             // 

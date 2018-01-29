@@ -20,7 +20,6 @@ namespace DosjunEditor
             { WallLocation.Ceiling, new Rectangle(1, 0, 126, 32) },
             { WallLocation.Floor, new Rectangle(1, 160, 126, 32) }
         };
-            
 
         private string texture;
         private bool updatingDisplay;
@@ -41,6 +40,8 @@ namespace DosjunEditor
         public WallLocation Face { get; set; }
 
         public event EventHandler ValueChanged;
+
+        public int Count => Box.Items.Count;
 
         public string Texture
         {
@@ -69,6 +70,14 @@ namespace DosjunEditor
                 Box.SelectedIndex = ConvertTextureId(value);
                 updatingDisplay = false;
             }
+        }
+
+        public void Cycle()
+        {
+            int index = Box.SelectedIndex + 1;
+            if (index == Count) index = 0;
+
+            Box.SelectedIndex = index;
         }
 
         private void Box_SelectedIndexChanged(object sender, EventArgs e)

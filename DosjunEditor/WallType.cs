@@ -4,6 +4,8 @@
     {
         Normal = 0,
         Door,
-        LockedDoor
+        LockedDoor,
+
+        Invalid
     }
 }

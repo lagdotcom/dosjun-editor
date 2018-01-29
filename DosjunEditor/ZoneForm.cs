@@ -321,7 +321,9 @@ namespace DosjunEditor
 
         private void Map_KeyUp(object sender, KeyEventArgs e)
         {
-            switch (e.KeyData)
+            bool handled = true;
+
+            switch (e.KeyCode)
             {
                 case Keys.Left:
                     Map.Carve(-1, 0);
@@ -338,7 +340,63 @@ namespace DosjunEditor
                 case Keys.Down:
                     Map.Carve(0, 1);
                     break;
+
+                case Keys.N:
+                    if (e.Shift) NorthWall.CycleTexture();
+                    else NorthWall.CycleType();
+                    break;
+
+                case Keys.E:
+                    if (e.Shift) EastWall.CycleTexture();
+                    else EastWall.CycleType();
+                    break;
+
+                case Keys.S:
+                    if (e.Shift) SouthWall.CycleTexture();
+                    else SouthWall.CycleType();
+                    break;
+
+                case Keys.W:
+                    if (e.Shift) WestWall.CycleTexture();
+                    else WestWall.CycleType();
+                    break;
+
+                case Keys.C:
+                    CeilingTexture.Cycle();
+                    break;
+
+                case Keys.F:
+                    FloorTexture.Cycle();
+                    break;
+
+                case Keys.T:
+                    CycleThing();
+                    break;
+
+                case Keys.I:
+                    ImpassableFlag.Checked = !ImpassableFlag.Checked;
+                    break;
+
+                case Keys.Z:
+                    int size = Map.TileSize * 2;
+                    if (size > 100) size = 16;
+                    Map.TileSize = size;
+                    break;
+
+                default:
+                    handled = false;
+                    break;
             }
+
+            e.Handled = handled;
+        }
+
+        private void CycleThing()
+        {
+            int index = ThingBox.SelectedIndex + 1;
+            if (index == ThingBox.Items.Count) index = 0;
+
+            ThingBox.SelectedIndex = index;
         }
 
         private void SelectETableButton_Click(object sender, EventArgs e)
