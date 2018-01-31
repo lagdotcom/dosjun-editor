@@ -18,7 +18,7 @@ namespace DosjunEditor
             MP = br.ReadInt16();
             HitBonus = br.ReadInt16();
             DodgeBonus = br.ReadInt16();
-            Unused1 = br.ReadInt16();
+            Toughness = br.ReadInt16();
             Unused2 = br.ReadInt16();
             Unused3 = br.ReadInt16();
             Unused4 = br.ReadInt16();
@@ -38,7 +38,7 @@ namespace DosjunEditor
             bw.Write(MP);
             bw.Write(HitBonus);
             bw.Write(DodgeBonus);
-            bw.Write(Unused1);
+            bw.Write(Toughness);
             bw.Write(Unused2);
             bw.Write(Unused3);
             bw.Write(Unused4);
@@ -56,7 +56,7 @@ namespace DosjunEditor
         public short MP { get; set; }
         public short HitBonus { get; set; }
         public short DodgeBonus { get; set; }
-        public short Unused1 { get; set; }
+        public short Toughness { get; set; }
         public short Unused2 { get; set; }
         public short Unused3 { get; set; }
         public short Unused4 { get; set; }

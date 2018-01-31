@@ -36,7 +36,7 @@ namespace DosjunEditor
             stats.MP = (short)MPBox.Value;
             stats.HitBonus = (short)HitBonusBox.Value;
             stats.DodgeBonus = (short)DodgeBonusBox.Value;
-            stats.Unused1 = (short)U1Box.Value;
+            stats.Toughness = (short)ToughnessBox.Value;
             stats.Unused2 = (short)U2Box.Value;
             stats.Unused3 = (short)U3Box.Value;
             stats.Unused4 = (short)U4Box.Value;
@@ -56,7 +56,7 @@ namespace DosjunEditor
             MPBox.Value = stats.MP;
             HitBonusBox.Value = stats.HitBonus;
             DodgeBonusBox.Value = stats.DodgeBonus;
-            U1Box.Value = stats.Unused1;
+            ToughnessBox.Value = stats.Toughness;
             U2Box.Value = stats.Unused2;
             U3Box.Value = stats.Unused3;
             U4Box.Value = stats.Unused4;
