@@ -5,6 +5,10 @@ namespace DosjunEditor.Jun
 {
     public class Parser
     {
+        public const int MaxGlobals = 20;
+        public const int MaxLocals = 20;
+        public const int MaxTemps = 20;
+
         private Dictionary<string, Action> globalKeywordAction;
         private Dictionary<string, Action> scriptKeywordAction;
         private Dictionary<TokenType, int> precedence;
@@ -212,11 +216,26 @@ namespace DosjunEditor.Jun
             AddConstant(name, ushort.Parse(value));
         }
 
+        public int ScopeLimit(Scope scope)
+        {
+            switch (scope)
+            {
+                case Scope.Global: return MaxGlobals;
+                case Scope.Local: return MaxLocals;
+                case Scope.Temp: return MaxTemps;
+            }
+
+            // there is no real maximum for Consts
+            return int.MaxValue;
+        }
+
         public Variable AddVariable(Scope scope, string name)
         {
             if (Variables.ContainsKey(name)) throw Error($"Redefinition of {scope} variable: {name}");
             Variables[name] = new Variable { Scope = scope, Name = name, Index = Counts[scope] };
             Counts[scope]++;
+
+            if (Counts[scope] > ScopeLimit(scope)) throw Error($"Too many {scope} variables");
 
             return Variables[name];
         }
