@@ -11,6 +11,7 @@ namespace DosjunEditor.Jun
 
         private Dictionary<string, Action> globalKeywordAction;
         private Dictionary<string, Action> scriptKeywordAction;
+        private Dictionary<TokenType, Op> comparators;
         private Dictionary<TokenType, int> precedence;
 
         public Parser()
@@ -45,6 +46,22 @@ namespace DosjunEditor.Jun
 
                 ["Return"] = Return,
                 ["EndScript"] = EndScript
+            };
+
+            comparators = new Dictionary<TokenType, Op>
+            {
+                [TokenType.Add] = Op.Add,
+                [TokenType.And] = Op.And,
+                [TokenType.Divide] = Op.Div,
+                [TokenType.Equals] = Op.EQ,
+                [TokenType.GT] = Op.GT,
+                [TokenType.GTE] = Op.GTE,
+                [TokenType.LT] = Op.LT,
+                [TokenType.LTE] = Op.LTE,
+                [TokenType.Multiply] = Op.Mul,
+                [TokenType.NotEqual] = Op.NEQ,
+                [TokenType.Or] = Op.Or,
+                [TokenType.Subtract] = Op.Sub,
             };
 
             // these precedences are taken from C
@@ -354,58 +371,13 @@ namespace DosjunEditor.Jun
 
         public void EmitOperator(Token tok)
         {
-            switch (tok.Type)
+            if (comparators.ContainsKey(tok.Type))
             {
-                case TokenType.Equals:
-                    Emit(Op.EQ);
-                    return;
-
-                case TokenType.NotEqual:
-                    Emit(Op.NEQ);
-                    return;
-
-                case TokenType.LT:
-                    Emit(Op.LT);
-                    return;
-
-                case TokenType.LTE:
-                    Emit(Op.LTE);
-                    return;
-
-                case TokenType.GT:
-                    Emit(Op.GT);
-                    return;
-
-                case TokenType.GTE:
-                    Emit(Op.GTE);
-                    return;
-
-                case TokenType.Add:
-                    Emit(Op.Add);
-                    return;
-
-                case TokenType.And:
-                    Emit(Op.And);
-                    return;
-
-                case TokenType.Divide:
-                    Emit(Op.Div);
-                    return;
-
-                case TokenType.Multiply:
-                    Emit(Op.Mul);
-                    return;
-
-                case TokenType.Or:
-                    Emit(Op.Or);
-                    return;
-
-                case TokenType.Subtract:
-                    Emit(Op.Sub);
-                    return;
-
-                default: throw Error($"Not a comparison: {tok}");
+                Emit(comparators[tok.Type]);
+                return;
             }
+
+            throw Error($"Not a comparison: {tok}");
         }
         
         public void EmitExpression(IEnumerable<Token> tokens)
