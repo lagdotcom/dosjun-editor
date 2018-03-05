@@ -39,6 +39,7 @@ namespace DosjunEditor.Jun
                 ["Safe"] = CallSafe,
                 ["RemoveWall"] = CallRemoveWall,
                 ["Refresh"] = CallRefresh,
+                ["AddItem"] = CallAddItem,
 
                 ["If"] = If,
                 ["ElseIf"] = ElseIf,
@@ -595,6 +596,17 @@ namespace DosjunEditor.Jun
             EmitArgument(pc);
             EmitArgument(item);
             Emit(Op.EquipItem);
+        }
+
+        private void CallAddItem()
+        {
+            Consume();
+            Token item = Expression();
+            Token qty = Expression();
+
+            EmitArgument(item);
+            EmitArgument(qty);
+            Emit(Op.AddItem);
         }
 
         private void CallSetTileDescription()

@@ -46,5 +46,6 @@
         Safe,
         RemoveWall,
         Refresh,
+        AddItem,
     }
 }

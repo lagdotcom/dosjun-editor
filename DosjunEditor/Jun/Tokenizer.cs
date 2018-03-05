@@ -320,6 +320,7 @@ namespace DosjunEditor.Jun
 
                 case LexerState.Separator:
                 case LexerState.Operator:
+                case LexerState.RightParens:
                     AddKeywordToken();
                     Rewind();
                     return LexerState.None;

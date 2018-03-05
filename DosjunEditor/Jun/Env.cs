@@ -10,11 +10,13 @@ namespace DosjunEditor.Jun
             ["Facing"] = Internal.Facing,
             ["X"] = Internal.X,
             ["Y"] = Internal.Y,
-            ["JustMoved"] = Internal.JustMoved
+            ["JustMoved"] = Internal.JustMoved,
+            ["Success"] = Internal.Success,
         };
 
         public static string[] Keywords = new string[]
         {
+            "AddItem",
             "Combat",
             "Const",
             "Else",
@@ -39,7 +41,7 @@ namespace DosjunEditor.Jun
             "SetTileThing",
             "Teleport",
             "Text",
-            "Unlock"
+            "Unlock",
         };
         
         public static Dictionary<string, TokenType> Operators = new Dictionary<string, TokenType>

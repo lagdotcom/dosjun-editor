@@ -7,6 +7,7 @@
         Facing,
         Danger,
         JustMoved,
+        Success,
 
         Invalid = 0xFF
     }
