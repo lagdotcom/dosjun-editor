@@ -122,6 +122,9 @@ namespace DosjunEditor
                     if (t.OnEnterId > 0)
                         e.Graphics.FillRectangle(Brushes.Yellow, ex - 6, ey - 6, 4, 4);
 
+                    if (t.OnUseId > 0)
+                        e.Graphics.FillRectangle(Brushes.Red, ex - 6, ey - 10, 4, 4);
+
                     if (t.Thing > 0)
                         DrawThing(e.Graphics, t.Thing, ox, oy, ex, ey);
                 }

@@ -37,7 +37,6 @@
             this.ThingBox = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.FlagsBox = new System.Windows.Forms.GroupBox();
-            this.ImpassableFlag = new System.Windows.Forms.CheckBox();
             this.EditETableButton = new System.Windows.Forms.Button();
             this.AddETableButton = new System.Windows.Forms.Button();
             this.SelectETableButton = new System.Windows.Forms.Button();
@@ -70,6 +69,9 @@
             this.tablesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuEncounters = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuETables = new System.Windows.Forms.ToolStripMenuItem();
+            this.OnUseBox = new System.Windows.Forms.ComboBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.ImpassableFlag = new System.Windows.Forms.CheckBox();
             this.SidePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DangerBox)).BeginInit();
             this.FlagsBox.SuspendLayout();
@@ -78,6 +80,8 @@
             // 
             // SidePanel
             // 
+            this.SidePanel.Controls.Add(this.OnUseBox);
+            this.SidePanel.Controls.Add(this.label12);
             this.SidePanel.Controls.Add(this.DangerBox);
             this.SidePanel.Controls.Add(this.label11);
             this.SidePanel.Controls.Add(this.WestWall);
@@ -118,7 +122,7 @@
             // 
             // DangerBox
             // 
-            this.DangerBox.Location = new System.Drawing.Point(112, 837);
+            this.DangerBox.Location = new System.Drawing.Point(112, 865);
             this.DangerBox.Maximum = new decimal(new int[] {
             255,
             0,
@@ -133,7 +137,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(6, 839);
+            this.label11.Location = new System.Drawing.Point(6, 867);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(72, 13);
             this.label11.TabIndex = 31;
@@ -175,7 +179,7 @@
             // ThingBox
             // 
             this.ThingBox.FormattingEnabled = true;
-            this.ThingBox.Location = new System.Drawing.Point(112, 810);
+            this.ThingBox.Location = new System.Drawing.Point(112, 838);
             this.ThingBox.Name = "ThingBox";
             this.ThingBox.Size = new System.Drawing.Size(126, 21);
             this.ThingBox.TabIndex = 27;
@@ -185,7 +189,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(6, 812);
+            this.label10.Location = new System.Drawing.Point(6, 841);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(34, 13);
             this.label10.TabIndex = 26;
@@ -194,23 +198,12 @@
             // FlagsBox
             // 
             this.FlagsBox.Controls.Add(this.ImpassableFlag);
-            this.FlagsBox.Location = new System.Drawing.Point(6, 759);
+            this.FlagsBox.Location = new System.Drawing.Point(6, 787);
             this.FlagsBox.Name = "FlagsBox";
             this.FlagsBox.Size = new System.Drawing.Size(232, 44);
             this.FlagsBox.TabIndex = 25;
             this.FlagsBox.TabStop = false;
             this.FlagsBox.Text = "Flags";
-            // 
-            // ImpassableFlag
-            // 
-            this.ImpassableFlag.AutoSize = true;
-            this.ImpassableFlag.Location = new System.Drawing.Point(6, 19);
-            this.ImpassableFlag.Name = "ImpassableFlag";
-            this.ImpassableFlag.Size = new System.Drawing.Size(79, 17);
-            this.ImpassableFlag.TabIndex = 0;
-            this.ImpassableFlag.Text = "Impassable";
-            this.ImpassableFlag.UseVisualStyleBackColor = true;
-            this.ImpassableFlag.CheckedChanged += new System.EventHandler(this.ImpassableFlag_CheckedChanged);
             // 
             // EditETableButton
             // 
@@ -511,6 +504,36 @@
             this.MenuETables.Text = "Encounter &Tables...";
             this.MenuETables.Click += new System.EventHandler(this.MenuETables_Click);
             // 
+            // OnUseBox
+            // 
+            this.OnUseBox.FormattingEnabled = true;
+            this.OnUseBox.Location = new System.Drawing.Point(112, 760);
+            this.OnUseBox.Name = "OnUseBox";
+            this.OnUseBox.Size = new System.Drawing.Size(126, 21);
+            this.OnUseBox.TabIndex = 34;
+            this.OnUseBox.SelectedIndexChanged += new System.EventHandler(this.OnUseBox_SelectedIndexChanged);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(6, 763);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(43, 13);
+            this.label12.TabIndex = 33;
+            this.label12.Text = "On Use";
+            // 
+            // ImpassableFlag
+            // 
+            this.ImpassableFlag.AutoSize = true;
+            this.ImpassableFlag.Location = new System.Drawing.Point(6, 19);
+            this.ImpassableFlag.Name = "ImpassableFlag";
+            this.ImpassableFlag.Size = new System.Drawing.Size(79, 17);
+            this.ImpassableFlag.TabIndex = 0;
+            this.ImpassableFlag.Text = "Impassable";
+            this.ImpassableFlag.UseVisualStyleBackColor = true;
+            this.ImpassableFlag.CheckedChanged += new System.EventHandler(this.ImpassableFlag_CheckedChanged);
+            // 
             // ZoneForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -565,7 +588,6 @@
         private System.Windows.Forms.Label ETableIdLabel;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.GroupBox FlagsBox;
-        private System.Windows.Forms.CheckBox ImpassableFlag;
         private System.Windows.Forms.ComboBox ThingBox;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ToolStripMenuItem tablesToolStripMenuItem;
@@ -579,5 +601,8 @@
         private System.Windows.Forms.NumericUpDown DangerBox;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ToolStripMenuItem MenuZone;
+        private System.Windows.Forms.ComboBox OnUseBox;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.CheckBox ImpassableFlag;
     }
 }

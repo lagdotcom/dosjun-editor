@@ -11,6 +11,8 @@ namespace DosjunEditor
         public const string CrLf = "\r\n";
         public const string Lf = "\n";
 
+        private List<ComboBox> ScriptNameBoxes;
+
         private bool addingDescription;
         private bool updatingDisplay;
 
@@ -20,6 +22,12 @@ namespace DosjunEditor
 
             foreach (string name in Tools.GetEnumNames<Thing>())
                 ThingBox.Items.Add(name);
+
+            ScriptNameBoxes = new List<ComboBox>()
+            {
+                OnEnterBox,
+                OnUseBox,
+            };
         }
 
         public ZoneContext Context { get; private set; }
@@ -152,13 +160,10 @@ namespace DosjunEditor
                 MessageBox.Show("No .JC to load.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-
+        
         private void LoadScriptNames()
         {
             List<String> scriptNames = new List<string> { Consts.EmptyItem };
-
-            int oldSelection = OnEnterBox.SelectedIndex;
-            OnEnterBox.Items.Clear();
 
             if (Parser == null)
             {
@@ -171,9 +176,15 @@ namespace DosjunEditor
                     scriptNames.Add(sc.Name);
             }
 
-            OnEnterBox.Items.AddRange(scriptNames.ToArray());
             Context.ScriptNames = scriptNames.ToArray();
-            OnEnterBox.SelectedIndex = oldSelection;
+
+            foreach (ComboBox box in ScriptNameBoxes)
+            {
+                box.Items.Clear();
+                box.Items.AddRange(Context.ScriptNames);
+            }
+
+            if (CurrentTile != null) Map_TileSelected(CurrentTile);
         }
 
         private void CheckAddingDescription()
@@ -234,6 +245,7 @@ namespace DosjunEditor
             UpdateETable();
 
             OnEnterBox.SelectedIndex = t.OnEnterId;
+            OnUseBox.SelectedIndex = t.OnUseId;
             ThingBox.SelectedIndex = (int)t.Thing;
             DangerBox.Value = t.Danger;
 
@@ -311,11 +323,31 @@ namespace DosjunEditor
             LoadJC();
         }
 
+        private ushort GetScriptId(ComboBox box)
+        {
+            // no need to account for States - they show up in the list here!
+            if (Parser == null) return (ushort)box.SelectedIndex;
+
+            string item = (string)box.SelectedItem;
+            if (item == Consts.EmptyItem) return 0;
+
+            return (ushort)(Parser.Scripts.FindIndex(sc => sc.Name == item) + 1);
+        }
+
         private void OnEnterBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (!updatingDisplay)
             {
-                CurrentTile.OnEnterId = (ushort)Parser.Scripts.FindIndex(sc => sc.Name == (string)OnEnterBox.SelectedItem);
+                CurrentTile.OnEnterId = GetScriptId(OnEnterBox);
+                Context.UnsavedChanges = true;
+            }
+        }
+
+        private void OnUseBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!updatingDisplay)
+            {
+                CurrentTile.OnUseId = GetScriptId(OnUseBox);
                 Context.UnsavedChanges = true;
             }
         }
