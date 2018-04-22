@@ -106,6 +106,7 @@
     <Compile Include="Jun\Parser.cs" />
     <Compile Include="Jun\Scope.cs" />
     <Compile Include="Jun\Script.cs" />
+    <Compile Include="Jun\ScriptType.cs" />
     <Compile Include="Jun\Token.cs" />
     <Compile Include="Jun\Tokenizer.cs" />
     <Compile Include="Jun\TokenType.cs" />

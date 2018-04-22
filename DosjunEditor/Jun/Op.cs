@@ -31,6 +31,7 @@
         Jump = 0x50,
         JumpFalse,
         Return,
+        Call,
 
         Combat = 0xA0,
         PcSpeak,
@@ -47,5 +48,13 @@
         RemoveWall,
         Refresh,
         AddItem,
+        Music,
+        Converse,
+        EndConverse,
+        ChangeState,
+        PcAction,
+        NpcSpeak,
+        NpcAction,
+        Option,
     }
 }

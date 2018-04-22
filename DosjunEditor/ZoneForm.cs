@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace DosjunEditor
@@ -166,7 +167,7 @@ namespace DosjunEditor
             }
             else
             {
-                foreach (Jun.Script sc in Parser.Scripts)
+                foreach (Jun.Script sc in Parser.Scripts.Where(sc => sc.Public))
                     scriptNames.Add(sc.Name);
             }
 
@@ -314,7 +315,7 @@ namespace DosjunEditor
         {
             if (!updatingDisplay)
             {
-                CurrentTile.OnEnterId = (ushort)OnEnterBox.SelectedIndex;
+                CurrentTile.OnEnterId = (ushort)Parser.Scripts.FindIndex(sc => sc.Name == (string)OnEnterBox.SelectedItem);
                 Context.UnsavedChanges = true;
             }
         }

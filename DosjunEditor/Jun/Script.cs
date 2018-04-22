@@ -10,7 +10,9 @@ namespace DosjunEditor.Jun
         }
 
         public string Name { get; set; }
+        public ScriptType Type { get; set; }
         public List<byte> Code { get; private set; }
+        public bool Public => Type == ScriptType.Script;
 
         public override string ToString() => Name;
     }

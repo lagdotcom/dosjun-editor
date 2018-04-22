@@ -21,7 +21,8 @@ namespace DosjunEditor.Jun
                 ["Const"] = DefineConst,
                 ["Global"] = DefineGlobal,
                 ["Local"] = DefineLocal,
-                ["Script"] = DefineScript
+                ["Script"] = DefineScript,
+                ["State"] = DefineState,
             };
 
             scriptKeywordAction = new Dictionary<string, Action>
@@ -40,13 +41,24 @@ namespace DosjunEditor.Jun
                 ["RemoveWall"] = CallRemoveWall,
                 ["Refresh"] = CallRefresh,
                 ["AddItem"] = CallAddItem,
+                ["Music"] = CallMusic,
+                ["Converse"] = CallConverse,
+                ["EndConverse"] = CallEndConverse,
+                ["NpcAction"] = CallNpcAction,
+                ["NpcSpeak"] = CallNpcSpeak,
+                ["Option"] = CallOption,
+                ["PcAction"] = CallPcAction,
+                ["ChangeState"] = CallChangeState,
+                ["Call"] = CallCall,
 
                 ["If"] = If,
+                ["Else"] = Else,
                 ["ElseIf"] = ElseIf,
                 ["EndIf"] = EndIf,
 
                 ["Return"] = Return,
-                ["EndScript"] = EndScript
+                ["EndScript"] = EndScript,
+                ["EndState"] = EndState,
             };
 
             comparators = new Dictionary<TokenType, Op>
@@ -476,6 +488,15 @@ namespace DosjunEditor.Jun
             }
         }
 
+        public bool ScriptExists(Token script, ScriptType type = ScriptType.Any)
+        {
+            Script sc = Scripts.Find(s => s.Name == script.Value);
+
+            if (type != ScriptType.Any) return sc?.Type == type;
+
+            return sc != null;
+        }
+
         public void RenewContext(int mod = 0)
         {
             Contexts.Peek().Start = CurrentScript.Code.Count + mod;
@@ -525,7 +546,19 @@ namespace DosjunEditor.Jun
             Consume();
             Token identifier = Consume(TokenType.Identifier);
 
-            CurrentScript = new Script { Name = identifier.Value };
+            CurrentScript = new Script { Name = identifier.Value, Type = ScriptType.Script };
+            AddConstant(identifier.Value, (ushort)Scripts.Count);
+            Scripts.Add(CurrentScript);
+
+            InScript = true;
+        }
+
+        private void DefineState()
+        {
+            Consume();
+            Token identifier = Consume(TokenType.Identifier);
+
+            CurrentScript = new Script { Name = identifier.Value, Type = ScriptType.State };
             AddConstant(identifier.Value, (ushort)Scripts.Count);
             Scripts.Add(CurrentScript);
 
@@ -686,6 +719,101 @@ namespace DosjunEditor.Jun
             Emit(Op.Refresh);
         }
 
+        private void CallMusic()
+        {
+            Consume();
+            Token index = Expression();
+
+            EmitArgument(index);
+            Emit(Op.Music);
+        }
+
+        private void CallConverse()
+        {
+            Consume();
+            Token npc = Expression();
+            Token state = Expression();
+
+            if (!ScriptExists(state, ScriptType.State)) throw Error($"Unknown state: {state}");
+
+            EmitArgument(npc);
+            EmitArgument(state);
+            Emit(Op.Converse);
+        }
+
+        private void CallPcAction()
+        {
+            Consume();
+            Token speaker = Expression();
+            Token index = Expression();
+
+            EmitArgument(speaker);
+            EmitArgument(index);
+            Emit(Op.PcAction);
+        }
+
+        private void CallOption()
+        {
+            Consume();
+            Token state = Expression();
+            Token index = Expression();
+
+            EmitArgument(state);
+            EmitArgument(index);
+            Emit(Op.Option);
+        }
+
+        private void CallNpcSpeak()
+        {
+            Consume();
+            Token speaker = Expression();
+            Token index = Expression();
+
+            EmitArgument(speaker);
+            EmitArgument(index);
+            Emit(Op.NpcSpeak);
+        }
+
+        private void CallNpcAction()
+        {
+            Consume();
+            Token speaker = Expression();
+            Token index = Expression();
+
+            EmitArgument(speaker);
+            EmitArgument(index);
+            Emit(Op.NpcAction);
+        }
+
+        private void CallEndConverse()
+        {
+            Consume();
+
+            Emit(Op.EndConverse);
+        }
+
+        private void CallChangeState()
+        {
+            Consume();
+            Token state = Expression();
+
+            if (!ScriptExists(state, ScriptType.State)) throw Error($"Unknown state: {state}");
+
+            EmitArgument(state);
+            Emit(Op.ChangeState);
+        }
+
+        private void CallCall()
+        {
+            Consume();
+            Token script = Expression();
+
+            if (!ScriptExists(script)) throw Error($"Unknown script: {script}");
+
+            EmitArgument(script);
+            Emit(Op.Call);
+        }
+
         private void If()
         {
             Consume();
@@ -694,6 +822,17 @@ namespace DosjunEditor.Jun
             EmitArgument(expression);
             Emit(Op.JumpFalse);
             AddContext("If");
+            EmitUnknown();
+        }
+
+        private void Else()
+        {
+            if (Contexts.Count == 0) throw Error("Else without If");
+            Consume();
+
+            Emit(Op.Jump);
+            AddOffset();
+            ResolveJump(2);
             EmitUnknown();
         }
 
@@ -734,6 +873,18 @@ namespace DosjunEditor.Jun
         private void EndScript()
         {
             if (Contexts.Count > 0) throw Error($"Unclosed scope: {Contexts.Peek().Name}");
+            if (CurrentScript.Type != ScriptType.Script) throw Error($"Wrong sub type: {CurrentScript.Type}, expected {ScriptType.Script}");
+
+            Consume();
+            Emit(Op.Return);
+            InScript = false;
+            CurrentScript = null;
+        }
+
+        private void EndState()
+        {
+            if (Contexts.Count > 0) throw Error($"Unclosed scope: {Contexts.Peek().Name}");
+            if (CurrentScript.Type != ScriptType.State) throw Error($"Wrong sub type: {CurrentScript.Type}, expected {ScriptType.State}");
 
             Consume();
             Emit(Op.Return);
