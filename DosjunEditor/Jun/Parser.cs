@@ -497,9 +497,11 @@ namespace DosjunEditor.Jun
             return sc != null;
         }
 
-        public void RenewContext(int mod = 0)
+        public void RenewContext(int mod = 0, string name = null)
         {
-            Contexts.Peek().Start = CurrentScript.Code.Count + mod;
+            Context con = Contexts.Peek();
+            con.Start = CurrentScript.Code.Count + mod;
+            if (name != null) con.Name = name;
         }
 
         public Dictionary<string, ushort> Constants { get; private set; }
@@ -831,8 +833,8 @@ namespace DosjunEditor.Jun
             Consume();
 
             Emit(Op.Jump);
-            AddOffset();
             ResolveJump(2);
+            RenewContext(0, "Else");
             EmitUnknown();
         }
 
@@ -857,8 +859,8 @@ namespace DosjunEditor.Jun
         private void EndIf()
         {
             if (Contexts.Count == 0) throw Error("ElseIf without If");
-
             Consume();
+
             ResolveJump();
             ResolveOffsets();
             Contexts.Pop();
