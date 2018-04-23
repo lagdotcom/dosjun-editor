@@ -172,7 +172,7 @@ namespace DosjunEditor
             }
             else
             {
-                foreach (Jun.Script sc in Parser.Scripts.Where(sc => sc.Public))
+                foreach (Jun.Script sc in Parser.Scripts) //.Where(sc => sc.Public))
                     scriptNames.Add(sc.Name);
             }
 
