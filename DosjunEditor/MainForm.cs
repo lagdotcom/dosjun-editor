@@ -190,6 +190,10 @@ namespace DosjunEditor
                         Spawn<CampaignEditor>(r);
                         return;
 
+                    case ResourceType.Item:
+                        Spawn<ItemForm>(r);
+                        return;
+
                     case ResourceType.Monster:
                         Spawn<MonsterForm>(r);
                         return;
@@ -298,6 +302,13 @@ namespace DosjunEditor
             Monster m = new Monster();
             m.Resource.Name = GetString("New Monster name");
             Spawn<MonsterForm>(m).Saved += SubEditor_NewSaved;
+        }
+
+        private void NewItem_Click(object sender, EventArgs e)
+        {
+            Item i = new Item();
+            i.Resource.Name = GetString("New Item name");
+            Spawn<ItemForm>(i).Saved += SubEditor_NewSaved;
         }
     }
 }

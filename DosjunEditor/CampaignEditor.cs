@@ -28,7 +28,7 @@ namespace DosjunEditor
             Context = ctx;
             Campaign = r as Campaign;
 
-            Globals.Populate(StartScript, ctx.Djn.Scripts);
+            Globals.Populate(StartScript, ctx.Djn.PublicScripts);
 
             NumGlobals.Value = Campaign.NumGlobals;
             NumFlags.Value = Campaign.NumFlags;

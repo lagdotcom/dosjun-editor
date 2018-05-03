@@ -99,7 +99,6 @@ namespace DosjunEditor.Jun
             Contexts = new Stack<Context>();
             Counts = new Dictionary<Scope, byte>();
             Scripts = new List<Script>();
-            Strings = new List<string>();
             TemporaryScripts = new List<CompiledScript>();
             Variables = new Dictionary<string, Variable>();
         }
@@ -110,7 +109,6 @@ namespace DosjunEditor.Jun
             Contexts.Clear();
             Variables.Clear();
             Scripts.Clear();
-            Strings.Clear();
 
             Counts[Scope.Global] = 0;
             Counts[Scope.Local] = 0;
@@ -279,8 +277,7 @@ namespace DosjunEditor.Jun
 
         public ushort SaveString(string value)
         {
-            Strings.Add(value);
-            return (ushort)(Strings.Count - 1);
+            return Context.GetStringId(value);
         }
 
         public void Emit(Op op)
@@ -510,7 +507,6 @@ namespace DosjunEditor.Jun
 
         public Stack<Context> Contexts { get; private set; }
         public List<Script> Scripts { get; private set; }
-        public List<string> Strings { get; private set; }
         public List<CompiledScript> TemporaryScripts { get; }
         public Dictionary<string, Variable> Variables { get; private set; }
 

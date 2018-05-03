@@ -29,12 +29,10 @@
         private void InitializeComponent()
         {
             this.StatsBoxes = new DosjunEditor.StatsEditor();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.IDBox = new System.Windows.Forms.NumericUpDown();
+            this.CancelBtn = new System.Windows.Forms.Button();
+            this.OKBtn = new System.Windows.Forms.Button();
             this.NameBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.TypeBox = new System.Windows.Forms.ComboBox();
             this.FlagsBox = new System.Windows.Forms.GroupBox();
@@ -52,7 +50,6 @@
             this.SArg1Box = new System.Windows.Forms.NumericUpDown();
             this.SArg2Box = new System.Windows.Forms.NumericUpDown();
             this.SArg2Label = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.IDBox)).BeginInit();
             this.FlagsBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ValueBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SArg1Box)).BeginInit();
@@ -67,41 +64,31 @@
             this.StatsBoxes.Stats = null;
             this.StatsBoxes.TabIndex = 8;
             // 
-            // button2
+            // CancelBtn
             // 
-            this.button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button2.Location = new System.Drawing.Point(176, 383);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 101;
-            this.button2.Text = "Cancel";
-            this.button2.UseVisualStyleBackColor = true;
+            this.CancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.CancelBtn.Location = new System.Drawing.Point(176, 383);
+            this.CancelBtn.Name = "CancelBtn";
+            this.CancelBtn.Size = new System.Drawing.Size(75, 23);
+            this.CancelBtn.TabIndex = 101;
+            this.CancelBtn.Text = "Cancel";
+            this.CancelBtn.UseVisualStyleBackColor = true;
+            this.CancelBtn.Click += new System.EventHandler(this.CancelBtn_Click);
             // 
-            // button1
+            // OKBtn
             // 
-            this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.Location = new System.Drawing.Point(15, 383);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 100;
-            this.button1.Text = "OK";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // IDBox
-            // 
-            this.IDBox.Location = new System.Drawing.Point(75, 12);
-            this.IDBox.Maximum = new decimal(new int[] {
-            65535,
-            0,
-            0,
-            0});
-            this.IDBox.Name = "IDBox";
-            this.IDBox.Size = new System.Drawing.Size(155, 20);
-            this.IDBox.TabIndex = 1;
+            this.OKBtn.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.OKBtn.Location = new System.Drawing.Point(15, 383);
+            this.OKBtn.Name = "OKBtn";
+            this.OKBtn.Size = new System.Drawing.Size(75, 23);
+            this.OKBtn.TabIndex = 100;
+            this.OKBtn.Text = "OK";
+            this.OKBtn.UseVisualStyleBackColor = true;
+            this.OKBtn.Click += new System.EventHandler(this.OKBtn_Click);
             // 
             // NameBox
             // 
-            this.NameBox.Location = new System.Drawing.Point(75, 38);
+            this.NameBox.Location = new System.Drawing.Point(75, 19);
             this.NameBox.Name = "NameBox";
             this.NameBox.Size = new System.Drawing.Size(155, 20);
             this.NameBox.TabIndex = 2;
@@ -109,25 +96,16 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 41);
+            this.label2.Location = new System.Drawing.Point(12, 22);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(35, 13);
             this.label2.TabIndex = 18;
             this.label2.Text = "Name";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 14);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(18, 13);
-            this.label1.TabIndex = 17;
-            this.label1.Text = "ID";
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 67);
+            this.label3.Location = new System.Drawing.Point(12, 48);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(31, 13);
             this.label3.TabIndex = 21;
@@ -136,7 +114,7 @@
             // TypeBox
             // 
             this.TypeBox.FormattingEnabled = true;
-            this.TypeBox.Location = new System.Drawing.Point(75, 64);
+            this.TypeBox.Location = new System.Drawing.Point(75, 45);
             this.TypeBox.Name = "TypeBox";
             this.TypeBox.Size = new System.Drawing.Size(156, 21);
             this.TypeBox.TabIndex = 3;
@@ -218,7 +196,7 @@
             // 
             // ValueBox
             // 
-            this.ValueBox.Location = new System.Drawing.Point(75, 91);
+            this.ValueBox.Location = new System.Drawing.Point(75, 72);
             this.ValueBox.Maximum = new decimal(new int[] {
             -1,
             0,
@@ -231,7 +209,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 93);
+            this.label4.Location = new System.Drawing.Point(12, 74);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(34, 13);
             this.label4.TabIndex = 24;
@@ -240,7 +218,7 @@
             // SpecialBox
             // 
             this.SpecialBox.FormattingEnabled = true;
-            this.SpecialBox.Location = new System.Drawing.Point(75, 115);
+            this.SpecialBox.Location = new System.Drawing.Point(75, 96);
             this.SpecialBox.Name = "SpecialBox";
             this.SpecialBox.Size = new System.Drawing.Size(156, 21);
             this.SpecialBox.TabIndex = 5;
@@ -249,7 +227,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 118);
+            this.label5.Location = new System.Drawing.Point(12, 99);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(42, 13);
             this.label5.TabIndex = 26;
@@ -258,7 +236,7 @@
             // SArg1Label
             // 
             this.SArg1Label.AutoSize = true;
-            this.SArg1Label.Location = new System.Drawing.Point(72, 144);
+            this.SArg1Label.Location = new System.Drawing.Point(72, 125);
             this.SArg1Label.Name = "SArg1Label";
             this.SArg1Label.Size = new System.Drawing.Size(29, 13);
             this.SArg1Label.TabIndex = 28;
@@ -266,7 +244,7 @@
             // 
             // SArg1Box
             // 
-            this.SArg1Box.Location = new System.Drawing.Point(120, 142);
+            this.SArg1Box.Location = new System.Drawing.Point(120, 123);
             this.SArg1Box.Maximum = new decimal(new int[] {
             32767,
             0,
@@ -283,7 +261,7 @@
             // 
             // SArg2Box
             // 
-            this.SArg2Box.Location = new System.Drawing.Point(120, 168);
+            this.SArg2Box.Location = new System.Drawing.Point(120, 149);
             this.SArg2Box.Maximum = new decimal(new int[] {
             32767,
             0,
@@ -301,7 +279,7 @@
             // SArg2Label
             // 
             this.SArg2Label.AutoSize = true;
-            this.SArg2Label.Location = new System.Drawing.Point(72, 170);
+            this.SArg2Label.Location = new System.Drawing.Point(72, 151);
             this.SArg2Label.Name = "SArg2Label";
             this.SArg2Label.Size = new System.Drawing.Size(29, 13);
             this.SArg2Label.TabIndex = 30;
@@ -323,16 +301,13 @@
             this.Controls.Add(this.FlagsBox);
             this.Controls.Add(this.TypeBox);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.IDBox);
             this.Controls.Add(this.NameBox);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.StatsBoxes);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.CancelBtn);
+            this.Controls.Add(this.OKBtn);
             this.Name = "ItemForm";
             this.Text = "Item Editor";
-            ((System.ComponentModel.ISupportInitialize)(this.IDBox)).EndInit();
             this.FlagsBox.ResumeLayout(false);
             this.FlagsBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ValueBox)).EndInit();
@@ -346,12 +321,10 @@
         #endregion
 
         private StatsEditor StatsBoxes;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.NumericUpDown IDBox;
+        private System.Windows.Forms.Button CancelBtn;
+        private System.Windows.Forms.Button OKBtn;
         private System.Windows.Forms.TextBox NameBox;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox TypeBox;
         private System.Windows.Forms.GroupBox FlagsBox;

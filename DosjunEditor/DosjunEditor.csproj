@@ -106,7 +106,6 @@
     <Compile Include="ItemForm.Designer.cs">
       <DependentUpon>ItemForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Items.cs" />
     <Compile Include="ItemSpecial.cs" />
     <Compile Include="ItemType.cs" />
     <Compile Include="Jun\CodeException.cs" />

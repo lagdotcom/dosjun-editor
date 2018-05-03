@@ -45,9 +45,10 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.NewContext = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.NewMonster = new System.Windows.Forms.ToolStripMenuItem();
             this.NewSource = new System.Windows.Forms.ToolStripMenuItem();
             this.NewZone = new System.Windows.Forms.ToolStripMenuItem();
-            this.NewMonster = new System.Windows.Forms.ToolStripMenuItem();
+            this.NewItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TopMenu.SuspendLayout();
             this.ButtonsPanel.SuspendLayout();
             this.NewContext.SuspendLayout();
@@ -182,11 +183,19 @@
             // NewContext
             // 
             this.NewContext.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.NewItem,
             this.NewMonster,
             this.NewSource,
             this.NewZone});
             this.NewContext.Name = "NewContext";
-            this.NewContext.Size = new System.Drawing.Size(181, 92);
+            this.NewContext.Size = new System.Drawing.Size(181, 114);
+            // 
+            // NewMonster
+            // 
+            this.NewMonster.Name = "NewMonster";
+            this.NewMonster.Size = new System.Drawing.Size(180, 22);
+            this.NewMonster.Text = "&Monster...";
+            this.NewMonster.Click += new System.EventHandler(this.NewMonster_Click);
             // 
             // NewSource
             // 
@@ -202,12 +211,12 @@
             this.NewZone.Text = "&Zone...";
             this.NewZone.Click += new System.EventHandler(this.NewZone_Click);
             // 
-            // NewMonster
+            // NewItem
             // 
-            this.NewMonster.Name = "NewMonster";
-            this.NewMonster.Size = new System.Drawing.Size(180, 22);
-            this.NewMonster.Text = "&Monster...";
-            this.NewMonster.Click += new System.EventHandler(this.NewMonster_Click);
+            this.NewItem.Name = "NewItem";
+            this.NewItem.Size = new System.Drawing.Size(180, 22);
+            this.NewItem.Text = "&Item...";
+            this.NewItem.Click += new System.EventHandler(this.NewItem_Click);
             // 
             // MainForm
             // 
@@ -251,6 +260,7 @@
         private System.Windows.Forms.Button DeleteBtn;
         private System.Windows.Forms.ToolStripMenuItem NewZone;
         private System.Windows.Forms.ToolStripMenuItem NewMonster;
+        private System.Windows.Forms.ToolStripMenuItem NewItem;
     }
 }
 

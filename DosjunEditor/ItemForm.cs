@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace DosjunEditor
 {
-    public partial class ItemForm : Form
+    public partial class ItemForm : Form, IResourceEditor
     {
         public ItemForm()
         {
@@ -16,39 +16,39 @@ namespace DosjunEditor
                 SpecialBox.Items.Add(name);
         }
 
-        public Campaign Campaign { get; private set; }
+        public event EventHandler Saved;
+
+        public Context Context { get; private set; }
         public Item Item { get; private set; }
+        public IHasResource Editing => Item;
 
-        public void Setup(Campaign campaign, Item it)
+        public void Setup(Context ctx, IHasResource r)
         {
-            Campaign = campaign;
-            Item = it;
+            Context = ctx;
+            Item = r as Item;
 
-            IDBox.Value = it.Id;
+            NameBox.Text = Item.Name;
 
-            NameBox.Text = it.Name;
+            TypeBox.SelectedIndex = (int)Item.Type;
 
-            TypeBox.SelectedIndex = (int)it.Type;
+            ValueBox.Value = Item.Value;
 
-            ValueBox.Value = it.Value;
+            SpecialBox.SelectedIndex = (int)Item.Special;
+            SArg1Box.Value = Item.SpecialArg1;
+            SArg2Box.Value = Item.SpecialArg2;
 
-            SpecialBox.SelectedIndex = (int)it.Special;
-            SArg1Box.Value = it.SpecialArg1;
-            SArg2Box.Value = it.SpecialArg2;
+            StatsBoxes.Stats = Item.Stats;
 
-            StatsBoxes.Stats = it.Stats;
-
-            LightFlag.Checked = it.Flags.HasFlag(ItemFlags.Light);
-            HeavyFlag.Checked = it.Flags.HasFlag(ItemFlags.Heavy);
-            StackedFlag.Checked = it.Flags.HasFlag(ItemFlags.Stacked);
-            MediumFlag.Checked = it.Flags.HasFlag(ItemFlags.MediumRange);
-            LongFlag.Checked = it.Flags.HasFlag(ItemFlags.LongRange);
-            DexterityFlag.Checked = it.Flags.HasFlag(ItemFlags.DexterityWeapon);
+            LightFlag.Checked = Item.Flags.HasFlag(ItemFlags.Light);
+            HeavyFlag.Checked = Item.Flags.HasFlag(ItemFlags.Heavy);
+            StackedFlag.Checked = Item.Flags.HasFlag(ItemFlags.Stacked);
+            MediumFlag.Checked = Item.Flags.HasFlag(ItemFlags.MediumRange);
+            LongFlag.Checked = Item.Flags.HasFlag(ItemFlags.LongRange);
+            DexterityFlag.Checked = Item.Flags.HasFlag(ItemFlags.DexterityWeapon);
         }
 
         public void Apply()
         {
-            Item.Id = (ushort)IDBox.Value;
             Item.Name = NameBox.Text;
             Item.Type = (ItemType)TypeBox.SelectedIndex;
             Item.Value = (uint)ValueBox.Value;
@@ -65,6 +65,8 @@ namespace DosjunEditor
             if (LongFlag.Checked) fl |= ItemFlags.LongRange;
             if (DexterityFlag.Checked) fl |= ItemFlags.DexterityWeapon;
             Item.Flags = fl;
+
+            Saved?.Invoke(this, null);
         }
 
         private void SetupArguments(string label1, bool vis1, string label2, bool vis2)
@@ -90,6 +92,17 @@ namespace DosjunEditor
                     SetupArguments("Minimum", true, "Maximum", true);
                     return;
             }
+        }
+
+        private void OKBtn_Click(object sender, EventArgs e)
+        {
+            Apply();
+            Close();
+        }
+
+        private void CancelBtn_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }
