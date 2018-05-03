@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FastColoredTextBox, Version=2.16.21.0, Culture=neutral, PublicKeyToken=fb8aa12b994ef61b, processorArchitecture=MSIL">
+      <HintPath>..\packages\FCTB.2.16.21.0\lib\FastColoredTextBox.dll</HintPath>
+    </Reference>
     <Reference Include="Magick.NET-Q8-AnyCPU, Version=7.0.0.0, Culture=neutral, PublicKeyToken=2004825badfa91ec, processorArchitecture=MSIL">
       <HintPath>..\packages\Magick.NET-Q8-AnyCPU.7.0.6.1002\lib\net40\Magick.NET-Q8-AnyCPU.dll</HintPath>
     </Reference>
@@ -51,7 +54,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AI.cs" />
+    <Compile Include="CampaignEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CampaignEditor.Designer.cs">
+      <DependentUpon>CampaignEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Consts.cs" />
+    <Compile Include="Context.cs" />
+    <Compile Include="DjnContainer.cs" />
+    <Compile Include="DjnFlags.cs" />
     <Compile Include="Encounter.cs" />
     <Compile Include="EncounterForm.cs">
       <SubType>Form</SubType>
@@ -83,6 +95,8 @@
     <Compile Include="Campaign.cs" />
     <Compile Include="Direction.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="IHasResource.cs" />
+    <Compile Include="IResourceEditor.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="ItemFlags.cs" />
     <Compile Include="ItemForm.cs">
@@ -94,7 +108,6 @@
     <Compile Include="Items.cs" />
     <Compile Include="ItemSpecial.cs" />
     <Compile Include="ItemType.cs" />
-    <Compile Include="JascPal.cs" />
     <Compile Include="Jun\CodeException.cs" />
     <Compile Include="Jun\Context.cs" />
     <Compile Include="Jun\Env.cs" />
@@ -127,6 +140,7 @@
       <DependentUpon>MonsterForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Monsters.cs" />
+    <Compile Include="Palette.cs" />
     <Compile Include="PalettePicker.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -141,9 +155,19 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resource.cs" />
+    <Compile Include="ResourceFlags.cs" />
+    <Compile Include="ResourceType.cs" />
     <Compile Include="Row.cs" />
     <Compile Include="CompiledScript.cs" />
+    <Compile Include="ScriptSource.cs" />
     <Compile Include="Skill.cs" />
+    <Compile Include="SourceEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SourceEditor.Designer.cs">
+      <DependentUpon>SourceEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Stats.cs" />
     <Compile Include="StatsEditor.cs">
       <SubType>UserControl</SubType>
@@ -151,6 +175,13 @@
     <Compile Include="StatsEditor.Designer.cs">
       <DependentUpon>StatsEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="StringDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StringDialog.Designer.cs">
+      <DependentUpon>StringDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Strings.cs" />
     <Compile Include="TextureComboBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -162,6 +193,7 @@
     <Compile Include="TileBag.cs" />
     <Compile Include="TileFlags.cs" />
     <Compile Include="Tools.cs" />
+    <Compile Include="UnknownResource.cs" />
     <Compile Include="VersionHeader.cs" />
     <Compile Include="Wall.cs" />
     <Compile Include="WallEditor.cs">
@@ -192,6 +224,9 @@
     <Compile Include="ZoneView.Designer.cs">
       <DependentUpon>ZoneView.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="CampaignEditor.resx">
+      <DependentUpon>CampaignEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EncounterForm.resx">
       <DependentUpon>EncounterForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -235,8 +270,14 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="SourceEditor.resx">
+      <DependentUpon>SourceEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="StatsEditor.resx">
       <DependentUpon>StatsEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StringDialog.resx">
+      <DependentUpon>StringDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TextureComboBox.resx">
       <DependentUpon>TextureComboBox.cs</DependentUpon>

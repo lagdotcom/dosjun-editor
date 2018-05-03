@@ -5,7 +5,6 @@ namespace DosjunEditor.Jun
 {
     public class Parser
     {
-        public const int MaxGlobals = 20;
         public const int MaxLocals = 20;
         public const int MaxTemps = 20;
 
@@ -14,7 +13,7 @@ namespace DosjunEditor.Jun
         private Dictionary<TokenType, Op> comparators;
         private Dictionary<TokenType, int> precedence;
 
-        public Parser()
+        public Parser(DosjunEditor.Context ctx)
         {
             globalKeywordAction = new Dictionary<string, Action>
             {
@@ -96,10 +95,12 @@ namespace DosjunEditor.Jun
             };
 
             Constants = new Dictionary<string, ushort>();
+            Context = ctx;
             Contexts = new Stack<Context>();
             Counts = new Dictionary<Scope, byte>();
             Scripts = new List<Script>();
             Strings = new List<string>();
+            TemporaryScripts = new List<CompiledScript>();
             Variables = new Dictionary<string, Variable>();
         }
 
@@ -250,7 +251,7 @@ namespace DosjunEditor.Jun
         {
             switch (scope)
             {
-                case Scope.Global: return MaxGlobals;
+                case Scope.Global: return Context.Djn.Campaign.NumGlobals;
                 case Scope.Local: return MaxLocals;
                 case Scope.Temp: return MaxTemps;
             }
@@ -510,12 +511,14 @@ namespace DosjunEditor.Jun
         public Stack<Context> Contexts { get; private set; }
         public List<Script> Scripts { get; private set; }
         public List<string> Strings { get; private set; }
+        public List<CompiledScript> TemporaryScripts { get; }
         public Dictionary<string, Variable> Variables { get; private set; }
 
         public IList<Token> Tokens { get; private set; }
         public int Index { get; private set; }
         public bool InScript { get; private set; }
         public Script CurrentScript { get; private set; }
+        public DosjunEditor.Context Context { get; private set; }
 
         private void DefineConst()
         {
@@ -549,7 +552,7 @@ namespace DosjunEditor.Jun
             Token identifier = Consume(TokenType.Identifier);
 
             CurrentScript = new Script { Name = identifier.Value, Type = ScriptType.Script };
-            AddConstant(identifier.Value, (ushort)Scripts.Count);
+            AddConstant(identifier.Value, GetScriptId(identifier.Value));
             Scripts.Add(CurrentScript);
 
             InScript = true;
@@ -561,10 +564,27 @@ namespace DosjunEditor.Jun
             Token identifier = Consume(TokenType.Identifier);
 
             CurrentScript = new Script { Name = identifier.Value, Type = ScriptType.State };
-            AddConstant(identifier.Value, (ushort)Scripts.Count);
+            AddConstant(identifier.Value, GetScriptId(identifier.Value));
             Scripts.Add(CurrentScript);
 
             InScript = true;
+        }
+
+        private ushort GetScriptId(string name)
+        {
+            CompiledScript scr = Context.Djn.FindByName<CompiledScript>(name);
+
+            if (scr == null)
+            {
+                scr = new CompiledScript();
+                scr.Resource.Name = name;
+                scr.Resource.OnlyDesign = true;
+                Context.Djn.Add(scr);
+
+                TemporaryScripts.Add(scr);
+            }
+
+            return scr.Resource.ID;
         }
 
         private void CallCombat()

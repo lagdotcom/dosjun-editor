@@ -30,18 +30,13 @@ namespace DosjunEditor
             };
         }
 
-        public ZoneContext Context { get; private set; }
-
-        public Campaign Campaign => Context.Campaign;
-        public Monsters Monsters => Context.Monsters;
-        public string ZonePath { get; private set; }
-        public string ZoneName { get; private set; }
-        public string ZoneFilename => ZonePath + ZoneName + ".ZON";
-        public string JunFilename => ZonePath + ZoneName + ".JC";
-
-        public Zone Zone => Context.Zone;
+        public Context Context;
+        public Zone Zone;
+        public int ZoneId;
         public Tile CurrentTile { get; private set; }
         public Jun.Parser Parser { get; private set; }
+
+        public event EventHandler ZoneSaved;
 
         private void Context_UnsavedChangesChanged(object sender, EventArgs e)
         {
@@ -59,25 +54,8 @@ namespace DosjunEditor
         {
             CheckAddingDescription();
 
-            if (Parser != null)
-            {
-                Zone.CodeStrings.Clear();
-                Zone.Scripts.Clear();
-
-                Zone.CodeStrings.AddRange(Parser.Strings);
-                foreach (Jun.Script sc in Parser.Scripts)
-                    Zone.Scripts.Add(new CompiledScript { Bytecode = sc.Code.ToArray() });
-
-                string dump = Jun.Visualizer.Show(Parser.Scripts);
-                using (Stream file = File.OpenWrite(ZoneFilename + ".TXT"))
-                    using (StreamWriter writer = new StreamWriter(file))
-                        writer.Write(dump);
-            }
-
-            using (Stream file = File.OpenWrite(ZoneFilename)) Zone.Write(new BinaryWriter(file));
-
-            MessageBox.Show($"Wrote: {ZoneFilename}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Context.UnsavedChanges = false;
+            ZoneSaved?.Invoke(this, null);
         }
 
         public bool CheckChanged()
@@ -92,32 +70,24 @@ namespace DosjunEditor
             return false;
         }
 
-        public void Setup(Campaign campaign, string path, Monsters monsters, string zoneName)
+        public void Setup(Context context, Zone zone, int id)
         {
-            Context = new ZoneContext
-            {
-                Campaign = campaign,
-                Monsters = monsters,
-            };
+            Context = context;
             Context.UnsavedChangesChanged += Context_UnsavedChangesChanged;
             Context.EncountersChanged += Context_EncountersChanged;
 
-            ZonePath = path;
-            ZoneName = zoneName;
-
-            if (string.IsNullOrEmpty(zoneName))
+            if (zone == null)
             {
-                Context.Zone = new Zone();
+                Zone = new Zone();
                 Context.UnsavedChanges = true;
             }
             else
             {
-                Context.Zone = new Zone();
-                using (Stream file = File.OpenRead(ZoneFilename)) Zone.Read(new BinaryReader(file));
+                Zone = zone;
             }
 
-            CeilingTexture.Zone = Context.Zone;
-            FloorTexture.Zone = Context.Zone;
+            CeilingTexture.Zone = Zone;
+            FloorTexture.Zone = Zone;
 
             Parser = null;
             LoadScriptNames();
@@ -129,40 +99,11 @@ namespace DosjunEditor
         {
             UpdateETable();
         }
-
-        private void LoadJC()
-        {
-            Parser = null;
-
-            if (File.Exists(JunFilename))
-            {
-                try
-                {
-                    Jun.Tokenizer jt = new Jun.Tokenizer();
-                    jt.Tokenize(JunFilename);
-
-                    Jun.Parser jp = new Jun.Parser();
-                    jp.Parse(jt.Tokens);
-
-                    Parser = jp;
-                    updatingDisplay = true;
-                    LoadScriptNames();
-                    updatingDisplay = false;
-                    MessageBox.Show($"Loaded {jp.Scripts.Count} scripts", "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "JC Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
-            {
-                MessageBox.Show("No .JC to load.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
         
         private void LoadScriptNames()
         {
+            throw new NotImplementedException();
+
             List<String> scriptNames = new List<string> { Consts.EmptyItem };
 
             if (Parser == null)
@@ -176,12 +117,12 @@ namespace DosjunEditor
                     scriptNames.Add(sc.Name);
             }
 
-            Context.ScriptNames = scriptNames.ToArray();
+            //Context.ScriptNames = scriptNames.ToArray();
 
             foreach (ComboBox box in ScriptNameBoxes)
             {
                 box.Items.Clear();
-                box.Items.AddRange(Context.ScriptNames);
+                //box.Items.AddRange(Context.ScriptNames);
             }
 
             if (CurrentTile != null) Map_TileSelected(CurrentTile);
@@ -215,8 +156,10 @@ namespace DosjunEditor
 
         private string GetETableText(ushort id)
         {
-            if (id == 0) return "(No encounters)";
-            return Zone.ETables[id - 1].GetDescription(Zone, Monsters, CrLf);
+            throw new NotImplementedException();
+
+            //if (id == 0) return "(No encounters)";
+            //return Zone.ETables[id - 1].GetDescription(Zone, Monsters, CrLf);
         }
 
         private void UpdateETable()
@@ -317,12 +260,7 @@ namespace DosjunEditor
             // this triggers CheckChanged() anyway
             Close();
         }
-
-        private void MenuLoad_Click(object sender, EventArgs e)
-        {
-            LoadJC();
-        }
-
+        
         private ushort GetScriptId(ComboBox box)
         {
             // no need to account for States - they show up in the list here!
@@ -434,13 +372,15 @@ namespace DosjunEditor
 
         private void SelectETableButton_Click(object sender, EventArgs e)
         {
+            throw new NotImplementedException();
+
             List<string> items = new List<string>
             {
                 GetETableText(0)
             };
             foreach (ETable et in Zone.ETables)
             {
-                items.Add(et.GetDescription(Zone, Monsters));
+                //items.Add(et.GetDescription(Zone, Context.Djn.Monsters));
             }
 
             PickerDialog dlg = new PickerDialog { Items = items };
@@ -456,10 +396,12 @@ namespace DosjunEditor
 
         private void EditETableButton_Click(object sender, EventArgs e)
         {
+            throw new NotImplementedException();
+
             if (CurrentTile.ETableId > 0)
             {
                 ETableForm form = new ETableForm();
-                form.Setup(Context, Zone.ETables[CurrentTile.ETableId - 1]);
+                //form.Setup(Context, Zone.ETables[CurrentTile.ETableId - 1]);
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
@@ -493,28 +435,34 @@ namespace DosjunEditor
 
         private void MenuEncounters_Click(object sender, EventArgs e)
         {
+            throw new NotImplementedException();
+
             EncountersForm form = new EncountersForm();
-            form.Setup(Context);
+            //form.Setup(Context);
 
             form.Show();
         }
 
         private void MenuETables_Click(object sender, EventArgs e)
         {
+            throw new NotImplementedException();
+
             ETablesForm form = new ETablesForm();
-            form.Setup(Context);
+            //form.Setup(Context);
 
             form.Show();
         }
 
         private void AddETableButton_Click(object sender, EventArgs e)
         {
-            ushort newId = Tools.AddETable(Context);
+            throw new NotImplementedException();
+
+            /*ushort newId = Tools.AddETable(Context);
             if (newId != 0)
             {
                 CurrentTile.ETableId = newId;
                 UpdateETable();
-            }
+            }*/
         }
 
         private void DangerBox_ValueChanged(object sender, EventArgs e)
@@ -525,9 +473,11 @@ namespace DosjunEditor
 
         private void MenuZone_Click(object sender, EventArgs e)
         {
+            throw new NotImplementedException();
+
             using (ZoneDataForm form = new ZoneDataForm())
             {
-                form.Setup(Context);
+                //form.Setup(Context);
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {

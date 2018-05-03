@@ -3,9 +3,10 @@ using System.IO;
 
 namespace DosjunEditor
 {
-    public class Monster : IBinaryData
+    public class Monster : IHasResource
     {
         public const int Padding = 1;
+        public Resource Resource { get; set; }
 
         public Monster()
         {

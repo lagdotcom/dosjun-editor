@@ -4,6 +4,12 @@ namespace DosjunEditor
 {
     public class VersionHeader : IBinaryData
     {
+        public VersionHeader()
+        {
+            Magic = Consts.Magic;
+            Version = Consts.Version;
+        }
+
         public void Read(BinaryReader br)
         {
             Magic = new string(br.ReadChars(3));

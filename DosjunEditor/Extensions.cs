@@ -7,6 +7,12 @@ namespace DosjunEditor
     {
         public static void WriteNS(this BinaryWriter bw, string data)
         {
+            if (data == null)
+            {
+                bw.Write((ushort)0);
+                return;
+            }
+
             ushort len = (ushort)data.Length;
             bw.Write(len);
             bw.Write(data.ToCharArray());
@@ -29,6 +35,8 @@ namespace DosjunEditor
         public static string ReadNS(this BinaryReader br)
         {
             ushort len = br.ReadUInt16();
+            if (len == 0) return null;
+
             string data = new string(br.ReadChars(len));
             br.ReadChar();
             return data;

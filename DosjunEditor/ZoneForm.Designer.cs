@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.SidePanel = new System.Windows.Forms.GroupBox();
+            this.OnUseBox = new System.Windows.Forms.ComboBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.DangerBox = new System.Windows.Forms.NumericUpDown();
             this.label11 = new System.Windows.Forms.Label();
             this.WestWall = new DosjunEditor.WallEditor();
@@ -37,6 +39,7 @@
             this.ThingBox = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.FlagsBox = new System.Windows.Forms.GroupBox();
+            this.ImpassableFlag = new System.Windows.Forms.CheckBox();
             this.EditETableButton = new System.Windows.Forms.Button();
             this.AddETableButton = new System.Windows.Forms.Button();
             this.SelectETableButton = new System.Windows.Forms.Button();
@@ -63,15 +66,11 @@
             this.TopMenu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuZone = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuLoad = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuSave = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.tablesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuEncounters = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuETables = new System.Windows.Forms.ToolStripMenuItem();
-            this.OnUseBox = new System.Windows.Forms.ComboBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.ImpassableFlag = new System.Windows.Forms.CheckBox();
             this.SidePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DangerBox)).BeginInit();
             this.FlagsBox.SuspendLayout();
@@ -119,6 +118,25 @@
             this.SidePanel.TabIndex = 0;
             this.SidePanel.TabStop = false;
             this.SidePanel.Text = "Tile Details";
+            // 
+            // OnUseBox
+            // 
+            this.OnUseBox.FormattingEnabled = true;
+            this.OnUseBox.Location = new System.Drawing.Point(112, 760);
+            this.OnUseBox.Name = "OnUseBox";
+            this.OnUseBox.Size = new System.Drawing.Size(126, 21);
+            this.OnUseBox.TabIndex = 34;
+            this.OnUseBox.SelectedIndexChanged += new System.EventHandler(this.OnUseBox_SelectedIndexChanged);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(6, 763);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(43, 13);
+            this.label12.TabIndex = 33;
+            this.label12.Text = "On Use";
             // 
             // DangerBox
             // 
@@ -204,6 +222,17 @@
             this.FlagsBox.TabIndex = 25;
             this.FlagsBox.TabStop = false;
             this.FlagsBox.Text = "Flags";
+            // 
+            // ImpassableFlag
+            // 
+            this.ImpassableFlag.AutoSize = true;
+            this.ImpassableFlag.Location = new System.Drawing.Point(6, 19);
+            this.ImpassableFlag.Name = "ImpassableFlag";
+            this.ImpassableFlag.Size = new System.Drawing.Size(79, 17);
+            this.ImpassableFlag.TabIndex = 0;
+            this.ImpassableFlag.Text = "Impassable";
+            this.ImpassableFlag.UseVisualStyleBackColor = true;
+            this.ImpassableFlag.CheckedChanged += new System.EventHandler(this.ImpassableFlag_CheckedChanged);
             // 
             // EditETableButton
             // 
@@ -446,7 +475,6 @@
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MenuZone,
-            this.MenuLoad,
             this.MenuSave,
             this.MenuExit});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
@@ -456,28 +484,21 @@
             // MenuZone
             // 
             this.MenuZone.Name = "MenuZone";
-            this.MenuZone.Size = new System.Drawing.Size(148, 22);
+            this.MenuZone.Size = new System.Drawing.Size(180, 22);
             this.MenuZone.Text = "&Zone Details...";
             this.MenuZone.Click += new System.EventHandler(this.MenuZone_Click);
-            // 
-            // MenuLoad
-            // 
-            this.MenuLoad.Name = "MenuLoad";
-            this.MenuLoad.Size = new System.Drawing.Size(148, 22);
-            this.MenuLoad.Text = "&Load JC";
-            this.MenuLoad.Click += new System.EventHandler(this.MenuLoad_Click);
             // 
             // MenuSave
             // 
             this.MenuSave.Name = "MenuSave";
-            this.MenuSave.Size = new System.Drawing.Size(148, 22);
+            this.MenuSave.Size = new System.Drawing.Size(180, 22);
             this.MenuSave.Text = "&Save";
             this.MenuSave.Click += new System.EventHandler(this.MenuSave_Click);
             // 
             // MenuExit
             // 
             this.MenuExit.Name = "MenuExit";
-            this.MenuExit.Size = new System.Drawing.Size(148, 22);
+            this.MenuExit.Size = new System.Drawing.Size(180, 22);
             this.MenuExit.Text = "E&xit";
             this.MenuExit.Click += new System.EventHandler(this.MenuExit_Click);
             // 
@@ -503,36 +524,6 @@
             this.MenuETables.Size = new System.Drawing.Size(173, 22);
             this.MenuETables.Text = "Encounter &Tables...";
             this.MenuETables.Click += new System.EventHandler(this.MenuETables_Click);
-            // 
-            // OnUseBox
-            // 
-            this.OnUseBox.FormattingEnabled = true;
-            this.OnUseBox.Location = new System.Drawing.Point(112, 760);
-            this.OnUseBox.Name = "OnUseBox";
-            this.OnUseBox.Size = new System.Drawing.Size(126, 21);
-            this.OnUseBox.TabIndex = 34;
-            this.OnUseBox.SelectedIndexChanged += new System.EventHandler(this.OnUseBox_SelectedIndexChanged);
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(6, 763);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(43, 13);
-            this.label12.TabIndex = 33;
-            this.label12.Text = "On Use";
-            // 
-            // ImpassableFlag
-            // 
-            this.ImpassableFlag.AutoSize = true;
-            this.ImpassableFlag.Location = new System.Drawing.Point(6, 19);
-            this.ImpassableFlag.Name = "ImpassableFlag";
-            this.ImpassableFlag.Size = new System.Drawing.Size(79, 17);
-            this.ImpassableFlag.TabIndex = 0;
-            this.ImpassableFlag.Text = "Impassable";
-            this.ImpassableFlag.UseVisualStyleBackColor = true;
-            this.ImpassableFlag.CheckedChanged += new System.EventHandler(this.ImpassableFlag_CheckedChanged);
             // 
             // ZoneForm
             // 
@@ -580,7 +571,6 @@
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem MenuSave;
         private System.Windows.Forms.ToolStripMenuItem MenuExit;
-        private System.Windows.Forms.ToolStripMenuItem MenuLoad;
         private System.Windows.Forms.ComboBox OnEnterBox;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button SelectETableButton;

@@ -4,32 +4,15 @@ namespace DosjunEditor
 {
     public class ZoneContext
     {
-        private bool unsavedChanges;
+        public Action<object, EventArgs> EncountersChanged { get; internal set; }
+        public Zone Zone { get; internal set; }
+        public Monsters Monsters { get; internal set; }
+        public bool UnsavedChanges { get; internal set; }
+        public object[] ScriptNames { get; internal set; }
 
-        public Campaign Campaign { get; set; }
-        public Monsters Monsters { get; set; }
-        public Zone Zone { get; set; }
-        public string[] ScriptNames { get; set; }
-
-        public bool UnsavedChanges
+        internal void UpdateEncounters()
         {
-            get => unsavedChanges;
-            set
-            {
-                if (value != unsavedChanges)
-                {
-                    unsavedChanges = value;
-                    UnsavedChangesChanged?.Invoke(this, null);
-                }
-            }
-        }
-
-        public event EventHandler EncountersChanged;
-        public event EventHandler UnsavedChangesChanged;
-
-        public void UpdateEncounters()
-        {
-            EncountersChanged?.Invoke(this, null);
+            throw new NotImplementedException();
         }
     }
 }

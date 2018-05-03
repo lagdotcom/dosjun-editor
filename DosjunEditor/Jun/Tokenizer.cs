@@ -13,8 +13,9 @@ namespace DosjunEditor.Jun
         private bool endOfLine;
         private string currentToken;
 
-        public Tokenizer()
+        public Tokenizer(DosjunEditor.Context ctx)
         {
+            Context = ctx;
             Tokens = new List<Token>();
             stateMachine = new Dictionary<LexerState, TokenizerCallback>
             {
@@ -76,8 +77,15 @@ namespace DosjunEditor.Jun
                     Token filename = Tokens[Tokens.Count - 1];
                     Tokens.RemoveRange(Tokens.Count - 2, 2);
 
-                    Tokenizer jt = new Tokenizer();
-                    jt.Tokenize(Path.GetDirectoryName(Filename) + Path.DirectorySeparatorChar + filename.Value);
+                    Tokenizer jt = new Tokenizer(Context);
+                    if (filename.Type != TokenType.String)
+                        throw Error("Can only Include a (filename) string");
+
+                    ScriptSource include = Context.Djn.FindByName<ScriptSource>(filename.Value);
+                    if (include == null)
+                        throw Error($"Unknown Source resource: {filename.Value}");
+
+                    jt.Tokenize(include.Source.Split('\n'));
                     Tokens.AddRange(jt.Tokens);
                 }
                 else
@@ -262,6 +270,7 @@ namespace DosjunEditor.Jun
             return LexerState.None;
         }
 
+        public DosjunEditor.Context Context { get; private set; }
         public string Filename { get; private set; }
         public LexerState State { get; private set; }
         public List<Token> Tokens { get; private set; }

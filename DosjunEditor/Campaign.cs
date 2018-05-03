@@ -3,49 +3,47 @@ using System.IO;
 
 namespace DosjunEditor
 {
-    public class Campaign : IBinaryData
+    public class Campaign : IHasResource
     {
-        public const int Padding = 23;
+        public const int Padding = 18;
+        public Resource Resource { get; set; }
+
+        public Campaign()
+        {
+            Resource = new Resource { Type = ResourceType.Campaign };
+            Version = new VersionHeader();
+        }
 
         public void Read(BinaryReader br)
         {
-            Version = new VersionHeader();
             Version.Read(br);
 
-            StartZone = br.ReadByte();
-            StartX = br.ReadByte();
-            StartY = br.ReadByte();
-            StartFacing = (Direction)br.ReadByte();
-            byte count = br.ReadByte();
+            NumGlobals = br.ReadUInt16();
+            NumFlags = br.ReadUInt16();
+            StartingScript = br.ReadUInt16();
+            NameId = br.ReadUInt16();
+            DescId = br.ReadUInt16();
 
             br.ReadBytes(Padding);
-
-            Zones = new List<string>();
-            for (var i = 0; i < count; i++)
-                Zones.Add(br.ReadNS());
         }
 
         public void Write(BinaryWriter bw)
         {
             Version.Write(bw);
-            bw.Write(StartZone);
-            bw.Write(StartX);
-            bw.Write(StartY);
-            bw.Write((byte)StartFacing);
-            bw.Write(ZoneCount);
+            bw.Write(NumGlobals);
+            bw.Write(NumFlags);
+            bw.Write(StartingScript);
+            bw.Write(NameId);
+            bw.Write(DescId);
 
             bw.WritePadding(Padding);
-
-            foreach (string zone in Zones)
-                bw.WriteNS(zone);
         }
 
         public VersionHeader Version { get; set; }
-        public byte StartZone { get; set; }
-        public byte StartX { get; set; }
-        public byte StartY { get; set; }
-        public Direction StartFacing { get; set; }
-        public byte ZoneCount => (byte)Zones.Count;
-        public List<string> Zones { get; set; }
+        public ushort NumGlobals { get; set; }
+        public ushort NumFlags { get; set; }
+        public ushort StartingScript { get; set; }
+        public ushort NameId { get; set; }
+        public ushort DescId { get; set; }
     }
 }

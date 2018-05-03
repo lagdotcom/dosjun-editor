@@ -3,12 +3,15 @@ using System.IO;
 
 namespace DosjunEditor
 {
-    public class Zone : IBinaryData
+    public class Zone : IHasResource
     {
         public const int Padding = 2;
+        public Resource Resource { get; set; }
 
         public Zone()
         {
+            Resource = new Resource { Type = ResourceType.Zone };
+
             Version = new VersionHeader();
             Tiles = new TileBag();
             Strings = new List<string>();

@@ -2,22 +2,23 @@
 
 namespace DosjunEditor
 {
-    public class CompiledScript : IBinaryData
+    public class CompiledScript : IHasResource
     {
+        public Resource Resource { get; set; }
+
         public CompiledScript()
         {
+            Resource = new Resource { Type = ResourceType.Script };
             Bytecode = new byte[0];
         }
 
         public void Read(BinaryReader br)
         {
-            ushort length = br.ReadUInt16();
-            Bytecode = br.ReadBytes(length);
+            Bytecode = br.ReadBytes((int)Resource.Size);
         }
 
         public void Write(BinaryWriter bw)
         {
-            bw.Write((ushort)Bytecode.Length);
             bw.Write(Bytecode);
         }
 

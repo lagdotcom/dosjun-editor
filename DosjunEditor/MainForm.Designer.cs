@@ -28,33 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.TopMenu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuNew = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuSave = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenDialog = new System.Windows.Forms.OpenFileDialog();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.ItemBox = new System.Windows.Forms.GroupBox();
-            this.ItemList = new System.Windows.Forms.ListBox();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.NewItemButton = new System.Windows.Forms.Button();
-            this.MonsterBox = new System.Windows.Forms.GroupBox();
-            this.MonsterList = new System.Windows.Forms.ListBox();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.NewMonsterButton = new System.Windows.Forms.Button();
-            this.ZoneBox = new System.Windows.Forms.GroupBox();
-            this.ZoneList = new System.Windows.Forms.ListBox();
-            this.ZoneButtons = new System.Windows.Forms.Panel();
-            this.NewZoneButton = new System.Windows.Forms.Button();
+            this.SaveDialog = new System.Windows.Forms.SaveFileDialog();
+            this.ButtonsPanel = new System.Windows.Forms.Panel();
+            this.RenameBtn = new System.Windows.Forms.Button();
+            this.NewBtn = new System.Windows.Forms.Button();
+            this.Resources = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.NewContext = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.NewSource = new System.Windows.Forms.ToolStripMenuItem();
+            this.DeleteBtn = new System.Windows.Forms.Button();
             this.TopMenu.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.ItemBox.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.MonsterBox.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.ZoneBox.SuspendLayout();
-            this.ZoneButtons.SuspendLayout();
+            this.ButtonsPanel.SuspendLayout();
+            this.NewContext.SuspendLayout();
             this.SuspendLayout();
             // 
             // TopMenu
@@ -69,12 +63,20 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MenuNew,
             this.MenuOpen,
             this.MenuSave,
             this.MenuExit});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
+            // 
+            // MenuNew
+            // 
+            this.MenuNew.Name = "MenuNew";
+            this.MenuNew.Size = new System.Drawing.Size(112, 22);
+            this.MenuNew.Text = "&New...";
+            this.MenuNew.Click += new System.EventHandler(this.MenuNew_Click);
             // 
             // MenuOpen
             // 
@@ -100,173 +102,111 @@
             // 
             // OpenDialog
             // 
-            this.OpenDialog.Filter = "Campaign Files|*.cmp";
+            this.OpenDialog.Filter = "DOSJUN Files|*.DJN";
             // 
-            // tableLayoutPanel1
+            // SaveDialog
             // 
-            this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.Controls.Add(this.ItemBox, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.MonsterBox, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.ZoneBox, 0, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 24);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(947, 530);
-            this.tableLayoutPanel1.TabIndex = 7;
+            this.SaveDialog.Filter = "DOSJUN Files|*.DJN";
             // 
-            // ItemBox
+            // ButtonsPanel
             // 
-            this.ItemBox.Controls.Add(this.ItemList);
-            this.ItemBox.Controls.Add(this.panel2);
-            this.ItemBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ItemBox.Location = new System.Drawing.Point(633, 3);
-            this.ItemBox.Name = "ItemBox";
-            this.ItemBox.Size = new System.Drawing.Size(311, 524);
-            this.ItemBox.TabIndex = 7;
-            this.ItemBox.TabStop = false;
-            this.ItemBox.Text = "Items";
+            this.ButtonsPanel.Controls.Add(this.DeleteBtn);
+            this.ButtonsPanel.Controls.Add(this.RenameBtn);
+            this.ButtonsPanel.Controls.Add(this.NewBtn);
+            this.ButtonsPanel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.ButtonsPanel.Location = new System.Drawing.Point(0, 24);
+            this.ButtonsPanel.Name = "ButtonsPanel";
+            this.ButtonsPanel.Size = new System.Drawing.Size(200, 530);
+            this.ButtonsPanel.TabIndex = 1;
             // 
-            // ItemList
+            // RenameBtn
             // 
-            this.ItemList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ItemList.FormattingEnabled = true;
-            this.ItemList.Location = new System.Drawing.Point(3, 46);
-            this.ItemList.Name = "ItemList";
-            this.ItemList.Size = new System.Drawing.Size(305, 475);
-            this.ItemList.TabIndex = 6;
-            this.ItemList.DoubleClick += new System.EventHandler(this.ItemList_DoubleClick);
+            this.RenameBtn.Enabled = false;
+            this.RenameBtn.Location = new System.Drawing.Point(12, 32);
+            this.RenameBtn.Name = "RenameBtn";
+            this.RenameBtn.Size = new System.Drawing.Size(182, 23);
+            this.RenameBtn.TabIndex = 1;
+            this.RenameBtn.Text = "Rename Resource...";
+            this.RenameBtn.UseVisualStyleBackColor = true;
+            this.RenameBtn.Click += new System.EventHandler(this.RenameBtn_Click);
             // 
-            // panel2
+            // NewBtn
             // 
-            this.panel2.Controls.Add(this.NewItemButton);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(3, 16);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(305, 30);
-            this.panel2.TabIndex = 5;
+            this.NewBtn.Enabled = false;
+            this.NewBtn.Location = new System.Drawing.Point(12, 3);
+            this.NewBtn.Name = "NewBtn";
+            this.NewBtn.Size = new System.Drawing.Size(182, 23);
+            this.NewBtn.TabIndex = 0;
+            this.NewBtn.Text = "New Resource...";
+            this.NewBtn.UseVisualStyleBackColor = true;
+            this.NewBtn.Click += new System.EventHandler(this.NewBtn_Click);
             // 
-            // NewItemButton
+            // Resources
             // 
-            this.NewItemButton.Dock = System.Windows.Forms.DockStyle.Left;
-            this.NewItemButton.Enabled = false;
-            this.NewItemButton.Location = new System.Drawing.Point(0, 0);
-            this.NewItemButton.Name = "NewItemButton";
-            this.NewItemButton.Size = new System.Drawing.Size(75, 30);
-            this.NewItemButton.TabIndex = 1;
-            this.NewItemButton.Text = "&New...";
-            this.NewItemButton.UseVisualStyleBackColor = true;
-            this.NewItemButton.Click += new System.EventHandler(this.NewItemButton_Click);
+            this.Resources.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2});
+            this.Resources.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Resources.Location = new System.Drawing.Point(200, 24);
+            this.Resources.Name = "Resources";
+            this.Resources.Size = new System.Drawing.Size(747, 530);
+            this.Resources.TabIndex = 2;
+            this.Resources.UseCompatibleStateImageBehavior = false;
+            this.Resources.View = System.Windows.Forms.View.Details;
+            this.Resources.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.Resources_ItemSelectionChanged);
+            this.Resources.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.DjnItems_MouseDoubleClick);
             // 
-            // MonsterBox
+            // columnHeader1
             // 
-            this.MonsterBox.Controls.Add(this.MonsterList);
-            this.MonsterBox.Controls.Add(this.panel1);
-            this.MonsterBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MonsterBox.Location = new System.Drawing.Point(318, 3);
-            this.MonsterBox.Name = "MonsterBox";
-            this.MonsterBox.Size = new System.Drawing.Size(309, 524);
-            this.MonsterBox.TabIndex = 6;
-            this.MonsterBox.TabStop = false;
-            this.MonsterBox.Text = "Monsters";
+            this.columnHeader1.Text = "Name";
+            this.columnHeader1.Width = 400;
             // 
-            // MonsterList
+            // columnHeader2
             // 
-            this.MonsterList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MonsterList.FormattingEnabled = true;
-            this.MonsterList.Location = new System.Drawing.Point(3, 46);
-            this.MonsterList.Name = "MonsterList";
-            this.MonsterList.Size = new System.Drawing.Size(303, 475);
-            this.MonsterList.TabIndex = 6;
-            this.MonsterList.DoubleClick += new System.EventHandler(this.MonsterList_DoubleClick);
+            this.columnHeader2.Text = "Type";
+            this.columnHeader2.Width = 150;
             // 
-            // panel1
+            // NewContext
             // 
-            this.panel1.Controls.Add(this.NewMonsterButton);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(3, 16);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(303, 30);
-            this.panel1.TabIndex = 5;
+            this.NewContext.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.NewSource});
+            this.NewContext.Name = "NewContext";
+            this.NewContext.Size = new System.Drawing.Size(120, 26);
             // 
-            // NewMonsterButton
+            // NewSource
             // 
-            this.NewMonsterButton.Dock = System.Windows.Forms.DockStyle.Left;
-            this.NewMonsterButton.Enabled = false;
-            this.NewMonsterButton.Location = new System.Drawing.Point(0, 0);
-            this.NewMonsterButton.Name = "NewMonsterButton";
-            this.NewMonsterButton.Size = new System.Drawing.Size(75, 30);
-            this.NewMonsterButton.TabIndex = 1;
-            this.NewMonsterButton.Text = "&New...";
-            this.NewMonsterButton.UseVisualStyleBackColor = true;
-            this.NewMonsterButton.Click += new System.EventHandler(this.NewMonsterButton_Click);
+            this.NewSource.Name = "NewSource";
+            this.NewSource.Size = new System.Drawing.Size(119, 22);
+            this.NewSource.Text = "&Source...";
+            this.NewSource.Click += new System.EventHandler(this.NewSource_Click);
             // 
-            // ZoneBox
+            // DeleteBtn
             // 
-            this.ZoneBox.Controls.Add(this.ZoneList);
-            this.ZoneBox.Controls.Add(this.ZoneButtons);
-            this.ZoneBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ZoneBox.Location = new System.Drawing.Point(3, 3);
-            this.ZoneBox.Name = "ZoneBox";
-            this.ZoneBox.Size = new System.Drawing.Size(309, 524);
-            this.ZoneBox.TabIndex = 5;
-            this.ZoneBox.TabStop = false;
-            this.ZoneBox.Text = "Zones";
-            // 
-            // ZoneList
-            // 
-            this.ZoneList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ZoneList.FormattingEnabled = true;
-            this.ZoneList.Location = new System.Drawing.Point(3, 46);
-            this.ZoneList.Name = "ZoneList";
-            this.ZoneList.Size = new System.Drawing.Size(303, 475);
-            this.ZoneList.TabIndex = 5;
-            this.ZoneList.DoubleClick += new System.EventHandler(this.ZoneList_DoubleClick);
-            // 
-            // ZoneButtons
-            // 
-            this.ZoneButtons.Controls.Add(this.NewZoneButton);
-            this.ZoneButtons.Dock = System.Windows.Forms.DockStyle.Top;
-            this.ZoneButtons.Location = new System.Drawing.Point(3, 16);
-            this.ZoneButtons.Name = "ZoneButtons";
-            this.ZoneButtons.Size = new System.Drawing.Size(303, 30);
-            this.ZoneButtons.TabIndex = 4;
-            // 
-            // NewZoneButton
-            // 
-            this.NewZoneButton.Dock = System.Windows.Forms.DockStyle.Left;
-            this.NewZoneButton.Enabled = false;
-            this.NewZoneButton.Location = new System.Drawing.Point(0, 0);
-            this.NewZoneButton.Name = "NewZoneButton";
-            this.NewZoneButton.Size = new System.Drawing.Size(75, 30);
-            this.NewZoneButton.TabIndex = 1;
-            this.NewZoneButton.Text = "&New...";
-            this.NewZoneButton.UseVisualStyleBackColor = true;
+            this.DeleteBtn.Enabled = false;
+            this.DeleteBtn.Location = new System.Drawing.Point(12, 61);
+            this.DeleteBtn.Name = "DeleteBtn";
+            this.DeleteBtn.Size = new System.Drawing.Size(182, 23);
+            this.DeleteBtn.TabIndex = 2;
+            this.DeleteBtn.Text = "Delete Resource...";
+            this.DeleteBtn.UseVisualStyleBackColor = true;
+            this.DeleteBtn.Click += new System.EventHandler(this.DeleteBtn_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(947, 554);
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.Resources);
+            this.Controls.Add(this.ButtonsPanel);
             this.Controls.Add(this.TopMenu);
             this.MainMenuStrip = this.TopMenu;
             this.Name = "MainForm";
-            this.Text = "Campaign Editor";
+            this.Text = "DOSJUN Editor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.TopMenu.ResumeLayout(false);
             this.TopMenu.PerformLayout();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.ItemBox.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.MonsterBox.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.ZoneBox.ResumeLayout(false);
-            this.ZoneButtons.ResumeLayout(false);
+            this.ButtonsPanel.ResumeLayout(false);
+            this.NewContext.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -280,19 +220,17 @@
         private System.Windows.Forms.ToolStripMenuItem MenuExit;
         private System.Windows.Forms.OpenFileDialog OpenDialog;
         private System.Windows.Forms.ToolStripMenuItem MenuSave;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.GroupBox ItemBox;
-        private System.Windows.Forms.ListBox ItemList;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button NewItemButton;
-        private System.Windows.Forms.GroupBox MonsterBox;
-        private System.Windows.Forms.ListBox MonsterList;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button NewMonsterButton;
-        private System.Windows.Forms.GroupBox ZoneBox;
-        private System.Windows.Forms.ListBox ZoneList;
-        private System.Windows.Forms.Panel ZoneButtons;
-        private System.Windows.Forms.Button NewZoneButton;
+        private System.Windows.Forms.ToolStripMenuItem MenuNew;
+        private System.Windows.Forms.SaveFileDialog SaveDialog;
+        private System.Windows.Forms.Panel ButtonsPanel;
+        private System.Windows.Forms.ListView Resources;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.Button NewBtn;
+        private System.Windows.Forms.ContextMenuStrip NewContext;
+        private System.Windows.Forms.ToolStripMenuItem NewSource;
+        private System.Windows.Forms.Button RenameBtn;
+        private System.Windows.Forms.Button DeleteBtn;
     }
 }
 

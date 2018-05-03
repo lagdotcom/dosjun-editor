@@ -12,20 +12,14 @@ namespace DosjunEditor
         public MainForm()
         {
             InitializeComponent();
-
-            Globals.Palette = new JascPal();
-            Globals.Palette.Load("Game.pal");
         }
 
-        public string CampaignFilename { get; set; }
-        public string Root => Path.GetFileNameWithoutExtension(CampaignFilename);
-        public string CampaignPath => Path.GetDirectoryName(CampaignFilename) + Path.DirectorySeparatorChar;
-        public string MonstersFilename => CampaignPath + Root + ".MON";
-        public string ItemsFilename => CampaignPath + Root + ".ITM";
+        public string DjnFilename { get; set; }
+        public string Root => Path.GetFileNameWithoutExtension(DjnFilename);
+        public string DjnPath => Path.GetDirectoryName(DjnFilename) + Path.DirectorySeparatorChar;
 
-        public Campaign Campaign { get; set; }
-        public Monsters Monsters { get; set; }
-        public Items Items { get; set; }
+        public Djn Djn { get; set; }
+        public Context Context { get; set; }
         public bool Changed
         {
             get => changed;
@@ -34,24 +28,30 @@ namespace DosjunEditor
 
         public void SaveAll()
         {
-            using (Stream file = File.OpenWrite(CampaignFilename)) Campaign.Write(new BinaryWriter(file));
-            using (Stream file = File.OpenWrite(MonstersFilename)) Monsters.Write(new BinaryWriter(file));
-            using (Stream file = File.OpenWrite(ItemsFilename)) Items.Write(new BinaryWriter(file));
+            using (Stream file = new FileStream(DjnFilename, FileMode.Truncate))
+                Djn.Write(new BinaryWriter(file));
 
-            MessageBox.Show($"Wrote: {CampaignFilename}, {MonstersFilename}, {ItemsFilename}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($"Wrote: {DjnFilename}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Changed = false;
         }
 
         public void Exit()
         {
+            if (!EnsureSaved()) return;
+
+            Application.Exit();
+        }
+
+        private bool EnsureSaved()
+        {
             if (Changed)
             {
                 DialogResult result = MessageBox.Show("Save changes?", "Don't lose your work!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
-                if (result == DialogResult.Cancel) return;
+                if (result == DialogResult.Cancel) return false;
                 if (result == DialogResult.Yes) SaveAll();
             }
 
-            Application.Exit();
+            return true;
         }
 
         private void MenuExit_Click(object sender, EventArgs e)
@@ -63,15 +63,11 @@ namespace DosjunEditor
         {
             if (OpenDialog.ShowDialog() == DialogResult.OK)
             {
-                CampaignFilename = OpenDialog.FileName;
-
-                Campaign = new Campaign();
-                Monsters = new Monsters();
-                Items = new Items();
-
-                using (Stream file = File.OpenRead(CampaignFilename)) Campaign.Read(new BinaryReader(file));
-                using (Stream file = File.OpenRead(MonstersFilename)) Monsters.Read(new BinaryReader(file));
-                using (Stream file = File.OpenRead(ItemsFilename)) Items.Read(new BinaryReader(file));
+                DjnFilename = OpenDialog.FileName;
+                Djn = new Djn();
+                using (Stream file = File.OpenRead(DjnFilename))
+                    Djn.Read(new BinaryReader(file));
+                
                 CampaignLoaded();
             }
         }
@@ -79,16 +75,48 @@ namespace DosjunEditor
         private void CampaignLoaded()
         {
             MenuSave.Enabled = true;
-            NewZoneButton.Enabled = true;
-            NewMonsterButton.Enabled = true;
-            NewItemButton.Enabled = true;
+            NewBtn.Enabled = true;
 
-            UpdateList(ZoneList, Campaign.Zones);
-            UpdateList(MonsterList, Monsters.Data);
-            UpdateList(ItemList, Items.Data);
+            //ResetFilters();
+            ShowItems();
+
+            Changed = false;
+            Context = new Context { Djn = Djn };
+            Context.UnsavedChangesChanged += Context_UnsavedChangesChanged;
+            Djn.ResourceChanged += Djn_ResourceChanged;
         }
 
-        private void UpdateList(ListBox list, IList data)
+        private void Djn_ResourceChanged(object sender, IHasResource e)
+        {
+            ShowItems();
+        }
+
+        private void ShowItems()
+        {
+            Resources.BeginUpdate();
+            Resources.Items.Clear();
+
+            foreach (var resource in Djn.Resources)
+            {
+                ListViewItem lvi = new ListViewItem
+                {
+                    Text = resource.Value.Resource.ToString(),
+                    Tag = resource.Key,
+                };
+                lvi.SubItems.Add(resource.Value.Resource.Type.ToString());
+
+                Resources.Items.Add(lvi);
+            }
+
+            Resources.EndUpdate();
+        }
+
+        private void Context_UnsavedChangesChanged(object sender, EventArgs e)
+        {
+            Changed = Context.UnsavedChanges;
+        }
+
+        private void UpdateList(ListBox list, IEnumerable data)
         {
             list.Items.Clear();
             foreach (object datum in data)
@@ -99,25 +127,7 @@ namespace DosjunEditor
         {
             SaveAll();
         }
-
-        private void MonsterList_DoubleClick(object sender, EventArgs e)
-        {
-            object target = MonsterList.SelectedItem;
-            if (target != null)
-            {
-                MonsterForm form = new MonsterForm();
-                form.Setup(Campaign, target as Monster);
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    form.Apply();
-                    Changed = true;
-                    UpdateList(MonsterList, Monsters.Data);
-                }
-
-                form.Dispose();
-            }
-        }
-
+        
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason != CloseReason.ApplicationExitCall)
@@ -143,68 +153,143 @@ namespace DosjunEditor
                 }
             }
         }
-
-        private void ItemList_DoubleClick(object sender, EventArgs e)
+        
+        private void MenuNew_Click(object sender, EventArgs e)
         {
-            object target = ItemList.SelectedItem;
-            if (target != null)
+            if (EnsureSaved())
             {
-                ItemForm form = new ItemForm();
-                form.Setup(Campaign, target as Item);
-                if (form.ShowDialog() == DialogResult.OK)
+                if (SaveDialog.ShowDialog() == DialogResult.OK)
                 {
-                    form.Apply();
-                    Changed = true;
-                    UpdateList(ItemList, Items.Data);
+                    DjnFilename = SaveDialog.FileName;
+
+                    Djn = new Djn { Flags = DjnFlags.Design };
+
+                    Djn.Add(new Campaign());
+                    Djn.Campaign.Resource.Name = Root;
+
+                    Djn.Add(new Strings());
+                    Djn.Strings.Resource.Name = "STRINGS";
+
+                    CampaignLoaded();
+                    SetChanged(true);
                 }
-
-                form.Dispose();
             }
         }
 
-        private void NewMonsterButton_Click(object sender, EventArgs e)
+        private void NewZoneButton_Click(object sender, EventArgs e)
         {
-            MonsterForm form = new MonsterForm();
-            Monster data = new Monster();
-            form.Setup(Campaign, data);
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                form.Apply();
-                Changed = true;
+            ZoneForm form = new ZoneForm();
 
-                Monsters.Data.Add(data);
-                UpdateList(MonsterList, Monsters.Data);
-            }
-
+            form.Setup(Context, null, 0);
+            form.ZoneSaved += ZoneForm_NewZoneSaved;
+            form.ShowDialog();
             form.Dispose();
         }
 
-        private void NewItemButton_Click(object sender, EventArgs e)
+        private void ZoneForm_NewZoneSaved(object sender, EventArgs e)
         {
-            ItemForm form = new ItemForm();
-            Item data = new Item();
-            form.Setup(Campaign, data);
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                form.Apply();
-                Changed = true;
+            ZoneForm form = sender as ZoneForm;
 
-                Items.Data.Add(data);
-                UpdateList(ItemList, Items.Data);
-            }
-
-            form.Dispose();
+            form.ZoneId = Djn.Add(form.Zone);
+            form.ZoneSaved -= ZoneForm_NewZoneSaved;
         }
 
-        private void ZoneList_DoubleClick(object sender, EventArgs e)
+        private void DjnItems_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            object target = ZoneList.SelectedItem;
-            if (target != null)
+            ListViewItem lvi = Resources.GetItemAt(e.X, e.Y);
+
+            if (lvi != null)
             {
-                ZoneForm form = new ZoneForm();
-                form.Setup(Campaign, CampaignPath, Monsters, target as string);
-                form.ShowDialog();
-                form.Dispose();
+                IHasResource r = Djn[(int)lvi.Tag];
+
+                switch (r.Resource.Type)
+                {
+                    case ResourceType.Campaign:
+                        Spawn<CampaignEditor>(r);
+                        return;
+
+                    case ResourceType.Source:
+                        Spawn<SourceEditor>(r);
+                        return;
+
+                    default:
+                        MessageBox.Show($"Cannot edit {r.Resource.Type}... yet.", "Not Implemented", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                }
+            }
+        }
+
+        private IResourceEditor Spawn<T>(IHasResource r) where T: IResourceEditor, new()
+        {
+            T form = new T();
+            form.Setup(Context, r);
+            form.Show();
+            return form;
+        }
+
+        private void NewBtn_Click(object sender, EventArgs e)
+        {
+            NewContext.Show(MousePosition);
+        }
+
+        private void SubEditor_Saved(object sender, EventArgs e)
+        {
+            IResourceEditor editor = sender as IResourceEditor;
+            editor.Saved -= SubEditor_Saved;
+
+            if (editor.Editing.Resource.ID == 0)
+            {
+                Djn.Add(editor.Editing);
+                SetChanged(true);
+            }
+        }
+
+        private string GetString(string caption)
+        {
+            StringDialog dlg = new StringDialog { Text = caption };
+            return (dlg.ShowDialog(this) == DialogResult.OK) ? dlg.String : null;
+        }
+
+        private void Resources_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            bool single = Resources.SelectedItems.Count == 1;
+
+            RenameBtn.Enabled = single;
+            DeleteBtn.Enabled = single;
+        }
+
+        private void NewSource_Click(object sender, EventArgs e)
+        {
+            ScriptSource src = new ScriptSource();
+            src.Resource.Name = GetString("New Source file name");
+            Spawn<SourceEditor>(src).Saved += SubEditor_Saved;
+        }
+
+        private void RenameBtn_Click(object sender, EventArgs e)
+        {
+            if (Resources.SelectedItems.Count != 1)
+                return;
+
+            int id = (int)Resources.SelectedItems[0].Tag;
+
+            StringDialog dlg = new StringDialog { String = Djn[id].Resource.Name, Text = "Rename Resource" };
+            if (dlg.ShowDialog(this) == DialogResult.OK)
+            {
+                Djn.Rename(id, dlg.String);
+                Context.UnsavedChanges = true;
+            }
+        }
+        
+        private void DeleteBtn_Click(object sender, EventArgs e)
+        {
+            if (Resources.SelectedItems.Count != 1)
+                return;
+
+            int id = (int)Resources.SelectedItems[0].Tag;
+            if (MessageBox.Show("There's no checks about this breaking anything yet!", "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                Djn.Remove(id);
+                Context.UnsavedChanges = true;
             }
         }
     }

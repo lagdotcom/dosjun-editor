@@ -2,9 +2,11 @@
 
 namespace DosjunEditor
 {
-    public class Item : IBinaryData
+    public class Item : IHasResource
     {
         public const int Padding = 6;
+        public Resource Resource { get; set; }
+
 
         public Item()
         {
