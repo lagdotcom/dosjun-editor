@@ -9,7 +9,7 @@ namespace DosjunEditor
 {
     public partial class TextureComboBox : UserControl
     {
-        public const string NoTexture = "(None)";
+        private ushort textureId;
 
         private static Dictionary<WallLocation, Rectangle> slices = new Dictionary<WallLocation, Rectangle>
         {
@@ -21,55 +21,45 @@ namespace DosjunEditor
             { WallLocation.Floor, new Rectangle(1, 160, 126, 32) }
         };
 
-        private string texture;
         private bool updatingDisplay;
 
         public TextureComboBox()
         {
             InitializeComponent();
-
-            Box.Items.Clear();
-            Box.Items.Add(NoTexture);
-            foreach (string texture in Tools.GetTextures())
-                Box.Items.Add(texture);
-
-            texture = null;
         }
 
-        public Zone Zone { get; set; }
+        public Context Context { get; private set; }
+        public Zone Zone { get; private set; }
         public WallLocation Face { get; set; }
 
         public event EventHandler ValueChanged;
 
         public int Count => Box.Items.Count;
 
-        public string Texture
+        public ushort TextureId
         {
-            get => texture;
+            get
+            {
+                return textureId;
+            }
+
             set
             {
-                texture = value;
-
                 updatingDisplay = true;
-                Box.SelectedItem = value;
+
+                textureId = value;
+                Box.SelectedItem = Globals.Resolve(Context, value);
+
                 updatingDisplay = false;
             }
         }
 
-        public byte TextureId
+        public void Setup(Context ctx, Zone zone)
         {
-            get
-            {
-                if (texture == null) return 0;
-                return (byte)Zone.GetTextureId(texture);
-            }
+            Context = ctx;
+            Zone = zone;
 
-            set
-            {
-                updatingDisplay = true;
-                Box.SelectedIndex = ConvertTextureId(value);
-                updatingDisplay = false;
-            }
+            Globals.Populate(Box, Context.Djn.Textures);
         }
 
         public void Cycle()
@@ -84,19 +74,13 @@ namespace DosjunEditor
         {
             if (!updatingDisplay)
             {
-                texture = Box.SelectedIndex == 0 ? null : (string)Box.SelectedItem;
+                textureId = (Box.SelectedItem as Graphic).Resource.ID;
                 ValueChanged?.Invoke(this, e);
             }
 
             UpdatePicture();
         }
-
-        private int ConvertTextureId(byte textureId)
-        {
-            if (textureId == 0 || textureId > Zone.TextureCount) return 0;
-            return Box.Items.IndexOf(Zone.Textures[textureId - 1]);
-        }
-
+        
         private void UpdatePicture()
         {
             if (Box.SelectedIndex == 0)

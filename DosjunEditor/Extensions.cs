@@ -21,6 +21,14 @@ namespace DosjunEditor
 
         public static void WriteZS(this BinaryWriter bw, string data, int size)
         {
+            if (data == null)
+            {
+                for (var i = 0; i < size; i++)
+                    bw.Write('\0');
+
+                return;
+            }
+
             bw.Write(data.ToCharArray());
             for (var i = data.Length; i < size; i++)
                 bw.Write('\0');

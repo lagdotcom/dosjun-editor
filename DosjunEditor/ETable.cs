@@ -32,16 +32,16 @@ namespace DosjunEditor
         public ushort[] EncounterIds { get; set; }
         public byte[] Percentages { get; set; }
 
-        private string[] DescriptionStrings(Zone zone, Monsters monsters)
+        private string[] DescriptionStrings(Context ctx, Zone zone)
         {
             List<string> items = new List<string>();
             for (var i = 0; i < Possibilities; i++)
-                items.Add($"{Percentages[i]}%: {zone.Encounters[EncounterIds[i]].GetDescription(monsters)}");
+                items.Add($"{Percentages[i]}%: {zone.Encounters[EncounterIds[i]].GetDescription(ctx)}");
 
             return items.ToArray();
         }
 
-        public string GetDescription(Zone zone, Monsters monsters, string join = ", ") => string.Join(join, DescriptionStrings(zone, monsters));
+        public string GetDescription(Context ctx, Zone zone, string join = ", ") => string.Join(join, DescriptionStrings(ctx, zone));
 
         public void DeleteEncounterId(ushort index)
         {

@@ -7,7 +7,6 @@ namespace DosjunEditor
 {
     public partial class ZoneView : UserControl
     {
-        private Zone zone;
         private int tileSize = 8;
         private Tile selectedTile;
         private Color selectedTileColour = Color.FromArgb(127, Color.Yellow);
@@ -24,16 +23,8 @@ namespace DosjunEditor
             };
         }
 
-        public Zone Zone
-        {
-            get => zone;
-            set
-            {
-                zone = value;
-                if (zone != null) SelectTile(zone.Tiles.At(0, 0));
-                Invalidate();
-            }
-        }
+        public Context Context { get; private set; }
+        public Zone Zone { get; private set; }
 
         public int TileSize
         {
@@ -50,6 +41,15 @@ namespace DosjunEditor
 
         public delegate void TileEventHandler(Tile t);
         public event TileEventHandler TileSelected;
+
+        public void Setup(Context ctx, Zone zone)
+        {
+            Context = ctx;
+            Zone = zone;
+
+            SelectTile(zone.Tiles.At(0, 0));
+            Invalidate();
+        }
 
         public void UpdateTile()
         {
@@ -92,17 +92,17 @@ namespace DosjunEditor
             base.OnPaintBackground(e);
             e.Graphics.FillRectangle(Brushes.Black, e.ClipRectangle);
 
-            if (zone == null)
+            if (Zone == null)
             {
                 e.Graphics.DrawString("No Zone", Font, Brushes.Red, 10, 10);
                 return;
             }
 
-            for (int y = 0; y < zone.Tiles.Height; y++)
+            for (int y = 0; y < Zone.Tiles.Height; y++)
             {
-                for (int x = 0; x < zone.Tiles.Width; x++)
+                for (int x = 0; x < Zone.Tiles.Width; x++)
                 {
-                    Tile t = zone.Tiles.At(x, y);
+                    Tile t = Zone.Tiles.At(x, y);
                     int ox = x * tileSize;
                     int oy = y * tileSize;
                     int ex = ox + tileSize - 1;
@@ -256,14 +256,14 @@ namespace DosjunEditor
 
         private void ZoneView_MouseClick(object sender, MouseEventArgs e)
         {
-            if (zone == null) return;
+            if (Zone == null) return;
 
             int x = e.X / tileSize;
             int y = e.Y / tileSize;
 
-            if (zone.Tiles.Width > x && zone.Tiles.Height > y)
+            if (Zone.Tiles.Width > x && Zone.Tiles.Height > y)
             {
-                SelectTile(zone.Tiles.At(x, y));
+                SelectTile(Zone.Tiles.At(x, y));
             }
         }
 
@@ -279,12 +279,10 @@ namespace DosjunEditor
             return new Pen(Globals.Palette[index]);
         }
 
-        private Brush WallBrush(byte index)
+        private Brush WallBrush(ushort index)
         {
-            string texture = Zone.Textures[index - 1];
-            Color col = textureColours.ContainsKey(texture) ? textureColours[texture] : Color.Gray;
-
-            return new SolidBrush(col);
+            // TODO
+            return new SolidBrush(Color.Gray);
         }
 
         public void Carve(int xmod, int ymod)
@@ -294,7 +292,7 @@ namespace DosjunEditor
 
             if (dx < 0 || dy < 0) return;
 
-            SelectTile(zone.Tiles.At(dx, dy));
+            SelectTile(Zone.Tiles.At(dx, dy));
         }
     }
 }

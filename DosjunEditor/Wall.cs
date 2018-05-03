@@ -4,11 +4,11 @@ namespace DosjunEditor
 {
     public class Wall : IBinaryData
     {
-        public const int Padding = 2;
+        public const int Padding = 1;
 
         public void Read(BinaryReader br)
         {
-            TextureId = br.ReadByte();
+            TextureId = br.ReadUInt16();
             Type = (WallType)br.ReadByte();
 
             br.ReadBytes(Padding);
@@ -22,7 +22,7 @@ namespace DosjunEditor
             bw.WritePadding(Padding);
         }
 
-        public byte TextureId { get; set; }
+        public ushort TextureId { get; set; }
         public WallType Type { get; set; }
 
         public override string ToString() => $"{Type} #{TextureId}";

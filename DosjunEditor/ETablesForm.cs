@@ -10,12 +10,14 @@ namespace DosjunEditor
             InitializeComponent();
         }
 
-        public ZoneContext Context { get; private set; }
+        public Context Context { get; private set; }
+        public Zone Zone { get; private set; }
 
-        public void Setup(ZoneContext context)
+        public void Setup(Context ctx, Zone zone)
         {
-            Context = context;
+            Context = ctx;
             Context.EncountersChanged += Context_EncountersChanged;
+            Zone = zone;
 
             UpdateETableList();
         }
@@ -23,8 +25,8 @@ namespace DosjunEditor
         private void UpdateETableList()
         {
             Options.Items.Clear();
-            foreach (ETable et in Context.Zone.ETables)
-                Options.Items.Add(et.GetDescription(Context.Zone, Context.Monsters));
+            foreach (ETable et in Zone.ETables)
+                Options.Items.Add(et.GetDescription(Context, Zone));
         }
 
         private void Context_EncountersChanged(object sender, EventArgs e)
@@ -36,10 +38,10 @@ namespace DosjunEditor
         {
             if (Options.SelectedIndex == -1) return;
 
-            ETable et = Context.Zone.ETables[Options.SelectedIndex];
+            ETable et = Zone.ETables[Options.SelectedIndex];
             using (ETableForm child = new ETableForm())
             {
-                child.Setup(Context, et);
+                child.Setup(Context, Zone, et);
 
                 if (child.ShowDialog() == DialogResult.OK)
                 {
@@ -56,10 +58,10 @@ namespace DosjunEditor
 
             int index = Options.SelectedIndex + 1;
 
-            foreach (Tile t in Context.Zone.Tiles)
+            foreach (Tile t in Zone.Tiles)
                 if (t.ETableId == index)
                     t.ETableId = 0;
-            Context.Zone.ETables.RemoveAt(index);
+            Zone.ETables.RemoveAt(index);
 
             Context.UnsavedChanges = true;
             Context.UpdateEncounters();
@@ -77,7 +79,7 @@ namespace DosjunEditor
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            Tools.AddETable(Context);
+            Tools.AddETable(Context, Zone);
         }
 
         private void DeleteButton_Click(object sender, EventArgs e)

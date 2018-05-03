@@ -48,9 +48,6 @@
             this.label9 = new System.Windows.Forms.Label();
             this.OnEnterBox = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.AddDescriptionButton = new System.Windows.Forms.Button();
-            this.SelectDescriptionButton = new System.Windows.Forms.Button();
-            this.DescriptionIdLabel = new System.Windows.Forms.Label();
             this.DescriptionBox = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -97,9 +94,6 @@
             this.SidePanel.Controls.Add(this.label9);
             this.SidePanel.Controls.Add(this.OnEnterBox);
             this.SidePanel.Controls.Add(this.label8);
-            this.SidePanel.Controls.Add(this.AddDescriptionButton);
-            this.SidePanel.Controls.Add(this.SelectDescriptionButton);
-            this.SidePanel.Controls.Add(this.DescriptionIdLabel);
             this.SidePanel.Controls.Add(this.DescriptionBox);
             this.SidePanel.Controls.Add(this.label7);
             this.SidePanel.Controls.Add(this.label6);
@@ -177,9 +171,7 @@
             this.CeilingTexture.Name = "CeilingTexture";
             this.CeilingTexture.Size = new System.Drawing.Size(126, 53);
             this.CeilingTexture.TabIndex = 29;
-            this.CeilingTexture.Texture = null;
             this.CeilingTexture.TextureId = ((byte)(0));
-            this.CeilingTexture.Zone = null;
             this.CeilingTexture.ValueChanged += new System.EventHandler(this.CeilingTexture_ValueChanged);
             // 
             // FloorTexture
@@ -189,9 +181,7 @@
             this.FloorTexture.Name = "FloorTexture";
             this.FloorTexture.Size = new System.Drawing.Size(126, 53);
             this.FloorTexture.TabIndex = 28;
-            this.FloorTexture.Texture = null;
             this.FloorTexture.TextureId = ((byte)(0));
-            this.FloorTexture.Zone = null;
             this.FloorTexture.ValueChanged += new System.EventHandler(this.FloorTexture_ValueChanged);
             // 
             // ThingBox
@@ -312,42 +302,11 @@
             this.label8.TabIndex = 17;
             this.label8.Text = "On Enter";
             // 
-            // AddDescriptionButton
-            // 
-            this.AddDescriptionButton.Location = new System.Drawing.Point(178, 560);
-            this.AddDescriptionButton.Name = "AddDescriptionButton";
-            this.AddDescriptionButton.Size = new System.Drawing.Size(60, 23);
-            this.AddDescriptionButton.TabIndex = 16;
-            this.AddDescriptionButton.Text = "Add...";
-            this.AddDescriptionButton.UseVisualStyleBackColor = true;
-            this.AddDescriptionButton.Click += new System.EventHandler(this.AddDescriptionButton_Click);
-            // 
-            // SelectDescriptionButton
-            // 
-            this.SelectDescriptionButton.Location = new System.Drawing.Point(6, 560);
-            this.SelectDescriptionButton.Name = "SelectDescriptionButton";
-            this.SelectDescriptionButton.Size = new System.Drawing.Size(60, 23);
-            this.SelectDescriptionButton.TabIndex = 15;
-            this.SelectDescriptionButton.Text = "Select...";
-            this.SelectDescriptionButton.UseVisualStyleBackColor = true;
-            this.SelectDescriptionButton.Click += new System.EventHandler(this.SelectDescriptionButton_Click);
-            // 
-            // DescriptionIdLabel
-            // 
-            this.DescriptionIdLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DescriptionIdLabel.Location = new System.Drawing.Point(178, 443);
-            this.DescriptionIdLabel.Name = "DescriptionIdLabel";
-            this.DescriptionIdLabel.Size = new System.Drawing.Size(60, 13);
-            this.DescriptionIdLabel.TabIndex = 14;
-            this.DescriptionIdLabel.Text = "#";
-            this.DescriptionIdLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // DescriptionBox
             // 
             this.DescriptionBox.Location = new System.Drawing.Point(6, 459);
             this.DescriptionBox.Multiline = true;
             this.DescriptionBox.Name = "DescriptionBox";
-            this.DescriptionBox.ReadOnly = true;
             this.DescriptionBox.Size = new System.Drawing.Size(232, 95);
             this.DescriptionBox.TabIndex = 13;
             // 
@@ -456,7 +415,6 @@
             this.Map.Size = new System.Drawing.Size(934, 937);
             this.Map.TabIndex = 0;
             this.Map.TileSize = 16;
-            this.Map.Zone = null;
             this.Map.TileSelected += new DosjunEditor.ZoneView.TileEventHandler(this.Map_TileSelected);
             this.Map.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Map_KeyUp);
             // 
@@ -484,21 +442,21 @@
             // MenuZone
             // 
             this.MenuZone.Name = "MenuZone";
-            this.MenuZone.Size = new System.Drawing.Size(180, 22);
+            this.MenuZone.Size = new System.Drawing.Size(148, 22);
             this.MenuZone.Text = "&Zone Details...";
             this.MenuZone.Click += new System.EventHandler(this.MenuZone_Click);
             // 
             // MenuSave
             // 
             this.MenuSave.Name = "MenuSave";
-            this.MenuSave.Size = new System.Drawing.Size(180, 22);
+            this.MenuSave.Size = new System.Drawing.Size(148, 22);
             this.MenuSave.Text = "&Save";
             this.MenuSave.Click += new System.EventHandler(this.MenuSave_Click);
             // 
             // MenuExit
             // 
             this.MenuExit.Name = "MenuExit";
-            this.MenuExit.Size = new System.Drawing.Size(180, 22);
+            this.MenuExit.Size = new System.Drawing.Size(148, 22);
             this.MenuExit.Text = "E&xit";
             this.MenuExit.Click += new System.EventHandler(this.MenuExit_Click);
             // 
@@ -564,9 +522,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox DescriptionBox;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label DescriptionIdLabel;
-        private System.Windows.Forms.Button AddDescriptionButton;
-        private System.Windows.Forms.Button SelectDescriptionButton;
         private System.Windows.Forms.MenuStrip TopMenu;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem MenuSave;

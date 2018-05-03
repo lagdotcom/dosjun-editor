@@ -30,23 +30,25 @@ namespace DosjunEditor
         public byte[] Minimums { get; private set; }
         public byte[] Maximums { get; private set; }
 
-        private string[] DescriptionStrings(Monsters monsters)
+        private string[] DescriptionStrings(Context ctx)
         {
             List<string> items = new List<string>();
             for (var i = 0; i < Consts.EncounterSize; i++)
             {
                 if (MonsterIds[i] > 0 && Maximums[i] > 0)
                 {
+                    Monster m = ctx.Djn[MonsterIds[i]] as Monster;
+
                     if (Minimums[i] == Maximums[i])
-                        items.Add($"{Minimums[i]}x {monsters[MonsterIds[i]].Name}");
+                        items.Add($"{Minimums[i]}x {m.Name}");
                     else
-                        items.Add($"{Minimums[i]}-{Maximums[i]}x {monsters[MonsterIds[i]].Name}");
+                        items.Add($"{Minimums[i]}-{Maximums[i]}x {m.Name}");
                 }
             }
 
             return items.ToArray();
         }
 
-        public string GetDescription(Monsters monsters, string join = "; ") => string.Join(join, DescriptionStrings(monsters));
+        public string GetDescription(Context ctx, string join = "; ") => string.Join(join, DescriptionStrings(ctx));
     }
 }

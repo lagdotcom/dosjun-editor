@@ -28,62 +28,52 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.OKBtn = new System.Windows.Forms.Button();
+            this.CancelBtn = new System.Windows.Forms.Button();
             this.NameBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.IDBox = new System.Windows.Forms.NumericUpDown();
             this.ImageBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.RowBox = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.AIBox = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.StatsBoxes = new DosjunEditor.StatsEditor();
             this.ImageShow = new System.Windows.Forms.PictureBox();
             this.XPBox = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
             this.SkillsBox = new System.Windows.Forms.GroupBox();
             this.SkillsList = new System.Windows.Forms.ListBox();
-            ((System.ComponentModel.ISupportInitialize)(this.IDBox)).BeginInit();
+            this.StatsBoxes = new DosjunEditor.StatsEditor();
             ((System.ComponentModel.ISupportInitialize)(this.ImageShow)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.XPBox)).BeginInit();
             this.SkillsBox.SuspendLayout();
             this.SuspendLayout();
             // 
-            // label1
+            // OKBtn
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 14);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(18, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "ID";
+            this.OKBtn.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.OKBtn.Location = new System.Drawing.Point(15, 390);
+            this.OKBtn.Name = "OKBtn";
+            this.OKBtn.Size = new System.Drawing.Size(75, 23);
+            this.OKBtn.TabIndex = 100;
+            this.OKBtn.Text = "OK";
+            this.OKBtn.UseVisualStyleBackColor = true;
+            this.OKBtn.Click += new System.EventHandler(this.OKBtn_Click);
             // 
-            // button1
+            // CancelBtn
             // 
-            this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.Location = new System.Drawing.Point(15, 390);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 100;
-            this.button1.Text = "OK";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button2.Location = new System.Drawing.Point(220, 390);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 101;
-            this.button2.Text = "Cancel";
-            this.button2.UseVisualStyleBackColor = true;
+            this.CancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.CancelBtn.Location = new System.Drawing.Point(220, 390);
+            this.CancelBtn.Name = "CancelBtn";
+            this.CancelBtn.Size = new System.Drawing.Size(75, 23);
+            this.CancelBtn.TabIndex = 101;
+            this.CancelBtn.Text = "Cancel";
+            this.CancelBtn.UseVisualStyleBackColor = true;
+            this.CancelBtn.Click += new System.EventHandler(this.CancelBtn_Click);
             // 
             // NameBox
             // 
-            this.NameBox.Location = new System.Drawing.Point(75, 38);
+            this.NameBox.Location = new System.Drawing.Point(75, 8);
             this.NameBox.Name = "NameBox";
             this.NameBox.Size = new System.Drawing.Size(220, 20);
             this.NameBox.TabIndex = 2;
@@ -91,27 +81,15 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 41);
+            this.label2.Location = new System.Drawing.Point(12, 11);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(35, 13);
             this.label2.TabIndex = 4;
             this.label2.Text = "Name";
             // 
-            // IDBox
-            // 
-            this.IDBox.Location = new System.Drawing.Point(75, 12);
-            this.IDBox.Maximum = new decimal(new int[] {
-            65535,
-            0,
-            0,
-            0});
-            this.IDBox.Name = "IDBox";
-            this.IDBox.Size = new System.Drawing.Size(220, 20);
-            this.IDBox.TabIndex = 1;
-            // 
             // ImageBox
             // 
-            this.ImageBox.Location = new System.Drawing.Point(75, 64);
+            this.ImageBox.Location = new System.Drawing.Point(75, 34);
             this.ImageBox.MaxLength = 8;
             this.ImageBox.Name = "ImageBox";
             this.ImageBox.Size = new System.Drawing.Size(220, 20);
@@ -121,7 +99,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 67);
+            this.label3.Location = new System.Drawing.Point(12, 37);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(36, 13);
             this.label3.TabIndex = 7;
@@ -133,7 +111,7 @@
             this.RowBox.Items.AddRange(new object[] {
             "Front",
             "Back"});
-            this.RowBox.Location = new System.Drawing.Point(75, 224);
+            this.RowBox.Location = new System.Drawing.Point(75, 194);
             this.RowBox.Name = "RowBox";
             this.RowBox.Size = new System.Drawing.Size(220, 21);
             this.RowBox.TabIndex = 4;
@@ -141,7 +119,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 227);
+            this.label4.Location = new System.Drawing.Point(12, 197);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(29, 13);
             this.label4.TabIndex = 10;
@@ -150,7 +128,7 @@
             // AIBox
             // 
             this.AIBox.FormattingEnabled = true;
-            this.AIBox.Location = new System.Drawing.Point(75, 251);
+            this.AIBox.Location = new System.Drawing.Point(75, 221);
             this.AIBox.Name = "AIBox";
             this.AIBox.Size = new System.Drawing.Size(220, 21);
             this.AIBox.TabIndex = 5;
@@ -158,23 +136,15 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 254);
+            this.label5.Location = new System.Drawing.Point(12, 224);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(17, 13);
             this.label5.TabIndex = 12;
             this.label5.Text = "AI";
             // 
-            // StatsBoxes
-            // 
-            this.StatsBoxes.Location = new System.Drawing.Point(301, 8);
-            this.StatsBoxes.Name = "StatsBoxes";
-            this.StatsBoxes.Size = new System.Drawing.Size(258, 405);
-            this.StatsBoxes.Stats = null;
-            this.StatsBoxes.TabIndex = 6;
-            // 
             // ImageShow
             // 
-            this.ImageShow.Location = new System.Drawing.Point(167, 90);
+            this.ImageShow.Location = new System.Drawing.Point(167, 60);
             this.ImageShow.Name = "ImageShow";
             this.ImageShow.Size = new System.Drawing.Size(128, 128);
             this.ImageShow.TabIndex = 102;
@@ -182,7 +152,7 @@
             // 
             // XPBox
             // 
-            this.XPBox.Location = new System.Drawing.Point(75, 278);
+            this.XPBox.Location = new System.Drawing.Point(75, 248);
             this.XPBox.Maximum = new decimal(new int[] {
             -1,
             0,
@@ -195,7 +165,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 280);
+            this.label6.Location = new System.Drawing.Point(12, 250);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(60, 13);
             this.label6.TabIndex = 103;
@@ -221,6 +191,14 @@
             this.SkillsList.Size = new System.Drawing.Size(151, 386);
             this.SkillsList.TabIndex = 0;
             // 
+            // StatsBoxes
+            // 
+            this.StatsBoxes.Location = new System.Drawing.Point(301, 8);
+            this.StatsBoxes.Name = "StatsBoxes";
+            this.StatsBoxes.Size = new System.Drawing.Size(258, 405);
+            this.StatsBoxes.Stats = null;
+            this.StatsBoxes.TabIndex = 6;
+            // 
             // MonsterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -237,15 +215,12 @@
             this.Controls.Add(this.RowBox);
             this.Controls.Add(this.ImageBox);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.IDBox);
             this.Controls.Add(this.NameBox);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.CancelBtn);
+            this.Controls.Add(this.OKBtn);
             this.Name = "MonsterForm";
             this.Text = "Monster Editor";
-            ((System.ComponentModel.ISupportInitialize)(this.IDBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ImageShow)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.XPBox)).EndInit();
             this.SkillsBox.ResumeLayout(false);
@@ -255,13 +230,10 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button OKBtn;
+        private System.Windows.Forms.Button CancelBtn;
         private System.Windows.Forms.TextBox NameBox;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.NumericUpDown IDBox;
         private System.Windows.Forms.TextBox ImageBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox RowBox;

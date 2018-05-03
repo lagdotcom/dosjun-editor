@@ -6,14 +6,13 @@ using System.Windows.Forms;
 
 namespace DosjunEditor
 {
-    public partial class ZoneForm : Form
+    public partial class ZoneForm : Form, IResourceEditor
     {
         public const string CrLf = "\r\n";
         public const string Lf = "\n";
 
         private List<ComboBox> ScriptNameBoxes;
 
-        private bool addingDescription;
         private bool updatingDisplay;
 
         public ZoneForm()
@@ -31,12 +30,13 @@ namespace DosjunEditor
         }
 
         public Context Context;
+        public IHasResource Editing => Zone;
         public Zone Zone;
         public int ZoneId;
         public Tile CurrentTile { get; private set; }
         public Jun.Parser Parser { get; private set; }
 
-        public event EventHandler ZoneSaved;
+        public event EventHandler Saved;
 
         private void Context_UnsavedChangesChanged(object sender, EventArgs e)
         {
@@ -52,10 +52,10 @@ namespace DosjunEditor
 
         public void SaveAll()
         {
-            CheckAddingDescription();
+            CheckDescriptionUpdate();
 
             Context.UnsavedChanges = false;
-            ZoneSaved?.Invoke(this, null);
+            Saved?.Invoke(this, null);
         }
 
         public bool CheckChanged()
@@ -70,29 +70,21 @@ namespace DosjunEditor
             return false;
         }
 
-        public void Setup(Context context, Zone zone, int id)
+        public void Setup(Context ctx, IHasResource zone)
         {
-            Context = context;
-            Context.UnsavedChangesChanged += Context_UnsavedChangesChanged;
-            Context.EncountersChanged += Context_EncountersChanged;
+            Context = ctx;
+            ctx.UnsavedChangesChanged += Context_UnsavedChangesChanged;
+            ctx.EncountersChanged += Context_EncountersChanged;
 
-            if (zone == null)
-            {
-                Zone = new Zone();
-                Context.UnsavedChanges = true;
-            }
-            else
-            {
-                Zone = zone;
-            }
+            Zone = zone as Zone;
 
-            CeilingTexture.Zone = Zone;
-            FloorTexture.Zone = Zone;
+            CeilingTexture.Setup(ctx, Zone);
+            FloorTexture.Setup(ctx, Zone);
 
             Parser = null;
             LoadScriptNames();
 
-            Map.Zone = Zone;
+            Map.Setup(ctx, Zone);
         }
 
         private void Context_EncountersChanged(object sender, EventArgs e)
@@ -102,64 +94,36 @@ namespace DosjunEditor
         
         private void LoadScriptNames()
         {
-            throw new NotImplementedException();
-
-            List<String> scriptNames = new List<string> { Consts.EmptyItem };
-
-            if (Parser == null)
-            {
-                for (var i = 0; i < Zone.ScriptCount; i++)
-                    scriptNames.Add($"Script #{i + 1}");
-            }
-            else
-            {
-                foreach (Jun.Script sc in Parser.Scripts) //.Where(sc => sc.Public))
-                    scriptNames.Add(sc.Name);
-            }
-
-            //Context.ScriptNames = scriptNames.ToArray();
-
             foreach (ComboBox box in ScriptNameBoxes)
-            {
-                box.Items.Clear();
-                //box.Items.AddRange(Context.ScriptNames);
-            }
+                Globals.Populate(box, Context.Djn.PublicScripts);
 
             if (CurrentTile != null) Map_TileSelected(CurrentTile);
         }
 
-        private void CheckAddingDescription()
+        private void CheckDescriptionUpdate()
         {
-            if (addingDescription)
+            if (CurrentTile == null)
+                return;
+
+            string old = Context.GetString(CurrentTile.DescriptionId);
+            string rep = DescriptionBox.Text.Replace(CrLf, Lf);
+
+            if (old != rep)
             {
                 Context.UnsavedChanges = true;
-                Zone.Strings[CurrentTile.DescriptionId - 1] = DescriptionBox.Text.Replace(CrLf, Lf);
-
-                DescriptionBox.ReadOnly = true;
+                CurrentTile.DescriptionId = Context.GetStringId(rep, CurrentTile.DescriptionId);
             }
         }
 
         private void UpdateDescription()
         {
-            DescriptionBox.ReadOnly = !addingDescription;
-            if (CurrentTile.DescriptionId > 0)
-            {
-                DescriptionBox.Text = Zone.Strings[CurrentTile.DescriptionId - 1].Replace(Lf, CrLf);
-                DescriptionIdLabel.Text = $"#{CurrentTile.DescriptionId}";
-            }
-            else
-            {
-                DescriptionBox.Text = string.Empty;
-                DescriptionIdLabel.Text = Consts.EmptyItem;
-            }
+            DescriptionBox.Text = Context.GetString(CurrentTile.DescriptionId).Replace(Lf, CrLf);
         }
 
         private string GetETableText(ushort id)
         {
-            throw new NotImplementedException();
-
-            //if (id == 0) return "(No encounters)";
-            //return Zone.ETables[id - 1].GetDescription(Zone, Monsters, CrLf);
+            if (id == 0) return "(No encounters)";
+            return Zone.ETables[id - 1].GetDescription(Context, Zone, CrLf);
         }
 
         private void UpdateETable()
@@ -172,23 +136,22 @@ namespace DosjunEditor
         {
             updatingDisplay = true;
 
-            CheckAddingDescription();
+            CheckDescriptionUpdate();
             CurrentTile = t;
 
-            NorthWall.Setup(Zone, t.Walls[0]);
-            EastWall.Setup(Zone, t.Walls[1]);
-            SouthWall.Setup(Zone, t.Walls[2]);
-            WestWall.Setup(Zone, t.Walls[3]);
+            NorthWall.Setup(Context, Zone, t.Walls[0]);
+            EastWall.Setup(Context, Zone, t.Walls[1]);
+            SouthWall.Setup(Context, Zone, t.Walls[2]);
+            WestWall.Setup(Context, Zone, t.Walls[3]);
 
             CeilingTexture.TextureId = t.CeilingTexture;
             FloorTexture.TextureId = t.FloorTexture;
 
-            addingDescription = false;
             UpdateDescription();
             UpdateETable();
 
-            OnEnterBox.SelectedIndex = t.OnEnterId;
-            OnUseBox.SelectedIndex = t.OnUseId;
+            OnEnterBox.SelectedItem = Globals.Resolve(Context, t.OnEnterId);
+            OnUseBox.SelectedItem = Globals.Resolve(Context, t.OnUseId);
             ThingBox.SelectedIndex = (int)t.Thing;
             DangerBox.Value = t.Danger;
 
@@ -225,31 +188,7 @@ namespace DosjunEditor
             CurrentTile.CeilingTexture = CeilingTexture.TextureId;
             DataElement_Changed(sender, e);
         }
-
-        private void AddDescriptionButton_Click(object sender, EventArgs e)
-        {
-            if (!addingDescription)
-            {
-                Zone.Strings.Add(string.Empty);
-                CurrentTile.DescriptionId = (ushort)Zone.Strings.Count;
-
-                addingDescription = true;
-                UpdateDescription();
-            }
-        }
-
-        private void SelectDescriptionButton_Click(object sender, EventArgs e)
-        {
-            PickerDialog dlg = new PickerDialog { Items = Zone.Strings };
-            if (dlg.ShowDialog() == DialogResult.OK)
-            {
-                CurrentTile.DescriptionId = (ushort)(dlg.SelectedIndex + 1);
-                Context.UnsavedChanges = true;
-
-                UpdateDescription();
-            }
-        }
-
+        
         private void MenuSave_Click(object sender, EventArgs e)
         {
             SaveAll();
@@ -372,15 +311,13 @@ namespace DosjunEditor
 
         private void SelectETableButton_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
-
             List<string> items = new List<string>
             {
                 GetETableText(0)
             };
             foreach (ETable et in Zone.ETables)
             {
-                //items.Add(et.GetDescription(Zone, Context.Djn.Monsters));
+                items.Add(et.GetDescription(Context, Zone));
             }
 
             PickerDialog dlg = new PickerDialog { Items = items };
@@ -396,12 +333,10 @@ namespace DosjunEditor
 
         private void EditETableButton_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
-
             if (CurrentTile.ETableId > 0)
             {
                 ETableForm form = new ETableForm();
-                //form.Setup(Context, Zone.ETables[CurrentTile.ETableId - 1]);
+                form.Setup(Context, Zone, Zone.ETables[CurrentTile.ETableId - 1]);
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
@@ -435,34 +370,28 @@ namespace DosjunEditor
 
         private void MenuEncounters_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
-
             EncountersForm form = new EncountersForm();
-            //form.Setup(Context);
+            form.Setup(Context, Zone);
 
             form.Show();
         }
 
         private void MenuETables_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
-
             ETablesForm form = new ETablesForm();
-            //form.Setup(Context);
+            form.Setup(Context, Zone);
 
             form.Show();
         }
 
         private void AddETableButton_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
-
-            /*ushort newId = Tools.AddETable(Context);
+            ushort newId = Tools.AddETable(Context, Zone);
             if (newId != 0)
             {
                 CurrentTile.ETableId = newId;
                 UpdateETable();
-            }*/
+            }
         }
 
         private void DangerBox_ValueChanged(object sender, EventArgs e)
@@ -473,11 +402,9 @@ namespace DosjunEditor
 
         private void MenuZone_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
-
             using (ZoneDataForm form = new ZoneDataForm())
             {
-                //form.Setup(Context);
+                form.Setup(Context, Zone);
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {

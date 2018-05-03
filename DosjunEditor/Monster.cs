@@ -5,11 +5,13 @@ namespace DosjunEditor
 {
     public class Monster : IHasResource
     {
-        public const int Padding = 1;
+        public const int Padding = 3;
         public Resource Resource { get; set; }
 
         public Monster()
         {
+            Resource = new Resource { Type = ResourceType.Monster };
+
             Stats = new Stats();
             Skills = new List<short>();
         }
@@ -18,7 +20,6 @@ namespace DosjunEditor
         {
             Name = br.ReadZS(Consts.NameSize);
             Image = br.ReadZS(8);
-            Id = br.ReadUInt16();
             Stats.Read(br);
             Row = (Row)br.ReadByte();
             AI = (AI)br.ReadByte();
@@ -38,7 +39,6 @@ namespace DosjunEditor
 
             bw.WriteZS(Name, Consts.NameSize);
             bw.WriteZS(Image, 8);
-            bw.Write(Id);
             Stats.Write(bw);
             bw.Write((byte)Row);
             bw.Write((byte)AI);
@@ -53,7 +53,6 @@ namespace DosjunEditor
 
         public string Name { get; set; }
         public string Image { get; set; }
-        public ushort Id { get; set; }
         public Stats Stats { get; set; }
         public Row Row { get; set; }
         public AI AI { get; set; }

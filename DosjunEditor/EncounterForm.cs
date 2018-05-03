@@ -12,14 +12,14 @@ namespace DosjunEditor
             InitializeComponent();
         }
         
+        public Context Context { get; private set; }
         public Encounter Encounter { get; private set; }
-        public Monsters Monsters { get; private set; }
         public Zone Zone { get; private set; }
 
-        public void Setup(ZoneContext context, Encounter encounter)
+        public void Setup(Context ctx, Zone zone, Encounter encounter)
         {
-            Zone = context.Zone;
-            Monsters = context.Monsters;
+            Context = ctx;
+            Zone = zone;
             Encounter = encounter;
 
             rows = new Row[Consts.EncounterSize];
@@ -91,15 +91,8 @@ namespace DosjunEditor
 
             private void MonsterBox_SelectedIndexChanged(object sender, EventArgs e)
             {
-                int index;
-
                 if (!updating)
-                {
-                    index = MonsterBox.SelectedIndex;
-
-                    if (index == 0) MonsterId = 0;
-                    else MonsterId = Parent.Monsters.Data[index - 1].Id;
-                }
+                    MonsterId = (MonsterBox.SelectedItem as Monster).Resource.ID;
             }
 
             public EncounterForm Parent { get; private set; }
@@ -113,11 +106,10 @@ namespace DosjunEditor
             public void RefreshMonsterList()
             {
                 updating = true;
-                MonsterBox.Items.Clear();
-                MonsterBox.Items.Add(Consts.EmptyItem);
-                foreach (Monster mon in Parent.Monsters.Data)
-                    MonsterBox.Items.Add(mon.Name);
-                MonsterBox.SelectedIndex = MonsterId;
+
+                Globals.Populate(MonsterBox, Parent.Context.Djn.Monsters);
+                MonsterBox.SelectedItem = Globals.Resolve(Parent.Context, MonsterId);
+
                 updating = false;
             }
         }

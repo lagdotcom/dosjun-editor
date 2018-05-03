@@ -10,12 +10,14 @@ namespace DosjunEditor
             InitializeComponent();
         }
 
-        public ZoneContext Context { get; private set; }
+        public Context Context { get; private set; }
+        public Zone Zone { get; private set; }
 
-        public void Setup(ZoneContext context)
+        public void Setup(Context ctx, Zone zone)
         {
-            Context = context;
+            Context = ctx;
             Context.EncountersChanged += Context_EncountersChanged;
+            Zone = zone;
 
             UpdateEncounterList();
         }
@@ -23,8 +25,8 @@ namespace DosjunEditor
         private void UpdateEncounterList()
         {
             Options.Items.Clear();
-            foreach (Encounter encounter in Context.Zone.Encounters)
-                Options.Items.Add(encounter.GetDescription(Context.Monsters));
+            foreach (Encounter encounter in Zone.Encounters)
+                Options.Items.Add(encounter.GetDescription(Context));
         }
 
         private void Context_EncountersChanged(object sender, EventArgs e)
@@ -36,10 +38,10 @@ namespace DosjunEditor
         {
             if (Options.SelectedIndex == -1) return;
 
-            Encounter encounter = Context.Zone.Encounters[Options.SelectedIndex];
+            Encounter encounter = Zone.Encounters[Options.SelectedIndex];
             using (EncounterForm child = new EncounterForm())
             {
-                child.Setup(Context, encounter);
+                child.Setup(Context, Zone, encounter);
 
                 if (child.ShowDialog() == DialogResult.OK)
                 {
@@ -55,15 +57,15 @@ namespace DosjunEditor
             if (Options.SelectedIndex == -1) return;
 
             int index = Options.SelectedIndex;
-            if (Context.Zone.UsingEncounterId(index))
+            if (Zone.UsingEncounterId(index))
             {
                 MessageBox.Show("Cannot remove encounter; still in use.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            foreach (ETable etable in Context.Zone.ETables)
+            foreach (ETable etable in Zone.ETables)
                 etable.DeleteEncounterId((ushort)index);
-            Context.Zone.Encounters.RemoveAt(index);
+            Zone.Encounters.RemoveAt(index);
 
             Context.UnsavedChanges = true;
             Context.UpdateEncounters();
@@ -84,12 +86,12 @@ namespace DosjunEditor
             Encounter encounter = new Encounter();
             using (EncounterForm child = new EncounterForm())
             {
-                child.Setup(Context, encounter);
+                child.Setup(Context, Zone, encounter);
 
                 if (child.ShowDialog() == DialogResult.OK)
                 {
                     child.Apply();
-                    Context.Zone.Encounters.Add(encounter);
+                    Zone.Encounters.Add(encounter);
 
                     Context.UnsavedChanges = true;
                     Context.UpdateEncounters();

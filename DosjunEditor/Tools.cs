@@ -15,22 +15,22 @@ namespace DosjunEditor
                 yield return FormatEnumName(name);
         }
 
-        public static ushort AddETable(ZoneContext context)
+        public static ushort AddETable(Context context, Zone zone)
         {
             ETable et = new ETable();
             using (ETableForm child = new ETableForm())
             {
-                child.Setup(context, et);
+                child.Setup(context, zone, et);
 
                 if (child.ShowDialog() == DialogResult.OK)
                 {
                     child.Apply();
-                    context.Zone.ETables.Add(et);
+                    zone.ETables.Add(et);
 
                     context.UnsavedChanges = true;
                     context.UpdateEncounters();
 
-                    return context.Zone.ETableCount;
+                    return zone.ETableCount;
                 }
                 else return 0;
             }

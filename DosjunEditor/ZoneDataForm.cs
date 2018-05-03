@@ -17,29 +17,32 @@ namespace DosjunEditor
             InitializeComponent();
         }
 
+        public Context Context { get; private set; }
         public Zone Zone { get; private set; }
 
-        public void Setup(ZoneContext context)
+        public void Setup(Context ctx, Zone zone)
         {
-            Zone = context.Zone;
+            Context = ctx;
+            Zone = zone;
 
-            CampaignBox.Text = Zone.CampaignName;
+            NameBox.Text = ctx.GetString(Zone.NameId);
             WidthBox.Text = Zone.Width.ToString();
             HeightBox.Text = Zone.Height.ToString();
+            FloorBox.Value = Zone.Floor;
 
-            EnterBox.Items.Clear();
-            EnterBox.Items.AddRange(context.ScriptNames);
-            EnterBox.SelectedIndex = Zone.EnterScript;
+            Globals.Populate(EnterBox, Context.Djn.PublicScripts);
+            EnterBox.SelectedItem = Globals.Resolve(Context, Zone.EnterScript);
 
-            MoveBox.Items.Clear();
-            MoveBox.Items.AddRange(context.ScriptNames);
-            MoveBox.SelectedIndex = Zone.MoveScript;
+            Globals.Populate(MoveBox, Context.Djn.PublicScripts);
+            MoveBox.SelectedItem = Globals.Resolve(Context, Zone.MoveScript);
         }
 
         public void Apply()
         {
-            Zone.EnterScript = (ushort)EnterBox.SelectedIndex;
-            Zone.MoveScript = (ushort)MoveBox.SelectedIndex;
+            Zone.NameId = Context.GetStringId(NameBox.Text, Zone.NameId);
+            Zone.Floor = (byte)FloorBox.Value;
+            Zone.EnterScript = (EnterBox.SelectedItem as Resource).ID;
+            Zone.MoveScript = (MoveBox.SelectedItem as Resource).ID;
         }
     }
 }

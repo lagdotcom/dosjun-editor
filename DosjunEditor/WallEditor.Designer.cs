@@ -68,9 +68,7 @@
             this.TextureBox.Name = "TextureBox";
             this.TextureBox.Size = new System.Drawing.Size(121, 142);
             this.TextureBox.TabIndex = 5;
-            this.TextureBox.Texture = null;
             this.TextureBox.TextureId = ((byte)(0));
-            this.TextureBox.Zone = null;
             this.TextureBox.ValueChanged += new System.EventHandler(this.TextureBox_ValueChanged);
             // 
             // WallEditor

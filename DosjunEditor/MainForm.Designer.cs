@@ -38,6 +38,7 @@
             this.OpenDialog = new System.Windows.Forms.OpenFileDialog();
             this.SaveDialog = new System.Windows.Forms.SaveFileDialog();
             this.ButtonsPanel = new System.Windows.Forms.Panel();
+            this.DeleteBtn = new System.Windows.Forms.Button();
             this.RenameBtn = new System.Windows.Forms.Button();
             this.NewBtn = new System.Windows.Forms.Button();
             this.Resources = new System.Windows.Forms.ListView();
@@ -45,7 +46,8 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.NewContext = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.NewSource = new System.Windows.Forms.ToolStripMenuItem();
-            this.DeleteBtn = new System.Windows.Forms.Button();
+            this.NewZone = new System.Windows.Forms.ToolStripMenuItem();
+            this.NewMonster = new System.Windows.Forms.ToolStripMenuItem();
             this.TopMenu.SuspendLayout();
             this.ButtonsPanel.SuspendLayout();
             this.NewContext.SuspendLayout();
@@ -119,6 +121,17 @@
             this.ButtonsPanel.Size = new System.Drawing.Size(200, 530);
             this.ButtonsPanel.TabIndex = 1;
             // 
+            // DeleteBtn
+            // 
+            this.DeleteBtn.Enabled = false;
+            this.DeleteBtn.Location = new System.Drawing.Point(12, 61);
+            this.DeleteBtn.Name = "DeleteBtn";
+            this.DeleteBtn.Size = new System.Drawing.Size(182, 23);
+            this.DeleteBtn.TabIndex = 2;
+            this.DeleteBtn.Text = "Delete Resource...";
+            this.DeleteBtn.UseVisualStyleBackColor = true;
+            this.DeleteBtn.Click += new System.EventHandler(this.DeleteBtn_Click);
+            // 
             // RenameBtn
             // 
             this.RenameBtn.Enabled = false;
@@ -169,27 +182,32 @@
             // NewContext
             // 
             this.NewContext.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.NewSource});
+            this.NewMonster,
+            this.NewSource,
+            this.NewZone});
             this.NewContext.Name = "NewContext";
-            this.NewContext.Size = new System.Drawing.Size(120, 26);
+            this.NewContext.Size = new System.Drawing.Size(181, 92);
             // 
             // NewSource
             // 
             this.NewSource.Name = "NewSource";
-            this.NewSource.Size = new System.Drawing.Size(119, 22);
+            this.NewSource.Size = new System.Drawing.Size(180, 22);
             this.NewSource.Text = "&Source...";
             this.NewSource.Click += new System.EventHandler(this.NewSource_Click);
             // 
-            // DeleteBtn
+            // NewZone
             // 
-            this.DeleteBtn.Enabled = false;
-            this.DeleteBtn.Location = new System.Drawing.Point(12, 61);
-            this.DeleteBtn.Name = "DeleteBtn";
-            this.DeleteBtn.Size = new System.Drawing.Size(182, 23);
-            this.DeleteBtn.TabIndex = 2;
-            this.DeleteBtn.Text = "Delete Resource...";
-            this.DeleteBtn.UseVisualStyleBackColor = true;
-            this.DeleteBtn.Click += new System.EventHandler(this.DeleteBtn_Click);
+            this.NewZone.Name = "NewZone";
+            this.NewZone.Size = new System.Drawing.Size(180, 22);
+            this.NewZone.Text = "&Zone...";
+            this.NewZone.Click += new System.EventHandler(this.NewZone_Click);
+            // 
+            // NewMonster
+            // 
+            this.NewMonster.Name = "NewMonster";
+            this.NewMonster.Size = new System.Drawing.Size(180, 22);
+            this.NewMonster.Text = "&Monster...";
+            this.NewMonster.Click += new System.EventHandler(this.NewMonster_Click);
             // 
             // MainForm
             // 
@@ -231,6 +249,8 @@
         private System.Windows.Forms.ToolStripMenuItem NewSource;
         private System.Windows.Forms.Button RenameBtn;
         private System.Windows.Forms.Button DeleteBtn;
+        private System.Windows.Forms.ToolStripMenuItem NewZone;
+        private System.Windows.Forms.ToolStripMenuItem NewMonster;
     }
 }
 

@@ -11,8 +11,9 @@ namespace CompilerTest
 
         protected void AssertTokenization(string source, params Token[] specs)
         {
+            DosjunEditor.Context ctx = GetContext();
             string modified = $"Script test\n{source}\nEndScript";
-            Tokenizer tk = new Tokenizer();
+            Tokenizer tk = new Tokenizer(ctx);
             tk.Tokenize(modified.Split('\n'));
 
             int tokIndex = 3;
@@ -30,8 +31,9 @@ namespace CompilerTest
 
         protected void AssertException<T>(string source, string message = null) where T : Exception
         {
+            DosjunEditor.Context ctx = GetContext();
             string modified = $"Script test\n{source}\nEndScript";
-            Tokenizer tk = new Tokenizer();
+            Tokenizer tk = new Tokenizer(ctx);
 
             Assert.ThrowsException<T>(() =>
             {
@@ -53,10 +55,11 @@ namespace CompilerTest
 
         protected void AssertParseException<T>(string source, string message = null) where T : Exception
         {
+            DosjunEditor.Context ctx = GetContext();
             string modified = $"Script test\n{source}\nEndScript";
-            Tokenizer tk = new Tokenizer();
+            Tokenizer tk = new Tokenizer(ctx);
             tk.Tokenize(modified.Split('\n'));
-            Parser pr = new Parser();
+            Parser pr = new Parser(ctx);
 
             Assert.ThrowsException<T>(() =>
             {
@@ -74,6 +77,11 @@ namespace CompilerTest
                     throw ex;
                 }
             });
+        }
+
+        private DosjunEditor.Context GetContext()
+        {
+            return new DosjunEditor.Context();
         }
     }
 }

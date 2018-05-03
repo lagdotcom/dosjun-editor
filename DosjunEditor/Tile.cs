@@ -4,7 +4,7 @@ namespace DosjunEditor
 {
     public class Tile : IBinaryData
     {
-        public const int Padding = 2;
+        public const int Padding = 0;
 
         public Tile()
         {
@@ -16,8 +16,8 @@ namespace DosjunEditor
         public void Read(BinaryReader br)
         {
             Walls = br.ReadArray<Wall>(4);
-            FloorTexture = br.ReadByte();
-            CeilingTexture = br.ReadByte();
+            FloorTexture = br.ReadUInt16();
+            CeilingTexture = br.ReadUInt16();
             DescriptionId = br.ReadUInt16();
             OnEnterId = br.ReadUInt16();
             ETableId = br.ReadUInt16();
@@ -49,8 +49,8 @@ namespace DosjunEditor
         public int Y { get; set; }
 
         public Wall[] Walls { get; private set; }
-        public byte FloorTexture { get; set; }
-        public byte CeilingTexture { get; set; }
+        public ushort FloorTexture { get; set; }
+        public ushort CeilingTexture { get; set; }
         public ushort DescriptionId { get; set; }
         public ushort OnEnterId { get; set; }
         public ushort ETableId { get; set; }

@@ -91,6 +91,7 @@
       <DependentUpon>ETableForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Globals.cs" />
+    <Compile Include="Graphic.cs" />
     <Compile Include="IBinaryData.cs" />
     <Compile Include="Campaign.cs" />
     <Compile Include="Direction.cs" />
@@ -139,7 +140,6 @@
     <Compile Include="MonsterForm.Designer.cs">
       <DependentUpon>MonsterForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Monsters.cs" />
     <Compile Include="Palette.cs" />
     <Compile Include="PalettePicker.cs">
       <SubType>UserControl</SubType>
@@ -205,7 +205,6 @@
     <Compile Include="WallLocation.cs" />
     <Compile Include="WallType.cs" />
     <Compile Include="Zone.cs" />
-    <Compile Include="ZoneContext.cs" />
     <Compile Include="ZoneDataForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -26,14 +26,14 @@ namespace DosjunEditor
             }
         }
 
+        public Context Context { get; private set; }
         public ETable ETable { get; private set; }
-        public Monsters Monsters { get; private set; }
         public Zone Zone { get; private set; }
 
-        public void Setup(ZoneContext context, ETable etable)
+        public void Setup(Context ctx, Zone zone, ETable etable)
         {
-            Zone = context.Zone;
-            Monsters = context.Monsters;
+            Context = ctx;
+            Zone = Zone;
             ETable = etable;
 
             SetMaximum(Consts.ETableSize);
@@ -125,10 +125,12 @@ namespace DosjunEditor
             public void RefreshEncounterList()
             {
                 updating = true;
+
                 EncounterBox.Items.Clear();
                 foreach (Encounter en in Parent.Zone.Encounters)
-                    EncounterBox.Items.Add(en.GetDescription(Parent.Monsters));
+                    EncounterBox.Items.Add(en.GetDescription(Parent.Context));
                 EncounterBox.SelectedIndex = EncounterId;
+
                 updating = false;
             }
 

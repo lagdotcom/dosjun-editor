@@ -22,7 +22,7 @@ namespace DosjunEditor
             get => wall.Type;
         }
 
-        public byte Texture
+        public ushort Texture
         {
             get => wall.TextureId;
         }
@@ -38,14 +38,14 @@ namespace DosjunEditor
 
         public event EventHandler AnyChanged;
 
-        public void Setup(Zone z, Wall w)
+        public void Setup(Context ctx, Zone zone, Wall wall)
         {
-            wall = w;
+            this.wall = wall;
 
             updatingDisplay = true;
-            TypeBox.SelectedIndex = (int)wall.Type;
-            TextureBox.Zone = z;
-            TextureBox.TextureId = wall.TextureId;
+            TypeBox.SelectedIndex = (int)this.wall.Type;
+            TextureBox.Setup(ctx, zone);
+            TextureBox.TextureId = this.wall.TextureId;
             updatingDisplay = false;
         }
 

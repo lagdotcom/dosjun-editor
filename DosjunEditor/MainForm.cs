@@ -28,7 +28,7 @@ namespace DosjunEditor
 
         public void SaveAll()
         {
-            using (Stream file = new FileStream(DjnFilename, FileMode.Truncate))
+            using (Stream file = new FileStream(DjnFilename, FileMode.Create))
                 Djn.Write(new BinaryWriter(file));
 
             MessageBox.Show($"Wrote: {DjnFilename}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -145,11 +145,11 @@ namespace DosjunEditor
 
                 if (flag)
                 {
-                    Text = "Campaign Editor*";
+                    Text = "DOSJUN Editor*";
                 }
                 else
                 {
-                    Text = "Campaign Editor";
+                    Text = "DOSJUN Editor";
                 }
             }
         }
@@ -176,24 +176,6 @@ namespace DosjunEditor
             }
         }
 
-        private void NewZoneButton_Click(object sender, EventArgs e)
-        {
-            ZoneForm form = new ZoneForm();
-
-            form.Setup(Context, null, 0);
-            form.ZoneSaved += ZoneForm_NewZoneSaved;
-            form.ShowDialog();
-            form.Dispose();
-        }
-
-        private void ZoneForm_NewZoneSaved(object sender, EventArgs e)
-        {
-            ZoneForm form = sender as ZoneForm;
-
-            form.ZoneId = Djn.Add(form.Zone);
-            form.ZoneSaved -= ZoneForm_NewZoneSaved;
-        }
-
         private void DjnItems_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             ListViewItem lvi = Resources.GetItemAt(e.X, e.Y);
@@ -208,8 +190,16 @@ namespace DosjunEditor
                         Spawn<CampaignEditor>(r);
                         return;
 
+                    case ResourceType.Monster:
+                        Spawn<MonsterForm>(r);
+                        return;
+
                     case ResourceType.Source:
                         Spawn<SourceEditor>(r);
+                        return;
+
+                    case ResourceType.Zone:
+                        Spawn<ZoneForm>(r);
                         return;
 
                     default:
@@ -224,7 +214,13 @@ namespace DosjunEditor
             T form = new T();
             form.Setup(Context, r);
             form.Show();
+            form.Saved += SubEditor_Saved;
             return form;
+        }
+
+        private void SubEditor_Saved(object sender, EventArgs e)
+        {
+            SetChanged(true);
         }
 
         private void NewBtn_Click(object sender, EventArgs e)
@@ -232,16 +228,13 @@ namespace DosjunEditor
             NewContext.Show(MousePosition);
         }
 
-        private void SubEditor_Saved(object sender, EventArgs e)
+        private void SubEditor_NewSaved(object sender, EventArgs e)
         {
             IResourceEditor editor = sender as IResourceEditor;
-            editor.Saved -= SubEditor_Saved;
+            editor.Saved -= SubEditor_NewSaved;
 
             if (editor.Editing.Resource.ID == 0)
-            {
                 Djn.Add(editor.Editing);
-                SetChanged(true);
-            }
         }
 
         private string GetString(string caption)
@@ -261,8 +254,8 @@ namespace DosjunEditor
         private void NewSource_Click(object sender, EventArgs e)
         {
             ScriptSource src = new ScriptSource();
-            src.Resource.Name = GetString("New Source file name");
-            Spawn<SourceEditor>(src).Saved += SubEditor_Saved;
+            src.Resource.Name = GetString("New Source name");
+            Spawn<SourceEditor>(src).Saved += SubEditor_NewSaved;
         }
 
         private void RenameBtn_Click(object sender, EventArgs e)
@@ -291,6 +284,20 @@ namespace DosjunEditor
                 Djn.Remove(id);
                 Context.UnsavedChanges = true;
             }
+        }
+
+        private void NewZone_Click(object sender, EventArgs e)
+        {
+            Zone z = new Zone();
+            z.Resource.Name = GetString("New Zone name");
+            Spawn<ZoneForm>(z).Saved += SubEditor_NewSaved;
+        }
+
+        private void NewMonster_Click(object sender, EventArgs e)
+        {
+            Monster m = new Monster();
+            m.Resource.Name = GetString("New Monster name");
+            Spawn<MonsterForm>(m).Saved += SubEditor_NewSaved;
         }
     }
 }

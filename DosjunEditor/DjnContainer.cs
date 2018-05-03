@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace DosjunEditor
 {
@@ -24,8 +25,10 @@ namespace DosjunEditor
         public Campaign Campaign => Resources.Values.OfType<Campaign>().FirstOrDefault();
         public IEnumerable<Monster> Monsters => Resources.Values.OfType<Monster>();
         public Palette Palette => Resources.Values.OfType<Palette>().FirstOrDefault();
+        public IEnumerable<CompiledScript> PublicScripts => Scripts.Where(s => !s.Resource.Flags.HasFlag(ResourceFlags.Private));
         public Strings Strings => Resources.Values.OfType<Strings>().FirstOrDefault();
         public IEnumerable<CompiledScript> Scripts => Resources.Values.OfType<CompiledScript>();
+        public IEnumerable<Graphic> Textures => Resources.Values.OfType<Graphic>().Where(s => s.Resource.Flags.HasFlag(ResourceFlags.Texture));
 
         public event EventHandler<IHasResource> ResourceChanged;
 
@@ -149,7 +152,19 @@ namespace DosjunEditor
             }
         }
 
-        public IHasResource this[int id] => Resources[id];
+        public IHasResource this[int id]
+        {
+            get
+            {
+                if (!Resources.ContainsKey(id))
+                {
+                    MessageBox.Show($"Missing resource: #{id:X}", "Uh-oh", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return null;
+                }
+
+                return Resources[id];
+            }
+        }
 
         public void Rename(int id, string name)
         {

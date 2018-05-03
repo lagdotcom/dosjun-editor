@@ -36,12 +36,12 @@ namespace DosjunEditor
             return Djn.Strings[id];
         }
 
-        public ushort GetStringId(string text, ushort descId = 0)
+        public ushort GetStringId(string text, ushort previous = 0)
         {
             if (string.IsNullOrEmpty(text)) return 0;
 
-            if (descId > 0)
-                return Djn.Strings.Set(descId, text);
+            if (previous > 0)
+                return Djn.Strings.Set(previous, text);
 
             return Djn.Strings.Add(text);
         }
