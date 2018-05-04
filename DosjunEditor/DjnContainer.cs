@@ -129,6 +129,9 @@ namespace DosjunEditor
                 case ResourceType.Campaign:
                     return new Campaign { Resource = r };
 
+                case ResourceType.Font:
+                    return new Font { Resource = r };
+
                 case ResourceType.Item:
                     return new Item { Resource = r };
 

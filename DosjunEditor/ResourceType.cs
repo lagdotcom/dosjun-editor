@@ -2,6 +2,7 @@
 {
     public enum ResourceType
     {
+        Unknown,
         Campaign,
         Zone,
         NPC,

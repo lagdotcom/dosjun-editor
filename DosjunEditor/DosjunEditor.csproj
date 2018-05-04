@@ -90,6 +90,7 @@
     <Compile Include="ETableForm.Designer.cs">
       <DependentUpon>ETableForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Font.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="Graphic.cs" />
     <Compile Include="IBinaryData.cs" />

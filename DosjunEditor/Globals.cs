@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace DosjunEditor
@@ -23,6 +24,23 @@ namespace DosjunEditor
         {
             if (id == 0) return NoResource;
             return ctx.Djn[id].Resource;
+        }
+
+        public static ResourceType Detect(string fileName)
+        {
+            string ext = Path.GetExtension(fileName).ToUpper();
+
+            switch (ext)
+            {
+                case ".CMP": return ResourceType.Campaign;
+                case ".FNT": return ResourceType.Font;
+                case ".GRF": return ResourceType.Graphic;
+                case ".SNG": return ResourceType.Music;
+                case ".PAL": return ResourceType.Palette;
+                case ".JC": return ResourceType.Source;
+                case ".ZON": return ResourceType.Zone;
+                default: return ResourceType.Unknown;
+            }
         }
     }
 }

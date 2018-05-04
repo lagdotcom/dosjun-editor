@@ -74,6 +74,7 @@ namespace DosjunEditor
 
         private void CampaignLoaded()
         {
+            ImportBtn.Enabled = true;
             MenuSave.Enabled = true;
             NewBtn.Enabled = true;
 
@@ -241,9 +242,10 @@ namespace DosjunEditor
                 Djn.Add(editor.Editing);
         }
 
-        private string GetString(string caption)
+        private string GetString(string caption, string old = null)
         {
             StringDialog dlg = new StringDialog { Text = caption };
+            dlg.String = old;
             return (dlg.ShowDialog(this) == DialogResult.OK) ? dlg.String : null;
         }
 
@@ -309,6 +311,43 @@ namespace DosjunEditor
             Item i = new Item();
             i.Resource.Name = GetString("New Item name");
             Spawn<ItemForm>(i).Saved += SubEditor_NewSaved;
+        }
+
+        private void ImportBtn_Click(object sender, EventArgs e)
+        {
+            if (ImportDialog.ShowDialog() == DialogResult.OK)
+            {
+                IHasResource r = Import(ImportDialog.FileName);
+                Djn.Add(r);
+                Context.UnsavedChanges = true;
+                SetChanged(true);
+            }
+        }
+
+        private IHasResource Import(string fileName)
+        {
+            IHasResource r;
+            Resource res = new Resource {
+                Size = (uint)new FileInfo(fileName).Length,
+                Type = Globals.Detect(fileName),
+            };
+            res.Name = GetString($"Imported {res.Type} name", Path.GetFileName(fileName));
+
+            Stream f = File.OpenRead(fileName);
+            BinaryReader br = new BinaryReader(f);
+
+            switch (res.Type)
+            {
+                case ResourceType.Font:
+                    r = new Font(res);
+                    r.Read(br);
+                    return r;
+
+                default:
+                    r = new UnknownResource(res);
+                    r.Read(br);
+                    return r;
+            }
         }
     }
 }
