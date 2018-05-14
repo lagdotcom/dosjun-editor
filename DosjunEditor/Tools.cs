@@ -49,6 +49,14 @@ namespace DosjunEditor
             }
         }
 
+        public static void SetFlag(bool present, ResourceFlags flag, ref ResourceFlags flags)
+        {
+            if (present)
+                flags = flags | flag;
+            else
+                flags = flags ^ flag;
+        }
+
         public static MagickImage GetPCX(string filename)
         {
             if (File.Exists(filename))

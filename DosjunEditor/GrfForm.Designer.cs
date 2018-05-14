@@ -32,6 +32,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.ImageNumber = new System.Windows.Forms.NumericUpDown();
             this.ImageView = new System.Windows.Forms.PictureBox();
+            this.TextureFlag = new System.Windows.Forms.CheckBox();
+            this.SaveBtn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ImageNumber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ImageView)).BeginInit();
@@ -39,18 +41,20 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.SaveBtn);
+            this.panel1.Controls.Add(this.TextureFlag);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.ImageNumber);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(800, 35);
+            this.panel1.Size = new System.Drawing.Size(266, 450);
             this.panel1.TabIndex = 3;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(12, 43);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(76, 13);
             this.label1.TabIndex = 3;
@@ -58,7 +62,7 @@
             // 
             // ImageNumber
             // 
-            this.ImageNumber.Location = new System.Drawing.Point(134, 7);
+            this.ImageNumber.Location = new System.Drawing.Point(140, 41);
             this.ImageNumber.Name = "ImageNumber";
             this.ImageNumber.Size = new System.Drawing.Size(120, 20);
             this.ImageNumber.TabIndex = 2;
@@ -67,12 +71,32 @@
             // ImageView
             // 
             this.ImageView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ImageView.Location = new System.Drawing.Point(0, 35);
+            this.ImageView.Location = new System.Drawing.Point(266, 0);
             this.ImageView.Name = "ImageView";
-            this.ImageView.Size = new System.Drawing.Size(800, 415);
+            this.ImageView.Size = new System.Drawing.Size(534, 450);
             this.ImageView.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.ImageView.TabIndex = 4;
             this.ImageView.TabStop = false;
+            // 
+            // TextureFlag
+            // 
+            this.TextureFlag.AutoSize = true;
+            this.TextureFlag.Location = new System.Drawing.Point(15, 12);
+            this.TextureFlag.Name = "TextureFlag";
+            this.TextureFlag.Size = new System.Drawing.Size(68, 17);
+            this.TextureFlag.TabIndex = 4;
+            this.TextureFlag.Text = "Texture?";
+            this.TextureFlag.UseVisualStyleBackColor = true;
+            // 
+            // SaveBtn
+            // 
+            this.SaveBtn.Location = new System.Drawing.Point(8, 415);
+            this.SaveBtn.Name = "SaveBtn";
+            this.SaveBtn.Size = new System.Drawing.Size(75, 23);
+            this.SaveBtn.TabIndex = 5;
+            this.SaveBtn.Text = "Save";
+            this.SaveBtn.UseVisualStyleBackColor = true;
+            this.SaveBtn.Click += new System.EventHandler(this.SaveBtn_Click);
             // 
             // GrfForm
             // 
@@ -82,7 +106,7 @@
             this.Controls.Add(this.ImageView);
             this.Controls.Add(this.panel1);
             this.Name = "GrfForm";
-            this.Text = "GrfForm";
+            this.Text = "Graphic Viewer";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ImageNumber)).EndInit();
@@ -97,5 +121,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown ImageNumber;
         private System.Windows.Forms.PictureBox ImageView;
+        private System.Windows.Forms.CheckBox TextureFlag;
+        private System.Windows.Forms.Button SaveBtn;
     }
 }

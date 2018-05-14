@@ -30,6 +30,7 @@ namespace DosjunEditor
             Grf = r as Grf;
 
             ImageNumber.Maximum = Grf.Images.Count - 1;
+            TextureFlag.Checked = Grf.Resource.Flags.HasFlag(ResourceFlags.Texture);
             ShowImage();
         }
 
@@ -42,6 +43,15 @@ namespace DosjunEditor
         private void ImageNumber_ValueChanged(object sender, EventArgs e)
         {
             ShowImage();
+        }
+
+        private void SaveBtn_Click(object sender, EventArgs e)
+        {
+            ResourceFlags rf = Grf.Resource.Flags;
+            Tools.SetFlag(TextureFlag.Checked, ResourceFlags.Texture, ref rf);
+            Grf.Resource.Flags = rf;
+
+            Saved?.Invoke(this, null);
         }
     }
 }
