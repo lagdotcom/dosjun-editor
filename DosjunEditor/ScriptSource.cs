@@ -7,11 +7,12 @@ namespace DosjunEditor
         public Resource Resource { get; set; }
         public string Source { get; set; }
 
-        public ScriptSource()
+        public ScriptSource(Resource r)
         {
-            Resource = new Resource { Type = ResourceType.Source, OnlyDesign = true };
+            Resource = r;
             Source = string.Empty;
         }
+        public ScriptSource() : this(new Resource { Type = ResourceType.Strings, OnlyDesign = true }) { }
 
         public void Read(BinaryReader br)
         {

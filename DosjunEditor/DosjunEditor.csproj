@@ -92,7 +92,14 @@
     </Compile>
     <Compile Include="Font.cs" />
     <Compile Include="Globals.cs" />
-    <Compile Include="Graphic.cs" />
+    <Compile Include="Grf.cs" />
+    <Compile Include="GrfForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GrfForm.Designer.cs">
+      <DependentUpon>GrfForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GrfImage.cs" />
     <Compile Include="IBinaryData.cs" />
     <Compile Include="Campaign.cs" />
     <Compile Include="Direction.cs" />
@@ -239,6 +246,9 @@
     <EmbeddedResource Include="ETableForm.resx">
       <DependentUpon>ETableForm.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GrfForm.resx">
+      <DependentUpon>GrfForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ItemForm.resx">
       <DependentUpon>ItemForm.cs</DependentUpon>

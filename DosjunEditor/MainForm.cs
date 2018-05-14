@@ -191,6 +191,10 @@ namespace DosjunEditor
                         Spawn<CampaignEditor>(r);
                         return;
 
+                    case ResourceType.Graphic:
+                        Spawn<GrfForm>(r);
+                        return;
+
                     case ResourceType.Item:
                         Spawn<ItemForm>(r);
                         return;
@@ -340,6 +344,16 @@ namespace DosjunEditor
             {
                 case ResourceType.Font:
                     r = new Font(res);
+                    r.Read(br);
+                    return r;
+
+                case ResourceType.Palette:
+                    r = new Palette(res);
+                    r.Read(br);
+                    return r;
+
+                case ResourceType.Graphic:
+                    r = new Grf(res);
                     r.Read(br);
                     return r;
 

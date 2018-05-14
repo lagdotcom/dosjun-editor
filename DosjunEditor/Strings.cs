@@ -11,11 +11,12 @@ namespace DosjunEditor
     {
         private Dictionary<string, ushort> strings;
 
-        public Strings()
+        public Strings(Resource r)
         {
-            Resource = new Resource { Type = ResourceType.Strings };
+            Resource = r;
             strings = new Dictionary<string, ushort>();
         }
+        public Strings() : this(new Resource { Type = ResourceType.Strings }) { }
 
         public Resource Resource { get; set; }
 

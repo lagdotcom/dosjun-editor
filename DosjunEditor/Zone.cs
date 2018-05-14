@@ -8,15 +8,16 @@ namespace DosjunEditor
         public const int Padding = 14;
         public Resource Resource { get; set; }
 
-        public Zone()
+        public Zone(Resource r)
         {
-            Resource = new Resource { Type = ResourceType.Zone };
+            Resource = r;
 
             Version = new VersionHeader();
             Tiles = new TileBag();
             Encounters = new List<Encounter>();
             ETables = new List<ETable>();
         }
+        public Zone() : this(new Resource { Type = ResourceType.Zone }) { }
 
         public void Read(BinaryReader br)
         {

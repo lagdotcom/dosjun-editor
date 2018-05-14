@@ -74,7 +74,7 @@ namespace DosjunEditor
         {
             if (!updatingDisplay)
             {
-                textureId = (Box.SelectedItem as Graphic).Resource.ID;
+                textureId = (Box.SelectedItem as Grf).Resource.ID;
                 ValueChanged?.Invoke(this, e);
             }
 

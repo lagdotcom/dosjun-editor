@@ -28,7 +28,7 @@ namespace DosjunEditor
         public IEnumerable<CompiledScript> PublicScripts => Scripts.Where(s => !s.Resource.Flags.HasFlag(ResourceFlags.Private));
         public Strings Strings => Resources.Values.OfType<Strings>().FirstOrDefault();
         public IEnumerable<CompiledScript> Scripts => Resources.Values.OfType<CompiledScript>();
-        public IEnumerable<Graphic> Textures => Resources.Values.OfType<Graphic>().Where(s => s.Resource.Flags.HasFlag(ResourceFlags.Texture));
+        public IEnumerable<Grf> Textures => Resources.Values.OfType<Grf>().Where(s => s.Resource.Flags.HasFlag(ResourceFlags.Texture));
 
         public event EventHandler<IHasResource> ResourceChanged;
 
@@ -127,31 +127,37 @@ namespace DosjunEditor
             switch (r.Type)
             {
                 case ResourceType.Campaign:
-                    return new Campaign { Resource = r };
+                    return new Campaign(r);
 
                 case ResourceType.Font:
-                    return new Font { Resource = r };
+                    return new Font(r);
+
+                case ResourceType.Graphic:
+                    return new Grf(r);
 
                 case ResourceType.Item:
-                    return new Item { Resource = r };
+                    return new Item(r);
 
                 case ResourceType.Monster:
-                    return new Monster { Resource = r };
+                    return new Monster(r);
+
+                case ResourceType.Palette:
+                    return new Palette(r);
 
                 case ResourceType.Script:
-                    return new CompiledScript { Resource = r };
+                    return new CompiledScript(r);
 
                 case ResourceType.Strings:
-                    return new Strings { Resource = r };
+                    return new Strings(r);
 
                 case ResourceType.Source:
-                    return new ScriptSource { Resource = r };
+                    return new ScriptSource(r);
 
                 case ResourceType.Zone:
-                    return new Zone { Resource = r };
+                    return new Zone(r);
 
                 default:
-                    return new UnknownResource { Resource = r };
+                    return new UnknownResource(r);
             }
         }
 

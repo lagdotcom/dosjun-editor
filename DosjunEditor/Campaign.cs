@@ -8,11 +8,12 @@ namespace DosjunEditor
         public const int Padding = 18;
         public Resource Resource { get; set; }
 
-        public Campaign()
+        public Campaign(Resource r)
         {
-            Resource = new Resource { Type = ResourceType.Campaign };
+            Resource = r;
             Version = new VersionHeader();
         }
+        public Campaign() : this(new Resource { Type = ResourceType.Campaign }) { }
 
         public void Read(BinaryReader br)
         {

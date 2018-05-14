@@ -6,11 +6,12 @@ namespace DosjunEditor
     {
         public Resource Resource { get; set; }
 
-        public CompiledScript()
+        public CompiledScript(Resource r)
         {
-            Resource = new Resource { Type = ResourceType.Script };
+            Resource = r;
             Bytecode = new byte[0];
         }
+        public CompiledScript() : this(new Resource { Type = ResourceType.Script }) { }
 
         public void Read(BinaryReader br)
         {

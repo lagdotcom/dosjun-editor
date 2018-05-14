@@ -7,11 +7,12 @@ namespace DosjunEditor
         public const int Padding = 8;
         public Resource Resource { get; set; }
 
-        public Item()
+        public Item(Resource r)
         {
-            Resource = new Resource { Type = ResourceType.Item };
+            Resource = r;
             Stats = new Stats();
         }
+        public Item() : this(new Resource { Type = ResourceType.Item }) { }
 
         public void Read(BinaryReader br)
         {

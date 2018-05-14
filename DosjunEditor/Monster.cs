@@ -8,13 +8,14 @@ namespace DosjunEditor
         public const int Padding = 3;
         public Resource Resource { get; set; }
 
-        public Monster()
+        public Monster(Resource r)
         {
-            Resource = new Resource { Type = ResourceType.Monster };
+            Resource = r;
 
             Stats = new Stats();
             Skills = new List<short>();
         }
+        public Monster() : this(new Resource { Type = ResourceType.Monster }) { }
 
         public void Read(BinaryReader br)
         {
