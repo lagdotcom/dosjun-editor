@@ -8,10 +8,14 @@ namespace DosjunEditor
     public partial class MainForm : Form
     {
         private bool changed;
+        private ResourceListSorter sorter;
 
         public MainForm()
         {
             InitializeComponent();
+
+            sorter = new ResourceListSorter { Column = ResourceListSorter.SortColumn.ID };
+            Resources.ListViewItemSorter = sorter;
         }
 
         public string DjnFilename { get; set; }
@@ -106,6 +110,7 @@ namespace DosjunEditor
                     Tag = resource.Key,
                 };
                 lvi.SubItems.Add(resource.Value.Resource.Type.ToString());
+                lvi.SubItems.Add(resource.Key.ToString());
 
                 Resources.Items.Add(lvi);
             }
@@ -387,6 +392,33 @@ namespace DosjunEditor
             r.Resource = res;
             r.Read(br);
             return r;
+        }
+
+        private void Resources_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            ResourceListSorter.SortColumn sort = AsColumn(e.Column);
+
+            if (sorter.Column == sort)
+            {
+                sorter.Descending = !sorter.Descending;
+            }
+            else
+            {
+                sorter.Column = sort;
+                sorter.Descending = false;
+            }
+
+            Resources.Sort();
+        }
+
+        private ResourceListSorter.SortColumn AsColumn(int i)
+        {
+            switch (i)
+            {
+                case 0: return ResourceListSorter.SortColumn.Name;
+                case 1: return ResourceListSorter.SortColumn.Type;
+                default: return ResourceListSorter.SortColumn.ID;
+            }
         }
     }
 }

@@ -38,6 +38,7 @@
             this.OpenDialog = new System.Windows.Forms.OpenFileDialog();
             this.SaveDialog = new System.Windows.Forms.SaveFileDialog();
             this.ButtonsPanel = new System.Windows.Forms.Panel();
+            this.DumpBtn = new System.Windows.Forms.Button();
             this.ImportBtn = new System.Windows.Forms.Button();
             this.DeleteBtn = new System.Windows.Forms.Button();
             this.RenameBtn = new System.Windows.Forms.Button();
@@ -51,8 +52,8 @@
             this.NewSource = new System.Windows.Forms.ToolStripMenuItem();
             this.NewZone = new System.Windows.Forms.ToolStripMenuItem();
             this.ImportDialog = new System.Windows.Forms.OpenFileDialog();
-            this.DumpBtn = new System.Windows.Forms.Button();
             this.DumpDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.TopMenu.SuspendLayout();
             this.ButtonsPanel.SuspendLayout();
             this.NewContext.SuspendLayout();
@@ -128,6 +129,17 @@
             this.ButtonsPanel.Size = new System.Drawing.Size(200, 530);
             this.ButtonsPanel.TabIndex = 1;
             // 
+            // DumpBtn
+            // 
+            this.DumpBtn.Enabled = false;
+            this.DumpBtn.Location = new System.Drawing.Point(12, 119);
+            this.DumpBtn.Name = "DumpBtn";
+            this.DumpBtn.Size = new System.Drawing.Size(182, 23);
+            this.DumpBtn.TabIndex = 4;
+            this.DumpBtn.Text = "Dump Resources...";
+            this.DumpBtn.UseVisualStyleBackColor = true;
+            this.DumpBtn.Click += new System.EventHandler(this.DumpBtn_Click);
+            // 
             // ImportBtn
             // 
             this.ImportBtn.Enabled = false;
@@ -176,7 +188,8 @@
             // 
             this.Resources.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
-            this.columnHeader2});
+            this.columnHeader2,
+            this.columnHeader3});
             this.Resources.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Resources.Location = new System.Drawing.Point(200, 24);
             this.Resources.Name = "Resources";
@@ -184,6 +197,7 @@
             this.Resources.TabIndex = 2;
             this.Resources.UseCompatibleStateImageBehavior = false;
             this.Resources.View = System.Windows.Forms.View.Details;
+            this.Resources.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.Resources_ColumnClick);
             this.Resources.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.Resources_ItemSelectionChanged);
             this.Resources.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.DjnItems_MouseDoubleClick);
             // 
@@ -239,16 +253,9 @@
             // 
             this.ImportDialog.Filter = "Fonts|*.FNT|Graphics|*.GRF|Music|*.SNG|Palettes|*.PAL";
             // 
-            // DumpBtn
+            // columnHeader3
             // 
-            this.DumpBtn.Enabled = false;
-            this.DumpBtn.Location = new System.Drawing.Point(12, 119);
-            this.DumpBtn.Name = "DumpBtn";
-            this.DumpBtn.Size = new System.Drawing.Size(182, 23);
-            this.DumpBtn.TabIndex = 4;
-            this.DumpBtn.Text = "Dump Resources...";
-            this.DumpBtn.UseVisualStyleBackColor = true;
-            this.DumpBtn.Click += new System.EventHandler(this.DumpBtn_Click);
+            this.columnHeader3.Text = "ID";
             // 
             // MainForm
             // 
@@ -297,6 +304,7 @@
         private System.Windows.Forms.OpenFileDialog ImportDialog;
         private System.Windows.Forms.Button DumpBtn;
         private System.Windows.Forms.FolderBrowserDialog DumpDialog;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
     }
 }
 
