@@ -29,12 +29,20 @@ namespace DosjunEditor
             Campaign = r as Campaign;
 
             Globals.Populate(StartScript, ctx.Djn.PublicScripts);
+            Globals.Populate(FontBox, ctx.Djn.Fonts);
+            Globals.Populate(MenuBg, ctx.Djn.Graphics);
+            Globals.Populate(DungeonBg, ctx.Djn.Graphics);
+            Globals.Populate(CombatBg, ctx.Djn.Graphics);
 
             NumGlobals.Value = Campaign.NumGlobals;
             NumFlags.Value = Campaign.NumFlags;
             StartScript.SelectedItem = Globals.Resolve(ctx, Campaign.StartingScript);
             CampaignName.Text = ctx.GetString(Campaign.NameId);
             CampaignDesc.Text = ctx.GetString(Campaign.DescId);
+            FontBox.SelectedItem = Globals.Resolve(ctx, Campaign.FontId);
+            MenuBg.SelectedItem = Globals.Resolve(ctx, Campaign.MenuBgId);
+            DungeonBg.SelectedItem = Globals.Resolve(ctx, Campaign.DungeonBgId);
+            CombatBg.SelectedItem = Globals.Resolve(ctx, Campaign.CombatBgId);
         }
 
         private void CancelBtn_Click(object sender, EventArgs e)
@@ -49,6 +57,10 @@ namespace DosjunEditor
             Campaign.StartingScript = (StartScript.SelectedItem as Resource).ID;
             Campaign.NameId = Context.GetStringId(CampaignName.Text, Campaign.NameId);
             Campaign.DescId = Context.GetStringId(CampaignDesc.Text, Campaign.DescId);
+            Campaign.FontId = (FontBox.SelectedItem as Resource).ID;
+            Campaign.MenuBgId = (MenuBg.SelectedItem as Resource).ID;
+            Campaign.DungeonBgId = (DungeonBg.SelectedItem as Resource).ID;
+            Campaign.CombatBgId = (CombatBg.SelectedItem as Resource).ID;
 
             Saved?.Invoke(this, null);
             Context.UnsavedChanges = true;

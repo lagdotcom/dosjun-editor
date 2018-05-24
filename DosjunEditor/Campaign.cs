@@ -5,7 +5,7 @@ namespace DosjunEditor
 {
     public class Campaign : IHasResource
     {
-        public const int Padding = 18;
+        public const int Padding = 10;
         public Resource Resource { get; set; }
 
         public Campaign(Resource r)
@@ -24,6 +24,10 @@ namespace DosjunEditor
             StartingScript = br.ReadUInt16();
             NameId = br.ReadUInt16();
             DescId = br.ReadUInt16();
+            FontId = br.ReadUInt16();
+            MenuBgId = br.ReadUInt16();
+            DungeonBgId = br.ReadUInt16();
+            CombatBgId = br.ReadUInt16();
 
             br.ReadBytes(Padding);
         }
@@ -36,6 +40,10 @@ namespace DosjunEditor
             bw.Write(StartingScript);
             bw.Write(NameId);
             bw.Write(DescId);
+            bw.Write(FontId);
+            bw.Write(MenuBgId);
+            bw.Write(DungeonBgId);
+            bw.Write(CombatBgId);
 
             bw.WritePadding(Padding);
         }
@@ -46,5 +54,9 @@ namespace DosjunEditor
         public ushort StartingScript { get; set; }
         public ushort NameId { get; set; }
         public ushort DescId { get; set; }
+        public ushort FontId { get; set; }
+        public ushort MenuBgId { get; set; }
+        public ushort DungeonBgId { get; set; }
+        public ushort CombatBgId { get; set; }
     }
 }

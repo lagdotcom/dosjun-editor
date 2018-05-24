@@ -40,6 +40,14 @@
             this.label4 = new System.Windows.Forms.Label();
             this.CampaignDesc = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.FontBox = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.MenuBg = new System.Windows.Forms.ComboBox();
+            this.DungeonBg = new System.Windows.Forms.ComboBox();
+            this.CombatBg = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.NumGlobals)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumFlags)).BeginInit();
             this.SuspendLayout();
@@ -68,7 +76,7 @@
             // OKBtn
             // 
             this.OKBtn.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.OKBtn.Location = new System.Drawing.Point(15, 204);
+            this.OKBtn.Location = new System.Drawing.Point(15, 496);
             this.OKBtn.Name = "OKBtn";
             this.OKBtn.Size = new System.Drawing.Size(75, 23);
             this.OKBtn.TabIndex = 6;
@@ -79,7 +87,7 @@
             // CancelBtn
             // 
             this.CancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CancelBtn.Location = new System.Drawing.Point(342, 204);
+            this.CancelBtn.Location = new System.Drawing.Point(342, 496);
             this.CancelBtn.Name = "CancelBtn";
             this.CancelBtn.Size = new System.Drawing.Size(75, 23);
             this.CancelBtn.TabIndex = 7;
@@ -158,12 +166,88 @@
             this.label5.TabIndex = 11;
             this.label5.Text = "Description";
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(12, 207);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(54, 13);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "Main Font";
+            // 
+            // FontBox
+            // 
+            this.FontBox.FormattingEnabled = true;
+            this.FontBox.Location = new System.Drawing.Point(154, 204);
+            this.FontBox.Name = "FontBox";
+            this.FontBox.Size = new System.Drawing.Size(263, 21);
+            this.FontBox.TabIndex = 12;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(12, 234);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(121, 13);
+            this.label7.TabIndex = 15;
+            this.label7.Text = "Main Menu Background";
+            // 
+            // MenuBg
+            // 
+            this.MenuBg.FormattingEnabled = true;
+            this.MenuBg.Location = new System.Drawing.Point(154, 231);
+            this.MenuBg.Name = "MenuBg";
+            this.MenuBg.Size = new System.Drawing.Size(263, 21);
+            this.MenuBg.TabIndex = 14;
+            // 
+            // DungeonBg
+            // 
+            this.DungeonBg.FormattingEnabled = true;
+            this.DungeonBg.Location = new System.Drawing.Point(154, 258);
+            this.DungeonBg.Name = "DungeonBg";
+            this.DungeonBg.Size = new System.Drawing.Size(263, 21);
+            this.DungeonBg.TabIndex = 16;
+            // 
+            // CombatBg
+            // 
+            this.CombatBg.FormattingEnabled = true;
+            this.CombatBg.Location = new System.Drawing.Point(154, 285);
+            this.CombatBg.Name = "CombatBg";
+            this.CombatBg.Size = new System.Drawing.Size(263, 21);
+            this.CombatBg.TabIndex = 17;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(12, 261);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(112, 13);
+            this.label8.TabIndex = 18;
+            this.label8.Text = "Dungeon Background";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(12, 288);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(104, 13);
+            this.label9.TabIndex = 19;
+            this.label9.Text = "Combat Background";
+            // 
             // CampaignEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.CancelBtn;
-            this.ClientSize = new System.Drawing.Size(432, 239);
+            this.ClientSize = new System.Drawing.Size(432, 531);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.CombatBg);
+            this.Controls.Add(this.DungeonBg);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.MenuBg);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.FontBox);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.CampaignDesc);
             this.Controls.Add(this.label4);
@@ -199,5 +283,13 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox CampaignDesc;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox FontBox;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ComboBox MenuBg;
+        private System.Windows.Forms.ComboBox DungeonBg;
+        private System.Windows.Forms.ComboBox CombatBg;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
     }
 }

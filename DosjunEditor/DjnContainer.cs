@@ -24,6 +24,8 @@ namespace DosjunEditor
 
         public Campaign Campaign => Resources.Values.OfType<Campaign>().FirstOrDefault();
         public IEnumerable<Monster> Monsters => Resources.Values.OfType<Monster>();
+        public IEnumerable<Font> Fonts => Resources.Values.OfType<Font>();
+        public IEnumerable<Grf> Graphics => Resources.Values.OfType<Grf>();
         public Palette Palette => Resources.Values.OfType<Palette>().FirstOrDefault();
         public IEnumerable<CompiledScript> PublicScripts => Scripts.Where(s => !s.Resource.Flags.HasFlag(ResourceFlags.Private));
         public Strings Strings => Resources.Values.OfType<Strings>().FirstOrDefault();
