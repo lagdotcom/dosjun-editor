@@ -92,7 +92,7 @@ namespace DosjunEditor
                             break;
                     }
                 }
-            } catch (Exception e)
+            } catch (Exception)
             {
                 return bmp;
             }
