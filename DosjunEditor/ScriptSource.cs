@@ -18,12 +18,12 @@ namespace DosjunEditor
         {
             Resource.OnlyDesign = true;
 
-            Source = br.ReadZS((int)Resource.Size);
+            Source = new string(br.ReadChars((int)Resource.Size));
         }
 
         public void Write(BinaryWriter bw)
         {
-            bw.WriteZS(Source, Source.Length + 1);
+            bw.Write(Source.ToCharArray());
         }
     }
 }
