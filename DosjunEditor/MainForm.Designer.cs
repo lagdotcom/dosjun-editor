@@ -51,6 +51,8 @@
             this.NewSource = new System.Windows.Forms.ToolStripMenuItem();
             this.NewZone = new System.Windows.Forms.ToolStripMenuItem();
             this.ImportDialog = new System.Windows.Forms.OpenFileDialog();
+            this.DumpBtn = new System.Windows.Forms.Button();
+            this.DumpDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.TopMenu.SuspendLayout();
             this.ButtonsPanel.SuspendLayout();
             this.NewContext.SuspendLayout();
@@ -115,6 +117,7 @@
             // 
             // ButtonsPanel
             // 
+            this.ButtonsPanel.Controls.Add(this.DumpBtn);
             this.ButtonsPanel.Controls.Add(this.ImportBtn);
             this.ButtonsPanel.Controls.Add(this.DeleteBtn);
             this.ButtonsPanel.Controls.Add(this.RenameBtn);
@@ -236,6 +239,17 @@
             // 
             this.ImportDialog.Filter = "Fonts|*.FNT|Graphics|*.GRF|Music|*.SNG|Palettes|*.PAL";
             // 
+            // DumpBtn
+            // 
+            this.DumpBtn.Enabled = false;
+            this.DumpBtn.Location = new System.Drawing.Point(12, 119);
+            this.DumpBtn.Name = "DumpBtn";
+            this.DumpBtn.Size = new System.Drawing.Size(182, 23);
+            this.DumpBtn.TabIndex = 4;
+            this.DumpBtn.Text = "Dump Resources...";
+            this.DumpBtn.UseVisualStyleBackColor = true;
+            this.DumpBtn.Click += new System.EventHandler(this.DumpBtn_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -281,6 +295,8 @@
         private System.Windows.Forms.ToolStripMenuItem NewItem;
         private System.Windows.Forms.Button ImportBtn;
         private System.Windows.Forms.OpenFileDialog ImportDialog;
+        private System.Windows.Forms.Button DumpBtn;
+        private System.Windows.Forms.FolderBrowserDialog DumpDialog;
     }
 }
 

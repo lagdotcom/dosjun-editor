@@ -35,11 +35,42 @@ namespace DosjunEditor
                 case ".CMP": return ResourceType.Campaign;
                 case ".FNT": return ResourceType.Font;
                 case ".GRF": return ResourceType.Graphic;
+                case ".ITM": return ResourceType.Item;
+                case ".MON": return ResourceType.Monster;
                 case ".SNG": return ResourceType.Music;
+                case ".NPC": return ResourceType.NPC;
                 case ".PAL": return ResourceType.Palette;
+                case ".PC": return ResourceType.PC;
+                case ".JCC": return ResourceType.Script;
+                case ".WAV": return ResourceType.Sound;
                 case ".JC": return ResourceType.Source;
+                case ".STR": return ResourceType.Strings;
                 case ".ZON": return ResourceType.Zone;
+
                 default: return ResourceType.Unknown;
+            }
+        }
+
+        public static string ToFilename(IHasResource r)
+        {
+            switch (r.Resource.Type)
+            {
+                case ResourceType.Campaign: return r.Resource.Name + ".CMP";
+                case ResourceType.Font: return r.Resource.Name + ".FNT";
+                case ResourceType.Graphic: return r.Resource.Name + ".GRF";
+                case ResourceType.Item: return r.Resource.Name + ".ITM";
+                case ResourceType.Monster: return r.Resource.Name + ".MON";
+                case ResourceType.Music: return r.Resource.Name + ".SNG";
+                case ResourceType.NPC: return r.Resource.Name + ".NPC";
+                case ResourceType.Palette: return r.Resource.Name + ".PAL";
+                case ResourceType.PC: return r.Resource.Name + ".PC";
+                case ResourceType.Script: return r.Resource.Name + ".JCC";
+                case ResourceType.Sound: return r.Resource.Name + ".WAV";
+                case ResourceType.Source: return r.Resource.Name + ".JC";
+                case ResourceType.Strings: return r.Resource.Name + ".STR";
+                case ResourceType.Zone: return r.Resource.Name + ".ZON";
+
+                default: return r.Resource.Name;
             }
         }
     }

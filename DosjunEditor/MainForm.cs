@@ -77,6 +77,7 @@ namespace DosjunEditor
             ImportBtn.Enabled = true;
             MenuSave.Enabled = true;
             NewBtn.Enabled = true;
+            DumpBtn.Enabled = true;
 
             //ResetFilters();
             ShowItems();
@@ -328,6 +329,31 @@ namespace DosjunEditor
             }
         }
 
+        private void DumpBtn_Click(object sender, EventArgs e)
+        {
+            if (DumpDialog.ShowDialog() == DialogResult.OK)
+            {
+                string manifestFilename = $"{DumpDialog.SelectedPath}\\manifest.txt";
+
+                using (StreamWriter sw = new StreamWriter(manifestFilename))
+                {
+                    foreach (IHasResource r in Djn.Resources.Values)
+                    {
+                        string resourceFilename = Globals.ToFilename(r);
+
+                        using (BinaryWriter bw = new BinaryWriter(File.OpenWrite($"{DumpDialog.SelectedPath}\\{resourceFilename}")))
+                        {
+                            r.Write(bw);
+                        }
+
+                        sw.WriteLine($"{resourceFilename}\nID: {r.Resource.ID}\nFlags: {r.Resource.Flags}\n");
+                    }
+                }
+
+                MessageBox.Show("All files dumped.", "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
         private IHasResource Import(string fileName)
         {
             IHasResource r;
@@ -335,33 +361,32 @@ namespace DosjunEditor
                 Size = (uint)new FileInfo(fileName).Length,
                 Type = Globals.Detect(fileName),
             };
-            res.Name = GetString($"Imported {res.Type} name", Path.GetFileName(fileName));
+            res.Name = GetString($"Imported {res.Type} name", Path.GetFileNameWithoutExtension(fileName));
 
             Stream f = File.OpenRead(fileName);
             BinaryReader br = new BinaryReader(f);
 
             switch (res.Type)
             {
-                case ResourceType.Font:
-                    r = new Font(res);
-                    r.Read(br);
-                    return r;
-
-                case ResourceType.Palette:
-                    r = new Palette(res);
-                    r.Read(br);
-                    return r;
-
-                case ResourceType.Graphic:
-                    r = new Grf(res);
-                    r.Read(br);
-                    return r;
-
-                default:
-                    r = new UnknownResource(res);
-                    r.Read(br);
-                    return r;
+                case ResourceType.Font: return Import<Font>(res, br);
+                case ResourceType.Graphic: return Import<Grf>(res, br);
+                case ResourceType.Item: return Import<Item>(res, br);
+                case ResourceType.Monster: return Import<Monster>(res, br);
+                case ResourceType.Palette: return Import<Palette>(res, br);
+                case ResourceType.Script: return Import<CompiledScript>(res, br);
+                case ResourceType.Source: return Import<ScriptSource>(res, br);
+                case ResourceType.Strings: return Import<Strings>(res, br);
+                case ResourceType.Zone: return Import<Zone>(res, br);
+                default: return Import<UnknownResource>(res, br);
             }
+        }
+
+        private T Import<T>(Resource res, BinaryReader br) where T: IHasResource, new()
+        {
+            T r = new T();
+            r.Resource = res;
+            r.Read(br);
+            return r;
         }
     }
 }

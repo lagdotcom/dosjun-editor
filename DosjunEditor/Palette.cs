@@ -19,6 +19,7 @@ namespace DosjunEditor
             Resource = r;
             colours = new Color[256];
         }
+        public Palette() : this(new Resource { Type = ResourceType.Palette }) { }
 
         public Resource Resource { get; set; }
 
