@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DosjunEditor.Jun
 {
@@ -49,6 +50,7 @@ namespace DosjunEditor.Jun
                 ["PcAction"] = CallPcAction,
                 ["ChangeState"] = CallChangeState,
                 ["Call"] = CallCall,
+                ["Teleport"] = CallTeleport,
 
                 ["If"] = If,
                 ["Else"] = Else,
@@ -374,6 +376,13 @@ namespace DosjunEditor.Jun
 
                 case TokenType.Expression:
                     EmitExpression((tok as ExpressionToken).Tokens);
+                    break;
+
+                case TokenType.Reference:
+                    IHasResource hr = Context.Djn.Resources.Values.FirstOrDefault(r => r.Resource.Name == tok.Value);
+                    if (hr == null) throw Error($"Unknown resource: {tok.Value}");
+                    Emit(Op.PushLiteral);
+                    Emit(hr.Resource.ID);
                     break;
 
                 default: throw Error($"Cannot emit {tok}");
@@ -830,6 +839,21 @@ namespace DosjunEditor.Jun
 
             EmitArgument(script);
             Emit(Op.Call);
+        }
+
+        private void CallTeleport()
+        {
+            Consume();
+            Token zone = Expression();
+            Token x = Expression();
+            Token y = Expression();
+            Token transition = Expression();
+
+            EmitArgument(zone);
+            EmitArgument(x);
+            EmitArgument(y);
+            EmitArgument(transition);
+            Emit(Op.Teleport);
         }
 
         private void If()

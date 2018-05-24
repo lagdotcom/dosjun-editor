@@ -31,5 +31,7 @@
 
         LeftParens,
         RightParens,
+
+        Reference,
     }
 }

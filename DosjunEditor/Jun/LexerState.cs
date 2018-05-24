@@ -16,5 +16,7 @@
 
         LeftParens,
         RightParens,
+
+        Reference,
     }
 }

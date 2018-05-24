@@ -27,6 +27,7 @@ namespace DosjunEditor.Jun
                 [LexerState.String] = StateString,
                 [LexerState.StringEscape] = StateStringEscape,
                 [LexerState.Internal] = StateInternal,
+                [LexerState.Reference] = StateReference,
             };
         }
 
@@ -108,6 +109,7 @@ namespace DosjunEditor.Jun
                 case '"':  return LexerState.String;
                 case '@':  return LexerState.Internal;
                 case ',':  return LexerState.Separator;
+                case '$':  return LexerState.Reference;
 
                 case '(':  return LexerState.LeftParens;
                 case ')':  return LexerState.RightParens;
@@ -302,6 +304,9 @@ namespace DosjunEditor.Jun
                     Append(ch);
                     return guess;
 
+                case LexerState.Reference:
+                    return guess;
+
                 case LexerState.Whitespace:
                     return State;
 
@@ -471,6 +476,34 @@ namespace DosjunEditor.Jun
                     return LexerState.None;
 
                 default: throw Error($"Invalid character in internal: {ch}");
+            }
+        }
+
+        private LexerState StateReference(char ch, LexerState guess)
+        {
+            switch (guess)
+            {
+                case LexerState.KeywordOrIdent:
+                case LexerState.Number:
+                    Append(ch);
+                    return State;
+
+                case LexerState.Whitespace:
+                    AddToken(TokenType.Reference);
+                    return LexerState.None;
+
+                case LexerState.EndOfLine:
+                case LexerState.CommentStart:
+                    AddToken(TokenType.Reference);
+                    return EndLine();
+
+                case LexerState.Operator:
+                case LexerState.Separator:
+                    AddToken(TokenType.Reference);
+                    Rewind();
+                    return LexerState.None;
+
+                default: throw Error($"Invalid character in reference: {ch}");
             }
         }
     }

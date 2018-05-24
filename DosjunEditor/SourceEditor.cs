@@ -16,6 +16,7 @@ namespace DosjunEditor
     {
         private Style comment = new TextStyle(Brushes.Green, null, FontStyle.Italic);
         private Style keyword = new TextStyle(Brushes.Blue, null, FontStyle.Bold);
+        private Style reference = new TextStyle(Brushes.Red, null, FontStyle.Regular);
         private string keywordRegex;
 
         public SourceEditor()
@@ -66,8 +67,10 @@ namespace DosjunEditor
         {
             e.ChangedRange.ClearStyle(comment);
             e.ChangedRange.ClearStyle(keyword);
+            e.ChangedRange.ClearStyle(reference);
             e.ChangedRange.SetStyle(comment, @"#.*$", RegexOptions.Multiline);
             e.ChangedRange.SetStyle(keyword, keywordRegex);
+            e.ChangedRange.SetStyle(reference, @"\$\w+\b");
 
             //e.ChangedRange.ClearFoldingMarkers();
             //e.ChangedRange.SetFoldingMarkers(@"Script\b", @"EndScript\b");
