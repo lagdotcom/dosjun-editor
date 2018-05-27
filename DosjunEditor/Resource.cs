@@ -4,7 +4,7 @@ namespace DosjunEditor
 {
     public class Resource : IBinaryData
     {
-        public const int Padding = 4;
+        public const int Padding = 3;
 
         public void Read(BinaryReader br, bool design)
         {
@@ -13,6 +13,7 @@ namespace DosjunEditor
             Size = br.ReadUInt32();
             Type = (ResourceType)br.ReadByte();
             Flags = (ResourceFlags)br.ReadByte();
+            Subtype = (ResourceSubtype)br.ReadByte();
             br.ReadBytes(Padding);
 
             if (design)
@@ -26,6 +27,7 @@ namespace DosjunEditor
             bw.Write(Size);
             bw.Write((byte)Type);
             bw.Write((byte)Flags);
+            bw.Write((byte)Subtype);
             bw.WritePadding(Padding);
 
             if (design)
@@ -44,6 +46,7 @@ namespace DosjunEditor
 
         public ushort ID { get; set; }
         public ResourceType Type { get; set; }
+        public ResourceSubtype Subtype { get; set; }
         public ResourceFlags Flags { get; set; }
         public bool OnlyDesign { get; set; }
         public string Name { get; set; }

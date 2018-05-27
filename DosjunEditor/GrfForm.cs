@@ -15,6 +15,9 @@ namespace DosjunEditor
         public GrfForm()
         {
             InitializeComponent();
+
+            foreach (string name in Tools.GetEnumNames<ResourceSubtype>())
+                SubtypeBox.Items.Add(name);
         }
 
         public Context Context { get; set; }
@@ -30,7 +33,7 @@ namespace DosjunEditor
             Grf = r as Grf;
 
             ImageNumber.Maximum = Grf.Images.Count - 1;
-            TextureFlag.Checked = Grf.Resource.Flags.HasFlag(ResourceFlags.Texture);
+            SubtypeBox.SelectedIndex = (int)r.Resource.Subtype;
             ShowImage();
         }
 
@@ -47,11 +50,16 @@ namespace DosjunEditor
 
         private void SaveBtn_Click(object sender, EventArgs e)
         {
-            ResourceFlags rf = Grf.Resource.Flags;
-            Tools.SetFlag(TextureFlag.Checked, ResourceFlags.Texture, ref rf);
-            Grf.Resource.Flags = rf;
+            Grf.Resource.Subtype = (ResourceSubtype)SubtypeBox.SelectedIndex;
 
             Saved?.Invoke(this, null);
+            Context.Djn.Rename(Grf.Resource.ID, Grf.Resource.Name); // this is kinda hacky
+            Close();
+        }
+
+        private void CancelBtn_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

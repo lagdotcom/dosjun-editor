@@ -102,20 +102,25 @@ namespace DosjunEditor
             Resources.BeginUpdate();
             Resources.Items.Clear();
 
-            foreach (var resource in Djn.Resources)
-            {
-                ListViewItem lvi = new ListViewItem
-                {
-                    Text = resource.Value.Resource.ToString(),
-                    Tag = resource.Key,
-                };
-                lvi.SubItems.Add(resource.Value.Resource.Type.ToString());
-                lvi.SubItems.Add(resource.Key.ToString());
-
-                Resources.Items.Add(lvi);
-            }
+            foreach (var pair in Djn.Resources)
+                Resources.Items.Add(AsItem(pair.Value.Resource));
 
             Resources.EndUpdate();
+        }
+
+        private ListViewItem AsItem(Resource r)
+        {
+            ListViewItem lvi = new ListViewItem
+            {
+                Text = r.ToString(),
+                Tag = (int)r.ID,
+            };
+            lvi.SubItems.Add(r.Type == ResourceType.Graphic
+                ? $"{r.Type} ({r.Subtype})"
+                : r.Type.ToString());
+            lvi.SubItems.Add(r.ID.ToString());
+
+            return lvi;
         }
 
         private void Context_UnsavedChangesChanged(object sender, EventArgs e)

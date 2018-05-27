@@ -27,10 +27,14 @@ namespace DosjunEditor
         public IEnumerable<Font> Fonts => Resources.Values.OfType<Font>();
         public IEnumerable<Grf> Graphics => Resources.Values.OfType<Grf>();
         public Palette Palette => Resources.Values.OfType<Palette>().FirstOrDefault();
+        public IEnumerable<Grf> Portraits => GrfSubtypes(ResourceSubtype.Portrait);
         public IEnumerable<CompiledScript> PublicScripts => Scripts.Where(s => !s.Resource.Flags.HasFlag(ResourceFlags.Private));
+        public IEnumerable<Grf> Screens => GrfSubtypes(ResourceSubtype.Screen);
         public Strings Strings => Resources.Values.OfType<Strings>().FirstOrDefault();
         public IEnumerable<CompiledScript> Scripts => Resources.Values.OfType<CompiledScript>();
-        public IEnumerable<Grf> Textures => Resources.Values.OfType<Grf>().Where(s => s.Resource.Flags.HasFlag(ResourceFlags.Texture));
+        public IEnumerable<Grf> Textures => GrfSubtypes(ResourceSubtype.Texture);
+
+        protected IEnumerable<Grf> GrfSubtypes(ResourceSubtype sub) => Resources.Values.OfType<Grf>().Where(s => s.Resource.Subtype == sub);
 
         public event EventHandler<IHasResource> ResourceChanged;
 

@@ -8,6 +8,5 @@ namespace DosjunEditor
         None = 0,
 
         Private = 1,
-        Texture = 2,
     }
 }

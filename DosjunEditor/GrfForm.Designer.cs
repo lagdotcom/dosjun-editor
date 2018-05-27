@@ -29,11 +29,13 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.SaveBtn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.ImageNumber = new System.Windows.Forms.NumericUpDown();
             this.ImageView = new System.Windows.Forms.PictureBox();
-            this.TextureFlag = new System.Windows.Forms.CheckBox();
-            this.SaveBtn = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.SubtypeBox = new System.Windows.Forms.ComboBox();
+            this.CancelBtn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ImageNumber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ImageView)).BeginInit();
@@ -41,8 +43,10 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.CancelBtn);
+            this.panel1.Controls.Add(this.SubtypeBox);
+            this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.SaveBtn);
-            this.panel1.Controls.Add(this.TextureFlag);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.ImageNumber);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
@@ -50,6 +54,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(266, 450);
             this.panel1.TabIndex = 3;
+            // 
+            // SaveBtn
+            // 
+            this.SaveBtn.Location = new System.Drawing.Point(8, 415);
+            this.SaveBtn.Name = "SaveBtn";
+            this.SaveBtn.Size = new System.Drawing.Size(75, 23);
+            this.SaveBtn.TabIndex = 5;
+            this.SaveBtn.Text = "Save";
+            this.SaveBtn.UseVisualStyleBackColor = true;
+            this.SaveBtn.Click += new System.EventHandler(this.SaveBtn_Click);
             // 
             // label1
             // 
@@ -78,25 +92,32 @@
             this.ImageView.TabIndex = 4;
             this.ImageView.TabStop = false;
             // 
-            // TextureFlag
+            // label2
             // 
-            this.TextureFlag.AutoSize = true;
-            this.TextureFlag.Location = new System.Drawing.Point(15, 12);
-            this.TextureFlag.Name = "TextureFlag";
-            this.TextureFlag.Size = new System.Drawing.Size(68, 17);
-            this.TextureFlag.TabIndex = 4;
-            this.TextureFlag.Text = "Texture?";
-            this.TextureFlag.UseVisualStyleBackColor = true;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 15);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(46, 13);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Subtype";
             // 
-            // SaveBtn
+            // SubtypeBox
             // 
-            this.SaveBtn.Location = new System.Drawing.Point(8, 415);
-            this.SaveBtn.Name = "SaveBtn";
-            this.SaveBtn.Size = new System.Drawing.Size(75, 23);
-            this.SaveBtn.TabIndex = 5;
-            this.SaveBtn.Text = "Save";
-            this.SaveBtn.UseVisualStyleBackColor = true;
-            this.SaveBtn.Click += new System.EventHandler(this.SaveBtn_Click);
+            this.SubtypeBox.FormattingEnabled = true;
+            this.SubtypeBox.Location = new System.Drawing.Point(139, 12);
+            this.SubtypeBox.Name = "SubtypeBox";
+            this.SubtypeBox.Size = new System.Drawing.Size(121, 21);
+            this.SubtypeBox.TabIndex = 7;
+            // 
+            // CancelBtn
+            // 
+            this.CancelBtn.Location = new System.Drawing.Point(185, 415);
+            this.CancelBtn.Name = "CancelBtn";
+            this.CancelBtn.Size = new System.Drawing.Size(75, 23);
+            this.CancelBtn.TabIndex = 8;
+            this.CancelBtn.Text = "Cancel";
+            this.CancelBtn.UseVisualStyleBackColor = true;
+            this.CancelBtn.Click += new System.EventHandler(this.CancelBtn_Click);
             // 
             // GrfForm
             // 
@@ -121,7 +142,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown ImageNumber;
         private System.Windows.Forms.PictureBox ImageView;
-        private System.Windows.Forms.CheckBox TextureFlag;
         private System.Windows.Forms.Button SaveBtn;
+        private System.Windows.Forms.ComboBox SubtypeBox;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button CancelBtn;
     }
 }

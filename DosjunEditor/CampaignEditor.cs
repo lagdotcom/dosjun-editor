@@ -30,9 +30,9 @@ namespace DosjunEditor
 
             Globals.Populate(StartScript, ctx.Djn.PublicScripts);
             Globals.Populate(FontBox, ctx.Djn.Fonts);
-            Globals.Populate(MenuBg, ctx.Djn.Graphics);
-            Globals.Populate(DungeonBg, ctx.Djn.Graphics);
-            Globals.Populate(CombatBg, ctx.Djn.Graphics);
+            Globals.Populate(MenuBg, ctx.Djn.Screens);
+            Globals.Populate(DungeonBg, ctx.Djn.Screens);
+            Globals.Populate(CombatBg, ctx.Djn.Screens);
 
             NumGlobals.Value = Campaign.NumGlobals;
             NumFlags.Value = Campaign.NumFlags;

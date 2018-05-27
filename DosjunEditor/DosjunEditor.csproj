@@ -178,6 +178,7 @@
     <Compile Include="Resource.cs" />
     <Compile Include="ResourceFlags.cs" />
     <Compile Include="ResourceListSorter.cs" />
+    <Compile Include="ResourceSubtype.cs" />
     <Compile Include="ResourceType.cs" />
     <Compile Include="Row.cs" />
     <Compile Include="CompiledScript.cs" />
