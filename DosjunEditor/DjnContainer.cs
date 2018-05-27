@@ -146,6 +146,9 @@ namespace DosjunEditor
                 case ResourceType.Palette:
                     return new Palette(r);
 
+                case ResourceType.PC:
+                    return new PC(r);
+
                 case ResourceType.Script:
                     return new CompiledScript(r);
 

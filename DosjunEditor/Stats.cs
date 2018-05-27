@@ -4,6 +4,8 @@ namespace DosjunEditor
 {
     public class Stats : IBinaryData
     {
+        public const int Size = 32;
+
         public void Read(BinaryReader br)
         {
             MaxHP = br.ReadInt16();

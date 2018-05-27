@@ -4,6 +4,8 @@ namespace DosjunEditor
 {
     public class VersionHeader : IBinaryData
     {
+        public const int Size = 4;
+
         public VersionHeader()
         {
             Magic = Consts.Magic;

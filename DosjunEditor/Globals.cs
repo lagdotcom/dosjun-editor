@@ -8,6 +8,7 @@ namespace DosjunEditor
 {
     internal class Globals
     {
+        public const int InventorySize = 10;
         public static Color[] Palette { get; internal set; }
         private static Resource NoResource = new Resource { ID = 0, Name = "(None)" };
 

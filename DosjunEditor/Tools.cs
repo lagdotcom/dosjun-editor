@@ -9,10 +9,10 @@ namespace DosjunEditor
 {
     public static class Tools
     {
-        public static IEnumerable<string> GetEnumNames<T>()
+        public static IEnumerable<string> GetEnumNames<T>(char replacement = ' ')
         {
             foreach (string name in Enum.GetNames(typeof(T)))
-                yield return FormatEnumName(name);
+                yield return FormatEnumName(name, replacement);
         }
 
         public static ushort AddETable(Context context, Zone zone)
@@ -67,9 +67,9 @@ namespace DosjunEditor
             return null;
         }
 
-        private static string FormatEnumName(string name)
+        private static string FormatEnumName(string name, char replacement = ' ')
         {
-            string formatted = name.Replace("_", " ");
+            string formatted = name.Replace('_', replacement);
 
             return formatted;
         }

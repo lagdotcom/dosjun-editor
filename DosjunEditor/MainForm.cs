@@ -209,6 +209,10 @@ namespace DosjunEditor
                         Spawn<MonsterForm>(r);
                         return;
 
+                    case ResourceType.PC:
+                        Spawn<PCEditor>(r);
+                        return;
+
                     case ResourceType.Source:
                         Spawn<SourceEditor>(r);
                         return;
@@ -323,6 +327,13 @@ namespace DosjunEditor
             Spawn<ItemForm>(i).Saved += SubEditor_NewSaved;
         }
 
+        private void NewPC_Click(object sender, EventArgs e)
+        {
+            PC p = new PC();
+            p.Resource.Name = GetString("New PC name");
+            Spawn<PCEditor>(p).Saved += SubEditor_NewSaved;
+        }
+
         private void ImportBtn_Click(object sender, EventArgs e)
         {
             if (ImportDialog.ShowDialog() == DialogResult.OK)
@@ -361,7 +372,6 @@ namespace DosjunEditor
 
         private IHasResource Import(string fileName)
         {
-            IHasResource r;
             Resource res = new Resource {
                 Size = (uint)new FileInfo(fileName).Length,
                 Type = Globals.Detect(fileName),
@@ -378,6 +388,7 @@ namespace DosjunEditor
                 case ResourceType.Item: return Import<Item>(res, br);
                 case ResourceType.Monster: return Import<Monster>(res, br);
                 case ResourceType.Palette: return Import<Palette>(res, br);
+                case ResourceType.PC: return Import<PC>(res, br);
                 case ResourceType.Script: return Import<CompiledScript>(res, br);
                 case ResourceType.Source: return Import<ScriptSource>(res, br);
                 case ResourceType.Strings: return Import<Strings>(res, br);
