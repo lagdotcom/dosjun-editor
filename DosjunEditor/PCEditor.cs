@@ -34,8 +34,11 @@ namespace DosjunEditor
             Context = ctx;
             PC = r as PC;
 
+            Globals.Populate(PortraitBox, Context.Djn.Portraits);
+
             JobBox.SelectedIndex = (int)PC.Job;
             NameBox.Text = ctx.GetString(PC.NameId);
+            PortraitBox.SelectedItem = Globals.Resolve(ctx, PC.PortraitId);
             PronounsBox.SelectedIndex = (int)PC.Pronouns;
             StatBoxes.Stats = PC.Stats;
             XPBox.Value = PC.Experience;
@@ -51,6 +54,7 @@ namespace DosjunEditor
             PC.Experience = (uint)XPBox.Value;
             PC.Job = (Job)JobBox.SelectedIndex;
             PC.NameId = Context.GetStringId(NameBox.Text, PC.NameId);
+            PC.PortraitId = (PortraitBox.SelectedItem as Resource).ID;
             PC.Pronouns = (Pronouns)PronounsBox.SelectedIndex;
             StatBoxes.Apply();
 

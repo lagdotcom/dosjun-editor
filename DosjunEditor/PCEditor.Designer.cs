@@ -39,6 +39,8 @@
             this.PronounsBox = new System.Windows.Forms.ComboBox();
             this.XPBox = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.PortraitBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.XPBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -138,11 +140,30 @@
             this.label4.TabIndex = 109;
             this.label4.Text = "Experience";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 117);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(40, 13);
+            this.label5.TabIndex = 111;
+            this.label5.Text = "Portrait";
+            // 
+            // PortraitBox
+            // 
+            this.PortraitBox.FormattingEnabled = true;
+            this.PortraitBox.Location = new System.Drawing.Point(75, 114);
+            this.PortraitBox.Name = "PortraitBox";
+            this.PortraitBox.Size = new System.Drawing.Size(220, 21);
+            this.PortraitBox.TabIndex = 110;
+            // 
             // PCEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 426);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.PortraitBox);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.XPBox);
             this.Controls.Add(this.label3);
@@ -175,5 +196,7 @@
         private System.Windows.Forms.ComboBox PronounsBox;
         private System.Windows.Forms.NumericUpDown XPBox;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox PortraitBox;
     }
 }
