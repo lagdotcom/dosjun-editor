@@ -27,7 +27,7 @@ namespace DosjunEditor
                     return a.Text.CompareTo(b.Text);
 
                 case SortColumn.Type:
-                    return a.SubItems[0].Text.CompareTo(b.SubItems[0].Text);
+                    return a.SubItems[1].Text.CompareTo(b.SubItems[1].Text);
 
                 case SortColumn.ID:
                     return ((int)a.Tag).CompareTo((int)b.Tag);
