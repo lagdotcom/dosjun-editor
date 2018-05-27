@@ -8,7 +8,5 @@
         Rogue,
         Ranger,
         Bard,
-
-        Count,
     }
 }

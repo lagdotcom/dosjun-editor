@@ -41,7 +41,12 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.PortraitBox = new System.Windows.Forms.ComboBox();
+            this.BackRowBox = new System.Windows.Forms.CheckBox();
+            this.PartyBox = new System.Windows.Forms.CheckBox();
+            this.JobGroup = new System.Windows.Forms.GroupBox();
+            this.JobLayout = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.XPBox)).BeginInit();
+            this.JobGroup.SuspendLayout();
             this.SuspendLayout();
             // 
             // StatBoxes
@@ -82,7 +87,7 @@
             // OKBtn
             // 
             this.OKBtn.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.OKBtn.Location = new System.Drawing.Point(12, 390);
+            this.OKBtn.Location = new System.Drawing.Point(15, 390);
             this.OKBtn.Name = "OKBtn";
             this.OKBtn.Size = new System.Drawing.Size(75, 23);
             this.OKBtn.TabIndex = 102;
@@ -157,11 +162,57 @@
             this.PortraitBox.Size = new System.Drawing.Size(220, 21);
             this.PortraitBox.TabIndex = 110;
             // 
+            // BackRowBox
+            // 
+            this.BackRowBox.AutoSize = true;
+            this.BackRowBox.Location = new System.Drawing.Point(207, 141);
+            this.BackRowBox.Name = "BackRowBox";
+            this.BackRowBox.Size = new System.Drawing.Size(88, 17);
+            this.BackRowBox.TabIndex = 112;
+            this.BackRowBox.Text = "In Back Row";
+            this.BackRowBox.UseVisualStyleBackColor = true;
+            // 
+            // PartyBox
+            // 
+            this.PartyBox.AutoSize = true;
+            this.PartyBox.Location = new System.Drawing.Point(207, 164);
+            this.PartyBox.Name = "PartyBox";
+            this.PartyBox.Size = new System.Drawing.Size(62, 17);
+            this.PartyBox.TabIndex = 113;
+            this.PartyBox.Text = "In Party";
+            this.PartyBox.UseVisualStyleBackColor = true;
+            // 
+            // JobGroup
+            // 
+            this.JobGroup.Controls.Add(this.JobLayout);
+            this.JobGroup.Location = new System.Drawing.Point(565, 8);
+            this.JobGroup.Name = "JobGroup";
+            this.JobGroup.Size = new System.Drawing.Size(258, 214);
+            this.JobGroup.TabIndex = 114;
+            this.JobGroup.TabStop = false;
+            this.JobGroup.Text = "Job Levels";
+            // 
+            // JobLayout
+            // 
+            this.JobLayout.ColumnCount = 2;
+            this.JobLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.JobLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.JobLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.JobLayout.Location = new System.Drawing.Point(3, 16);
+            this.JobLayout.Name = "JobLayout";
+            this.JobLayout.RowCount = 1;
+            this.JobLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.JobLayout.Size = new System.Drawing.Size(252, 195);
+            this.JobLayout.TabIndex = 0;
+            // 
             // PCEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 426);
+            this.ClientSize = new System.Drawing.Size(837, 426);
+            this.Controls.Add(this.JobGroup);
+            this.Controls.Add(this.PartyBox);
+            this.Controls.Add(this.BackRowBox);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.PortraitBox);
             this.Controls.Add(this.label4);
@@ -178,6 +229,7 @@
             this.Name = "PCEditor";
             this.Text = "PC Editor";
             ((System.ComponentModel.ISupportInitialize)(this.XPBox)).EndInit();
+            this.JobGroup.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -198,5 +250,9 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox PortraitBox;
+        private System.Windows.Forms.CheckBox BackRowBox;
+        private System.Windows.Forms.CheckBox PartyBox;
+        private System.Windows.Forms.GroupBox JobGroup;
+        private System.Windows.Forms.TableLayoutPanel JobLayout;
     }
 }

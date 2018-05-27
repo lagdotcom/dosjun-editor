@@ -10,14 +10,14 @@ namespace DosjunEditor
     public class PC : IHasResource
     {
         public const int Padding = 17;
-        public const int Size = 13 + Padding + VersionHeader.Size + (InventoryItem.Size * Globals.InventorySize) + Stats.Size + ((int)Job.Count * 2);
+        public const int Size = 13 + Padding + VersionHeader.Size + (InventoryItem.Size * Globals.InventorySize) + Stats.Size + (Globals.NumJobs * 2);
 
         public PC(Resource r)
         {
             Resource = r;
 
             Items = new InventoryItem[Globals.InventorySize];
-            JobLevels = new ushort[(int)Job.Count];
+            JobLevels = new ushort[Globals.NumJobs];
             Stats = new Stats();
             Version = new VersionHeader();
 
@@ -41,7 +41,7 @@ namespace DosjunEditor
 
             Stats.Read(br);
 
-            for (int i = 0; i < (int)Job.Count; i++)
+            for (int i = 0; i < Globals.NumJobs; i++)
                 JobLevels[i] = br.ReadUInt16();
 
             for (int i = 0; i < Globals.InventorySize; i++)

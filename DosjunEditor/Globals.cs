@@ -9,6 +9,9 @@ namespace DosjunEditor
     internal class Globals
     {
         public const int InventorySize = 10;
+        public const int MaxJobLevel = 10;
+        public const int NumJobs = 6;
+
         public static Color[] Palette { get; internal set; }
         private static Resource NoResource = new Resource { ID = 0, Name = "(None)" };
 
