@@ -83,12 +83,12 @@ namespace DosjunEditor
         public static List<short> ReadIntList(this BinaryReader br)
         {
             List<short> list = new List<short>();
-            ushort type, osize, size, capacity;
+            ushort type, osize, size;
 
             type = br.ReadUInt16();
             osize = br.ReadUInt16();
             size = br.ReadUInt16();
-            capacity = br.ReadUInt16();
+            br.ReadUInt16(); // Capacity
 
             if (type != 1) throw new IOException("Not an int list");
             if (osize != 0) throw new IOException("ints should have size 0");
