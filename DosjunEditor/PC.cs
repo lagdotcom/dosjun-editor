@@ -9,8 +9,8 @@ namespace DosjunEditor
 {
     public class PC : IHasResource
     {
-        public const int Padding = 17;
-        public const int Size = 13 + Padding + VersionHeader.Size + (InventoryItem.Size * Globals.InventorySize) + Stats.Size + (Globals.NumJobs * 2);
+        public const int Padding = 15;
+        public const int Size = 15 + Padding + VersionHeader.Size + (InventoryItem.Size * Globals.InventorySize) + Stats.Size + (Globals.NumJobs * 2);
 
         public PC(Resource r)
         {
@@ -36,6 +36,7 @@ namespace DosjunEditor
             br.ReadUInt16();    // Level
             Flags = (PCFlags)br.ReadByte();
             Experience = br.ReadUInt32();
+            Attitude = br.ReadInt16();
 
             br.ReadBytes(Padding);
 
@@ -58,6 +59,7 @@ namespace DosjunEditor
             bw.Write(Level);
             bw.Write((byte)Flags);
             bw.Write(Experience);
+            bw.Write(Attitude);
 
             bw.WritePadding(Padding);
 
@@ -83,5 +85,6 @@ namespace DosjunEditor
         public InventoryItem[] Items { get; set; }
         public PCFlags Flags { get; set; }
         public uint Experience { get; set; }
+        public short Attitude { get; set; }
     }
 }

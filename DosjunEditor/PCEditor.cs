@@ -20,6 +20,9 @@ namespace DosjunEditor
             InitializeComponent();
             XPBox.Maximum = uint.MaxValue;
 
+            AttitudeBox.Minimum = short.MinValue;
+            AttitudeBox.Maximum = short.MaxValue;
+
             foreach (string name in Tools.GetEnumNames<Job>())
                 JobBox.Items.Add(name);
 
@@ -72,6 +75,7 @@ namespace DosjunEditor
 
             Globals.Populate(PortraitBox, Context.Djn.Portraits);
 
+            AttitudeBox.Value = PC.Attitude;
             BackRowBox.Checked = PC.Flags.HasFlag(PCFlags.BackRow);
             JobBox.SelectedIndex = (int)PC.Job;
             NameBox.Text = ctx.GetString(PC.NameId);
@@ -103,6 +107,7 @@ namespace DosjunEditor
             if (BackRowBox.Checked) flags |= PCFlags.BackRow;
             if (PartyBox.Checked) flags |= PCFlags.InParty;
 
+            PC.Attitude = (short)AttitudeBox.Value;
             PC.Experience = (uint)XPBox.Value;
             PC.Flags = flags;
             PC.Job = (Job)JobBox.SelectedIndex;

@@ -46,8 +46,11 @@
             this.JobGroup = new System.Windows.Forms.GroupBox();
             this.JobLayout = new System.Windows.Forms.TableLayoutPanel();
             this.InventoryBox = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.AttitudeBox = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.XPBox)).BeginInit();
             this.JobGroup.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.AttitudeBox)).BeginInit();
             this.SuspendLayout();
             // 
             // StatBoxes
@@ -77,7 +80,7 @@
             // CancelBtn
             // 
             this.CancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CancelBtn.Location = new System.Drawing.Point(220, 390);
+            this.CancelBtn.Location = new System.Drawing.Point(220, 426);
             this.CancelBtn.Name = "CancelBtn";
             this.CancelBtn.Size = new System.Drawing.Size(75, 23);
             this.CancelBtn.TabIndex = 103;
@@ -88,7 +91,7 @@
             // OKBtn
             // 
             this.OKBtn.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.OKBtn.Location = new System.Drawing.Point(15, 390);
+            this.OKBtn.Location = new System.Drawing.Point(15, 426);
             this.OKBtn.Name = "OKBtn";
             this.OKBtn.Size = new System.Drawing.Size(75, 23);
             this.OKBtn.TabIndex = 102;
@@ -166,7 +169,7 @@
             // BackRowBox
             // 
             this.BackRowBox.AutoSize = true;
-            this.BackRowBox.Location = new System.Drawing.Point(207, 141);
+            this.BackRowBox.Location = new System.Drawing.Point(15, 167);
             this.BackRowBox.Name = "BackRowBox";
             this.BackRowBox.Size = new System.Drawing.Size(88, 17);
             this.BackRowBox.TabIndex = 112;
@@ -176,7 +179,7 @@
             // PartyBox
             // 
             this.PartyBox.AutoSize = true;
-            this.PartyBox.Location = new System.Drawing.Point(207, 164);
+            this.PartyBox.Location = new System.Drawing.Point(233, 167);
             this.PartyBox.Name = "PartyBox";
             this.PartyBox.Size = new System.Drawing.Size(62, 17);
             this.PartyBox.TabIndex = 113;
@@ -186,7 +189,7 @@
             // JobGroup
             // 
             this.JobGroup.Controls.Add(this.JobLayout);
-            this.JobGroup.Location = new System.Drawing.Point(15, 187);
+            this.JobGroup.Location = new System.Drawing.Point(15, 238);
             this.JobGroup.Name = "JobGroup";
             this.JobGroup.Size = new System.Drawing.Size(280, 175);
             this.JobGroup.TabIndex = 114;
@@ -215,11 +218,29 @@
             this.InventoryBox.TabStop = false;
             this.InventoryBox.Text = "Inventory";
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(12, 143);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(43, 13);
+            this.label6.TabIndex = 117;
+            this.label6.Text = "Attitude";
+            // 
+            // AttitudeBox
+            // 
+            this.AttitudeBox.Location = new System.Drawing.Point(175, 141);
+            this.AttitudeBox.Name = "AttitudeBox";
+            this.AttitudeBox.Size = new System.Drawing.Size(120, 20);
+            this.AttitudeBox.TabIndex = 116;
+            // 
             // PCEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(857, 426);
+            this.ClientSize = new System.Drawing.Size(857, 461);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.AttitudeBox);
             this.Controls.Add(this.InventoryBox);
             this.Controls.Add(this.JobGroup);
             this.Controls.Add(this.PartyBox);
@@ -241,6 +262,7 @@
             this.Text = "PC Editor";
             ((System.ComponentModel.ISupportInitialize)(this.XPBox)).EndInit();
             this.JobGroup.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.AttitudeBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -266,5 +288,7 @@
         private System.Windows.Forms.GroupBox JobGroup;
         private System.Windows.Forms.TableLayoutPanel JobLayout;
         private System.Windows.Forms.GroupBox InventoryBox;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.NumericUpDown AttitudeBox;
     }
 }
