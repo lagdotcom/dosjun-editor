@@ -218,6 +218,10 @@ namespace DosjunEditor
                         Spawn<PCEditor>(r);
                         return;
 
+                    case ResourceType.Script:
+                        Spawn<CompiledDumpForm>(r);
+                        return;
+
                     case ResourceType.Source:
                         Spawn<SourceEditor>(r);
                         return;

@@ -60,6 +60,12 @@
     <Compile Include="CampaignEditor.Designer.cs">
       <DependentUpon>CampaignEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="CompiledDumpForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CompiledDumpForm.Designer.cs">
+      <DependentUpon>CompiledDumpForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Consts.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="DjnContainer.cs" />
@@ -129,6 +135,8 @@
     <Compile Include="Jun\Cmd\AddItem.cs" />
     <Compile Include="Jun\Cmd\Call.cs" />
     <Compile Include="Jun\Cmd\ChangeState.cs" />
+    <Compile Include="Jun\Cmd\ChoosePcPortrait.cs" />
+    <Compile Include="Jun\Cmd\ChoosePcPronouns.cs" />
     <Compile Include="Jun\Cmd\Combat.cs" />
     <Compile Include="Jun\Cmd\Converse.cs" />
     <Compile Include="Jun\Cmd\Const.cs" />
@@ -139,9 +147,12 @@
     <Compile Include="Jun\Cmd\EndScript.cs" />
     <Compile Include="Jun\Cmd\EndState.cs" />
     <Compile Include="Jun\Cmd\EquipItem.cs" />
+    <Compile Include="Jun\Cmd\GetAttitude.cs" />
     <Compile Include="Jun\Cmd\GiveItem.cs" />
     <Compile Include="Jun\Cmd\Global.cs" />
     <Compile Include="Jun\Cmd\If.cs" />
+    <Compile Include="Jun\Cmd\JoinParty.cs" />
+    <Compile Include="Jun\Cmd\LeaveParty.cs" />
     <Compile Include="Jun\Cmd\Local.cs" />
     <Compile Include="Jun\Cmd\Music.cs" />
     <Compile Include="Jun\Cmd\NpcAction.cs" />
@@ -154,8 +165,9 @@
     <Compile Include="Jun\Cmd\Return.cs" />
     <Compile Include="Jun\Cmd\Safe.cs" />
     <Compile Include="Jun\Cmd\Script.cs" />
+    <Compile Include="Jun\Cmd\SetAttitude.cs" />
     <Compile Include="Jun\Cmd\SetDanger.cs" />
-    <Compile Include="Jun\Cmd\SetPcName.cs" />
+    <Compile Include="Jun\Cmd\ChoosePcName.cs" />
     <Compile Include="Jun\Cmd\SetTileColour.cs" />
     <Compile Include="Jun\Cmd\SetTileDescription.cs" />
     <Compile Include="Jun\Cmd\SetTileThing.cs" />
@@ -291,6 +303,9 @@
     </Compile>
     <EmbeddedResource Include="CampaignEditor.resx">
       <DependentUpon>CampaignEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CompiledDumpForm.resx">
+      <DependentUpon>CompiledDumpForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EncounterForm.resx">
       <DependentUpon>EncounterForm.cs</DependentUpon>
