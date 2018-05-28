@@ -260,6 +260,12 @@
       <DependentUpon>StringDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Strings.cs" />
+    <Compile Include="StringsViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StringsViewer.Designer.cs">
+      <DependentUpon>StringsViewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="TextureComboBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -367,6 +373,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="StringDialog.resx">
       <DependentUpon>StringDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StringsViewer.resx">
+      <DependentUpon>StringsViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TextureComboBox.resx">
       <DependentUpon>TextureComboBox.cs</DependentUpon>

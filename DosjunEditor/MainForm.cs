@@ -226,6 +226,10 @@ namespace DosjunEditor
                         Spawn<SourceEditor>(r);
                         return;
 
+                    case ResourceType.Strings:
+                        Spawn<StringsViewer>(r);
+                        return;
+
                     case ResourceType.Zone:
                         Spawn<ZoneForm>(r);
                         return;

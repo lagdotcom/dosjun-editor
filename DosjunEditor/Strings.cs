@@ -59,5 +59,7 @@ namespace DosjunEditor
             strings[s] = id;
             return id;
         }
+
+        public IEnumerable<KeyValuePair<string, ushort>> AsEnumerable() => strings.AsEnumerable();
     }
 }
