@@ -9,93 +9,8 @@ namespace DosjunEditor.Jun
         public const int MaxLocals = 20;
         public const int MaxTemps = 20;
 
-        private Dictionary<string, Action> globalKeywordAction;
-        private Dictionary<string, Action> scriptKeywordAction;
-        private Dictionary<TokenType, Op> comparators;
-        private Dictionary<TokenType, int> precedence;
-
         public Parser(DosjunEditor.Context ctx)
         {
-            globalKeywordAction = new Dictionary<string, Action>
-            {
-                ["Const"] = DefineConst,
-                ["Global"] = DefineGlobal,
-                ["Local"] = DefineLocal,
-                ["Script"] = DefineScript,
-                ["State"] = DefineState,
-            };
-
-            scriptKeywordAction = new Dictionary<string, Action>
-            {
-                ["Combat"] = CallCombat,
-                ["PcSpeak"] = CallPcSpeak,
-                ["Text"] = CallText,
-                ["Unlock"] = CallUnlock,
-                ["GiveItem"] = CallGiveItem,
-                ["EquipItem"] = CallEquipItem,
-                ["SetTileColour"] = CallSetTileColour,
-                ["SetTileDescription"] = CallSetTileDescription,
-                ["SetTileThing"] = CallSetTileThing,
-                ["SetDanger"] = CallSetDanger,
-                ["Safe"] = CallSafe,
-                ["RemoveWall"] = CallRemoveWall,
-                ["Refresh"] = CallRefresh,
-                ["AddItem"] = CallAddItem,
-                ["Music"] = CallMusic,
-                ["Converse"] = CallConverse,
-                ["EndConverse"] = CallEndConverse,
-                ["NpcAction"] = CallNpcAction,
-                ["NpcSpeak"] = CallNpcSpeak,
-                ["Option"] = CallOption,
-                ["PcAction"] = CallPcAction,
-                ["ChangeState"] = CallChangeState,
-                ["Call"] = CallCall,
-                ["Teleport"] = CallTeleport,
-
-                ["If"] = If,
-                ["Else"] = Else,
-                ["ElseIf"] = ElseIf,
-                ["EndIf"] = EndIf,
-
-                ["Return"] = Return,
-                ["EndScript"] = EndScript,
-                ["EndState"] = EndState,
-            };
-
-            comparators = new Dictionary<TokenType, Op>
-            {
-                [TokenType.Add] = Op.Add,
-                [TokenType.And] = Op.And,
-                [TokenType.Divide] = Op.Div,
-                [TokenType.Equals] = Op.EQ,
-                [TokenType.GT] = Op.GT,
-                [TokenType.GTE] = Op.GTE,
-                [TokenType.LT] = Op.LT,
-                [TokenType.LTE] = Op.LTE,
-                [TokenType.Multiply] = Op.Mul,
-                [TokenType.NotEqual] = Op.NEQ,
-                [TokenType.Or] = Op.Or,
-                [TokenType.Subtract] = Op.Sub,
-            };
-
-            // these precedences are taken from C
-            precedence = new Dictionary<TokenType, int>
-            {
-                [TokenType.Divide] = 3,
-                [TokenType.Multiply] = 3,
-                [TokenType.Add] = 4,
-                [TokenType.Subtract] = 4,
-                [TokenType.GT] = 6,
-                [TokenType.GTE] = 6,
-                [TokenType.LT] = 6,
-                [TokenType.LTE] = 6,
-                [TokenType.Equals] = 7,
-                [TokenType.NotEqual] = 7,
-                [TokenType.And] = 8,
-                [TokenType.Or] = 10,
-                [TokenType.LeftParens] = 100,
-            };
-
             Constants = new Dictionary<string, ushort>();
             Context = ctx;
             Contexts = new Stack<Context>();
@@ -148,16 +63,18 @@ namespace DosjunEditor.Jun
         public void Keyword()
         {
             string top = Peek().Value;
-            if (!InScript)
-            {
-                if (globalKeywordAction.ContainsKey(top)) globalKeywordAction[top]();
-                else throw Error($"Unexpected global keyword: {top}");
-            }
-            else
-            {
-                if (scriptKeywordAction.ContainsKey(top)) scriptKeywordAction[top]();
-                else throw Error($"Unexpected keyword: {top}");
-            }
+
+            if (!Env.Commands.ContainsKey(top))
+                throw Error($"Unknown keyword: {top}");
+
+            ICmd cmd = Env.Commands[top];
+            if (!InScript && !cmd.IsGlobal)
+                throw Error($"Cannot execute {top} in global context");
+
+            if (InScript && !cmd.IsScript)
+                throw Error($"Cannot execute {top} in script context");
+
+            cmd.Apply(this);
         }
 
         public Exception Error(string message)
@@ -183,7 +100,7 @@ namespace DosjunEditor.Jun
             return tok;
         }
 
-        private Token Expression()
+        public Token Expression()
         {
             List<Token> tokens = new List<Token>();
             Token next;
@@ -391,9 +308,9 @@ namespace DosjunEditor.Jun
 
         public void EmitOperator(Token tok)
         {
-            if (comparators.ContainsKey(tok.Type))
+            if (Env.Comparators.ContainsKey(tok.Type))
             {
-                Emit(comparators[tok.Type]);
+                Emit(Env.Comparators[tok.Type]);
                 return;
             }
 
@@ -438,8 +355,8 @@ namespace DosjunEditor.Jun
                     case TokenType.NotEqual:
                     case TokenType.Or:
                     case TokenType.Subtract:
-                        topPrecedence = operators.Count > 0 ? precedence[operators.Peek().Type] : 100;
-                        if (topPrecedence < precedence[tok.Type])
+                        topPrecedence = operators.Count > 0 ? Env.Precedence[operators.Peek().Type] : 100;
+                        if (topPrecedence < Env.Precedence[tok.Type])
                         {
                             Token important = operators.Pop();
                             EmitOperator(important);
@@ -521,61 +438,11 @@ namespace DosjunEditor.Jun
 
         public IList<Token> Tokens { get; private set; }
         public int Index { get; private set; }
-        public bool InScript { get; private set; }
-        public Script CurrentScript { get; private set; }
+        public bool InScript { get; set; }
+        public Script CurrentScript { get; set; }
         public DosjunEditor.Context Context { get; private set; }
-
-        private void DefineConst()
-        {
-            Consume();
-            Token identifier = Consume(TokenType.Identifier);
-            Consume(TokenType.Assignment);
-            Token value = Consume(TokenType.Number);
-
-            AddConstant(identifier.Value, value.Value);
-        }
-
-        private void DefineGlobal()
-        {
-            Consume();
-            Token identifier = Consume(TokenType.Identifier);
-
-            AddVariable(Scope.Global, identifier.Value);
-        }
-
-        private void DefineLocal()
-        {
-            Consume();
-            Token identifier = Consume(TokenType.Identifier);
-
-            AddVariable(Scope.Local, identifier.Value);
-        }
-
-        private void DefineScript()
-        {
-            Consume();
-            Token identifier = Consume(TokenType.Identifier);
-
-            CurrentScript = new Script { Name = identifier.Value, Type = ScriptType.Script };
-            AddConstant(identifier.Value, GetScriptId(identifier.Value));
-            Scripts.Add(CurrentScript);
-
-            InScript = true;
-        }
-
-        private void DefineState()
-        {
-            Consume();
-            Token identifier = Consume(TokenType.Identifier);
-
-            CurrentScript = new Script { Name = identifier.Value, Type = ScriptType.State };
-            AddConstant(identifier.Value, GetScriptId(identifier.Value));
-            Scripts.Add(CurrentScript);
-
-            InScript = true;
-        }
-
-        private ushort GetScriptId(string name)
+        
+        public ushort GetScriptId(string name)
         {
             CompiledScript scr = Context.Djn.FindByName<CompiledScript>(name);
 
@@ -591,349 +458,7 @@ namespace DosjunEditor.Jun
 
             return scr.Resource.ID;
         }
-
-        private void CallCombat()
-        {
-            Consume();
-            Token combat = Expression();
-
-            EmitArgument(combat);
-            Emit(Op.Combat);
-        }
-
-        private void CallPcSpeak()
-        {
-            Consume();
-            Token speaker = Expression();
-            Token index = Expression();
-
-            EmitArgument(speaker);
-            EmitArgument(index);
-            Emit(Op.PcSpeak);
-        }
-
-        private void CallText()
-        {
-            Consume();
-            Token index = Expression();
-
-            EmitArgument(index);
-            Emit(Op.Text);
-        }
-
-        private void CallUnlock()
-        {
-            Consume();
-            Token x = Expression();
-            Token y = Expression();
-            Token dir = Expression();
-
-            EmitArgument(x);
-            EmitArgument(y);
-            EmitArgument(dir);
-            Emit(Op.Unlock);
-        }
-
-        private void CallGiveItem()
-        {
-            Consume();
-            Token pc = Expression();
-            Token item = Expression();
-            Token qty = Expression();
-
-            EmitArgument(pc);
-            EmitArgument(item);
-            EmitArgument(qty);
-            Emit(Op.GiveItem);
-        }
-
-        private void CallEquipItem()
-        {
-            Consume();
-            Token pc = Expression();
-            Token item = Expression();
-
-            EmitArgument(pc);
-            EmitArgument(item);
-            Emit(Op.EquipItem);
-        }
-
-        private void CallAddItem()
-        {
-            Consume();
-            Token item = Expression();
-            Token qty = Expression();
-
-            EmitArgument(item);
-            EmitArgument(qty);
-            Emit(Op.AddItem);
-        }
-
-        private void CallSetTileDescription()
-        {
-            Consume();
-            Token x = Expression();
-            Token y = Expression();
-            Token index = Expression();
-
-            EmitArgument(x);
-            EmitArgument(y);
-            EmitArgument(index);
-            Emit(Op.SetTileDescription);
-        }
-
-        private void CallSetTileColour()
-        {
-            Consume();
-            Token x = Expression();
-            Token y = Expression();
-            Token surface = Expression();
-            Token colour = Expression();
-
-            EmitArgument(x);
-            EmitArgument(y);
-            EmitArgument(surface);
-            EmitArgument(colour);
-            Emit(Op.SetTileColour);
-        }
-
-        private void CallSetTileThing()
-        {
-            Consume();
-            Token x = Expression();
-            Token y = Expression();
-            Token thing = Expression();
-
-            EmitArgument(x);
-            EmitArgument(y);
-            EmitArgument(thing);
-            Emit(Op.SetTileThing);
-        }
-
-        private void CallSetDanger()
-        {
-            Consume();
-            Token danger = Expression();
-
-            EmitArgument(danger);
-            Emit(Op.SetDanger);
-        }
-
-        private void CallSafe()
-        {
-            Consume();
-
-            Emit(Op.Safe);
-        }
-
-        private void CallRemoveWall()
-        {
-            Consume();
-            Token x = Expression();
-            Token y = Expression();
-            Token dir = Expression();
-
-            EmitArgument(x);
-            EmitArgument(y);
-            EmitArgument(dir);
-            Emit(Op.RemoveWall);
-        }
-
-        private void CallRefresh()
-        {
-            Consume();
-
-            Emit(Op.Refresh);
-        }
-
-        private void CallMusic()
-        {
-            Consume();
-            Token index = Expression();
-
-            EmitArgument(index);
-            Emit(Op.Music);
-        }
-
-        private void CallConverse()
-        {
-            Consume();
-            Token npc = Expression();
-            Token state = Expression();
-
-            if (!ScriptExists(state, ScriptType.State)) throw Error($"Unknown state: {state}");
-
-            EmitArgument(npc);
-            EmitArgument(state);
-            Emit(Op.Converse);
-        }
-
-        private void CallPcAction()
-        {
-            Consume();
-            Token speaker = Expression();
-            Token index = Expression();
-
-            EmitArgument(speaker);
-            EmitArgument(index);
-            Emit(Op.PcAction);
-        }
-
-        private void CallOption()
-        {
-            Consume();
-            Token state = Expression();
-            Token index = Expression();
-
-            EmitArgument(state);
-            EmitArgument(index);
-            Emit(Op.Option);
-        }
-
-        private void CallNpcSpeak()
-        {
-            Consume();
-            Token speaker = Expression();
-            Token index = Expression();
-
-            EmitArgument(speaker);
-            EmitArgument(index);
-            Emit(Op.NpcSpeak);
-        }
-
-        private void CallNpcAction()
-        {
-            Consume();
-            Token speaker = Expression();
-            Token index = Expression();
-
-            EmitArgument(speaker);
-            EmitArgument(index);
-            Emit(Op.NpcAction);
-        }
-
-        private void CallEndConverse()
-        {
-            Consume();
-
-            Emit(Op.EndConverse);
-        }
-
-        private void CallChangeState()
-        {
-            Consume();
-            Token state = Expression();
-
-            if (!ScriptExists(state, ScriptType.State)) throw Error($"Unknown state: {state}");
-
-            EmitArgument(state);
-            Emit(Op.ChangeState);
-        }
-
-        private void CallCall()
-        {
-            Consume();
-            Token script = Expression();
-
-            if (!ScriptExists(script)) throw Error($"Unknown script: {script}");
-
-            EmitArgument(script);
-            Emit(Op.Call);
-        }
-
-        private void CallTeleport()
-        {
-            Consume();
-            Token zone = Expression();
-            Token x = Expression();
-            Token y = Expression();
-            Token transition = Expression();
-
-            EmitArgument(zone);
-            EmitArgument(x);
-            EmitArgument(y);
-            EmitArgument(transition);
-            Emit(Op.Teleport);
-        }
-
-        private void If()
-        {
-            Consume();
-            Token expression = Expression();
-
-            EmitArgument(expression);
-            Emit(Op.JumpFalse);
-            AddContext("If");
-            EmitUnknown();
-        }
-
-        private void Else()
-        {
-            if (Contexts.Count == 0) throw Error("Else without If");
-            Consume();
-
-            Emit(Op.Jump);
-            ResolveJump(2);
-            RenewContext(0, "Else");
-            EmitUnknown();
-        }
-
-        private void ElseIf()
-        {
-            if (Contexts.Count == 0) throw Error("ElseIf without If");
-            Consume();
-
-            Emit(Op.Jump);
-            AddOffset();
-            ResolveJump(2);
-            EmitUnknown();
-
-            Token expression = Expression();
-
-            EmitArgument(expression);
-            Emit(Op.JumpFalse);
-            RenewContext();
-            EmitUnknown();
-        }
-
-        private void EndIf()
-        {
-            if (Contexts.Count == 0) throw Error("ElseIf without If");
-            Consume();
-
-            ResolveJump();
-            ResolveOffsets();
-            Contexts.Pop();
-        }
-
-        private void Return()
-        {
-            Consume();
-            Emit(Op.Return);
-        }
-
-        private void EndScript()
-        {
-            if (Contexts.Count > 0) throw Error($"Unclosed scope: {Contexts.Peek().Name}");
-            if (CurrentScript.Type != ScriptType.Script) throw Error($"Wrong sub type: {CurrentScript.Type}, expected {ScriptType.Script}");
-
-            Consume();
-            Emit(Op.Return);
-            InScript = false;
-            CurrentScript = null;
-        }
-
-        private void EndState()
-        {
-            if (Contexts.Count > 0) throw Error($"Unclosed scope: {Contexts.Peek().Name}");
-            if (CurrentScript.Type != ScriptType.State) throw Error($"Wrong sub type: {CurrentScript.Type}, expected {ScriptType.State}");
-
-            Consume();
-            Emit(Op.Return);
-            InScript = false;
-            CurrentScript = null;
-        }
-
+        
         private void Identifier()
         {
             Token targetToken = Consume();

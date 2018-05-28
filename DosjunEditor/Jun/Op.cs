@@ -56,5 +56,12 @@
         NpcSpeak,
         NpcAction,
         Option,
+        ChoosePcName,
+        JoinParty,
+        LeaveParty,
+        ChoosePcPortrait,
+        ChoosePcPronouns,
+        SetAttitude,
+        GetAttitude,
     }
 }

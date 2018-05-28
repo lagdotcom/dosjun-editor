@@ -263,7 +263,7 @@ namespace DosjunEditor.Jun
 
         protected bool IsKeyword()
         {
-            return Env.Keywords.Contains(currentToken);
+            return Env.Commands.ContainsKey(currentToken);
         }
 
         protected LexerState EndLine()

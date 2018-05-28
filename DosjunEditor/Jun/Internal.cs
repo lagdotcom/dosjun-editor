@@ -8,6 +8,8 @@
         Danger,
         JustMoved,
         Success,
+        Return,
+        PartyFull,
 
         Invalid = 0xFF
     }

@@ -47,7 +47,7 @@ namespace DosjunEditor
 
         private void GetRegex()
         {
-            keywordRegex = $@"\b({string.Join("|", Jun.Env.Keywords)})\b";
+            keywordRegex = $@"\b({string.Join("|", Jun.Env.Commands.Keys)})\b";
         }
 
         private void Save()

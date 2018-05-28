@@ -14,6 +14,8 @@ namespace DosjunEditor
         [STAThread]
         static void Main()
         {
+            Jun.Env.Initialise();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
