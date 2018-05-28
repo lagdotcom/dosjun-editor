@@ -10,17 +10,10 @@ namespace DosjunEditor
         private int tileSize = 8;
         private Tile selectedTile;
         private Color selectedTileColour = Color.FromArgb(127, Color.Yellow);
-        private Dictionary<string, Color> textureColours;
 
         public ZoneView()
         {
             InitializeComponent();
-
-            textureColours = new Dictionary<string, Color>
-            {
-                { "WWASH", Color.White },
-                { "WSTONE", Color.Blue },
-            };
         }
 
         public Context Context { get; private set; }
