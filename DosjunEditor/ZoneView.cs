@@ -267,18 +267,6 @@ namespace DosjunEditor
             }
         }
 
-        private Brush PaletteBrush(byte index)
-        {
-            // TODO: cache
-            return new SolidBrush(Globals.Palette[index]);
-        }
-
-        private Pen PalettePen(byte index)
-        {
-            // TODO: cache
-            return new Pen(Globals.Palette[index]);
-        }
-
         private Brush WallBrush(ushort index)
         {
             // TODO

@@ -208,12 +208,6 @@
       <DependentUpon>MonsterForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Palette.cs" />
-    <Compile Include="PalettePicker.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="PalettePicker.Designer.cs">
-      <DependentUpon>PalettePicker.cs</DependentUpon>
-    </Compile>
     <Compile Include="PC.cs" />
     <Compile Include="PCEditor.cs">
       <SubType>Form</SubType>
@@ -343,10 +337,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MonsterForm.resx">
       <DependentUpon>MonsterForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PalettePicker.resx">
-      <DependentUpon>PalettePicker.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="PCEditor.resx">
