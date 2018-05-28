@@ -45,6 +45,7 @@
             this.PartyBox = new System.Windows.Forms.CheckBox();
             this.JobGroup = new System.Windows.Forms.GroupBox();
             this.JobLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.InventoryBox = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.XPBox)).BeginInit();
             this.JobGroup.SuspendLayout();
             this.SuspendLayout();
@@ -185,9 +186,9 @@
             // JobGroup
             // 
             this.JobGroup.Controls.Add(this.JobLayout);
-            this.JobGroup.Location = new System.Drawing.Point(565, 8);
+            this.JobGroup.Location = new System.Drawing.Point(15, 187);
             this.JobGroup.Name = "JobGroup";
-            this.JobGroup.Size = new System.Drawing.Size(258, 214);
+            this.JobGroup.Size = new System.Drawing.Size(280, 175);
             this.JobGroup.TabIndex = 114;
             this.JobGroup.TabStop = false;
             this.JobGroup.Text = "Job Levels";
@@ -202,14 +203,24 @@
             this.JobLayout.Name = "JobLayout";
             this.JobLayout.RowCount = 1;
             this.JobLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.JobLayout.Size = new System.Drawing.Size(252, 195);
+            this.JobLayout.Size = new System.Drawing.Size(274, 156);
             this.JobLayout.TabIndex = 0;
+            // 
+            // InventoryBox
+            // 
+            this.InventoryBox.Location = new System.Drawing.Point(565, 8);
+            this.InventoryBox.Name = "InventoryBox";
+            this.InventoryBox.Size = new System.Drawing.Size(280, 300);
+            this.InventoryBox.TabIndex = 115;
+            this.InventoryBox.TabStop = false;
+            this.InventoryBox.Text = "Inventory";
             // 
             // PCEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(837, 426);
+            this.ClientSize = new System.Drawing.Size(857, 426);
+            this.Controls.Add(this.InventoryBox);
             this.Controls.Add(this.JobGroup);
             this.Controls.Add(this.PartyBox);
             this.Controls.Add(this.BackRowBox);
@@ -254,5 +265,6 @@
         private System.Windows.Forms.CheckBox PartyBox;
         private System.Windows.Forms.GroupBox JobGroup;
         private System.Windows.Forms.TableLayoutPanel JobLayout;
+        private System.Windows.Forms.GroupBox InventoryBox;
     }
 }

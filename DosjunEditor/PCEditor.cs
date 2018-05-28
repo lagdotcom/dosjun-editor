@@ -13,6 +13,7 @@ namespace DosjunEditor
     public partial class PCEditor : Form, IResourceEditor
     {
         private List<NumericUpDown> jobLevels;
+        private List<InventoryEdit> items;
 
         public PCEditor()
         {
@@ -33,6 +34,7 @@ namespace DosjunEditor
                 Label lbl = new Label {
                     Dock = DockStyle.Fill,
                     Text = job,
+                    TextAlign = ContentAlignment.MiddleLeft,
                 };
                 NumericUpDown lvl = new NumericUpDown {
                     Dock = DockStyle.Fill,
@@ -43,6 +45,18 @@ namespace DosjunEditor
                 JobLayout.Controls.Add(lvl, 1, jobLevels.Count);
 
                 jobLevels.Add(lvl);
+            }
+
+            items = new List<InventoryEdit>();
+            for (int i = 0; i < Globals.InventorySize; i++)
+            {
+                InventoryEdit ie = new InventoryEdit
+                {
+                    Dock = DockStyle.Top,
+                };
+
+                InventoryBox.Controls.Add(ie);
+                items.Add(ie);
             }
         }
 
@@ -69,6 +83,12 @@ namespace DosjunEditor
 
             for (int i = 0; i < Globals.NumJobs; i++)
                 jobLevels[i].Value = PC.JobLevels[i];
+
+            for (int i = 0; i < Globals.InventorySize; i++)
+            {
+                items[i].Context = ctx;
+                items[i].Item = PC.Items[i];
+            }
         }
 
         private void CancelBtn_Click(object sender, EventArgs e)
@@ -93,6 +113,9 @@ namespace DosjunEditor
 
             for (int i = 0; i < Globals.NumJobs; i++)
                 PC.JobLevels[i] = (ushort)jobLevels[i].Value;
+
+            for (int i = 0; i < Globals.InventorySize; i++)
+                items[i].Apply();
 
             Saved?.Invoke(this, null);
             Context.UnsavedChanges = true;

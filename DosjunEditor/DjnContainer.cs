@@ -22,19 +22,21 @@ namespace DosjunEditor
 
         public int NextResourceId => Enumerable.Range(1, ushort.MaxValue - 1).Except(Resources.Keys.AsQueryable()).FirstOrDefault();
 
-        public Campaign Campaign => Resources.Values.OfType<Campaign>().FirstOrDefault();
-        public IEnumerable<Monster> Monsters => Resources.Values.OfType<Monster>();
-        public IEnumerable<Font> Fonts => Resources.Values.OfType<Font>();
-        public IEnumerable<Grf> Graphics => Resources.Values.OfType<Grf>();
-        public Palette Palette => Resources.Values.OfType<Palette>().FirstOrDefault();
-        public IEnumerable<Grf> Portraits => GrfSubtypes(ResourceSubtype.Portrait);
+        public Campaign Campaign => Type<Campaign>().FirstOrDefault();
+        public IEnumerable<Monster> Monsters => Type<Monster>();
+        public IEnumerable<Font> Fonts => Type<Font>();
+        public IEnumerable<Grf> Graphics => Type<Grf>();
+        public IEnumerable<Item> Items => Type<Item>();
+        public Palette Palette => Type<Palette>().FirstOrDefault();
+        public IEnumerable<Grf> Portraits => GrfSubtype(ResourceSubtype.Portrait);
         public IEnumerable<CompiledScript> PublicScripts => Scripts.Where(s => !s.Resource.Flags.HasFlag(ResourceFlags.Private));
-        public IEnumerable<Grf> Screens => GrfSubtypes(ResourceSubtype.Screen);
-        public Strings Strings => Resources.Values.OfType<Strings>().FirstOrDefault();
-        public IEnumerable<CompiledScript> Scripts => Resources.Values.OfType<CompiledScript>();
-        public IEnumerable<Grf> Textures => GrfSubtypes(ResourceSubtype.Texture);
+        public IEnumerable<Grf> Screens => GrfSubtype(ResourceSubtype.Screen);
+        public Strings Strings => Type<Strings>().FirstOrDefault();
+        public IEnumerable<CompiledScript> Scripts => Type<CompiledScript>();
+        public IEnumerable<Grf> Textures => GrfSubtype(ResourceSubtype.Texture);
 
-        protected IEnumerable<Grf> GrfSubtypes(ResourceSubtype sub) => Resources.Values.OfType<Grf>().Where(s => s.Resource.Subtype == sub);
+        protected IEnumerable<T> Type<T>() => Resources.Values.OfType<T>();
+        protected IEnumerable<Grf> GrfSubtype(ResourceSubtype sub) => Type<Grf>().Where(s => s.Resource.Subtype == sub);
 
         public event EventHandler<IHasResource> ResourceChanged;
 

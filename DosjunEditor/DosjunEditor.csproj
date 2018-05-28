@@ -105,6 +105,12 @@
     <Compile Include="Direction.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="IHasResource.cs" />
+    <Compile Include="InventoryEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InventoryEdit.Designer.cs">
+      <DependentUpon>InventoryEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="InventoryFlags.cs" />
     <Compile Include="InventoryItem.cs" />
     <Compile Include="IResourceEditor.cs" />
@@ -264,6 +270,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GrfForm.resx">
       <DependentUpon>GrfForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InventoryEdit.resx">
+      <DependentUpon>InventoryEdit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ItemForm.resx">
       <DependentUpon>ItemForm.cs</DependentUpon>
