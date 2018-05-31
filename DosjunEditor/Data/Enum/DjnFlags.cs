@@ -3,7 +3,7 @@
 namespace DosjunEditor
 {
     [Flags]
-    public enum DjnFlags
+    public enum DjnFlags : ushort
     {
         Design = 1,
     }

@@ -1,6 +1,6 @@
 ﻿namespace DosjunEditor
 {
-    public enum ResourceSubtype
+    public enum ResourceSubtype : byte
     {
         Unknown,
 

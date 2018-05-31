@@ -1,6 +1,6 @@
 ﻿namespace DosjunEditor
 {
-    public enum BuffType
+    public enum BuffType : ushort
     {
         Unknown,
 

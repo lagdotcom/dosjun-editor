@@ -1,6 +1,6 @@
 ﻿namespace DosjunEditor
 {
-    public enum Job
+    public enum Job : byte
     {
         Fighter,
         Cleric,

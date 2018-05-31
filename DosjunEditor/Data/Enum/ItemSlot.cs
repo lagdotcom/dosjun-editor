@@ -1,6 +1,6 @@
 ﻿namespace DosjunEditor
 {
-    public enum ItemSlot
+    public enum ItemSlot : byte
     {
         None,
         Weapon,

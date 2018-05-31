@@ -3,7 +3,7 @@
 namespace DosjunEditor
 {
     [Flags]
-    public enum PCFlags
+    public enum PCFlags : byte
     {
         None = 0,
         BackRow = 1,

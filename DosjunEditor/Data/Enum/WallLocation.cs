@@ -1,6 +1,6 @@
 ﻿namespace DosjunEditor
 {
-    public enum WallLocation
+    public enum WallLocation : byte
     {
         North,
         East,

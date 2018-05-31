@@ -1,6 +1,6 @@
 ﻿namespace DosjunEditor
 {
-    public enum Skill
+    public enum Skill : short
     {
         Sing,
         Hide,

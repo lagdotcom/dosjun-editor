@@ -3,7 +3,7 @@
 namespace DosjunEditor
 {
     [Flags]
-    public enum MonsterFlags
+    public enum MonsterFlags : byte
     {
         HasSkills = 1,
     }

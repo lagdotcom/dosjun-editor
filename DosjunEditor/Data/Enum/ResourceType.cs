@@ -1,8 +1,9 @@
 ﻿namespace DosjunEditor
 {
-    public enum ResourceType
+    public enum ResourceType : byte
     {
         Unknown,
+
         Campaign,
         Zone,
         NPC,

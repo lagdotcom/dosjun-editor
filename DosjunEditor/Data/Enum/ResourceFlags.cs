@@ -3,7 +3,7 @@
 namespace DosjunEditor
 {
     [Flags]
-    public enum ResourceFlags
+    public enum ResourceFlags : byte
     {
         None = 0,
 

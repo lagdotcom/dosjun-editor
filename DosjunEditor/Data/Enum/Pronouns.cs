@@ -1,6 +1,6 @@
 ﻿namespace DosjunEditor
 {
-    public enum Pronouns
+    public enum Pronouns : byte
     {
         He_Him_His_His_Himself,
         She_Her_Her_Hers_Herself,

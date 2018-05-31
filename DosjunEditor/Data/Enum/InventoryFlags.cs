@@ -3,7 +3,7 @@
 namespace DosjunEditor
 {
     [Flags]
-    public enum InventoryFlags
+    public enum InventoryFlags : byte
     {
         None = 0,
         Equipped = 1,
