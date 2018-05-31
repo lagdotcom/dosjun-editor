@@ -24,7 +24,8 @@ namespace DosjunEditor
 
         public Campaign Campaign => Type<Campaign>().FirstOrDefault();
         public IEnumerable<Monster> Monsters => Type<Monster>();
-        public IEnumerable<Font> Fonts => Type<Font>();
+
+        public IEnumerable<Grf> Fonts => GrfSubtype(ResourceSubtype.Font);
         public IEnumerable<Grf> Graphics => Type<Grf>();
         public IEnumerable<Item> Items => Type<Item>();
         public Palette Palette => Type<Palette>().FirstOrDefault();
@@ -113,6 +114,8 @@ namespace DosjunEditor
             }
         }
 
+        public bool Contains(ushort id) => Resources.Keys.Contains(id);
+
         public bool Remove(int id)
         {
             if (!Resources.ContainsKey(id)) return false;
@@ -136,9 +139,6 @@ namespace DosjunEditor
             {
                 case ResourceType.Campaign:
                     return new Campaign(r);
-
-                case ResourceType.Font:
-                    return new Font(r);
 
                 case ResourceType.Graphic:
                     return new Grf(r);

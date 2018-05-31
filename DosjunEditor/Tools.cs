@@ -35,20 +35,7 @@ namespace DosjunEditor
                 else return 0;
             }
         }
-
-        public static IEnumerable<string> GetTextures()
-        {
-            if (!Directory.Exists(Consts.WallDirectory)) yield break;
-
-            foreach (string filename in Directory.EnumerateFiles(Consts.WallDirectory, "*.PCX"))
-            {
-                if (filename.ToUpper().EndsWith("1.PCX"))
-                {
-                    yield return Path.GetFileName(filename.Substring(0, filename.Length - 5));
-                }
-            }
-        }
-
+        
         public static void SetFlag(bool present, ResourceFlags flag, ref ResourceFlags flags)
         {
             if (present)

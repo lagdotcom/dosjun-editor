@@ -8,8 +8,8 @@ namespace DosjunEditor
 
         public VersionHeader()
         {
-            Magic = Consts.Magic;
-            Version = Consts.Version;
+            Magic = Globals.Magic;
+            Version = Globals.Version;
         }
 
         public void Read(BinaryReader br)
@@ -17,7 +17,7 @@ namespace DosjunEditor
             Magic = new string(br.ReadChars(3));
             Version = br.ReadByte();
 
-            if (Magic != Consts.Magic || Version > Consts.Version)
+            if (Magic != Globals.Magic || Version > Globals.Version)
                 throw new InvalidDataException("Version header is wrong");
         }
 

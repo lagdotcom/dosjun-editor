@@ -34,7 +34,6 @@ namespace DosjunEditor
         public Zone Zone;
         public int ZoneId;
         public Tile CurrentTile { get; private set; }
-        public Jun.Parser Parser { get; private set; }
 
         public event EventHandler Saved;
 
@@ -81,7 +80,6 @@ namespace DosjunEditor
             CeilingTexture.Setup(ctx, Zone);
             FloorTexture.Setup(ctx, Zone);
 
-            Parser = null;
             LoadScriptNames();
 
             Map.Setup(ctx, Zone);
@@ -128,7 +126,7 @@ namespace DosjunEditor
 
         private void UpdateETable()
         {
-            ETableIdLabel.Text = CurrentTile.ETableId == 0 ? Consts.EmptyItem : $"#{CurrentTile.ETableId}";
+            ETableIdLabel.Text = CurrentTile.ETableId == 0 ? Globals.EmptyItem : $"#{CurrentTile.ETableId}";
             ETableBox.Text = GetETableText(CurrentTile.ETableId);
         }
 
@@ -200,16 +198,7 @@ namespace DosjunEditor
             Close();
         }
         
-        private ushort GetScriptId(ComboBox box)
-        {
-            // no need to account for States - they show up in the list here!
-            if (Parser == null) return (ushort)box.SelectedIndex;
-
-            string item = (string)box.SelectedItem;
-            if (item == Consts.EmptyItem) return 0;
-
-            return (ushort)(Parser.Scripts.FindIndex(sc => sc.Name == item) + 1);
-        }
+        private ushort GetScriptId(ComboBox box) => (box.SelectedItem as Resource).ID;
 
         private void OnEnterBox_SelectedIndexChanged(object sender, EventArgs e)
         {

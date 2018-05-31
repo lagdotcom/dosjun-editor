@@ -9,5 +9,6 @@
         Portrait,
         Thing,
         Monster,
+        Font,
     }
 }

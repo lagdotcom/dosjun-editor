@@ -16,7 +16,7 @@ namespace DosjunEditor
 
         public void Read(BinaryReader br)
         {
-            Name = br.ReadZS(Consts.NameSize);
+            Name = br.ReadZS(Globals.NameSize);
             Type = (ItemType)br.ReadByte();
             Flags = (ItemFlags)br.ReadUInt16();
             Value = br.ReadUInt32();
@@ -29,7 +29,7 @@ namespace DosjunEditor
 
         public void Write(BinaryWriter bw)
         {
-            bw.WriteZS(Name, Consts.NameSize);
+            bw.WriteZS(Name, Globals.NameSize);
             bw.Write((byte)Type);
             bw.Write((ushort)Flags);
             bw.Write(Value);

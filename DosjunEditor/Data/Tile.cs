@@ -8,14 +8,14 @@ namespace DosjunEditor
 
         public Tile()
         {
-            Walls = new Wall[4];
+            Walls = new Wall[Globals.NumWalls];
             for (var i = 0; i < 4; i++)
                 Walls[i] = new Wall();
         }
 
         public void Read(BinaryReader br)
         {
-            Walls = br.ReadArray<Wall>(4);
+            Walls = br.ReadArray<Wall>(Globals.NumWalls);
             FloorTexture = br.ReadUInt16();
             CeilingTexture = br.ReadUInt16();
             DescriptionId = br.ReadUInt16();

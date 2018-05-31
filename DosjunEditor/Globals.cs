@@ -6,11 +6,37 @@ using System.Windows.Forms;
 
 namespace DosjunEditor
 {
-    internal class Globals
+    public class Globals
     {
+        // Generic Header Magic
+        public const string Magic = "JUN";
+
+        // Generic Header Version
+        public const byte Version = 1;
+
+        // Max items in PC inventory
         public const int InventorySize = 10;
+
+        // Max level in each job
         public const int MaxJobLevel = 10;
+
+        // Number of defined jobs in core
         public const int NumJobs = 6;
+
+        // Number of walls in each tile
+        public const int NumWalls = 4;
+
+        // Max length of PC names
+        public const int NameSize = 24;
+
+        // Number of monster types in one encounter
+        public const int EncounterSize = 6;
+
+        // Number of encounters in one etable
+        public const int ETableSize = 6;
+
+        // Used for empty items in combo boxes
+        public const string EmptyItem = "-";
 
         private static Resource NoResource = new Resource { ID = 0, Name = "(None)" };
 
@@ -25,7 +51,9 @@ namespace DosjunEditor
 
         public static Resource Resolve(Context ctx, ushort id)
         {
-            if (id == 0) return NoResource;
+            if (id == 0 || !ctx.Djn.Contains(id))
+                return NoResource;
+
             return ctx.Djn[id].Resource;
         }
 
@@ -36,7 +64,6 @@ namespace DosjunEditor
             switch (ext)
             {
                 case ".CMP": return ResourceType.Campaign;
-                case ".FNT": return ResourceType.Font;
                 case ".GRF": return ResourceType.Graphic;
                 case ".ITM": return ResourceType.Item;
                 case ".MON": return ResourceType.Monster;
@@ -59,7 +86,6 @@ namespace DosjunEditor
             switch (r.Resource.Type)
             {
                 case ResourceType.Campaign: return r.Resource.Name + ".CMP";
-                case ResourceType.Font: return r.Resource.Name + ".FNT";
                 case ResourceType.Graphic: return r.Resource.Name + ".GRF";
                 case ResourceType.Item: return r.Resource.Name + ".ITM";
                 case ResourceType.Monster: return r.Resource.Name + ".MON";

@@ -396,7 +396,6 @@ namespace DosjunEditor
 
             switch (res.Type)
             {
-                case ResourceType.Font: return Import<Font>(res, br);
                 case ResourceType.Graphic: return Import<Grf>(res, br);
                 case ResourceType.Item: return Import<Item>(res, br);
                 case ResourceType.Monster: return Import<Monster>(res, br);

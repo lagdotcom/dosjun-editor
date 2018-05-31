@@ -36,7 +36,7 @@ namespace DosjunEditor
             Zone = Zone;
             ETable = etable;
 
-            SetMaximum(Consts.ETableSize);
+            SetMaximum(Globals.ETableSize);
             ShowPossibilities(ETable.Possibilities);
         }
 

@@ -7,21 +7,21 @@ namespace DosjunEditor
     {
         public Encounter()
         {
-            MonsterIds = new ushort[Consts.EncounterSize];
-            Minimums = new byte[Consts.EncounterSize];
-            Maximums = new byte[Consts.EncounterSize];
+            MonsterIds = new ushort[Globals.EncounterSize];
+            Minimums = new byte[Globals.EncounterSize];
+            Maximums = new byte[Globals.EncounterSize];
         }
 
         public void Read(BinaryReader br)
         {
-            for (var i = 0; i < Consts.EncounterSize; i++) MonsterIds[i] = br.ReadUInt16();
-            Minimums = br.ReadBytes(Consts.EncounterSize);
-            Maximums = br.ReadBytes(Consts.EncounterSize);
+            for (var i = 0; i < Globals.EncounterSize; i++) MonsterIds[i] = br.ReadUInt16();
+            Minimums = br.ReadBytes(Globals.EncounterSize);
+            Maximums = br.ReadBytes(Globals.EncounterSize);
         }
 
         public void Write(BinaryWriter bw)
         {
-            for (var i = 0; i < Consts.EncounterSize; i++) bw.Write(MonsterIds[i]);
+            for (var i = 0; i < Globals.EncounterSize; i++) bw.Write(MonsterIds[i]);
             bw.Write(Minimums);
             bw.Write(Maximums);
         }
@@ -33,7 +33,7 @@ namespace DosjunEditor
         private string[] DescriptionStrings(Context ctx)
         {
             List<string> items = new List<string>();
-            for (var i = 0; i < Consts.EncounterSize; i++)
+            for (var i = 0; i < Globals.EncounterSize; i++)
             {
                 if (MonsterIds[i] > 0 && Maximums[i] > 0)
                 {

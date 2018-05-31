@@ -29,7 +29,7 @@ namespace DosjunEditor
             Context = ctx;
             Monster = r as Monster;
 
-            NameBox.MaxLength = Consts.NameSize;
+            NameBox.MaxLength = Globals.NameSize;
             NameBox.Text = Monster.Name;
 
             ImageBox.Text = Monster.Image;
@@ -65,7 +65,8 @@ namespace DosjunEditor
 
         private void ImageBox_TextChanged(object sender, EventArgs e)
         {
-            ImageShow.Image = Tools.GetPCX($"{Consts.MonsterDirectory}{Path.DirectorySeparatorChar}{ImageBox.Text}.PCX")?.ToBitmap(); 
+            // TODO
+            // ImageShow.Image = (Context.Djn[id] as Grf).Images[0].AsImage();
         }
 
         private void OKBtn_Click(object sender, EventArgs e)

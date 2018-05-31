@@ -16,11 +16,13 @@ namespace DosjunEditor
         {
             Resource = r;
 
-            Items = new InventoryItem[Globals.InventorySize];
             JobLevels = new ushort[Globals.NumJobs];
             Stats = new Stats();
             Version = new VersionHeader();
+            Skills = new List<short>();
+            Buffs = new List<Buff>();
 
+            Items = new InventoryItem[Globals.InventorySize];
             for (int i = 0; i < Globals.InventorySize; i++)
                 Items[i] = new InventoryItem();
         }
@@ -47,6 +49,9 @@ namespace DosjunEditor
 
             for (int i = 0; i < Globals.InventorySize; i++)
                 Items[i].Read(br);
+
+            Skills = br.ReadIntList();
+            Buffs = br.ReadObjectList<Buff>();
         }
 
         public void Write(BinaryWriter bw)
@@ -70,6 +75,9 @@ namespace DosjunEditor
 
             foreach (InventoryItem item in Items)
                 item.Write(bw);
+
+            bw.WriteIntList(Skills);
+            bw.WriteObjectList(Buffs, Buff.Size);
         }
 
         public Resource Resource { get; set; }
@@ -86,5 +94,8 @@ namespace DosjunEditor
         public PCFlags Flags { get; set; }
         public uint Experience { get; set; }
         public short Attitude { get; set; }
+        public List<short> Skills { get; private set; }
+        public List<Buff> Buffs { get; private set; }
+        public string Name { get; set; }
     }
 }

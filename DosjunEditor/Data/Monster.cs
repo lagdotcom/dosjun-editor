@@ -19,7 +19,7 @@ namespace DosjunEditor
 
         public void Read(BinaryReader br)
         {
-            Name = br.ReadZS(Consts.NameSize);
+            Name = br.ReadZS(Globals.NameSize);
             Image = br.ReadZS(8);
             Stats.Read(br);
             Row = (Row)br.ReadByte();
@@ -38,7 +38,7 @@ namespace DosjunEditor
             Flags = 0;
             if (Skills.Count > 0) Flags |= MonsterFlags.HasSkills;
 
-            bw.WriteZS(Name, Consts.NameSize);
+            bw.WriteZS(Name, Globals.NameSize);
             bw.WriteZS(Image, 8);
             Stats.Write(bw);
             bw.Write((byte)Row);

@@ -10,17 +10,7 @@ namespace DosjunEditor
     public partial class TextureComboBox : UserControl
     {
         private ushort textureId;
-
-        private static Dictionary<WallLocation, Rectangle> slices = new Dictionary<WallLocation, Rectangle>
-        {
-            { WallLocation.North, new Rectangle(32, 64, 64, 64) },
-            { WallLocation.East, new Rectangle(32, 64, 64, 64) },
-            { WallLocation.South, new Rectangle(32, 64, 64, 64) },
-            { WallLocation.West, new Rectangle(32, 64, 64, 64) },
-            { WallLocation.Ceiling, new Rectangle(1, 0, 126, 32) },
-            { WallLocation.Floor, new Rectangle(1, 160, 126, 32) }
-        };
-
+        
         private bool updatingDisplay;
 
         public TextureComboBox()
@@ -89,16 +79,8 @@ namespace DosjunEditor
                 return;
             }
 
-            Rectangle slice = slices[Face];
-            MagickImage texture = Tools.GetPCX($"{Consts.WallDirectory}{Path.DirectorySeparatorChar}{Box.SelectedItem}1.PCX");
-
-            if (texture != null)
-            {
-                texture.Crop(slice.X, slice.Y, slice.Width, slice.Height);
-                Picture.Image = texture.ToBitmap();
-            }
-            else
-                Picture.Image = null;
+            // TODO
+            // Picture.Image = (Context.Djn[id] as Grf).Images[(int)Face].AsImage(Context.Djn.Palette);
         }
     }
 }

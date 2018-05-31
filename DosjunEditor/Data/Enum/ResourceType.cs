@@ -14,7 +14,7 @@
         Sound,
         Item,
         Monster,
-        Font,
+        Font__Unused,
         Strings,
         Palette
     }

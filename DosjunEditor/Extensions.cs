@@ -5,6 +5,9 @@ namespace DosjunEditor
 {
     static class Extensions
     {
+        private const ushort LIST_TYPE_INT = 1;
+        private const ushort LIST_TYPE_OBJECT = 2;
+
         public static void WriteNS(this BinaryWriter bw, string data)
         {
             if (data == null)
@@ -70,14 +73,24 @@ namespace DosjunEditor
             return array;
         }
 
-        public static void ReadList<T>(this BinaryReader br, List<T> list, int count) where T : IBinaryData, new()
+        public static List<T> ReadMany<T>(this BinaryReader br, int count) where T : IBinaryData, new()
         {
+            List<T> list = new List<T>();
+
             for (int i = 0; i < count; i++)
             {
                 T item = new T();
                 item.Read(br);
                 list.Add(item);
             }
+
+            return list;
+        }
+
+        public static void WriteMany<T>(this BinaryWriter bw, List<T> list) where T : IBinaryData
+        {
+            for (int i = 0; i < list.Count; i++)
+                list[i].Write(bw);
         }
 
         public static List<short> ReadIntList(this BinaryReader br)
@@ -90,13 +103,47 @@ namespace DosjunEditor
             size = br.ReadUInt16();
             br.ReadUInt16(); // Capacity
 
-            if (type != 1) throw new IOException("Not an int list");
+            if (type != LIST_TYPE_INT) throw new IOException("Not an int list");
             if (osize != 0) throw new IOException("ints should have size 0");
 
             for (int i = 0; i < size; i++)
                 list.Add(br.ReadInt16());
 
             return list;
+        }
+
+        public static List<T> ReadObjectList<T>(this BinaryReader br) where T : IBinaryData, new()
+        {
+            List<T> list = new List<T>();
+            ushort type, osize, size;
+
+            type = br.ReadUInt16();
+            osize = br.ReadUInt16();
+            size = br.ReadUInt16();
+            br.ReadUInt16(); // Capacity
+
+            if (type != LIST_TYPE_OBJECT) throw new IOException("Not an object list");
+            if (osize == 0) throw new IOException("objects should have nonzero size");
+
+            for (int i = 0; i < size; i++)
+            {
+                T obj = new T();
+                obj.Read(br);
+                list.Add(obj);
+            }
+
+            return list;
+        }
+
+        public static void WriteObjectList<T>(this BinaryWriter bw, List<T> list, ushort osize) where T: IBinaryData
+        {
+            bw.Write(LIST_TYPE_OBJECT);
+            bw.Write(osize);
+            bw.Write(list.Count);
+            bw.Write(list.Count); // Capacity
+
+            foreach (T obj in list)
+                obj.Write(bw);
         }
 
         public static void WriteIntList(this BinaryWriter bw, List<short> list)

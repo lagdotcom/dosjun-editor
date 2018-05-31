@@ -5,7 +5,7 @@ namespace DosjunEditor
 {
     public class Zone : IHasResource
     {
-        public const int Padding = 14;
+        public const int Padding = 10;
         public Resource Resource { get; set; }
 
         public Zone(Resource r)
@@ -16,6 +16,7 @@ namespace DosjunEditor
             Tiles = new TileBag();
             Encounters = new List<Encounter>();
             ETables = new List<ETable>();
+            Items = new List<ItemPos>();
         }
         public Zone() : this(new Resource { Type = ResourceType.Zone }) { }
 
@@ -32,6 +33,8 @@ namespace DosjunEditor
             EnterScript = br.ReadUInt16();
             MoveScript = br.ReadUInt16();
             NameId = br.ReadUInt16();
+            LocalCount = br.ReadUInt16();
+            ushort itemCount = br.ReadUInt16();
 
             br.ReadBytes(Padding);
 
@@ -43,8 +46,9 @@ namespace DosjunEditor
                     Tiles.Set(x, y, t);
                 }
 
-            br.ReadList(Encounters, encounterCount);
-            br.ReadList(ETables, etableCount);
+            Encounters = br.ReadMany<Encounter>(encounterCount);
+            ETables = br.ReadMany<ETable>(etableCount);
+            Items = br.ReadMany<ItemPos>(itemCount);
         }
 
         public void Write(BinaryWriter bw)
@@ -62,6 +66,8 @@ namespace DosjunEditor
             bw.Write(EnterScript);
             bw.Write(MoveScript);
             bw.Write(NameId);
+            bw.Write(LocalCount);
+            bw.Write(ItemCount);
 
             bw.WritePadding(Padding);
 
@@ -69,8 +75,9 @@ namespace DosjunEditor
                 for (int x = 0; x < Width; x++)
                     Tiles.At(x, y).Write(bw);
 
-            foreach (Encounter en in Encounters) en.Write(bw);
-            foreach (ETable et in ETables) et.Write(bw);
+            bw.WriteMany(Encounters);
+            bw.WriteMany(ETables);
+            bw.WriteMany(Items);
         }
 
         public bool UsingEncounterId(int index)
@@ -91,9 +98,12 @@ namespace DosjunEditor
         public ushort EncounterCount => (ushort)Encounters.Count;
         public ushort ETableCount => (ushort)ETables.Count;
         public ushort NameId { get; set; }
+        public ushort LocalCount { get; set; }
+        public ushort ItemCount => (ushort)Items.Count;
 
         public TileBag Tiles { get; private set; }
         public List<Encounter> Encounters { get; private set; }
         public List<ETable> ETables { get; private set; }
+        public List<ItemPos> Items { get; private set; }
     }
 }

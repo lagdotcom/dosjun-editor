@@ -53,7 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AI.cs" />
+    <Compile Include="Data\Enum\AI.cs" />
     <Compile Include="CampaignEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -66,11 +66,10 @@
     <Compile Include="CompiledDumpForm.Designer.cs">
       <DependentUpon>CompiledDumpForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Consts.cs" />
     <Compile Include="Context.cs" />
-    <Compile Include="DjnContainer.cs" />
-    <Compile Include="DjnFlags.cs" />
-    <Compile Include="Encounter.cs" />
+    <Compile Include="Data\DjnContainer.cs" />
+    <Compile Include="Data\Enum\DjnFlags.cs" />
+    <Compile Include="Data\Encounter.cs" />
     <Compile Include="EncounterForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -89,26 +88,25 @@
     <Compile Include="EncountersForm.Designer.cs">
       <DependentUpon>EncountersForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ETable.cs" />
+    <Compile Include="Data\ETable.cs" />
     <Compile Include="ETableForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ETableForm.Designer.cs">
       <DependentUpon>ETableForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Font.cs" />
     <Compile Include="Globals.cs" />
-    <Compile Include="Grf.cs" />
+    <Compile Include="Data\Grf.cs" />
     <Compile Include="GrfForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GrfForm.Designer.cs">
       <DependentUpon>GrfForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GrfImage.cs" />
+    <Compile Include="Data\GrfImage.cs" />
     <Compile Include="IBinaryData.cs" />
-    <Compile Include="Campaign.cs" />
-    <Compile Include="Direction.cs" />
+    <Compile Include="Data\Campaign.cs" />
+    <Compile Include="Data\Enum\Direction.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="IHasResource.cs" />
     <Compile Include="InventoryEdit.cs">
@@ -117,21 +115,22 @@
     <Compile Include="InventoryEdit.Designer.cs">
       <DependentUpon>InventoryEdit.cs</DependentUpon>
     </Compile>
-    <Compile Include="InventoryFlags.cs" />
-    <Compile Include="InventoryItem.cs" />
+    <Compile Include="Data\Enum\InventoryFlags.cs" />
+    <Compile Include="Data\InventoryItem.cs" />
     <Compile Include="IResourceEditor.cs" />
-    <Compile Include="Item.cs" />
-    <Compile Include="ItemFlags.cs" />
+    <Compile Include="Data\Item.cs" />
+    <Compile Include="Data\Enum\ItemFlags.cs" />
     <Compile Include="ItemForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ItemForm.Designer.cs">
       <DependentUpon>ItemForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ItemSlot.cs" />
-    <Compile Include="ItemSpecial.cs" />
-    <Compile Include="ItemType.cs" />
-    <Compile Include="Job.cs" />
+    <Compile Include="Data\ItemPos.cs" />
+    <Compile Include="Data\Enum\ItemSlot.cs" />
+    <Compile Include="Data\Enum\ItemSpecial.cs" />
+    <Compile Include="Data\Enum\ItemType.cs" />
+    <Compile Include="Data\Enum\Job.cs" />
     <Compile Include="Jun\Cmd\AddItem.cs" />
     <Compile Include="Jun\Cmd\Call.cs" />
     <Compile Include="Jun\Cmd\ChangeState.cs" />
@@ -199,23 +198,23 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Monster.cs" />
-    <Compile Include="MonsterFlags.cs" />
+    <Compile Include="Data\Monster.cs" />
+    <Compile Include="Data\Enum\MonsterFlags.cs" />
     <Compile Include="MonsterForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MonsterForm.Designer.cs">
       <DependentUpon>MonsterForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Palette.cs" />
-    <Compile Include="PC.cs" />
+    <Compile Include="Data\Palette.cs" />
+    <Compile Include="Data\PC.cs" />
     <Compile Include="PCEditor.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PCEditor.Designer.cs">
       <DependentUpon>PCEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="PCFlags.cs" />
+    <Compile Include="Data\Enum\PCFlags.cs" />
     <Compile Include="PickerDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -223,24 +222,24 @@
       <DependentUpon>PickerDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
-    <Compile Include="Pronouns.cs" />
+    <Compile Include="Data\Enum\Pronouns.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resource.cs" />
-    <Compile Include="ResourceFlags.cs" />
+    <Compile Include="Data\Resource.cs" />
+    <Compile Include="Data\Enum\ResourceFlags.cs" />
     <Compile Include="ResourceListSorter.cs" />
-    <Compile Include="ResourceSubtype.cs" />
-    <Compile Include="ResourceType.cs" />
-    <Compile Include="Row.cs" />
-    <Compile Include="CompiledScript.cs" />
-    <Compile Include="ScriptSource.cs" />
-    <Compile Include="Skill.cs" />
+    <Compile Include="Data\Enum\ResourceSubtype.cs" />
+    <Compile Include="Data\Enum\ResourceType.cs" />
+    <Compile Include="Data\Enum\Row.cs" />
+    <Compile Include="Data\CompiledScript.cs" />
+    <Compile Include="Data\ScriptSource.cs" />
+    <Compile Include="Data\Enum\Skill.cs" />
     <Compile Include="SourceEditor.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SourceEditor.Designer.cs">
       <DependentUpon>SourceEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="Stats.cs" />
+    <Compile Include="Data\Stats.cs" />
     <Compile Include="StatsEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -253,7 +252,7 @@
     <Compile Include="StringDialog.Designer.cs">
       <DependentUpon>StringDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Strings.cs" />
+    <Compile Include="Data\Strings.cs" />
     <Compile Include="StringsViewer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -266,23 +265,23 @@
     <Compile Include="TextureComboBox.Designer.cs">
       <DependentUpon>TextureComboBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Thing.cs" />
-    <Compile Include="Tile.cs" />
+    <Compile Include="Data\Enum\Thing.cs" />
+    <Compile Include="Data\Tile.cs" />
     <Compile Include="TileBag.cs" />
-    <Compile Include="TileFlags.cs" />
+    <Compile Include="Data\Enum\TileFlags.cs" />
     <Compile Include="Tools.cs" />
-    <Compile Include="UnknownResource.cs" />
-    <Compile Include="VersionHeader.cs" />
-    <Compile Include="Wall.cs" />
+    <Compile Include="Data\UnknownResource.cs" />
+    <Compile Include="Data\VersionHeader.cs" />
+    <Compile Include="Data\Wall.cs" />
     <Compile Include="WallEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="WallEditor.Designer.cs">
       <DependentUpon>WallEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="WallLocation.cs" />
-    <Compile Include="WallType.cs" />
-    <Compile Include="Zone.cs" />
+    <Compile Include="Data\Enum\WallLocation.cs" />
+    <Compile Include="Data\Enum\WallType.cs" />
+    <Compile Include="Data\Zone.cs" />
     <Compile Include="ZoneDataForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -438,5 +437,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

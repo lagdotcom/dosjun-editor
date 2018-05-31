@@ -22,14 +22,14 @@ namespace DosjunEditor
             Zone = zone;
             Encounter = encounter;
 
-            rows = new Row[Consts.EncounterSize];
-            for (var i = 0; i < Consts.EncounterSize; i++)
+            rows = new Row[Globals.EncounterSize];
+            for (var i = 0; i < Globals.EncounterSize; i++)
                 rows[i] = new Row(i, this);
         }
 
         public void Apply()
         {
-            for (var i = 0; i < Consts.EncounterSize; i++)
+            for (var i = 0; i < Globals.EncounterSize; i++)
             {
                 Encounter.Minimums[i] = rows[i].Minimum;
                 Encounter.Maximums[i] = rows[i].Maximum;
