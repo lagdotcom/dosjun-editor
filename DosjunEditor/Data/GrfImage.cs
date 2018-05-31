@@ -8,21 +8,20 @@ namespace DosjunEditor
     {
         public const int Padding = 2;
 
-        private const byte Skip = 0;
-        private const byte Jump = 1;
-        private const byte End = 2;
+        public const byte Skip = 0;
+        public const byte Jump = 1;
+        public const byte End = 2;
 
-        private const byte Data = 2;
-
-        private byte[] raw;
+        public const byte Data = 2;
 
         public GrfImage()
         {
-            raw = new byte[0];
+            Raw = new byte[0];
         }
 
         public ushort Width { get; set; }
         public ushort Height { get; set; }
+        public byte[] Raw { get; set; }
 
         public void Read(BinaryReader br)
         {
@@ -31,17 +30,17 @@ namespace DosjunEditor
             ushort datasize = br.ReadUInt16();
             br.ReadBytes(Padding);
 
-            raw = br.ReadBytes(datasize);
+            Raw = br.ReadBytes(datasize);
         }
 
         public void Write(BinaryWriter bw)
         {
             bw.Write(Width);
             bw.Write(Height);
-            bw.Write((ushort)raw.Length);
+            bw.Write((ushort)Raw.Length);
             bw.WritePadding(Padding);
 
-            bw.Write(raw);
+            bw.Write(Raw);
         }
 
         public Image AsImage(Palette pal)
@@ -56,19 +55,19 @@ namespace DosjunEditor
 
             try
             {
-                while (d < raw.Length)
+                while (d < Raw.Length)
                 {
-                    switch (raw[d])
+                    switch (Raw[d])
                     {
                         case Skip:
-                            x += raw[d + 1];
-                            y += raw[d + 2];
+                            x += Raw[d + 1];
+                            y += Raw[d + 2];
                             d += 3;
                             break;
 
                         case Jump:
-                            x -= raw[d + 1];
-                            y += raw[d + 2];
+                            x -= Raw[d + 1];
+                            y += Raw[d + 2];
                             d += 3;
                             break;
 
@@ -76,10 +75,10 @@ namespace DosjunEditor
                             return bmp;
 
                         default:
-                            int length = raw[d++] - Data;
+                            int length = Raw[d++] - Data;
                             for (int i = 0; i < length; i++)
                             {
-                                byte index = raw[d++];
+                                byte index = Raw[d++];
                                 bmp.SetPixel(x, y, pal[index]);
                                 x++;
 

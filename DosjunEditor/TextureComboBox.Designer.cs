@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.Box = new System.Windows.Forms.ComboBox();
-            this.Picture = new System.Windows.Forms.PictureBox();
+            this.Picture = new DosjunEditor.InterpolatedBox();
             ((System.ComponentModel.ISupportInitialize)(this.Picture)).BeginInit();
             this.SuspendLayout();
             // 
@@ -46,6 +46,7 @@
             // Picture
             // 
             this.Picture.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Picture.Interpolation = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
             this.Picture.Location = new System.Drawing.Point(0, 21);
             this.Picture.Name = "Picture";
             this.Picture.Size = new System.Drawing.Size(150, 150);
@@ -68,6 +69,6 @@
         #endregion
 
         private System.Windows.Forms.ComboBox Box;
-        private System.Windows.Forms.PictureBox Picture;
+        private InterpolatedBox Picture;
     }
 }

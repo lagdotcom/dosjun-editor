@@ -32,17 +32,17 @@
             this.CancelBtn = new System.Windows.Forms.Button();
             this.NameBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.ImageBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.RowBox = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.AIBox = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.ImageShow = new System.Windows.Forms.PictureBox();
+            this.ImageShow = new DosjunEditor.InterpolatedBox();
             this.XPBox = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
             this.SkillsBox = new System.Windows.Forms.GroupBox();
             this.SkillsList = new System.Windows.Forms.ListBox();
+            this.ImageBox = new System.Windows.Forms.ComboBox();
             this.StatsBoxes = new DosjunEditor.StatsEditor();
             ((System.ComponentModel.ISupportInitialize)(this.ImageShow)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.XPBox)).BeginInit();
@@ -86,15 +86,6 @@
             this.label2.Size = new System.Drawing.Size(35, 13);
             this.label2.TabIndex = 4;
             this.label2.Text = "Name";
-            // 
-            // ImageBox
-            // 
-            this.ImageBox.Location = new System.Drawing.Point(75, 34);
-            this.ImageBox.MaxLength = 8;
-            this.ImageBox.Name = "ImageBox";
-            this.ImageBox.Size = new System.Drawing.Size(220, 20);
-            this.ImageBox.TabIndex = 3;
-            this.ImageBox.TextChanged += new System.EventHandler(this.ImageBox_TextChanged);
             // 
             // label3
             // 
@@ -144,6 +135,7 @@
             // 
             // ImageShow
             // 
+            this.ImageShow.Interpolation = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
             this.ImageShow.Location = new System.Drawing.Point(167, 60);
             this.ImageShow.Name = "ImageShow";
             this.ImageShow.Size = new System.Drawing.Size(128, 128);
@@ -191,6 +183,15 @@
             this.SkillsList.Size = new System.Drawing.Size(151, 386);
             this.SkillsList.TabIndex = 0;
             // 
+            // ImageBox
+            // 
+            this.ImageBox.FormattingEnabled = true;
+            this.ImageBox.Location = new System.Drawing.Point(75, 33);
+            this.ImageBox.Name = "ImageBox";
+            this.ImageBox.Size = new System.Drawing.Size(220, 21);
+            this.ImageBox.TabIndex = 106;
+            this.ImageBox.SelectedIndexChanged += new System.EventHandler(this.ImageBox_SelectedIndexChanged);
+            // 
             // StatsBoxes
             // 
             this.StatsBoxes.Location = new System.Drawing.Point(301, 8);
@@ -204,6 +205,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(734, 425);
+            this.Controls.Add(this.ImageBox);
             this.Controls.Add(this.SkillsBox);
             this.Controls.Add(this.XPBox);
             this.Controls.Add(this.label6);
@@ -213,7 +215,6 @@
             this.Controls.Add(this.AIBox);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.RowBox);
-            this.Controls.Add(this.ImageBox);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.NameBox);
             this.Controls.Add(this.label2);
@@ -234,17 +235,17 @@
         private System.Windows.Forms.Button CancelBtn;
         private System.Windows.Forms.TextBox NameBox;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox ImageBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox RowBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox AIBox;
         private System.Windows.Forms.Label label5;
         private StatsEditor StatsBoxes;
-        private System.Windows.Forms.PictureBox ImageShow;
+        private InterpolatedBox ImageShow;
         private System.Windows.Forms.NumericUpDown XPBox;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.GroupBox SkillsBox;
         private System.Windows.Forms.ListBox SkillsList;
+        private System.Windows.Forms.ComboBox ImageBox;
     }
 }

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace DosjunEditor
@@ -29,17 +27,13 @@ namespace DosjunEditor
             Context = ctx;
             Monster = r as Monster;
 
-            NameBox.MaxLength = Globals.NameSize;
-            NameBox.Text = Monster.Name;
+            Globals.Populate(ImageBox, Context.Djn.GrfSubtype(ResourceSubtype.Monster));
 
-            ImageBox.Text = Monster.Image;
-
+            NameBox.Text = Context.GetString(Monster.NameId);
+            ImageBox.SelectedItem = Globals.Resolve(Context, Monster.ImageId);
             RowBox.SelectedIndex = (int)Monster.Row;
-
             AIBox.SelectedIndex = (int)Monster.AI;
-
             XPBox.Value = Monster.Experience;
-
             StatsBoxes.Stats = Monster.Stats;
 
             SkillsList.SelectedIndices.Clear();
@@ -49,8 +43,8 @@ namespace DosjunEditor
 
         public void Apply()
         {
-            Monster.Name = NameBox.Text;
-            Monster.Image = ImageBox.Text.ToUpper();
+            Monster.NameId = Context.GetStringId(NameBox.Text, Monster.NameId);
+            Monster.ImageId = (ImageBox.SelectedItem as Resource).ID;
             Monster.Row = (Row)RowBox.SelectedIndex;
             Monster.AI = (AI)AIBox.SelectedIndex;
             Monster.Experience = (uint)XPBox.Value;
@@ -63,10 +57,10 @@ namespace DosjunEditor
             Saved?.Invoke(this, null);
         }
 
-        private void ImageBox_TextChanged(object sender, EventArgs e)
+        private void ImageBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // TODO
-            // ImageShow.Image = (Context.Djn[id] as Grf).Images[0].AsImage();
+            Resource r = ImageBox.SelectedItem as Resource;
+            ImageShow.Image = r.ID == 0 ? null : (Context.Djn[r.ID] as Grf).Images[0].AsImage(Context.Djn.Palette);
         }
 
         private void OKBtn_Click(object sender, EventArgs e)

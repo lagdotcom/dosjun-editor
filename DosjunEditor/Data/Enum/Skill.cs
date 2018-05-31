@@ -7,5 +7,7 @@
         Bludgeon,
         Venom,
         Concentrate,
+        Reverberation,
+        Cleave,
     }
 }

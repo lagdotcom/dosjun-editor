@@ -32,6 +32,8 @@ namespace DosjunEditor
             Editing = r;
             Grf = r as Grf;
 
+            // TODO: this doesn't copy the original resource so it will overwrite even if you don't hit save
+
             ImageNumber.Maximum = Grf.Images.Count - 1;
             SubtypeBox.SelectedIndex = (int)r.Resource.Subtype;
             ShowImage();
@@ -39,6 +41,12 @@ namespace DosjunEditor
 
         public void ShowImage()
         {
+            if (Grf.Images.Count == 0)
+            {
+                ImageView.Image = null;
+                return;
+            }
+
             GrfImage img = Grf.Images[(int)ImageNumber.Value];
             ImageView.Image = img.AsImage(Context.Djn.Palette);
         }
@@ -60,6 +68,20 @@ namespace DosjunEditor
         private void CancelBtn_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void ImportBtn_Click(object sender, EventArgs e)
+        {
+            if (Picker.ShowDialog() == DialogResult.OK)
+            {
+                Image img = Image.FromFile(Picker.FileName);
+                ImgConverter cnv = new ImgConverter { Palette = Context.Djn.Palette };
+                GrfImage gi = cnv.Convert(img);
+
+                Grf.Images.Add(gi);
+                ImageNumber.Maximum = Grf.Images.Count - 1;
+                ImageNumber.Value = ImageNumber.Maximum;
+            }
         }
     }
 }

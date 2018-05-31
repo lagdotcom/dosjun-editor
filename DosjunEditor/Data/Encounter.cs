@@ -38,11 +38,12 @@ namespace DosjunEditor
                 if (MonsterIds[i] > 0 && Maximums[i] > 0)
                 {
                     Monster m = ctx.Djn[MonsterIds[i]] as Monster;
+                    string name = ctx.GetString(m.NameId);
 
                     if (Minimums[i] == Maximums[i])
-                        items.Add($"{Minimums[i]}x {m.Name}");
+                        items.Add($"{Minimums[i]}x {name}");
                     else
-                        items.Add($"{Minimums[i]}-{Maximums[i]}x {m.Name}");
+                        items.Add($"{Minimums[i]}-{Maximums[i]}x {name}");
                 }
             }
 

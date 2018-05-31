@@ -36,8 +36,8 @@ namespace DosjunEditor
         public IEnumerable<CompiledScript> Scripts => Type<CompiledScript>();
         public IEnumerable<Grf> Textures => GrfSubtype(ResourceSubtype.Texture);
 
-        protected IEnumerable<T> Type<T>() => Resources.Values.OfType<T>();
-        protected IEnumerable<Grf> GrfSubtype(ResourceSubtype sub) => Type<Grf>().Where(s => s.Resource.Subtype == sub);
+        public IEnumerable<T> Type<T>() => Resources.Values.OfType<T>();
+        public IEnumerable<Grf> GrfSubtype(ResourceSubtype sub) => Type<Grf>().Where(s => s.Resource.Subtype == sub);
 
         public event EventHandler<IHasResource> ResourceChanged;
 

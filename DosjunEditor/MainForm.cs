@@ -347,6 +347,13 @@ namespace DosjunEditor
             Spawn<PCEditor>(p).Saved += SubEditor_NewSaved;
         }
 
+        private void NewGraphic_Click(object sender, EventArgs e)
+        {
+            Grf g = new Grf();
+            g.Resource.Name = GetString("New Graphic name");
+            Spawn<GrfForm>(g).Saved += SubEditor_NewSaved;
+        }
+
         private void ImportBtn_Click(object sender, EventArgs e)
         {
             if (ImportDialog.ShowDialog() == DialogResult.OK)

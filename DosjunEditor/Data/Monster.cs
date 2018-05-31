@@ -5,7 +5,7 @@ namespace DosjunEditor
 {
     public class Monster : IHasResource
     {
-        public const int Padding = 3;
+        public const int Padding = 15;
         public Resource Resource { get; set; }
 
         public Monster(Resource r)
@@ -14,14 +14,15 @@ namespace DosjunEditor
 
             Stats = new Stats();
             Skills = new List<short>();
+            Version = new VersionHeader();
         }
         public Monster() : this(new Resource { Type = ResourceType.Monster }) { }
 
         public void Read(BinaryReader br)
         {
-            Name = br.ReadZS(Globals.NameSize);
-            Image = br.ReadZS(8);
-            Stats.Read(br);
+            Version.Read(br);
+            NameId = br.ReadUInt16();
+            ImageId = br.ReadUInt16();
             Row = (Row)br.ReadByte();
             AI = (AI)br.ReadByte();
             Experience = br.ReadUInt32();
@@ -29,18 +30,21 @@ namespace DosjunEditor
             Flags = (MonsterFlags)br.ReadByte();
 
             br.ReadBytes(Padding);
+            Stats.Read(br);
 
-            if (Flags.HasFlag(MonsterFlags.HasSkills)) Skills = br.ReadIntList();
+            if (Flags.HasFlag(MonsterFlags.HasSkills))
+                Skills = br.ReadIntList();
         }
 
         public void Write(BinaryWriter bw)
         {
-            Flags = 0;
-            if (Skills.Count > 0) Flags |= MonsterFlags.HasSkills;
+            Flags = MonsterFlags.None;
+            if (Skills.Count > 0)
+                Flags |= MonsterFlags.HasSkills;
 
-            bw.WriteZS(Name, Globals.NameSize);
-            bw.WriteZS(Image, 8);
-            Stats.Write(bw);
+            Version.Write(bw);
+            bw.Write(NameId);
+            bw.Write(ImageId);
             bw.Write((byte)Row);
             bw.Write((byte)AI);
             bw.Write(Experience);
@@ -48,12 +52,15 @@ namespace DosjunEditor
             bw.Write((byte)Flags);
 
             bw.WritePadding(Padding);
+            Stats.Write(bw);
 
-            if (Flags.HasFlag(MonsterFlags.HasSkills)) bw.WriteIntList(Skills);
+            if (Flags.HasFlag(MonsterFlags.HasSkills))
+                bw.WriteIntList(Skills);
         }
 
-        public string Name { get; set; }
-        public string Image { get; set; }
+        public VersionHeader Version { get; set; }
+        public ushort NameId { get; set; }
+        public ushort ImageId { get; set; }
         public Stats Stats { get; set; }
         public Row Row { get; set; }
         public AI AI { get; set; }
@@ -61,7 +68,5 @@ namespace DosjunEditor
         public ushort WeaponId { get; set; }
         public MonsterFlags Flags { get; set; }
         public List<short> Skills { get; set; }
-
-        public override string ToString() => Name;
     }
 }

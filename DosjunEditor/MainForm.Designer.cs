@@ -55,6 +55,7 @@
             this.NewZone = new System.Windows.Forms.ToolStripMenuItem();
             this.ImportDialog = new System.Windows.Forms.OpenFileDialog();
             this.DumpDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.NewGraphic = new System.Windows.Forms.ToolStripMenuItem();
             this.TopMenu.SuspendLayout();
             this.ButtonsPanel.SuspendLayout();
             this.NewContext.SuspendLayout();
@@ -219,46 +220,47 @@
             // NewContext
             // 
             this.NewContext.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.NewGraphic,
             this.NewItem,
             this.NewMonster,
             this.NewPC,
             this.NewSource,
             this.NewZone});
             this.NewContext.Name = "NewContext";
-            this.NewContext.Size = new System.Drawing.Size(128, 114);
+            this.NewContext.Size = new System.Drawing.Size(181, 158);
             // 
             // NewItem
             // 
             this.NewItem.Name = "NewItem";
-            this.NewItem.Size = new System.Drawing.Size(127, 22);
+            this.NewItem.Size = new System.Drawing.Size(180, 22);
             this.NewItem.Text = "&Item...";
             this.NewItem.Click += new System.EventHandler(this.NewItem_Click);
             // 
             // NewMonster
             // 
             this.NewMonster.Name = "NewMonster";
-            this.NewMonster.Size = new System.Drawing.Size(127, 22);
+            this.NewMonster.Size = new System.Drawing.Size(180, 22);
             this.NewMonster.Text = "&Monster...";
             this.NewMonster.Click += new System.EventHandler(this.NewMonster_Click);
             // 
             // NewPC
             // 
             this.NewPC.Name = "NewPC";
-            this.NewPC.Size = new System.Drawing.Size(127, 22);
+            this.NewPC.Size = new System.Drawing.Size(180, 22);
             this.NewPC.Text = "&PC...";
             this.NewPC.Click += new System.EventHandler(this.NewPC_Click);
             // 
             // NewSource
             // 
             this.NewSource.Name = "NewSource";
-            this.NewSource.Size = new System.Drawing.Size(127, 22);
+            this.NewSource.Size = new System.Drawing.Size(180, 22);
             this.NewSource.Text = "&Source...";
             this.NewSource.Click += new System.EventHandler(this.NewSource_Click);
             // 
             // NewZone
             // 
             this.NewZone.Name = "NewZone";
-            this.NewZone.Size = new System.Drawing.Size(127, 22);
+            this.NewZone.Size = new System.Drawing.Size(180, 22);
             this.NewZone.Text = "&Zone...";
             this.NewZone.Click += new System.EventHandler(this.NewZone_Click);
             // 
@@ -266,6 +268,13 @@
             // 
             this.ImportDialog.Filter = "DOSJUN Files|*.CMP;*.GRF;*.ITM;*.JC;*.JCC;*.MON;*.NPC;*.PAL;*.PC;*.SNG;*.STR;*.WA" +
     "V;*.ZON";
+            // 
+            // NewGraphic
+            // 
+            this.NewGraphic.Name = "NewGraphic";
+            this.NewGraphic.Size = new System.Drawing.Size(180, 22);
+            this.NewGraphic.Text = "&Graphic...";
+            this.NewGraphic.Click += new System.EventHandler(this.NewGraphic_Click);
             // 
             // MainForm
             // 
@@ -316,6 +325,7 @@
         private System.Windows.Forms.FolderBrowserDialog DumpDialog;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ToolStripMenuItem NewPC;
+        private System.Windows.Forms.ToolStripMenuItem NewGraphic;
     }
 }
 
