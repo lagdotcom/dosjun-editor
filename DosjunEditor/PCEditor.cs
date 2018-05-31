@@ -51,16 +51,20 @@ namespace DosjunEditor
             }
 
             items = new List<InventoryEdit>();
+            InventoryBox.SuspendLayout();
             for (int i = 0; i < Globals.InventorySize; i++)
             {
                 InventoryEdit ie = new InventoryEdit
                 {
-                    Dock = DockStyle.Top,
+                    Left = 8,
+                    Top = i * 27 + 19,
+                    Width = InventoryBox.ClientSize.Width - 16,
                 };
 
                 InventoryBox.Controls.Add(ie);
                 items.Add(ie);
             }
+            InventoryBox.ResumeLayout();
         }
 
         public Context Context { get; private set; }

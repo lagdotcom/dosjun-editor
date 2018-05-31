@@ -41,6 +41,7 @@
             this.ItemBox.Name = "ItemBox";
             this.ItemBox.Size = new System.Drawing.Size(200, 21);
             this.ItemBox.TabIndex = 0;
+            this.ItemBox.SelectedIndexChanged += new System.EventHandler(this.ItemBox_SelectedIndexChanged);
             // 
             // SlotBox
             // 

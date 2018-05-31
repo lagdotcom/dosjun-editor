@@ -53,6 +53,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Buff.cs" />
+    <Compile Include="Data\Enum\BuffType.cs" />
     <Compile Include="Data\Enum\AI.cs" />
     <Compile Include="CampaignEditor.cs">
       <SubType>Form</SubType>

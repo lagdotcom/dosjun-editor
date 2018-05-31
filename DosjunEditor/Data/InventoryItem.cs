@@ -26,5 +26,7 @@ namespace DosjunEditor
         public InventoryFlags Flags { get; set; }
         public byte Quantity { get; set; }
         public ItemSlot Slot { get; set; }
+
+        public override string ToString() => $"{Quantity}x #{ItemId} in {Slot}";
     }
 }

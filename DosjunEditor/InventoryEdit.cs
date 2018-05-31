@@ -78,5 +78,23 @@ namespace DosjunEditor
             SlotBox.Width = slotWidth;
             SlotBox.Left = itemWidth + qtyWidth + 12;
         }
+
+        private void ItemBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ItemBox.SelectedIndex == 0)
+            {
+                QtyBox.Minimum = 0;
+                QtyBox.Maximum = 0;
+            }
+            else
+            {
+                Item i = Context.Djn[(ItemBox.SelectedItem as Resource).ID] as Item;
+
+                QtyBox.Minimum = 1;
+                QtyBox.Maximum = i.Flags.HasFlag(ItemFlags.Stacked) ? 255 : 1;
+
+                // TODO: change slot based on item type?
+            }
+        }
     }
 }
