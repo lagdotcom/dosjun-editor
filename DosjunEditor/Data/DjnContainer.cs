@@ -149,6 +149,9 @@ namespace DosjunEditor
                 case ResourceType.Monster:
                     return new Monster(r);
 
+                case ResourceType.NPC:
+                    return new NPC(r);
+
                 case ResourceType.Palette:
                     return new Palette(r);
 

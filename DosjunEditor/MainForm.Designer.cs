@@ -48,6 +48,7 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.NewContext = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.NewGraphic = new System.Windows.Forms.ToolStripMenuItem();
             this.NewItem = new System.Windows.Forms.ToolStripMenuItem();
             this.NewMonster = new System.Windows.Forms.ToolStripMenuItem();
             this.NewPC = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,7 +56,7 @@
             this.NewZone = new System.Windows.Forms.ToolStripMenuItem();
             this.ImportDialog = new System.Windows.Forms.OpenFileDialog();
             this.DumpDialog = new System.Windows.Forms.FolderBrowserDialog();
-            this.NewGraphic = new System.Windows.Forms.ToolStripMenuItem();
+            this.NewNPC = new System.Windows.Forms.ToolStripMenuItem();
             this.TopMenu.SuspendLayout();
             this.ButtonsPanel.SuspendLayout();
             this.NewContext.SuspendLayout();
@@ -223,11 +224,19 @@
             this.NewGraphic,
             this.NewItem,
             this.NewMonster,
+            this.NewNPC,
             this.NewPC,
             this.NewSource,
             this.NewZone});
             this.NewContext.Name = "NewContext";
-            this.NewContext.Size = new System.Drawing.Size(181, 158);
+            this.NewContext.Size = new System.Drawing.Size(181, 180);
+            // 
+            // NewGraphic
+            // 
+            this.NewGraphic.Name = "NewGraphic";
+            this.NewGraphic.Size = new System.Drawing.Size(180, 22);
+            this.NewGraphic.Text = "&Graphic...";
+            this.NewGraphic.Click += new System.EventHandler(this.NewGraphic_Click);
             // 
             // NewItem
             // 
@@ -269,12 +278,12 @@
             this.ImportDialog.Filter = "DOSJUN Files|*.CMP;*.GRF;*.ITM;*.JC;*.JCC;*.MON;*.NPC;*.PAL;*.PC;*.SNG;*.STR;*.WA" +
     "V;*.ZON";
             // 
-            // NewGraphic
+            // NewNPC
             // 
-            this.NewGraphic.Name = "NewGraphic";
-            this.NewGraphic.Size = new System.Drawing.Size(180, 22);
-            this.NewGraphic.Text = "&Graphic...";
-            this.NewGraphic.Click += new System.EventHandler(this.NewGraphic_Click);
+            this.NewNPC.Name = "NewNPC";
+            this.NewNPC.Size = new System.Drawing.Size(180, 22);
+            this.NewNPC.Text = "&NPC...";
+            this.NewNPC.Click += new System.EventHandler(this.NewNPC_Click);
             // 
             // MainForm
             // 
@@ -326,6 +335,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ToolStripMenuItem NewPC;
         private System.Windows.Forms.ToolStripMenuItem NewGraphic;
+        private System.Windows.Forms.ToolStripMenuItem NewNPC;
     }
 }
 

@@ -214,6 +214,10 @@ namespace DosjunEditor
                         Spawn<MonsterForm>(r);
                         return;
 
+                    case ResourceType.NPC:
+                        Spawn<NPCEditor>(r);
+                        return;
+
                     case ResourceType.PC:
                         Spawn<PCEditor>(r);
                         return;
@@ -319,39 +323,41 @@ namespace DosjunEditor
             }
         }
 
+        private void NewResource<R, E>() where E : IResourceEditor, new() where R : IHasResource, new()
+        {
+            IHasResource r = new R();
+            r.Resource.Name = GetString($"New {typeof(R).Name} name");
+            Spawn<E>(r).Saved += SubEditor_NewSaved;
+        }
+
         private void NewZone_Click(object sender, EventArgs e)
         {
-            Zone z = new Zone();
-            z.Resource.Name = GetString("New Zone name");
-            Spawn<ZoneForm>(z).Saved += SubEditor_NewSaved;
+            NewResource<Zone, ZoneForm>();
         }
 
         private void NewMonster_Click(object sender, EventArgs e)
         {
-            Monster m = new Monster();
-            m.Resource.Name = GetString("New Monster name");
-            Spawn<MonsterForm>(m).Saved += SubEditor_NewSaved;
+            NewResource<Monster, MonsterForm>();
         }
 
         private void NewItem_Click(object sender, EventArgs e)
         {
-            Item i = new Item();
-            i.Resource.Name = GetString("New Item name");
-            Spawn<ItemForm>(i).Saved += SubEditor_NewSaved;
+            NewResource<Item, ItemForm>();
         }
 
         private void NewPC_Click(object sender, EventArgs e)
         {
-            PC p = new PC();
-            p.Resource.Name = GetString("New PC name");
-            Spawn<PCEditor>(p).Saved += SubEditor_NewSaved;
+            NewResource<PC, PCEditor>();
         }
 
         private void NewGraphic_Click(object sender, EventArgs e)
         {
-            Grf g = new Grf();
-            g.Resource.Name = GetString("New Graphic name");
-            Spawn<GrfForm>(g).Saved += SubEditor_NewSaved;
+            NewResource<Grf, GrfForm>();
+        }
+
+        private void NewNPC_Click(object sender, EventArgs e)
+        {
+            NewResource<NPC, NPCEditor>();
         }
 
         private void ImportBtn_Click(object sender, EventArgs e)
@@ -407,6 +413,7 @@ namespace DosjunEditor
                 case ResourceType.Item: return Import<Item>(res, br);
                 case ResourceType.Monster: return Import<Monster>(res, br);
                 case ResourceType.Palette: return Import<Palette>(res, br);
+                case ResourceType.NPC: return Import<NPC>(res, br);
                 case ResourceType.PC: return Import<PC>(res, br);
                 case ResourceType.Script: return Import<CompiledScript>(res, br);
                 case ResourceType.Source: return Import<ScriptSource>(res, br);
