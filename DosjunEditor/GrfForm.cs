@@ -34,8 +34,8 @@ namespace DosjunEditor
 
             // TODO: this doesn't copy the original resource so it will overwrite even if you don't hit save
 
-            ImageNumber.Maximum = Grf.Images.Count - 1;
             SubtypeBox.SelectedIndex = (int)r.Resource.Subtype;
+            UpdateImageCount();
             ShowImage();
         }
 
@@ -49,6 +49,7 @@ namespace DosjunEditor
 
             GrfImage img = Grf.Images[(int)ImageNumber.Value];
             ImageView.Image = img.AsImage(Context.Djn.Palette);
+            UpdateChar();
         }
 
         private void ImageNumber_ValueChanged(object sender, EventArgs e)
@@ -77,11 +78,40 @@ namespace DosjunEditor
                 Image img = Image.FromFile(Picker.FileName);
                 ImgConverter cnv = new ImgConverter { Palette = Context.Djn.Palette };
                 GrfImage gi = cnv.Convert(img);
+                int index = (int)ImageNumber.Value + 1;
 
-                Grf.Images.Add(gi);
-                ImageNumber.Maximum = Grf.Images.Count - 1;
-                ImageNumber.Value = ImageNumber.Maximum;
+                Grf.Images.Insert(index, gi);
+                UpdateImageCount();
+                ImageNumber.Value = index;
             }
+        }
+
+        private void DeleteBtn_Click(object sender, EventArgs e)
+        {
+            Grf.Images.RemoveAt((int)ImageNumber.Value);
+            UpdateImageCount();
+        }
+
+        private void UpdateImageCount()
+        {
+            ImageNumber.Minimum = 0;
+            ImageNumber.Maximum = Grf.Images.Count - 1;
+            DeleteBtn.Enabled = Grf.Images.Count > 0;
+        }
+
+        private void UpdateChar()
+        {
+            bool vis = SubtypeBox.SelectedIndex == (int)ResourceSubtype.Font;
+            FontChar.Visible = vis;
+            FontCharLbl.Visible = vis;
+
+            if (vis)
+                FontChar.Text = Tools.AsChar((char)ImageNumber.Value);
+        }
+
+        private void SubtypeBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateChar();
         }
     }
 }

@@ -60,5 +60,22 @@ namespace DosjunEditor
 
             return formatted;
         }
+
+        public static string AsChar(char value)
+        {
+            switch (value)
+            {
+                case '\0': return "NUL";
+                case '\n': return "LF";
+                case '\r': return "CR";
+                case '\t': return "TAB";
+                case '\b': return "BS";
+                case '\a': return "BEL";
+                case '\f': return "FF";
+                case '\v': return "VT";
+
+                default: return $"{Convert.ToChar(value)}";
+            }
+        }
     }
 }
