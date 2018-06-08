@@ -43,7 +43,9 @@ namespace DosjunEditor
             }
         }
 
-        public string this[ushort id] => strings.Where(p => p.Value == id).First().Key;
+        public string this[ushort id] => strings.Where(p => p.Value == id)
+            .FirstOrDefault()
+            .Key ?? string.Empty;
 
         public ushort Add(string s)
         {

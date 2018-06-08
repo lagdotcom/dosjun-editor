@@ -59,7 +59,8 @@ namespace DosjunEditor
         private void LoadItem()
         {
             ItemBox.SelectedItem = Globals.Resolve(context, item.ItemId);
-            QtyBox.Value = item.Quantity;
+            UpdateQtyBounds(item.ItemId);
+            SetQty(item.Quantity);
             SlotBox.SelectedIndex = (int)item.Slot;
         }
 
@@ -79,22 +80,37 @@ namespace DosjunEditor
             SlotBox.Left = itemWidth + qtyWidth + 12;
         }
 
-        private void ItemBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void UpdateQtyBounds(ushort itemId)
         {
-            if (ItemBox.SelectedIndex == 0)
+            if (itemId == 0)
             {
                 QtyBox.Minimum = 0;
                 QtyBox.Maximum = 0;
             }
             else
             {
-                Item i = Context.Djn[(ItemBox.SelectedItem as Resource).ID] as Item;
+                Item i = Context.Djn[itemId] as Item;
 
-                QtyBox.Minimum = 1;
-                QtyBox.Maximum = i.Flags.HasFlag(ItemFlags.Stacked) ? 255 : 1;
+                if (i != null)
+                {
+                    QtyBox.Minimum = 1;
+                    QtyBox.Maximum = i.Flags.HasFlag(ItemFlags.Stacked) ? 255 : 1;
+                }
 
                 // TODO: change slot based on item type?
             }
+        }
+
+        private void SetQty(decimal qty)
+        {
+            if (qty < QtyBox.Minimum) qty = QtyBox.Minimum;
+            if (qty > QtyBox.Maximum) qty = QtyBox.Maximum;
+            QtyBox.Value = qty;
+        }
+
+        private void ItemBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateQtyBounds((ItemBox.SelectedItem as Resource).ID);
         }
     }
 }

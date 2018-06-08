@@ -27,7 +27,7 @@ namespace DosjunEditor
             Context = ctx;
             Item = r as Item;
 
-            NameBox.Text = Item.Name;
+            NameBox.Text = ctx.GetString(Item.NameId);
 
             TypeBox.SelectedIndex = (int)Item.Type;
 
@@ -49,7 +49,7 @@ namespace DosjunEditor
 
         public void Apply()
         {
-            Item.Name = NameBox.Text;
+            Item.NameId = Context.GetStringId(NameBox.Text, Item.NameId);
             Item.Type = (ItemType)TypeBox.SelectedIndex;
             Item.Value = (uint)ValueBox.Value;
             Item.Special = (ItemSpecial)SpecialBox.SelectedIndex;

@@ -4,7 +4,7 @@ namespace DosjunEditor
 {
     public class Item : IHasResource
     {
-        public const int Padding = 8;
+        public const int Padding = 18;
         public Resource Resource { get; set; }
 
         public Item(Resource r)
@@ -16,7 +16,7 @@ namespace DosjunEditor
 
         public void Read(BinaryReader br)
         {
-            Name = br.ReadZS(Globals.NameSize);
+            NameId = br.ReadUInt16();
             Type = (ItemType)br.ReadByte();
             Flags = (ItemFlags)br.ReadUInt16();
             Value = br.ReadUInt32();
@@ -29,7 +29,7 @@ namespace DosjunEditor
 
         public void Write(BinaryWriter bw)
         {
-            bw.WriteZS(Name, Globals.NameSize);
+            bw.Write(NameId);
             bw.Write((byte)Type);
             bw.Write((ushort)Flags);
             bw.Write(Value);
@@ -40,7 +40,7 @@ namespace DosjunEditor
             Stats.Write(bw);
         }
 
-        public string Name { get; set; }
+        public ushort NameId { get; set; }
         public ItemType Type { get; set; }
         public ItemFlags Flags { get; set; }
         public uint Value { get; set; }
@@ -48,7 +48,5 @@ namespace DosjunEditor
         public short SpecialArg1 { get; set; }
         public short SpecialArg2 { get; set; }
         public Stats Stats { get; set; }
-
-        public override string ToString() => Name;
     }
 }
