@@ -148,7 +148,7 @@ namespace DosjunEditor
                 xdiff += byte.MaxValue;
             }
 
-            if (xdiff > 0)
+            if (xdiff >= 0)
             {
                 WriteSkip((byte)xdiff, (byte)ydiff);
             }
