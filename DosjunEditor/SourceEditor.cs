@@ -17,7 +17,9 @@ namespace DosjunEditor
         private Style comment = new TextStyle(Brushes.Green, null, FontStyle.Italic);
         private Style keyword = new TextStyle(Brushes.Blue, null, FontStyle.Bold);
         private Style reference = new TextStyle(Brushes.Red, null, FontStyle.Regular);
+        private Style constant = new TextStyle(Brushes.Purple, null, FontStyle.Regular);
         private string keywordRegex;
+        private string constantRegex;
 
         public SourceEditor()
         {
@@ -48,6 +50,7 @@ namespace DosjunEditor
         private void GetRegex()
         {
             keywordRegex = $@"\b({string.Join("|", Jun.Env.Commands.Keys)})\b";
+            constantRegex = $@"\b({string.Join("|", Jun.Env.Constants.Keys)})\b";
         }
 
         private void Save()
@@ -68,9 +71,11 @@ namespace DosjunEditor
             e.ChangedRange.ClearStyle(comment);
             e.ChangedRange.ClearStyle(keyword);
             e.ChangedRange.ClearStyle(reference);
+            e.ChangedRange.ClearStyle(constant);
             e.ChangedRange.SetStyle(comment, @"#.*$", RegexOptions.Multiline);
             e.ChangedRange.SetStyle(keyword, keywordRegex);
             e.ChangedRange.SetStyle(reference, @"\$\w+\b");
+            e.ChangedRange.SetStyle(constant, constantRegex);
 
             //e.ChangedRange.ClearFoldingMarkers();
             //e.ChangedRange.SetFoldingMarkers(@"Script\b", @"EndScript\b");
@@ -113,7 +118,7 @@ namespace DosjunEditor
             // copy all compiled scripts into the container
             foreach (Jun.Script js in parser.Scripts)
             {
-                ushort id = parser.Constants[js.Name];
+                short id = parser.Constants[js.Name];
                 CompiledScript scr = Context.Djn[id] as CompiledScript;
 
                 scr.Resource.Flags = js.Public ? ResourceFlags.None : ResourceFlags.Private;

@@ -13,11 +13,13 @@
             Token zone = p.Expression();
             Token x = p.Expression();
             Token y = p.Expression();
+            Token facing = p.Expression();
             Token transition = p.Expression();
 
             p.EmitArgument(zone);
             p.EmitArgument(x);
             p.EmitArgument(y);
+            p.EmitArgument(facing);
             p.EmitArgument(transition);
             p.Emit(Op);
         }

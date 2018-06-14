@@ -13,7 +13,7 @@
             Token identifier = p.Consume(TokenType.Identifier);
 
             p.CurrentScript = new Jun.Script { Name = identifier.Value, Type = ScriptType.State };
-            p.AddConstant(identifier.Value, p.GetScriptId(identifier.Value));
+            p.AddConstant(identifier.Value, (short)p.GetScriptId(identifier.Value));
             p.Scripts.Add(p.CurrentScript);
 
             p.InScript = true;

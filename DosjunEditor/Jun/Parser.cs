@@ -11,7 +11,7 @@ namespace DosjunEditor.Jun
 
         public Parser(DosjunEditor.Context ctx)
         {
-            Constants = new Dictionary<string, ushort>();
+            Constants = new Dictionary<string, short>();
             Context = ctx;
             Contexts = new Stack<Context>();
             Counts = new Dictionary<Scope, byte>();
@@ -22,15 +22,15 @@ namespace DosjunEditor.Jun
 
         public void Parse(IList<Token> tokens)
         {
-            Constants.Clear();
-            Contexts.Clear();
-            Variables.Clear();
-            Scripts.Clear();
-
             Counts[Scope.Global] = 0;
             Counts[Scope.Local] = 0;
             Counts[Scope.Temp] = 0;
             Counts[Scope.Const] = 0;
+
+            Contexts.Clear();
+            Variables.Clear();
+            Scripts.Clear();
+            InitConstants();
 
             InScript = false;
             Tokens = tokens;
@@ -152,7 +152,7 @@ namespace DosjunEditor.Jun
             return new ExpressionToken(tokens);
         }
 
-        public void AddConstant(string name, ushort value)
+        public void AddConstant(string name, short value)
         {
             if (Constants.ContainsKey(name)) throw Error($"Redefinition of constant: {name}");
             Constants[name] = value;
@@ -161,7 +161,7 @@ namespace DosjunEditor.Jun
 
         public void AddConstant(string name, string value)
         {
-            AddConstant(name, ushort.Parse(value));
+            AddConstant(name, short.Parse(value));
         }
 
         public int ScopeLimit(Scope scope)
@@ -209,7 +209,7 @@ namespace DosjunEditor.Jun
             CurrentScript.Code.Add(b);
         }
 
-        public void Emit(ushort u)
+        public void Emit(short u)
         {
             CurrentScript.Code.Add((byte)(u & 0xFF));
             CurrentScript.Code.Add((byte)(u >> 8));
@@ -270,13 +270,13 @@ namespace DosjunEditor.Jun
             {
                 case TokenType.Number:
                     Emit(Op.PushLiteral);
-                    Emit(ushort.Parse(tok.Value));
+                    Emit(short.Parse(tok.Value));
                     break;
 
                 case TokenType.String:
                     ushort index = SaveString(tok.Value);
                     Emit(Op.PushLiteral);
-                    Emit(index);
+                    Emit((short)index);
                     break;
 
                 case TokenType.Identifier:
@@ -299,7 +299,7 @@ namespace DosjunEditor.Jun
                     IHasResource hr = Context.Djn.Resources.Values.FirstOrDefault(r => r.Resource.Name == tok.Value);
                     if (hr == null) throw Error($"Unknown resource: {tok.Value}");
                     Emit(Op.PushLiteral);
-                    Emit(hr.Resource.ID);
+                    Emit((short)hr.Resource.ID);
                     break;
 
                 default: throw Error($"Cannot emit {tok}");
@@ -428,7 +428,7 @@ namespace DosjunEditor.Jun
             if (name != null) con.Name = name;
         }
 
-        public Dictionary<string, ushort> Constants { get; private set; }
+        public Dictionary<string, short> Constants { get; private set; }
         public Dictionary<Scope, byte> Counts { get; private set; }
 
         public Stack<Context> Contexts { get; private set; }
@@ -458,7 +458,14 @@ namespace DosjunEditor.Jun
 
             return scr.Resource.ID;
         }
-        
+
+        private void InitConstants()
+        {
+            Constants.Clear();
+            foreach (var pair in Env.Constants)
+                AddConstant(pair.Key, pair.Value);
+        }
+
         private void Identifier()
         {
             Token targetToken = Consume();

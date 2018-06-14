@@ -17,6 +17,10 @@
         Monster,
         Font__Unused,
         Strings,
-        Palette
+        Palette,
+
+        Party = 0xC0,
+        Globals,
+        Overlay,
     }
 }

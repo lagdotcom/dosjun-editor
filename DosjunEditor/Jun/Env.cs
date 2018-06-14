@@ -61,6 +61,23 @@ namespace DosjunEditor.Jun
             [TokenType.LeftParens] = 100,
         };
 
+        public static Dictionary<string, short> Constants = new Dictionary<string, short>
+        {
+            ["NORTH"] = (short)Direction.North,
+            ["EAST"] = (short)Direction.East,
+            ["SOUTH"] = (short)Direction.South,
+            ["WEST"] = (short)Direction.West,
+            ["UP"] = (short)Direction.Up,
+            ["DOWN"] = (short)Direction.Down,
+
+            ["FIGHTER"] = (short)Job.Fighter,
+            ["CLERIC"] = (short)Job.Cleric,
+            ["MAGE"] = (short)Job.Mage,
+            ["ROGUE"] = (short)Job.Rogue,
+            ["RANGER"] = (short)Job.Ranger,
+            ["BARD"] = (short)Job.Bard,
+        };
+
         public static void Initialise()
         {
             if (initialised)
