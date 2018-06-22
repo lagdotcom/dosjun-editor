@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.ImageName = new System.Windows.Forms.TextBox();
+            this.ImageNameLbl = new System.Windows.Forms.Label();
             this.DeleteBtn = new System.Windows.Forms.Button();
             this.ImportBtn = new System.Windows.Forms.Button();
             this.CancelBtn = new System.Windows.Forms.Button();
@@ -38,8 +40,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.ImageNumber = new System.Windows.Forms.NumericUpDown();
             this.Picker = new System.Windows.Forms.OpenFileDialog();
-            this.FontCharLbl = new System.Windows.Forms.Label();
-            this.FontChar = new System.Windows.Forms.TextBox();
             this.ImageView = new DosjunEditor.InterpolatedBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ImageNumber)).BeginInit();
@@ -48,8 +48,8 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.FontChar);
-            this.panel1.Controls.Add(this.FontCharLbl);
+            this.panel1.Controls.Add(this.ImageName);
+            this.panel1.Controls.Add(this.ImageNameLbl);
             this.panel1.Controls.Add(this.DeleteBtn);
             this.panel1.Controls.Add(this.ImportBtn);
             this.panel1.Controls.Add(this.CancelBtn);
@@ -63,6 +63,24 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(266, 450);
             this.panel1.TabIndex = 3;
+            // 
+            // ImageName
+            // 
+            this.ImageName.Location = new System.Drawing.Point(140, 67);
+            this.ImageName.Name = "ImageName";
+            this.ImageName.ReadOnly = true;
+            this.ImageName.Size = new System.Drawing.Size(120, 20);
+            this.ImageName.TabIndex = 13;
+            this.ImageName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // ImageNameLbl
+            // 
+            this.ImageNameLbl.AutoSize = true;
+            this.ImageNameLbl.Location = new System.Drawing.Point(12, 70);
+            this.ImageNameLbl.Name = "ImageNameLbl";
+            this.ImageNameLbl.Size = new System.Drawing.Size(67, 13);
+            this.ImageNameLbl.TabIndex = 12;
+            this.ImageNameLbl.Text = "Image Name";
             // 
             // DeleteBtn
             // 
@@ -143,24 +161,6 @@
             // 
             this.Picker.Filter = "Image files|*.png";
             // 
-            // FontCharLbl
-            // 
-            this.FontCharLbl.AutoSize = true;
-            this.FontCharLbl.Location = new System.Drawing.Point(12, 70);
-            this.FontCharLbl.Name = "FontCharLbl";
-            this.FontCharLbl.Size = new System.Drawing.Size(77, 13);
-            this.FontCharLbl.TabIndex = 12;
-            this.FontCharLbl.Text = "Font Character";
-            // 
-            // FontChar
-            // 
-            this.FontChar.Location = new System.Drawing.Point(140, 67);
-            this.FontChar.Name = "FontChar";
-            this.FontChar.ReadOnly = true;
-            this.FontChar.Size = new System.Drawing.Size(40, 20);
-            this.FontChar.TabIndex = 13;
-            this.FontChar.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // ImageView
             // 
             this.ImageView.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -202,7 +202,7 @@
         private System.Windows.Forms.Button ImportBtn;
         private System.Windows.Forms.OpenFileDialog Picker;
         private System.Windows.Forms.Button DeleteBtn;
-        private System.Windows.Forms.TextBox FontChar;
-        private System.Windows.Forms.Label FontCharLbl;
+        private System.Windows.Forms.TextBox ImageName;
+        private System.Windows.Forms.Label ImageNameLbl;
     }
 }

@@ -12,6 +12,61 @@ namespace DosjunEditor
 {
     public partial class GrfForm : Form, IResourceEditor
     {
+        readonly string[] textureImageNames = new string[]
+        {
+            "000W",
+            "000C",
+            "000R",
+            "000F",
+            "000L",
+
+            "0L1W",
+            "0L1C",
+            "0L1F",
+
+            "0R1W",
+            "0R1C",
+            "0R1F",
+
+            "100W",
+            "100C",
+            "100R",
+            "100F",
+            "100L",
+
+            "1L1W",
+            "1L1C",
+            "1L1F",
+
+            "1R1W",
+            "1R1C",
+            "1R1F",
+
+            "200W",
+            "200C",
+            "200R",
+            "200F",
+            "200L",
+
+            "2L1W",
+            "2L1C",
+            "2L1F",
+            "2L1L",
+
+            "2R1W",
+            "2R1C",
+            "2R1R",
+            "2R1F",
+
+            "2L2W",
+            "2L2C",
+            "2L2F",
+
+            "2R2W",
+            "2R2C",
+            "2R2F",
+        };
+
         public GrfForm()
         {
             InitializeComponent();
@@ -49,7 +104,7 @@ namespace DosjunEditor
 
             GrfImage img = Grf.Images[(int)ImageNumber.Value];
             ImageView.Image = img.AsImage(Context.Djn.Palette);
-            UpdateChar();
+            UpdateImageName();
         }
 
         private void ImageNumber_ValueChanged(object sender, EventArgs e)
@@ -73,16 +128,19 @@ namespace DosjunEditor
 
         private void ImportBtn_Click(object sender, EventArgs e)
         {
+            int newIndex = (int)ImageNumber.Value + 1;
+            string name = GetImageName(newIndex);
+
+            Picker.Title = string.IsNullOrEmpty(name) ? "Import an image" : $"Import the {name} image";
             if (Picker.ShowDialog() == DialogResult.OK)
             {
                 Image img = Image.FromFile(Picker.FileName);
                 ImgConverter cnv = new ImgConverter { Palette = Context.Djn.Palette };
                 GrfImage gi = cnv.Convert(img);
-                int index = (int)ImageNumber.Value + 1;
 
-                Grf.Images.Insert(index, gi);
+                Grf.Images.Insert(newIndex, gi);
                 UpdateImageCount();
-                ImageNumber.Value = index;
+                ImageNumber.Value = newIndex;
             }
         }
 
@@ -99,19 +157,40 @@ namespace DosjunEditor
             DeleteBtn.Enabled = Grf.Images.Count > 0;
         }
 
-        private void UpdateChar()
+        private void UpdateImageName()
         {
-            bool vis = SubtypeBox.SelectedIndex == (int)ResourceSubtype.Font;
-            FontChar.Visible = vis;
-            FontCharLbl.Visible = vis;
+            string name = GetImageName((int)ImageNumber.Value);
 
-            if (vis)
-                FontChar.Text = Tools.AsChar((char)ImageNumber.Value);
+            if (string.IsNullOrEmpty(name))
+            {
+                ImageName.Visible = false;
+                ImageNameLbl.Visible = false;
+            }
+            else
+            {
+                ImageName.Visible = true;
+                ImageNameLbl.Visible = true;
+                ImageName.Text = name;
+            }
+        }
+
+        private string GetImageName(int index)
+        {
+            switch ((ResourceSubtype)SubtypeBox.SelectedIndex)
+            {
+                case ResourceSubtype.Font:
+                    return Tools.AsChar((char)index);
+
+                case ResourceSubtype.Texture:
+                    return (index >= 0 && index < textureImageNames.Length) ? textureImageNames[index] : "(unknown)";
+            }
+
+            return null;
         }
 
         private void SubtypeBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UpdateChar();
+            UpdateImageName();
         }
     }
 }
