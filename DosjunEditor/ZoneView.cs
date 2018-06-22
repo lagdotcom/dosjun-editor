@@ -222,29 +222,13 @@ namespace DosjunEditor
             }
         }
 
-        private void DrawThing(Graphics g, Thing id, int ox, int oy, int ex, int ey)
+        private void DrawThing(Graphics g, ushort id, int ox, int oy, int ex, int ey)
         {
+            // TODO
+            return;
+
             float mx = ox + (ex - ox) / 2f;
             float my = oy + (ey - oy) / 2f;
-
-            switch (id)
-            {
-                case Thing.Shiny:
-                    // small yellow diamond
-                    g.DrawLine(Pens.Yellow, mx - Eighth, my, mx, my - Eighth);
-                    g.DrawLine(Pens.Yellow, mx, my - Eighth, mx + Eighth, my);
-                    g.DrawLine(Pens.Yellow, mx + Eighth, my, mx, my + Eighth);
-                    g.DrawLine(Pens.Yellow, mx, my + Eighth, mx - Eighth, my);
-                    break;
-
-                case Thing.Barrel:
-                    // cylinder
-                    g.DrawEllipse(Pens.Brown, ox + Eighth, oy + Eighth, Quarter * 3 - 1, Quarter);
-                    g.DrawEllipse(Pens.Brown, ox + Eighth, ey - Eighth - Quarter, Quarter * 3 - 1, Quarter);
-                    g.DrawLine(Pens.Brown, ox + Eighth, oy + Quarter, ox + Eighth, ey - Quarter);
-                    g.DrawLine(Pens.Brown, ex - Eighth, oy + Quarter, ex - Eighth, ey - Quarter);
-                    break;
-            }
         }
 
         private void ZoneView_MouseClick(object sender, MouseEventArgs e)

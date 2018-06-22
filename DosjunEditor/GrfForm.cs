@@ -67,6 +67,13 @@ namespace DosjunEditor
             "2R2F",
         };
 
+        readonly string[] thingImageNames = new string[]
+        {
+            "Close",
+            "Middle",
+            "Far",
+        };
+
         public GrfForm()
         {
             InitializeComponent();
@@ -182,7 +189,10 @@ namespace DosjunEditor
                     return Tools.AsChar((char)index);
 
                 case ResourceSubtype.Texture:
-                    return (index >= 0 && index < textureImageNames.Length) ? textureImageNames[index] : "(unknown)";
+                    return (index >= 0 && index < textureImageNames.Length) ? textureImageNames[index] : "(invalid)";
+
+                case ResourceSubtype.Thing:
+                    return (index >= 0 && index < thingImageNames.Length) ? thingImageNames[index] : "(invalid)";
             }
 
             return null;

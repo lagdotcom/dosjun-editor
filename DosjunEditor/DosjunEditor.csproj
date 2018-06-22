@@ -278,7 +278,6 @@
     <Compile Include="TextureComboBox.Designer.cs">
       <DependentUpon>TextureComboBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Data\Enum\Thing.cs" />
     <Compile Include="Data\Tile.cs" />
     <Compile Include="TileBag.cs" />
     <Compile Include="Data\Enum\TileFlags.cs" />

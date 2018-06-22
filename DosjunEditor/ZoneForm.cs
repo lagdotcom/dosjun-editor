@@ -19,9 +19,6 @@ namespace DosjunEditor
         {
             InitializeComponent();
 
-            foreach (string name in Tools.GetEnumNames<Thing>())
-                ThingBox.Items.Add(name);
-
             ScriptNameBoxes = new List<ComboBox>()
             {
                 OnEnterBox,
@@ -81,6 +78,7 @@ namespace DosjunEditor
             FloorTexture.Setup(ctx, Zone);
 
             LoadScriptNames();
+            LoadThings();
 
             Map.Setup(ctx, Zone);
         }
@@ -96,6 +94,11 @@ namespace DosjunEditor
                 Globals.Populate(box, Context.Djn.PublicScripts);
 
             if (CurrentTile != null) Map_TileSelected(CurrentTile);
+        }
+
+        private void LoadThings()
+        {
+            Globals.Populate(ThingBox, Context.Djn.Things);
         }
 
         private void CheckDescriptionUpdate()
@@ -150,7 +153,7 @@ namespace DosjunEditor
 
             OnEnterBox.SelectedItem = Globals.Resolve(Context, t.OnEnterId);
             OnUseBox.SelectedItem = Globals.Resolve(Context, t.OnUseId);
-            ThingBox.SelectedIndex = (int)t.Thing;
+            ThingBox.SelectedItem = Globals.Resolve(Context, t.Thing);
             DangerBox.Value = t.Danger;
 
             ImpassableFlag.Checked = t.Flags.HasFlag(TileFlags.Impassable);
@@ -351,7 +354,7 @@ namespace DosjunEditor
         {
             if (!updatingDisplay)
             {
-                CurrentTile.Thing = (Thing)ThingBox.SelectedIndex;
+                CurrentTile.Thing = (ThingBox.SelectedItem as Resource).ID;
 
                 DataElement_Changed(sender, e);
             }
