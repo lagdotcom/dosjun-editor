@@ -21,7 +21,7 @@ namespace DosjunEditor
         public const int MaxJobLevel = 10;
 
         // Number of defined jobs in core
-        public const int NumJobs = 6;
+        public const int NumJobs = 10;
 
         // Number of walls in each tile
         public const int NumWalls = 4;

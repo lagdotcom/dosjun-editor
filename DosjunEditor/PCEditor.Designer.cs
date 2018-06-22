@@ -80,7 +80,7 @@
             // CancelBtn
             // 
             this.CancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CancelBtn.Location = new System.Drawing.Point(220, 426);
+            this.CancelBtn.Location = new System.Drawing.Point(217, 526);
             this.CancelBtn.Name = "CancelBtn";
             this.CancelBtn.Size = new System.Drawing.Size(75, 23);
             this.CancelBtn.TabIndex = 103;
@@ -91,7 +91,7 @@
             // OKBtn
             // 
             this.OKBtn.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.OKBtn.Location = new System.Drawing.Point(15, 426);
+            this.OKBtn.Location = new System.Drawing.Point(12, 526);
             this.OKBtn.Name = "OKBtn";
             this.OKBtn.Size = new System.Drawing.Size(75, 23);
             this.OKBtn.TabIndex = 102;
@@ -191,7 +191,7 @@
             this.JobGroup.Controls.Add(this.JobLayout);
             this.JobGroup.Location = new System.Drawing.Point(15, 238);
             this.JobGroup.Name = "JobGroup";
-            this.JobGroup.Size = new System.Drawing.Size(280, 175);
+            this.JobGroup.Size = new System.Drawing.Size(280, 282);
             this.JobGroup.TabIndex = 114;
             this.JobGroup.TabStop = false;
             this.JobGroup.Text = "Job Levels";
@@ -206,7 +206,7 @@
             this.JobLayout.Name = "JobLayout";
             this.JobLayout.RowCount = 1;
             this.JobLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.JobLayout.Size = new System.Drawing.Size(274, 156);
+            this.JobLayout.Size = new System.Drawing.Size(274, 263);
             this.JobLayout.TabIndex = 0;
             // 
             // InventoryBox
@@ -238,7 +238,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(857, 461);
+            this.ClientSize = new System.Drawing.Size(857, 561);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.AttitudeBox);
             this.Controls.Add(this.InventoryBox);
