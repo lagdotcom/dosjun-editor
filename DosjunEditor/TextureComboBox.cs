@@ -20,6 +20,8 @@ namespace DosjunEditor
 
         public Context Context { get; private set; }
         public Zone Zone { get; private set; }
+
+        // TODO: ?
         public WallLocation Face { get; set; }
 
         public event EventHandler ValueChanged;
@@ -79,8 +81,8 @@ namespace DosjunEditor
                 return;
             }
 
-            // TODO
-            // Picture.Image = (Context.Djn[id] as Grf).Images[(int)Face].AsImage(Context.Djn.Palette);
+            Resource img = Box.SelectedItem as Resource;
+            Picture.Image = (Context.Djn[img.ID] as Grf).Images[0].AsImage(Context.Djn.Palette);
         }
     }
 }
