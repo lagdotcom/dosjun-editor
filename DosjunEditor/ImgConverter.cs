@@ -120,13 +120,13 @@ namespace DosjunEditor
             {
                 IEnumerable<byte> bytes = strip.AsEnumerable();
 
-                while (strip.Count > MaxStrip)
+                while (bytes.Count() > MaxStrip)
                 {
                     WriteStrip(bytes.Take(MaxStrip));
                     bytes = bytes.Skip(MaxStrip);
                 }
 
-                WriteStrip(strip);
+                WriteStrip(bytes);
                 strip.Clear();
             }
         }
