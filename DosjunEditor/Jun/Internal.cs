@@ -8,7 +8,7 @@
         Danger,
         JustMoved,
         Success,
-        Return,
+        ReturnUNUSED,
         PartyFull,
 
         Invalid = 0xFF
