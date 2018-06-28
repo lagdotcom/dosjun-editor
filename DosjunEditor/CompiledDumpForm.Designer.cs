@@ -39,6 +39,7 @@
             this.DumpBox.Multiline = true;
             this.DumpBox.Name = "DumpBox";
             this.DumpBox.ReadOnly = true;
+            this.DumpBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.DumpBox.Size = new System.Drawing.Size(800, 450);
             this.DumpBox.TabIndex = 0;
             // 
