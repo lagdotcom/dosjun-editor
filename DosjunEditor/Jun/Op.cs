@@ -63,5 +63,6 @@
         ChoosePcPronouns,
         SetAttitude,
         GetAttitude,
+        GotoXY,
     }
 }
