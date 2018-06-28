@@ -18,8 +18,10 @@ namespace DosjunEditor
         private Style keyword = new TextStyle(Brushes.Blue, null, FontStyle.Bold);
         private Style reference = new TextStyle(Brushes.Red, null, FontStyle.Regular);
         private Style constant = new TextStyle(Brushes.Purple, null, FontStyle.Regular);
+        private Style @internal = new TextStyle(Brushes.Orange, null, FontStyle.Regular);
         private string keywordRegex;
         private string constantRegex;
+        private string internalRegex;
 
         public SourceEditor()
         {
@@ -51,6 +53,7 @@ namespace DosjunEditor
         {
             keywordRegex = $@"\b({string.Join("|", Jun.Env.Commands.Keys)})\b";
             constantRegex = $@"\b({string.Join("|", Jun.Env.Constants.Keys)})\b";
+            internalRegex = $@"\b({string.Join("|", Jun.Env.Internals.Keys)})\b";
         }
 
         private void Save()
@@ -72,10 +75,12 @@ namespace DosjunEditor
             e.ChangedRange.ClearStyle(keyword);
             e.ChangedRange.ClearStyle(reference);
             e.ChangedRange.ClearStyle(constant);
+            e.ChangedRange.ClearStyle(@internal);
             e.ChangedRange.SetStyle(comment, @"#.*$", RegexOptions.Multiline);
             e.ChangedRange.SetStyle(keyword, keywordRegex);
             e.ChangedRange.SetStyle(reference, @"\$\w+\b");
             e.ChangedRange.SetStyle(constant, constantRegex);
+            e.ChangedRange.SetStyle(@internal, internalRegex);
 
             //e.ChangedRange.ClearFoldingMarkers();
             //e.ChangedRange.SetFoldingMarkers(@"Script\b", @"EndScript\b");
