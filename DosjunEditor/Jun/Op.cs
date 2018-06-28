@@ -64,5 +64,6 @@
         SetAttitude,
         GetAttitude,
         GotoXY,
+        InParty,
     }
 }
