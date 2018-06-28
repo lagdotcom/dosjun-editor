@@ -158,6 +158,7 @@
     <Compile Include="Jun\Cmd\Global.cs" />
     <Compile Include="Jun\Cmd\GotoXY.cs" />
     <Compile Include="Jun\Cmd\If.cs" />
+    <Compile Include="Jun\Cmd\InParty.cs" />
     <Compile Include="Jun\Cmd\JoinParty.cs" />
     <Compile Include="Jun\Cmd\LeaveParty.cs" />
     <Compile Include="Jun\Cmd\Local.cs" />
