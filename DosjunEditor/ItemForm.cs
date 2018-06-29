@@ -29,6 +29,9 @@ namespace DosjunEditor
 
             NameBox.Text = ctx.GetString(Item.NameId);
 
+            Globals.Populate(ImageBox, Context.Djn.Things);
+            ImageBox.SelectedItem = Globals.Resolve(Context, Item.ImageId);
+
             TypeBox.SelectedIndex = (int)Item.Type;
 
             ValueBox.Value = Item.Value;
@@ -50,6 +53,7 @@ namespace DosjunEditor
         public void Apply()
         {
             Item.NameId = Context.GetStringId(NameBox.Text, Item.NameId);
+            Item.ImageId = (ImageBox.SelectedValue as Resource).ID;
             Item.Type = (ItemType)TypeBox.SelectedIndex;
             Item.Value = (uint)ValueBox.Value;
             Item.Special = (ItemSpecial)SpecialBox.SelectedIndex;
@@ -103,6 +107,12 @@ namespace DosjunEditor
         private void CancelBtn_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void ImageBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Resource r = ImageBox.SelectedItem as Resource;
+            ImageShow.Image = r.ID == 0 ? null : (Context.Djn[r.ID] as Grf).Images[0].AsImage(Context.Djn.Palette);
         }
     }
 }

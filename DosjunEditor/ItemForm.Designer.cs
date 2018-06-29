@@ -50,10 +50,14 @@
             this.SArg1Box = new System.Windows.Forms.NumericUpDown();
             this.SArg2Box = new System.Windows.Forms.NumericUpDown();
             this.SArg2Label = new System.Windows.Forms.Label();
+            this.ImageBox = new System.Windows.Forms.ComboBox();
+            this.ImageShow = new DosjunEditor.InterpolatedBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.FlagsBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ValueBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SArg1Box)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SArg2Box)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ImageShow)).BeginInit();
             this.SuspendLayout();
             // 
             // StatsBoxes
@@ -285,11 +289,41 @@
             this.SArg2Label.TabIndex = 30;
             this.SArg2Label.Text = "Arg2";
             // 
+            // ImageBox
+            // 
+            this.ImageBox.FormattingEnabled = true;
+            this.ImageBox.Location = new System.Drawing.Point(75, 175);
+            this.ImageBox.Name = "ImageBox";
+            this.ImageBox.Size = new System.Drawing.Size(156, 21);
+            this.ImageBox.TabIndex = 109;
+            this.ImageBox.SelectedIndexChanged += new System.EventHandler(this.ImageBox_SelectedIndexChanged);
+            // 
+            // ImageShow
+            // 
+            this.ImageShow.Interpolation = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+            this.ImageShow.Location = new System.Drawing.Point(103, 202);
+            this.ImageShow.Name = "ImageShow";
+            this.ImageShow.Size = new System.Drawing.Size(128, 128);
+            this.ImageShow.TabIndex = 108;
+            this.ImageShow.TabStop = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 179);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(36, 13);
+            this.label1.TabIndex = 107;
+            this.label1.Text = "Image";
+            // 
             // ItemForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(788, 411);
+            this.Controls.Add(this.ImageBox);
+            this.Controls.Add(this.ImageShow);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.SArg2Box);
             this.Controls.Add(this.SArg2Label);
             this.Controls.Add(this.SArg1Box);
@@ -313,6 +347,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.ValueBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SArg1Box)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SArg2Box)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ImageShow)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -342,5 +377,8 @@
         private System.Windows.Forms.NumericUpDown SArg1Box;
         private System.Windows.Forms.NumericUpDown SArg2Box;
         private System.Windows.Forms.Label SArg2Label;
+        private System.Windows.Forms.ComboBox ImageBox;
+        private InterpolatedBox ImageShow;
+        private System.Windows.Forms.Label label1;
     }
 }

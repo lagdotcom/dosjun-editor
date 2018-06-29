@@ -4,7 +4,7 @@ namespace DosjunEditor
 {
     public class Item : IHasResource
     {
-        public const int Padding = 18;
+        public const int Padding = 16;
         public Resource Resource { get; set; }
 
         public Item(Resource r)
@@ -23,6 +23,7 @@ namespace DosjunEditor
             Special = (ItemSpecial)br.ReadByte();
             SpecialArg1 = br.ReadInt16();
             SpecialArg2 = br.ReadInt16();
+            ImageId = br.ReadUInt16();
             br.ReadBytes(Padding);
             Stats.Read(br);
         }
@@ -36,6 +37,7 @@ namespace DosjunEditor
             bw.Write((byte)Special);
             bw.Write(SpecialArg1);
             bw.Write(SpecialArg2);
+            bw.Write(ImageId);
             bw.WritePadding(Padding);
             Stats.Write(bw);
         }
@@ -47,6 +49,7 @@ namespace DosjunEditor
         public ItemSpecial Special { get; set; }
         public short SpecialArg1 { get; set; }
         public short SpecialArg2 { get; set; }
+        public ushort ImageId { get; set; }
         public Stats Stats { get; set; }
     }
 }
