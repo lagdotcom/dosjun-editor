@@ -53,7 +53,7 @@ namespace DosjunEditor
         public void Apply()
         {
             Item.NameId = Context.GetStringId(NameBox.Text, Item.NameId);
-            Item.ImageId = (ImageBox.SelectedValue as Resource).ID;
+            Item.ImageId = (ImageBox.SelectedItem as Resource).ID;
             Item.Type = (ItemType)TypeBox.SelectedIndex;
             Item.Value = (uint)ValueBox.Value;
             Item.Special = (ItemSpecial)SpecialBox.SelectedIndex;
