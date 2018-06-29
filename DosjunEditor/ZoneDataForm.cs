@@ -29,6 +29,7 @@ namespace DosjunEditor
             WidthBox.Text = Zone.Width.ToString();
             HeightBox.Text = Zone.Height.ToString();
             FloorBox.Value = Zone.Floor;
+            LocalBox.Value = Zone.LocalCount;
 
             Globals.Populate(EnterBox, Context.Djn.PublicScripts);
             EnterBox.SelectedItem = Globals.Resolve(Context, Zone.EnterScript);
@@ -41,6 +42,7 @@ namespace DosjunEditor
         {
             Zone.NameId = Context.GetStringId(NameBox.Text, Zone.NameId);
             Zone.Floor = (byte)FloorBox.Value;
+            Zone.LocalCount = (ushort)LocalBox.Value;
             Zone.EnterScript = (EnterBox.SelectedItem as Resource).ID;
             Zone.MoveScript = (MoveBox.SelectedItem as Resource).ID;
         }

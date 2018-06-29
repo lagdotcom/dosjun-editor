@@ -42,7 +42,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.FloorBox = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.LocalBox = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.FloorBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LocalBox)).BeginInit();
             this.SuspendLayout();
             // 
             // label2
@@ -170,11 +173,34 @@
             this.label6.TabIndex = 13;
             this.label6.Text = "Floor";
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(12, 148);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(79, 13);
+            this.label7.TabIndex = 15;
+            this.label7.Text = "Local Variables";
+            // 
+            // LocalBox
+            // 
+            this.LocalBox.Location = new System.Drawing.Point(126, 146);
+            this.LocalBox.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.LocalBox.Name = "LocalBox";
+            this.LocalBox.Size = new System.Drawing.Size(60, 20);
+            this.LocalBox.TabIndex = 14;
+            // 
             // ZoneDataForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.LocalBox);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.FloorBox);
             this.Controls.Add(this.button2);
@@ -192,6 +218,7 @@
             this.Name = "ZoneDataForm";
             this.Text = "Zone Data";
             ((System.ComponentModel.ISupportInitialize)(this.FloorBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LocalBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -212,5 +239,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown FloorBox;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.NumericUpDown LocalBox;
     }
 }
