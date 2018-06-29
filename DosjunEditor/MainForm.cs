@@ -388,7 +388,7 @@ namespace DosjunEditor
                             r.Write(bw);
                         }
 
-                        sw.WriteLine($"{resourceFilename}\nID: {r.Resource.ID}\nFlags: {r.Resource.Flags}\n");
+                        sw.WriteLine($"{resourceFilename}\nID: {r.Resource.ID}\nFlags: {r.Resource.Flags}\nSubtype: {r.Resource.Subtype}\n");
                     }
                 }
 
