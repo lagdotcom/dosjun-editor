@@ -18,6 +18,7 @@ namespace DosjunEditor
         public PCEditor()
         {
             InitializeComponent();
+
             XPBox.Maximum = uint.MaxValue;
 
             AttitudeBox.Minimum = short.MinValue;
@@ -86,7 +87,6 @@ namespace DosjunEditor
             PartyBox.Checked = PC.Flags.HasFlag(PCFlags.InParty);
             PortraitBox.SelectedItem = Globals.Resolve(ctx, PC.PortraitId);
             PronounsBox.SelectedIndex = (int)PC.Pronouns;
-            StatBoxes.Stats = PC.Stats;
             XPBox.Value = PC.Experience;
 
             for (int i = 0; i < Globals.NumJobs; i++)
@@ -97,6 +97,9 @@ namespace DosjunEditor
                 items[i].Context = ctx;
                 items[i].Item = PC.Items[i];
             }
+
+            StatsBoxes.Stats = PC.Stats;
+            StatsBoxes.UpdateFields();
         }
 
         private void CancelBtn_Click(object sender, EventArgs e)
@@ -118,7 +121,7 @@ namespace DosjunEditor
             PC.NameId = Context.GetStringId(NameBox.Text, PC.NameId);
             PC.PortraitId = (PortraitBox.SelectedItem as Resource).ID;
             PC.Pronouns = (Pronouns)PronounsBox.SelectedIndex;
-            StatBoxes.Apply();
+            StatsBoxes.Apply();
 
             for (int i = 0; i < Globals.NumJobs; i++)
                 PC.JobLevels[i] = (ushort)jobLevels[i].Value;

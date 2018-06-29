@@ -1,65 +1,71 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace DosjunEditor
 {
     public partial class StatsEditor : UserControl
     {
-        private Stats stats;
+        private Dictionary<Stat, Row> rows;
 
         public StatsEditor()
         {
             InitializeComponent();
-        }
 
-        public Stats Stats
-        {
-            get => stats;
-            set
+            rows = new Dictionary<Stat, Row>();
+            int i = 0;
+            foreach (Stat st in Enum.GetValues(typeof(Stat)))
             {
-                stats = value;
-                if (stats != null)
-                    UpdateFields();
+                rows.Add(st, new Row(TableLayout, i, st));
+                i++;
             }
         }
 
+        public Stats Stats { get; set; }
+
         public void Apply()
         {
-            stats.MaxHP = (short)MaxHPBox.Value;
-            stats.MaxMP = (short)MaxMPBox.Value;
-            stats.MinDamage = (short)MinDamageBox.Value;
-            stats.MaxDamage = (short)MaxDamageBox.Value;
-            stats.Armour = (short)ArmourBox.Value;
-            stats.Strength = (short)StrengthBox.Value;
-            stats.Dexterity = (short)DexterityBox.Value;
-            stats.Intelligence = (short)IntelligenceBox.Value;
-            stats.HP = (short)HPBox.Value;
-            stats.MP = (short)MPBox.Value;
-            stats.HitBonus = (short)HitBonusBox.Value;
-            stats.DodgeBonus = (short)DodgeBonusBox.Value;
-            stats.Toughness = (short)ToughnessBox.Value;
-            stats.Unused2 = (short)U2Box.Value;
-            stats.Unused3 = (short)U3Box.Value;
-            stats.Unused4 = (short)U4Box.Value;
+            foreach (Stat st in Enum.GetValues(typeof(Stat)))
+            {
+                Stats[st] = (short)rows[st].Box.Value;
+            }
         }
 
-        private void UpdateFields()
+        public void UpdateFields()
         {
-            MaxHPBox.Value = stats.MaxHP;
-            MaxMPBox.Value = stats.MaxMP;
-            MinDamageBox.Value = stats.MinDamage;
-            MaxDamageBox.Value = stats.MaxDamage;
-            ArmourBox.Value = stats.Armour;
-            StrengthBox.Value = stats.Strength;
-            DexterityBox.Value = stats.Dexterity;
-            IntelligenceBox.Value = stats.Intelligence;
-            HPBox.Value = stats.HP;
-            MPBox.Value = stats.MP;
-            HitBonusBox.Value = stats.HitBonus;
-            DodgeBonusBox.Value = stats.DodgeBonus;
-            ToughnessBox.Value = stats.Toughness;
-            U2Box.Value = stats.Unused2;
-            U3Box.Value = stats.Unused3;
-            U4Box.Value = stats.Unused4;
+            if (Stats == null) return;
+
+            foreach (Stat st in Enum.GetValues(typeof(Stat)))
+                rows[st].Box.Value = Stats[st];
+        }
+        
+        private class Row
+        {
+            public Label NameLabel;
+            public NumericUpDown Box;
+
+            public Row(TableLayoutPanel panel, int i, Stat st)
+            {
+                NameLabel = new Label
+                {
+                    Dock = DockStyle.Fill,
+                    Text = st.ToString(),
+                    TextAlign = ContentAlignment.MiddleLeft,
+                };
+
+                Box = new NumericUpDown
+                {
+                    Dock = DockStyle.Fill,
+                    Minimum = short.MinValue,
+                    Maximum = short.MaxValue,
+                };
+
+                panel.Controls.Add(NameLabel, 0, i);
+                panel.Controls.Add(Box, 1, i);
+            }
+
+            public short Value => (short)Box.Value;
         }
     }
 }

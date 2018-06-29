@@ -23,6 +23,9 @@ namespace DosjunEditor
         // Number of defined jobs in core
         public const int NumJobs = 10;
 
+        // Number of defined stats in core
+        public const int NumStats = 16;
+
         // Number of walls in each tile
         public const int NumWalls = 4;
 
@@ -39,7 +42,7 @@ namespace DosjunEditor
         public const string EmptyItem = "-";
 
         private static Resource NoResource = new Resource { ID = 0, Name = "(None)" };
-
+        
         public static void Populate(ComboBox box, IEnumerable<IHasResource> resources)
         {
             box.Items.Clear();
@@ -100,6 +103,23 @@ namespace DosjunEditor
                 case ResourceType.Zone: return r.Resource.Name + ".ZON";
 
                 default: return r.Resource.Name;
+            }
+        }
+
+        public static int GetBase(Stats parent, Stat st)
+        {
+            switch (st)
+            {
+                case Stat.Toughness:
+                    return parent[Stat.Strength] / 3;
+
+                case Stat.MinDamage:
+                    return parent[Stat.Strength] / 5;
+
+                case Stat.MaxDamage:
+                    return parent[Stat.Strength] / 4;
+
+                default: return 0;
             }
         }
     }

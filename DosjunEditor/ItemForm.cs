@@ -41,6 +41,7 @@ namespace DosjunEditor
             SArg2Box.Value = Item.SpecialArg2;
 
             StatsBoxes.Stats = Item.Stats;
+            StatsBoxes.UpdateFields();
 
             LightFlag.Checked = Item.Flags.HasFlag(ItemFlags.Light);
             HeavyFlag.Checked = Item.Flags.HasFlag(ItemFlags.Heavy);

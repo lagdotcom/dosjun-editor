@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.StatBoxes = new DosjunEditor.StatsEditor();
+            this.StatsBoxes = new DosjunEditor.StatsEditor();
             this.NameBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.CancelBtn = new System.Windows.Forms.Button();
@@ -55,11 +55,11 @@
             // 
             // StatBoxes
             // 
-            this.StatBoxes.Location = new System.Drawing.Point(301, 8);
-            this.StatBoxes.Name = "StatBoxes";
-            this.StatBoxes.Size = new System.Drawing.Size(258, 405);
-            this.StatBoxes.Stats = null;
-            this.StatBoxes.TabIndex = 0;
+            this.StatsBoxes.Location = new System.Drawing.Point(301, 8);
+            this.StatsBoxes.Name = "StatBoxes";
+            this.StatsBoxes.Size = new System.Drawing.Size(258, 405);
+            this.StatsBoxes.Stats = null;
+            this.StatsBoxes.TabIndex = 0;
             // 
             // NameBox
             // 
@@ -257,7 +257,7 @@
             this.Controls.Add(this.OKBtn);
             this.Controls.Add(this.NameBox);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.StatBoxes);
+            this.Controls.Add(this.StatsBoxes);
             this.Name = "PCEditor";
             this.Text = "PC Editor";
             ((System.ComponentModel.ISupportInitialize)(this.XPBox)).EndInit();
@@ -270,7 +270,7 @@
 
         #endregion
 
-        private StatsEditor StatBoxes;
+        private StatsEditor StatsBoxes;
         private System.Windows.Forms.TextBox NameBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button CancelBtn;

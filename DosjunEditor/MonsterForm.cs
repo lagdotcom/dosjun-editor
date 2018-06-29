@@ -39,6 +39,8 @@ namespace DosjunEditor
             SkillsList.SelectedIndices.Clear();
             foreach (short sk in Monster.Skills)
                 SkillsList.SelectedIndices.Add(sk);
+
+            StatsBoxes.UpdateFields();
         }
 
         public void Apply()

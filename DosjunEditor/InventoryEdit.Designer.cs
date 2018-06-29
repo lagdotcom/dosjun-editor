@@ -50,6 +50,7 @@
             this.SlotBox.Name = "SlotBox";
             this.SlotBox.Size = new System.Drawing.Size(94, 21);
             this.SlotBox.TabIndex = 1;
+            this.SlotBox.SelectedIndexChanged += new System.EventHandler(this.SlotBox_SelectedIndexChanged);
             // 
             // QtyBox
             // 

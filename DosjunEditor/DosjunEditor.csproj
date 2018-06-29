@@ -72,6 +72,7 @@
     <Compile Include="Data\DjnContainer.cs" />
     <Compile Include="Data\Enum\DjnFlags.cs" />
     <Compile Include="Data\Encounter.cs" />
+    <Compile Include="Data\Enum\Stat.cs" />
     <Compile Include="Data\NPC.cs" />
     <Compile Include="EncounterForm.cs">
       <SubType>Form</SubType>

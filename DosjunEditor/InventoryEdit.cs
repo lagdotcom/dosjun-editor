@@ -42,6 +42,22 @@ namespace DosjunEditor
                 LoadItem();
             }
         }
+        
+        public Item EquippedItem
+        {
+            get
+            {
+                if (ItemBox.SelectedItem == null) return null;
+                if (SlotBox.SelectedIndex == 0) return null;
+
+                Resource res = ItemBox.SelectedItem as Resource;
+                if (res.ID == 0) return null;
+
+                return context.Djn[res.ID] as Item;
+            }
+        }
+
+        public event EventHandler Changed;
 
         public void Apply()
         {
@@ -89,9 +105,7 @@ namespace DosjunEditor
             }
             else
             {
-                Item i = Context.Djn[itemId] as Item;
-
-                if (i != null)
+                if (Context.Djn[itemId] is Item i)
                 {
                     QtyBox.Minimum = 1;
                     QtyBox.Maximum = i.Flags.HasFlag(ItemFlags.Stacked) ? 255 : 1;
@@ -111,6 +125,12 @@ namespace DosjunEditor
         private void ItemBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateQtyBounds((ItemBox.SelectedItem as Resource).ID);
+            Changed?.Invoke(this, null);
+        }
+
+        private void SlotBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Changed?.Invoke(this, null);
         }
     }
 }
