@@ -41,6 +41,19 @@ namespace DosjunEditor
         // Used for empty items in combo boxes
         public const string EmptyItem = "-";
 
+        public static Dictionary<Skill, string> SkillSource = new Dictionary<Skill, string>
+        {
+            { Skill.Concentrate, "Fighter" },
+            { Skill.Cleave, "Fighter 2" },
+
+            { Skill.Sing, "Bard" },
+            { Skill.Reverberation, "Bard 4" },
+
+            { Skill.Hide, "Rogue" },
+            { Skill.Bludgeon, "Rogue 2" },
+            { Skill.Venom, "Rogue 2" },
+        };
+
         private static Resource NoResource = new Resource { ID = 0, Name = "(None)" };
         
         public static void Populate(ComboBox box, IEnumerable<IHasResource> resources)

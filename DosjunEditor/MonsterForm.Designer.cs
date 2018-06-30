@@ -41,9 +41,9 @@
             this.XPBox = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
             this.SkillsBox = new System.Windows.Forms.GroupBox();
-            this.SkillsList = new System.Windows.Forms.ListBox();
             this.ImageBox = new System.Windows.Forms.ComboBox();
             this.StatsBoxes = new DosjunEditor.StatsEditor();
+            this.SkillsList = new DosjunEditor.SkillsEditor();
             ((System.ComponentModel.ISupportInitialize)(this.ImageShow)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.XPBox)).BeginInit();
             this.SkillsBox.SuspendLayout();
@@ -168,20 +168,10 @@
             this.SkillsBox.Controls.Add(this.SkillsList);
             this.SkillsBox.Location = new System.Drawing.Point(565, 8);
             this.SkillsBox.Name = "SkillsBox";
-            this.SkillsBox.Size = new System.Drawing.Size(157, 405);
+            this.SkillsBox.Size = new System.Drawing.Size(200, 405);
             this.SkillsBox.TabIndex = 105;
             this.SkillsBox.TabStop = false;
             this.SkillsBox.Text = "Skills";
-            // 
-            // SkillsList
-            // 
-            this.SkillsList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SkillsList.FormattingEnabled = true;
-            this.SkillsList.Location = new System.Drawing.Point(3, 16);
-            this.SkillsList.Name = "SkillsList";
-            this.SkillsList.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.SkillsList.Size = new System.Drawing.Size(151, 386);
-            this.SkillsList.TabIndex = 0;
             // 
             // ImageBox
             // 
@@ -200,11 +190,19 @@
             this.StatsBoxes.Stats = null;
             this.StatsBoxes.TabIndex = 6;
             // 
+            // SkillsList
+            // 
+            this.SkillsList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SkillsList.Location = new System.Drawing.Point(3, 16);
+            this.SkillsList.Name = "SkillsList";
+            this.SkillsList.Size = new System.Drawing.Size(194, 386);
+            this.SkillsList.TabIndex = 0;
+            // 
             // MonsterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(734, 425);
+            this.ClientSize = new System.Drawing.Size(779, 425);
             this.Controls.Add(this.ImageBox);
             this.Controls.Add(this.SkillsBox);
             this.Controls.Add(this.XPBox);
@@ -245,7 +243,7 @@
         private System.Windows.Forms.NumericUpDown XPBox;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.GroupBox SkillsBox;
-        private System.Windows.Forms.ListBox SkillsList;
         private System.Windows.Forms.ComboBox ImageBox;
+        private SkillsEditor SkillsList;
     }
 }

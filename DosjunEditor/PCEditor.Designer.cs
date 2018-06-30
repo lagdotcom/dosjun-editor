@@ -48,15 +48,18 @@
             this.InventoryBox = new System.Windows.Forms.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
             this.AttitudeBox = new System.Windows.Forms.NumericUpDown();
+            this.SkillsBox = new System.Windows.Forms.GroupBox();
+            this.SkillsList = new DosjunEditor.SkillsEditor();
             ((System.ComponentModel.ISupportInitialize)(this.XPBox)).BeginInit();
             this.JobGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AttitudeBox)).BeginInit();
+            this.SkillsBox.SuspendLayout();
             this.SuspendLayout();
             // 
-            // StatBoxes
+            // StatsBoxes
             // 
             this.StatsBoxes.Location = new System.Drawing.Point(301, 8);
-            this.StatsBoxes.Name = "StatBoxes";
+            this.StatsBoxes.Name = "StatsBoxes";
             this.StatsBoxes.Size = new System.Drawing.Size(258, 405);
             this.StatsBoxes.Stats = null;
             this.StatsBoxes.TabIndex = 0;
@@ -234,11 +237,30 @@
             this.AttitudeBox.Size = new System.Drawing.Size(120, 20);
             this.AttitudeBox.TabIndex = 116;
             // 
+            // SkillsBox
+            // 
+            this.SkillsBox.Controls.Add(this.SkillsList);
+            this.SkillsBox.Location = new System.Drawing.Point(851, 8);
+            this.SkillsBox.Name = "SkillsBox";
+            this.SkillsBox.Size = new System.Drawing.Size(200, 405);
+            this.SkillsBox.TabIndex = 118;
+            this.SkillsBox.TabStop = false;
+            this.SkillsBox.Text = "Skills";
+            // 
+            // SkillsList
+            // 
+            this.SkillsList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SkillsList.Location = new System.Drawing.Point(3, 16);
+            this.SkillsList.Name = "SkillsList";
+            this.SkillsList.Size = new System.Drawing.Size(194, 386);
+            this.SkillsList.TabIndex = 0;
+            // 
             // PCEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(857, 561);
+            this.ClientSize = new System.Drawing.Size(1067, 561);
+            this.Controls.Add(this.SkillsBox);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.AttitudeBox);
             this.Controls.Add(this.InventoryBox);
@@ -263,6 +285,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.XPBox)).EndInit();
             this.JobGroup.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.AttitudeBox)).EndInit();
+            this.SkillsBox.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -290,5 +313,7 @@
         private System.Windows.Forms.GroupBox InventoryBox;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.NumericUpDown AttitudeBox;
+        private System.Windows.Forms.GroupBox SkillsBox;
+        private SkillsEditor SkillsList;
     }
 }

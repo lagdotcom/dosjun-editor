@@ -249,6 +249,12 @@
     <Compile Include="Data\CompiledScript.cs" />
     <Compile Include="Data\ScriptSource.cs" />
     <Compile Include="Data\Enum\Skill.cs" />
+    <Compile Include="SkillsEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SkillsEditor.Designer.cs">
+      <DependentUpon>SkillsEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="SourceEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -372,6 +378,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="SkillsEditor.resx">
+      <DependentUpon>SkillsEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SourceEditor.resx">
       <DependentUpon>SourceEditor.cs</DependentUpon>
     </EmbeddedResource>

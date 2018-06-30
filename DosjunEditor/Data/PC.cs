@@ -91,8 +91,8 @@ namespace DosjunEditor
         public PCFlags Flags { get; set; }
         public uint Experience { get; set; }
         public short Attitude { get; set; }
-        public List<short> Skills { get; private set; }
-        public List<Buff> Buffs { get; private set; }
+        public List<short> Skills { get; set; }
+        public List<Buff> Buffs { get; set; }
         public string Name { get; set; }
     }
 }

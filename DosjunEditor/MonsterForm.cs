@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace DosjunEditor
@@ -11,9 +12,6 @@ namespace DosjunEditor
 
             foreach (string name in Tools.GetEnumNames<AI>())
                 AIBox.Items.Add(name);
-
-            foreach (string name in Tools.GetEnumNames<Skill>())
-                SkillsList.Items.Add(name);
         }
 
         public Context Context { get; private set; }
@@ -36,9 +34,7 @@ namespace DosjunEditor
             XPBox.Value = Monster.Experience;
             StatsBoxes.Stats = Monster.Stats;
 
-            SkillsList.SelectedIndices.Clear();
-            foreach (short sk in Monster.Skills)
-                SkillsList.SelectedIndices.Add(sk);
+            SkillsList.Values = Monster.Skills;
 
             StatsBoxes.UpdateFields();
         }
@@ -52,9 +48,7 @@ namespace DosjunEditor
             Monster.Experience = (uint)XPBox.Value;
             StatsBoxes.Apply();
 
-            Monster.Skills.Clear();
-            foreach (int sk in SkillsList.SelectedIndices)
-                Monster.Skills.Add((short)sk);
+            Monster.Skills = SkillsList.Values.ToList();
 
             Saved?.Invoke(this, null);
         }

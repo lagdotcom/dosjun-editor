@@ -54,7 +54,7 @@ namespace DosjunEditor
             return null;
         }
 
-        private static string FormatEnumName(string name, char replacement = ' ')
+        public static string FormatEnumName(string name, char replacement = ' ')
         {
             string formatted = name.Replace('_', replacement);
 

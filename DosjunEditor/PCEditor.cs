@@ -98,6 +98,8 @@ namespace DosjunEditor
                 items[i].Item = PC.Items[i];
             }
 
+            SkillsList.Values = PC.Skills;
+
             StatsBoxes.Stats = PC.Stats;
             StatsBoxes.UpdateFields();
         }
@@ -128,6 +130,8 @@ namespace DosjunEditor
 
             for (int i = 0; i < Globals.InventorySize; i++)
                 items[i].Apply();
+
+            PC.Skills = SkillsList.Values.ToList();
 
             Saved?.Invoke(this, null);
             Context.UnsavedChanges = true;
