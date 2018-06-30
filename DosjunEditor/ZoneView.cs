@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace DosjunEditor
@@ -91,6 +92,8 @@ namespace DosjunEditor
                 return;
             }
 
+            int q = tileSize / 4;
+            int ei = q / 2;
             for (int y = 0; y < Zone.Tiles.Height; y++)
             {
                 for (int x = 0; x < Zone.Tiles.Width; x++)
@@ -113,13 +116,16 @@ namespace DosjunEditor
                     DrawSide(e.Graphics, t.Walls[3], Direction.West, ox, oy);
 
                     if (t.OnEnterId > 0)
-                        e.Graphics.FillRectangle(Brushes.Yellow, ex - 6, ey - 6, 4, 4);
+                        e.Graphics.FillRectangle(Brushes.Yellow, ox + ei, oy + ei, q, q);
 
                     if (t.OnUseId > 0)
-                        e.Graphics.FillRectangle(Brushes.Red, ex - 6, ey - 10, 4, 4);
+                        e.Graphics.FillRectangle(Brushes.Red, ox + ei, ey - q - ei, q, q);
 
                     if (t.Thing > 0)
-                        DrawThing(e.Graphics, t.Thing, ox, oy, ex, ey);
+                        e.Graphics.FillRectangle(Brushes.Green, ex - q - ei, ey - q - ei, q, q);
+
+                    if (Zone.Items.Any(p => p.X == x && p.Y == y))
+                        e.Graphics.FillRectangle(Brushes.Cyan, ex - q - ei, oy + ei, q, q);
                 }
             }
         }
@@ -220,15 +226,6 @@ namespace DosjunEditor
 
                     break;
             }
-        }
-
-        private void DrawThing(Graphics g, ushort id, int ox, int oy, int ex, int ey)
-        {
-            // TODO
-            return;
-
-            float mx = ox + (ex - ox) / 2f;
-            float my = oy + (ey - oy) / 2f;
         }
 
         private void ZoneView_MouseClick(object sender, MouseEventArgs e)
