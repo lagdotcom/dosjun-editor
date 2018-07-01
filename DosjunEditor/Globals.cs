@@ -45,8 +45,8 @@ namespace DosjunEditor
         {
             { Skill.Concentrate, "Fighter" },
             { Skill._F1b, "Fighter" },
+            { Skill.Inspire, "Fighter 2" },
             { Skill.Cleave, "Fighter 2" },
-            { Skill._F2b, "Fighter 2" },
             { Skill._F3a, "Fighter 3" },
             { Skill._F3b, "Fighter 3" },
             { Skill._F4a, "Fighter 4" },

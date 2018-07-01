@@ -4,8 +4,8 @@
     {
         Concentrate,
         _F1b,
+        Inspire,
         Cleave,
-        _F2b,
         _F3a,
         _F3b,
         _F4a,
