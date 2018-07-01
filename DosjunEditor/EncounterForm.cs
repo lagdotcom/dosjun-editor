@@ -92,7 +92,7 @@ namespace DosjunEditor
             private void MonsterBox_SelectedIndexChanged(object sender, EventArgs e)
             {
                 if (!updating)
-                    MonsterId = (MonsterBox.SelectedItem as Monster).Resource.ID;
+                    MonsterId = (MonsterBox.SelectedItem as Resource).ID;
             }
 
             public EncounterForm Parent { get; private set; }
