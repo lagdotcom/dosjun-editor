@@ -54,8 +54,8 @@ namespace DosjunEditor
         private void Add(Skill sk)
         {
             View.Items.Add(new ListViewItem(new string[]{
-                Tools.FormatEnumName(sk.ToString()),
-                Globals.SkillSource[sk]
+                Tools.FormatEnumName(sk.ToString(), '?'),
+                Globals.SkillSource.ContainsKey(sk) ? Globals.SkillSource[sk] : "?",
             })
             { Tag = sk });
         }
