@@ -125,15 +125,27 @@ namespace DosjunEditor.Jun
                         break;
                 }
 
-                if (!CheckType(spec.Type, t))
-                    throw new ArgumentTypeException($"{cmd.Name} argument '{spec.Name}' expected {spec.Type}, got {t}");
                 args[spec.Name] = t;
             }
 
             if (Peek().Type != endOfList)
                 throw new ArgumentCountException($"Too many arguments for {cmd.Name}");
 
+            CheckArguments(cmd, args);
             return args;
+        }
+
+        public bool CheckArguments(ICmd cmd, Dictionary<string, Token> args)
+        {
+            foreach (Argument spec in cmd.Args)
+            {
+                Token t = args[spec.Name];
+
+                if (!CheckType(spec.Type, t))
+                    throw new ArgumentTypeException($"{cmd.Name} argument '{spec.Name}' expected {spec.Type}, got {t}");
+            }
+
+            return true;
         }
 
         public bool CheckType(ArgumentType ty, Token t)
@@ -470,60 +482,8 @@ namespace DosjunEditor.Jun
         
         public void EmitExpression(IEnumerable<Token> tokens)
         {
-            Stack<Token> operators = new Stack<Token>();
-            int topPrecedence;
-
-            // convert Infix to Postfix
-            foreach (Token tok in tokens)
-            {
-                switch (tok.Type)
-                {
-                    case TokenType.LeftParens:
-                        operators.Push(tok);
-                        break;
-
-                    case TokenType.RightParens:
-                        while (true)
-                        {
-                            if (operators.Count == 0)
-                                throw new ParseException("Right parenthesis without left");
-
-                            Token important = operators.Pop();
-                            if (important.Type == TokenType.LeftParens) break;
-                            else EmitOperator(important);
-                        }
-                        break;
-
-                    case TokenType.Add:
-                    case TokenType.And:
-                    case TokenType.Divide:
-                    case TokenType.Equals:
-                    case TokenType.GT:
-                    case TokenType.GTE:
-                    case TokenType.LT:
-                    case TokenType.LTE:
-                    case TokenType.Multiply:
-                    case TokenType.NotEqual:
-                    case TokenType.Or:
-                    case TokenType.Subtract:
-                        topPrecedence = operators.Count > 0 ? Env.Precedence[operators.Peek().Type] : 100;
-                        if (topPrecedence < Env.Precedence[tok.Type])
-                        {
-                            Token important = operators.Pop();
-                            EmitOperator(important);
-                        }
-
-                        operators.Push(tok);
-                        break;
-
-                    default:
-                        EmitArgument(tok);
-                        break;
-                }
-            }
-
-            while (operators.Count > 0)
-                EmitOperator(operators.Pop());
+            Evaluator vu = new Evaluator(this);
+            vu.Evaluate(tokens);
         }
 
         public void EmitUnknown()

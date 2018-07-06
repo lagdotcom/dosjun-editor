@@ -26,6 +26,9 @@ namespace DosjunEditor.Jun
             ["/"] = TokenType.Divide,
             ["&"] = TokenType.And,
             ["|"] = TokenType.Or,
+            ["!"] = TokenType.Invert,
+            ["("] = TokenType.ArgumentListBegin,
+            [")"] = TokenType.ArgumentListEnd,
         };
 
         public static Dictionary<TokenType, Op> Comparators = new Dictionary<TokenType, Op>
@@ -36,6 +39,7 @@ namespace DosjunEditor.Jun
             [TokenType.Equals] = Op.EQ,
             [TokenType.GT] = Op.GT,
             [TokenType.GTE] = Op.GTE,
+            [TokenType.Invert] = Op.Invert,
             [TokenType.LT] = Op.LT,
             [TokenType.LTE] = Op.LTE,
             [TokenType.Multiply] = Op.Mul,
@@ -58,6 +62,7 @@ namespace DosjunEditor.Jun
             [TokenType.NotEqual] = 7,
             [TokenType.And] = 8,
             [TokenType.Or] = 10,
+            [TokenType.Invert] = 90,
             [TokenType.LeftParens] = 100,
         };
 

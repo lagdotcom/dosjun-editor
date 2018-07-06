@@ -20,6 +20,7 @@
         Div,
         And,
         Or,
+        Invert,
 
         EQ = 0x40,
         NEQ,

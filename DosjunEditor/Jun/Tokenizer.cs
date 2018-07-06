@@ -12,6 +12,7 @@ namespace DosjunEditor.Jun
         private Dictionary<LexerState, TokenizerCallback> stateMachine;
         private bool endOfLine;
         private string currentToken;
+        private LexerState afterWord;
 
         public Tokenizer(DosjunEditor.Context ctx)
         {
@@ -28,6 +29,7 @@ namespace DosjunEditor.Jun
                 [LexerState.StringEscape] = StateStringEscape,
                 [LexerState.Internal] = StateInternal,
                 [LexerState.Reference] = StateReference,
+                [LexerState.ArgumentList] = StateArgumentList,
             };
         }
 
@@ -47,6 +49,8 @@ namespace DosjunEditor.Jun
 
         public void Tokenize(IEnumerable<string> lines)
         {
+            afterWord = LexerState.None;
+
             Line = 0;
             foreach (string line in lines)
             {
@@ -327,14 +331,20 @@ namespace DosjunEditor.Jun
 
                 case LexerState.Whitespace:
                     AddKeywordToken();
-                    return LexerState.None;
+                    return afterWord;
 
                 case LexerState.Separator:
                 case LexerState.Operator:
                 case LexerState.RightParens:
                     AddKeywordToken();
                     Rewind();
-                    return LexerState.None;
+                    return afterWord;
+
+                case LexerState.LeftParens:
+                    AddKeywordToken();
+                    Append(ch);
+                    AddOperatorToken();
+                    return LexerState.ArgumentList;
 
                 default: throw new TokenizationException($"Invalid transition: {State} => {guess}");
             }
@@ -356,11 +366,11 @@ namespace DosjunEditor.Jun
                 case LexerState.LeftParens:
                     Rewind();
                     AddOperatorToken();
-                    return LexerState.None;
+                    return afterWord;
 
                 case LexerState.Whitespace:
                     AddOperatorToken();
-                    return LexerState.None;
+                    return afterWord;
 
                 default: throw new TokenizationException($"Invalid transition: {State} => {guess}");
             }
@@ -381,14 +391,14 @@ namespace DosjunEditor.Jun
 
                 case LexerState.Whitespace:
                     AddToken(TokenType.Number);
-                    return LexerState.None;
+                    return afterWord;
 
                 case LexerState.Separator:
                 case LexerState.Operator:
                 case LexerState.RightParens:
-                    Rewind();
                     AddToken(TokenType.Number);
-                    return LexerState.None;
+                    Rewind();
+                    return afterWord;
 
                 default: throw new TokenizationException($"Invalid transition: {State} => {guess}");
             }
@@ -404,11 +414,11 @@ namespace DosjunEditor.Jun
                 case LexerState.String:
                     AddToken(TokenType.Separator, ",");
                     Rewind();
-                    return LexerState.None;
+                    return afterWord;
 
                 case LexerState.Whitespace:
                     AddToken(TokenType.Separator, ",");
-                    return LexerState.None;
+                    return afterWord;
 
                 default: throw new TokenizationException($"Invalid transition: {State} => {guess}");
             }
@@ -422,7 +432,7 @@ namespace DosjunEditor.Jun
 
                 case '"':
                     AddToken(TokenType.String);
-                    return LexerState.None;
+                    return afterWord;
 
                 default:
                     if (guess == LexerState.EndOfLine)
@@ -459,7 +469,7 @@ namespace DosjunEditor.Jun
 
                 case LexerState.Whitespace:
                     AddToken(TokenType.Internal);
-                    return LexerState.None;
+                    return afterWord;
 
                 case LexerState.EndOfLine:
                 case LexerState.CommentStart:
@@ -468,9 +478,10 @@ namespace DosjunEditor.Jun
 
                 case LexerState.Operator:
                 case LexerState.Separator:
+                case LexerState.RightParens:
                     AddToken(TokenType.Internal);
                     Rewind();
-                    return LexerState.None;
+                    return afterWord;
 
                 default: throw new TokenizationException($"Invalid character in internal: {ch}");
             }
@@ -487,7 +498,7 @@ namespace DosjunEditor.Jun
 
                 case LexerState.Whitespace:
                     AddToken(TokenType.Reference);
-                    return LexerState.None;
+                    return afterWord;
 
                 case LexerState.EndOfLine:
                 case LexerState.CommentStart:
@@ -496,11 +507,41 @@ namespace DosjunEditor.Jun
 
                 case LexerState.Operator:
                 case LexerState.Separator:
+                case LexerState.RightParens:
                     AddToken(TokenType.Reference);
                     Rewind();
-                    return LexerState.None;
+                    return afterWord;
 
                 default: throw new TokenizationException($"Invalid character in reference: {ch}");
+            }
+        }
+
+        private LexerState StateArgumentList(char ch, LexerState guess)
+        {
+            afterWord = LexerState.ArgumentList;
+
+            switch (guess)
+            {
+                case LexerState.KeywordOrIdent:
+                case LexerState.Number:
+                case LexerState.Operator:
+                case LexerState.Separator:
+                    Append(ch);
+                    return guess;
+
+                case LexerState.Reference:
+                    return guess;
+
+                case LexerState.Whitespace:
+                    return State;
+
+                case LexerState.RightParens:
+                    Append(ch);
+                    AddOperatorToken();
+                    afterWord = LexerState.None;
+                    return afterWord;
+
+                default: throw new TokenizationException($"Invalid character in argument list: {ch}");
             }
         }
     }

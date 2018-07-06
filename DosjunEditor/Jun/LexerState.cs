@@ -16,6 +16,7 @@
 
         LeftParens,
         RightParens,
+        ArgumentList,
 
         Reference,
     }

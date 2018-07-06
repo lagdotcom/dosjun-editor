@@ -31,7 +31,10 @@
 
         LeftParens,
         RightParens,
+        ArgumentListBegin,
+        ArgumentListEnd,
 
         Reference,
+        Invert,
     }
 }
