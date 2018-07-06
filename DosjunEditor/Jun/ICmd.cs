@@ -1,4 +1,6 @@
-﻿namespace DosjunEditor.Jun
+﻿using System.Collections.Generic;
+
+namespace DosjunEditor.Jun
 {
     public interface ICmd
     {
@@ -6,7 +8,9 @@
         bool IsScript { get; }
         string Name { get; }
         Op Op { get; }
+        Argument[] Args { get; }
+        Argument Returns { get; }
 
-        void Apply(Parser p);
+        void Apply(Parser p, Dictionary<string, Token> arguments);
     }
 }

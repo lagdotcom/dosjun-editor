@@ -1,7 +1,7 @@
-﻿using System;
+﻿using DosjunEditor.Jun.Ex;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 
 namespace DosjunEditor.Jun
 {
@@ -66,7 +66,7 @@ namespace DosjunEditor.Jun
                     State = stateMachine[State](ch, guess);
 
                     if (!stateMachine.ContainsKey(State))
-                        throw Error($"Unknown tokenizer state: {State}");
+                        throw new TokenizationException($"Unknown tokenizer state: {State}");
                 }
 
                 // process end of line in case something is missing
@@ -80,11 +80,11 @@ namespace DosjunEditor.Jun
 
                     Tokenizer jt = new Tokenizer(Context);
                     if (filename.Type != TokenType.String)
-                        throw Error("Can only Include a (filename) string");
+                        throw new ArgumentTypeException("Can only Include a (filename) string");
 
                     ScriptSource include = Context.Djn.FindByName<ScriptSource>(filename.Value);
                     if (include == null)
-                        throw Error($"Unknown Source resource: {filename.Value}");
+                        throw new MissingResourceException($"Unknown Source resource: {filename.Value}");
 
                     jt.Tokenize(include.Source.Split('\n'));
                     Tokens.AddRange(jt.Tokens);
@@ -215,11 +215,6 @@ namespace DosjunEditor.Jun
             return ch;
         }
 
-        protected Exception Error(string message)
-        {
-            return new CodeException($"{message}\nline {Line}, column {Column}");
-        }
-
         protected void Append(char ch)
         {
             currentToken += ch;
@@ -239,7 +234,9 @@ namespace DosjunEditor.Jun
         protected void AddOperatorToken()
         {
             TokenType tt = OperatorType();
-            if (tt == TokenType.Unknown) throw Error($"Unknown operator: {currentToken}");
+            if (tt == TokenType.Unknown)
+                throw new TokenizationException($"Unknown operator: {currentToken}");
+
             AddToken(tt);
         }
 
@@ -310,7 +307,7 @@ namespace DosjunEditor.Jun
                 case LexerState.Whitespace:
                     return State;
 
-                default: throw Error($"Invalid transition: {State} => {guess}");
+                default: throw new TokenizationException($"Invalid transition: {State} => {guess}");
             }
         }
 
@@ -339,7 +336,7 @@ namespace DosjunEditor.Jun
                     Rewind();
                     return LexerState.None;
 
-                default: throw Error($"Invalid transition: {State} => {guess}");
+                default: throw new TokenizationException($"Invalid transition: {State} => {guess}");
             }
         }
 
@@ -365,7 +362,7 @@ namespace DosjunEditor.Jun
                     AddOperatorToken();
                     return LexerState.None;
 
-                default: throw Error($"Invalid transition: {State} => {guess}");
+                default: throw new TokenizationException($"Invalid transition: {State} => {guess}");
             }
         }
 
@@ -393,7 +390,7 @@ namespace DosjunEditor.Jun
                     AddToken(TokenType.Number);
                     return LexerState.None;
 
-                default: throw Error($"Invalid transition: {State} => {guess}");
+                default: throw new TokenizationException($"Invalid transition: {State} => {guess}");
             }
         }
 
@@ -413,7 +410,7 @@ namespace DosjunEditor.Jun
                     AddToken(TokenType.Separator, ",");
                     return LexerState.None;
 
-                default: throw Error($"Invalid transition: {State} => {guess}");
+                default: throw new TokenizationException($"Invalid transition: {State} => {guess}");
             }
         }
 
@@ -429,7 +426,7 @@ namespace DosjunEditor.Jun
 
                 default:
                     if (guess == LexerState.EndOfLine)
-                        throw Error("EOL during string literal");
+                        throw new TokenizationException("EOL during string literal");
                     Append(ch);
                     return State;
             }
@@ -445,7 +442,7 @@ namespace DosjunEditor.Jun
 
                 default:
                     if (guess == LexerState.EndOfLine)
-                        throw Error("EOL during string literal");
+                        throw new TokenizationException("EOL during string literal");
                     Append(ch);
                     return LexerState.String;
             }
@@ -475,7 +472,7 @@ namespace DosjunEditor.Jun
                     Rewind();
                     return LexerState.None;
 
-                default: throw Error($"Invalid character in internal: {ch}");
+                default: throw new TokenizationException($"Invalid character in internal: {ch}");
             }
         }
 
@@ -503,7 +500,7 @@ namespace DosjunEditor.Jun
                     Rewind();
                     return LexerState.None;
 
-                default: throw Error($"Invalid character in reference: {ch}");
+                default: throw new TokenizationException($"Invalid character in reference: {ch}");
             }
         }
     }

@@ -1,20 +1,26 @@
-﻿namespace DosjunEditor.Jun.Cmd
+﻿using System.Collections.Generic;
+
+namespace DosjunEditor.Jun.Cmd
 {
     class Const : ICmd
     {
+        private readonly Argument[] args = new Argument[]
+        {
+            new Argument("Identifier", ArgumentType.Identifier),
+            new Argument("Equals", ArgumentType.Equals),
+            new Argument("Value", ArgumentType.Number),
+        };
+
         public bool IsGlobal => true;
         public bool IsScript => false;
         public string Name => nameof(Const);
+        public Argument[] Args => args;
+        public Argument Returns => Argument.Null;
         public Op Op => Op.NOP;
 
-        public void Apply(Parser p)
+        public void Apply(Parser p, Dictionary<string, Token> a)
         {
-            p.Consume();
-            Token identifier = p.Consume(TokenType.Identifier);
-            p.Consume(TokenType.Assignment);
-            Token value = p.Consume(TokenType.Number);
-
-            p.AddConstant(identifier.Value, value.Value);
+            p.AddConstant(a["Identifier"].Value, a["Value"].Value);
         }
     }
 }

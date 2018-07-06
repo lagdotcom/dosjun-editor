@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DosjunEditor.Jun.Ex;
 
 namespace DosjunEditor.Jun
 {
@@ -35,6 +36,8 @@ namespace DosjunEditor.Jun
             InScript = false;
             Tokens = tokens;
             Index = 0;
+            LineNumber = 0;
+            LastToken = null;
 
             while (Index < Tokens.Count)
             {
@@ -52,10 +55,11 @@ namespace DosjunEditor.Jun
                     // Ignore EOL tokens entirely
                     case TokenType.EOL:
                         Consume();
+                        LineNumber++;
                         break;
 
                     default:
-                        throw Error($"Cannot start line with {tok}");
+                        throw new ParseException($"Cannot start line with {tok}");
                 }
             }
         }
@@ -65,21 +69,17 @@ namespace DosjunEditor.Jun
             string top = Peek().Value;
 
             if (!Env.Commands.ContainsKey(top))
-                throw Error($"Unknown keyword: {top}");
+                throw new MissingDefinitionException($"Unknown keyword: {top}");
 
             ICmd cmd = Env.Commands[top];
             if (!InScript && !cmd.IsGlobal)
-                throw Error($"Cannot execute {top} in global context");
+                throw new ScopeException($"Cannot execute {top} in global context");
 
             if (InScript && !cmd.IsScript)
-                throw Error($"Cannot execute {top} in script context");
+                throw new ScopeException($"Cannot execute {top} in script context");
 
-            cmd.Apply(this);
-        }
-
-        public Exception Error(string message)
-        {
-            return new CodeException($"{message}");
+            Consume();
+            cmd.Apply(this, ConsumeArguments(cmd));
         }
 
         public Token Peek()
@@ -87,20 +87,154 @@ namespace DosjunEditor.Jun
             return Tokens[Index];
         }
 
-        public Token Consume()
+        protected Token Consume()
         {
             return Tokens[Index++];
         }
 
-        public Token Consume(TokenType expected)
+        protected Token Consume(TokenType expected)
         {
             Token tok = Consume();
-            if (tok.Type != expected) throw Error($"Wanted {expected}, got {tok.Type}");
+            if (tok.Type != expected)
+                throw new TokenTypeException($"Wanted {expected}, got {tok.Type}");
 
+            LastToken = tok;
             return tok;
         }
 
-        public Token Expression()
+        protected Dictionary<string, Token> ConsumeArguments(ICmd cmd)
+        {
+            Dictionary<string, Token> args = new Dictionary<string, Token>();
+            TokenType endOfList = TokenType.EOL;
+
+            foreach (Argument spec in cmd.Args)
+            {
+                Token t;
+
+                if (Peek().Type == endOfList)
+                    throw new ArgumentCountException($"Not enough arguments for {cmd.Name}");
+
+                switch (spec.Type)
+                {
+                    case ArgumentType.Equals:
+                        t = Consume();
+                        break;
+
+                    default:
+                        t = ConsumeExpression();
+                        break;
+                }
+
+                if (!CheckType(spec.Type, t))
+                    throw new ArgumentTypeException($"{cmd.Name} argument '{spec.Name}' expected {spec.Type}, got {t}");
+                args[spec.Name] = t;
+            }
+
+            if (Peek().Type != endOfList)
+                throw new ArgumentCountException($"Too many arguments for {cmd.Name}");
+
+            return args;
+        }
+
+        public bool CheckType(ArgumentType ty, Token t)
+        {
+            switch (ty)
+            {
+                case ArgumentType.Equals:
+                    return t.Type == TokenType.Equals;
+
+                case ArgumentType.Identifier:
+                    return t.Type == TokenType.Identifier;
+
+                case ArgumentType.Boolean:
+                case ArgumentType.Number:
+                    if (t.Type == TokenType.Number) return true;
+                    return CheckExpression(ty, t);
+
+                case ArgumentType.Character:
+                    return CheckResource(t, ResourceType.PC) || CheckResource(t, ResourceType.NPC);
+
+                case ArgumentType.Expression:
+                    return t.Type == TokenType.Expression || t.Type == TokenType.Number;
+
+                case ArgumentType.Item:
+                    return CheckResource(t, ResourceType.Item);
+
+                case ArgumentType.Music:
+                    return CheckResource(t, ResourceType.Music);
+
+                case ArgumentType.NPC:
+                    return CheckResource(t, ResourceType.NPC);
+
+                case ArgumentType.PC:
+                    return CheckResource(t, ResourceType.PC);
+
+                case ArgumentType.String:
+                    return t.Type == TokenType.String;
+
+                case ArgumentType.Texture:
+                    return CheckResource(t, ResourceType.Graphic, ResourceSubtype.Texture);
+
+                case ArgumentType.Thing:
+                    return CheckResource(t, ResourceType.Graphic, ResourceSubtype.Thing);
+
+                case ArgumentType.Zone:
+                    return CheckResource(t, ResourceType.Zone);
+
+                default:
+                    // TODO
+                    return false;
+            }
+        }
+
+        private bool CheckExpression(ArgumentType ty, Token t)
+        {
+            if (t.Type != TokenType.Expression)
+            {
+                switch (t.Type)
+                {
+                    case TokenType.Identifier:
+                    case TokenType.Internal:
+                    case TokenType.Number:
+                        return true;
+
+                    default: return false;
+                }
+            }
+
+            // TODO
+            return false;
+        }
+
+        private bool CheckResource(Token t, ResourceType ty, ResourceSubtype sty = ResourceSubtype.Unknown)
+        {
+            IHasResource res = null;
+
+            // no resources!
+            if (Context.Djn == null) return false;
+
+            // TODO: unable to check?
+            if (t.Type == TokenType.Expression) return true;
+
+            if (t.Type == TokenType.Reference)
+                res = Context.Djn.FindByName<IHasResource>(t.Value);
+
+            if (t.Type == TokenType.Number)
+            {
+                ushort id = ushort.Parse(t.Value);
+                if (!Context.Djn.Contains(id)) return false;
+
+                res = Context.Djn[id];
+            }
+
+            if (res == null) return false;
+            if (res.Resource.Type != ty) return false;
+            if (sty != ResourceSubtype.Unknown && res.Resource.Subtype != sty) return false;
+
+            return true;
+        }
+
+        protected Token ConsumeExpression()
         {
             List<Token> tokens = new List<Token>();
             Token next;
@@ -116,12 +250,18 @@ namespace DosjunEditor.Jun
                 {
                     case TokenType.EOL:
                     case TokenType.Separator:
-                        if (lastWasOperator) throw Error("Ended expression after an operator");
-                        Consume();
+                        if (tokens.Count == 0)
+                            throw new ParseException("No content in expression");
+
+                        if (lastWasOperator)
+                            throw new ParseException("Ended expression after an operator");
+
+                        if (next.Type == TokenType.Separator) Consume();
                         isEnd = true;
                         break;
 
-                    case TokenType.Assignment: throw Error("Can't assign in an expression");
+                    case TokenType.Assignment:
+                        throw new ParseException("Can't assign in an expression");
 
                     case TokenType.Add:
                     case TokenType.And:
@@ -154,7 +294,9 @@ namespace DosjunEditor.Jun
 
         public void AddConstant(string name, short value)
         {
-            if (Constants.ContainsKey(name)) throw Error($"Redefinition of constant: {name}");
+            if (Constants.ContainsKey(name))
+                throw new RedefinitionException($"Redefinition of constant: {name}");
+
             Constants[name] = value;
             AddVariable(Scope.Const, name);
         }
@@ -179,11 +321,14 @@ namespace DosjunEditor.Jun
 
         public Variable AddVariable(Scope scope, string name)
         {
-            if (Variables.ContainsKey(name)) throw Error($"Redefinition of {scope} variable: {name}");
+            if (Variables.ContainsKey(name))
+                throw new RedefinitionException($"Redefinition of {scope} variable: {name}");
+
             Variables[name] = new Variable { Scope = scope, Name = name, Index = Counts[scope] };
             Counts[scope]++;
 
-            if (Counts[scope] > ScopeLimit(scope)) throw Error($"Too many {scope} variables");
+            if (Counts[scope] > ScopeLimit(scope))
+                throw new Ex.OverflowException($"Too many {scope} variables");
 
             return Variables[name];
         }
@@ -260,7 +405,7 @@ namespace DosjunEditor.Jun
                     Emit(v.Index);
                     break;
 
-                case Scope.Const: throw Error("Cannot pop a const");
+                case Scope.Const: throw new ParseException("Cannot pop a const");
             }
         }
 
@@ -281,12 +426,16 @@ namespace DosjunEditor.Jun
 
                 case TokenType.Identifier:
                     Variable var = Resolve(tok.Value);
-                    if (var == null) throw Error($"Unknown identifier: {tok.Value}");
+                    if (var == null)
+                        throw new MissingDefinitionException($"Unknown identifier: {tok.Value}");
+
                     EmitPush(var);
                     break;
 
                 case TokenType.Internal:
-                    if (!Env.Internals.ContainsKey(tok.Value)) throw Error($"Unknown internal: {tok.Value}");
+                    if (!Env.Internals.ContainsKey(tok.Value))
+                        throw new MissingDefinitionException($"Unknown internal: {tok.Value}");
+
                     Emit(Op.PushInternal);
                     Emit((byte)Env.Internals[tok.Value]);
                     break;
@@ -296,13 +445,15 @@ namespace DosjunEditor.Jun
                     break;
 
                 case TokenType.Reference:
-                    IHasResource hr = Context.Djn.Resources.Values.FirstOrDefault(r => r.Resource.Name == tok.Value);
-                    if (hr == null) throw Error($"Unknown resource: {tok.Value}");
+                    IHasResource hr = Context.Djn?.Resources.Values.FirstOrDefault(r => r.Resource.Name == tok.Value);
+                    if (hr == null)
+                        throw new MissingDefinitionException($"Unknown resource: {tok.Value}");
+
                     Emit(Op.PushLiteral);
                     Emit((short)hr.Resource.ID);
                     break;
 
-                default: throw Error($"Cannot emit {tok}");
+                default: throw new ParseException($"Cannot emit {tok}");
             }
         }
 
@@ -314,7 +465,7 @@ namespace DosjunEditor.Jun
                 return;
             }
 
-            throw Error($"Not a comparison: {tok}");
+            throw new TokenTypeException($"Not a comparison: {tok}");
         }
         
         public void EmitExpression(IEnumerable<Token> tokens)
@@ -335,7 +486,7 @@ namespace DosjunEditor.Jun
                         while (true)
                         {
                             if (operators.Count == 0)
-                                throw Error("Right parenthesis without left");
+                                throw new ParseException("Right parenthesis without left");
 
                             Token important = operators.Pop();
                             if (important.Type == TokenType.LeftParens) break;
@@ -441,17 +592,19 @@ namespace DosjunEditor.Jun
         public bool InScript { get; set; }
         public Script CurrentScript { get; set; }
         public DosjunEditor.Context Context { get; private set; }
+        public int LineNumber { get; private set; }
+        public Token LastToken { get; private set; }
         
         public ushort GetScriptId(string name)
         {
-            CompiledScript scr = Context.Djn.FindByName<CompiledScript>(name);
+            CompiledScript scr = Context.Djn?.FindByName<CompiledScript>(name);
 
             if (scr == null)
             {
                 scr = new CompiledScript();
                 scr.Resource.Name = name;
                 scr.Resource.OnlyDesign = true;
-                Context.Djn.Add(scr);
+                Context.Djn?.Add(scr);
 
                 TemporaryScripts.Add(scr);
             }
@@ -476,10 +629,11 @@ namespace DosjunEditor.Jun
                 target = AddVariable(Scope.Temp, targetToken.Value);
             }
 
-            if (target.Scope == Scope.Const) throw Error("Cannot assign to const");
+            if (target.Scope == Scope.Const)
+                throw new ParseException("Cannot assign to const");
 
             Token equals = Consume(TokenType.Assignment);
-            Token destToken = Expression();
+            Token destToken = ConsumeExpression();
             EmitArgument(destToken);
             EmitPop(target);
         }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DosjunEditor.Jun;
+using DosjunEditor.Jun.Ex;
 
 namespace CompilerTest
 {
@@ -14,7 +15,7 @@ namespace CompilerTest
             for (int i = 0; i <= Parser.MaxTemps; i++)
                 code += $"v{i} = 0\n";
 
-            AssertParseException<CodeException>(code, "Too many Temp variables");
+            AssertParseException<OverflowException>(code, "Too many Temp variables");
         }
     }
 }

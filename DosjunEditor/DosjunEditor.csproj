@@ -139,6 +139,8 @@
     <Compile Include="Data\Enum\ItemSpecial.cs" />
     <Compile Include="Data\Enum\ItemType.cs" />
     <Compile Include="Data\Enum\Job.cs" />
+    <Compile Include="Jun\Argument.cs" />
+    <Compile Include="Jun\ArgumentType.cs" />
     <Compile Include="Jun\Cmd\AddItem.cs" />
     <Compile Include="Jun\Cmd\Call.cs" />
     <Compile Include="Jun\Cmd\ChangeState.cs" />
@@ -184,7 +186,17 @@
     <Compile Include="Jun\Cmd\Teleport.cs" />
     <Compile Include="Jun\Cmd\Text.cs" />
     <Compile Include="Jun\Cmd\Unlock.cs" />
-    <Compile Include="Jun\CodeException.cs" />
+    <Compile Include="Jun\Ex\ArgumentCountException.cs" />
+    <Compile Include="Jun\Ex\ArgumentTypeException.cs" />
+    <Compile Include="Jun\Ex\JunException.cs" />
+    <Compile Include="Jun\Ex\MissingResourceException.cs" />
+    <Compile Include="Jun\Ex\OverflowException.cs" />
+    <Compile Include="Jun\Ex\ParseException.cs" />
+    <Compile Include="Jun\Ex\RedefinitionException.cs" />
+    <Compile Include="Jun\Ex\ScopeException.cs" />
+    <Compile Include="Jun\Ex\TokenizationException.cs" />
+    <Compile Include="Jun\Ex\MissingDefinitionException.cs" />
+    <Compile Include="Jun\Ex\TokenTypeException.cs" />
     <Compile Include="Jun\ICmd.cs" />
     <Compile Include="Jun\Context.cs" />
     <Compile Include="Jun\Env.cs" />

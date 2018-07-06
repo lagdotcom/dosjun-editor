@@ -1,23 +1,26 @@
-﻿namespace DosjunEditor.Jun.Cmd
+﻿using System.Collections.Generic;
+
+namespace DosjunEditor.Jun.Cmd
 {
     class Converse : ICmd
     {
+        private readonly Argument[] args = new Argument[]
+        {
+            new Argument("NPC", ArgumentType.NPC),
+            new Argument("State", ArgumentType.State),
+        };
+
         public bool IsGlobal => false;
         public bool IsScript => true;
         public string Name => nameof(Converse);
+        public Argument[] Args => args;
+        public Argument Returns => Argument.Null;
         public Op Op => Op.Converse;
 
-        public void Apply(Parser p)
+        public void Apply(Parser p, Dictionary<string, Token> a)
         {
-            p.Consume();
-            Token npc = p.Expression();
-            Token state = p.Expression();
-
-            if (!p.ScriptExists(state, ScriptType.State))
-                throw p.Error($"Unknown state: {state}");
-
-            p.EmitArgument(npc);
-            p.EmitArgument(state);
+            p.EmitArgument(a["NPC"]);
+            p.EmitArgument(a["State"]);
             p.Emit(Op);
         }
     }

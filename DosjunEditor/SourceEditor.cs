@@ -1,13 +1,8 @@
-﻿using FastColoredTextBoxNS;
+﻿using DosjunEditor.Jun.Ex;
+using FastColoredTextBoxNS;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DosjunEditor
@@ -29,10 +24,13 @@ namespace DosjunEditor
             InitializeComponent();
         }
 
-        ~SourceEditor()
+        public new void Dispose()
         {
             comment.Dispose();
             keyword.Dispose();
+            reference.Dispose();
+            constant.Dispose();
+            @internal.Dispose();
         }
 
         public Context Context { get; private set; }
@@ -98,9 +96,11 @@ namespace DosjunEditor
             {
                 tokenizer.Tokenize(Source.Source.Split('\n'));
             }
-            catch (Jun.CodeException ex)
+            catch (JunException ex)
             {
                 MessageBox.Show(ex.Message, "Tokenizing Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                CodeSource.Focus();
+                CodeSource.Selection = new Range(CodeSource, tokenizer.Column - 1, tokenizer.Line - 1, tokenizer.Column, tokenizer.Line - 1);
                 return;
             }
 
@@ -108,7 +108,7 @@ namespace DosjunEditor
             {
                 parser.Parse(tokenizer.Tokens);
             }
-            catch (Jun.CodeException ex)
+            catch (JunException ex)
             {
                 // delete temporary 
                 foreach (CompiledScript scr in parser.TemporaryScripts)
@@ -117,6 +117,9 @@ namespace DosjunEditor
                 }
 
                 MessageBox.Show(ex.Message, "Parsing Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                CodeSource.Focus();
+                CodeSource.Selection.Start = new Place(0, parser.LineNumber);
+                CodeSource.SelectNext(@"\w+");
                 return;
             }
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DosjunEditor.Jun;
+using DosjunEditor.Jun.Ex;
 
 namespace CompilerTest
 {
@@ -23,7 +24,7 @@ namespace CompilerTest
         [TestMethod]
         public void TestBadExpressions()
         {
-            AssertException<CodeException>("a =", "Invalid transition: Operator => EndOfLine");
+            AssertException<TokenizationException>("a =", "Invalid transition: Operator => EndOfLine");
         }
     }
 }

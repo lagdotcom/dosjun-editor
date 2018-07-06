@@ -81,6 +81,7 @@ namespace CompilerTest
 
         private DosjunEditor.Context GetContext()
         {
+            Env.Initialise();
             return new DosjunEditor.Context();
         }
     }
