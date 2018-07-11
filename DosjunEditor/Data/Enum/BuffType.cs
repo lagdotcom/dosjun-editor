@@ -2,8 +2,14 @@
 {
     public enum BuffType : ushort
     {
-        Unknown,
-
-
+        Blocking,
+        Singing,
+        CleaveFatigue,
+        Inspiring,
+        Hidden,
+        Stunned,
+        LoseNextMove,
+        Poisoned,
+        Silenced,
     }
 }

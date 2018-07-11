@@ -66,5 +66,8 @@
         GetAttitude,
         GotoXY,
         InParty,
+        HasBuff,
+        AddBuff,
+        RemoveBuff,
     }
 }

@@ -141,6 +141,7 @@
     <Compile Include="Data\Enum\Job.cs" />
     <Compile Include="Jun\Argument.cs" />
     <Compile Include="Jun\ArgumentType.cs" />
+    <Compile Include="Jun\Cmd\AddBuff.cs" />
     <Compile Include="Jun\Cmd\AddItem.cs" />
     <Compile Include="Jun\Cmd\Call.cs" />
     <Compile Include="Jun\Cmd\ChangeState.cs" />
@@ -160,6 +161,7 @@
     <Compile Include="Jun\Cmd\GiveItem.cs" />
     <Compile Include="Jun\Cmd\Global.cs" />
     <Compile Include="Jun\Cmd\GotoXY.cs" />
+    <Compile Include="Jun\Cmd\HasBuff.cs" />
     <Compile Include="Jun\Cmd\If.cs" />
     <Compile Include="Jun\Cmd\InParty.cs" />
     <Compile Include="Jun\Cmd\JoinParty.cs" />
@@ -172,6 +174,7 @@
     <Compile Include="Jun\Cmd\PcAction.cs" />
     <Compile Include="Jun\Cmd\PcSpeak.cs" />
     <Compile Include="Jun\Cmd\Refresh.cs" />
+    <Compile Include="Jun\Cmd\RemoveBuff.cs" />
     <Compile Include="Jun\Cmd\RemoveWall.cs" />
     <Compile Include="Jun\Cmd\Return.cs" />
     <Compile Include="Jun\Cmd\Safe.cs" />
