@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace DosjunEditor
 {
@@ -157,6 +159,16 @@ namespace DosjunEditor
 
             foreach (short item in list)
                 bw.Write(item);
+        }
+
+        public static IEnumerable<object> GetTags(this ListView.SelectedListViewItemCollection items)
+        {
+            List<object> tags = new List<object>();
+
+            foreach (ListViewItem lvi in items)
+                tags.Add(lvi.Tag);
+
+            return tags.AsEnumerable();
         }
     }
 }

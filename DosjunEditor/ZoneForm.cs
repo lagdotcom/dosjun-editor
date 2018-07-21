@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -87,7 +86,7 @@ namespace DosjunEditor
         {
             UpdateETable();
         }
-        
+
         private void LoadScriptNames()
         {
             foreach (ComboBox box in ScriptNameBoxes)
@@ -158,7 +157,29 @@ namespace DosjunEditor
 
             ImpassableFlag.Checked = t.Flags.HasFlag(TileFlags.Impassable);
 
+            UpdateItemList();
+
             updatingDisplay = false;
+        }
+
+        private void UpdateItemList()
+        {
+            ItemList.Items.Clear();
+
+            foreach (ItemPos ip in Zone.Items.Where(p => p.X == CurrentTile.X && p.Y == CurrentTile.Y))
+            {
+                Item i = Context.Djn[ip.ItemId] as Item;
+
+                ListViewItem lvi = new ListViewItem
+                {
+                    Text = Context.Djn.Strings[i.NameId],
+                    Tag = ip
+                };
+                lvi.SubItems.Add(ip.TileX.ToString());
+                lvi.SubItems.Add(ip.TileY.ToString());
+
+                ItemList.Items.Add(lvi);
+            }
         }
 
         private void ZoneForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -189,7 +210,7 @@ namespace DosjunEditor
             CurrentTile.CeilingTexture = CeilingTexture.TextureId;
             DataElement_Changed(sender, e);
         }
-        
+
         private void MenuSave_Click(object sender, EventArgs e)
         {
             SaveAll();
@@ -200,7 +221,7 @@ namespace DosjunEditor
             // this triggers CheckChanged() anyway
             Close();
         }
-        
+
         private ushort GetScriptId(ComboBox box) => (box.SelectedItem as Resource).ID;
 
         private void OnEnterBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -404,6 +425,66 @@ namespace DosjunEditor
                     Context.UnsavedChanges = true;
                 }
             }
+        }
+
+        private void AddItemButton_Click(object sender, EventArgs e)
+        {
+            ItemPos ip = new ItemPos
+            {
+                X = (byte)CurrentTile.X,
+                Y = (byte)CurrentTile.Y,
+            };
+
+            using (ItemPosForm form = new ItemPosForm())
+            {
+                form.Setup(Context, ip);
+
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    form.Apply();
+                    Zone.Items.Add(ip);
+
+                    Context.UnsavedChanges = true;
+                    UpdateItemList();
+                }
+            }
+        }
+
+        private void EditItemButton_Click(object sender, EventArgs e)
+        {
+            if (ItemList.SelectedItems.Count != 1)
+                return;
+
+            ItemPos ip = ItemList.SelectedItems[0].Tag as ItemPos;
+            using (ItemPosForm form = new ItemPosForm())
+            {
+                form.Setup(Context, ip);
+
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    form.Apply();
+                    Context.UnsavedChanges = true;
+                    UpdateItemList();
+                }
+            }
+        }
+
+        private void RemoveItemButton_Click(object sender, EventArgs e)
+        {
+            IEnumerable<ItemPos> toDelete = ItemList.SelectedItems.GetTags().Cast<ItemPos>();
+
+            if (toDelete.Count() > 0)
+            {
+                Zone.Items.RemoveAll(ip => toDelete.Contains(ip));
+                Context.UnsavedChanges = true;
+                UpdateItemList();
+            }
+        }
+
+        private void ItemList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            EditItemButton.Enabled = ItemList.SelectedItems.Count == 1;
+            RemoveItemButton.Enabled = ItemList.SelectedItems.Count > 0;
         }
     }
 }

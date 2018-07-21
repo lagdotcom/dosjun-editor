@@ -139,6 +139,12 @@
     <Compile Include="Data\Enum\ItemSpecial.cs" />
     <Compile Include="Data\Enum\ItemType.cs" />
     <Compile Include="Data\Enum\Job.cs" />
+    <Compile Include="ItemPosForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ItemPosForm.Designer.cs">
+      <DependentUpon>ItemPosForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Jun\Argument.cs" />
     <Compile Include="Jun\ArgumentType.cs" />
     <Compile Include="Jun\Cmd\AddBuff.cs" />
@@ -366,6 +372,9 @@
     <EmbeddedResource Include="ItemForm.resx">
       <DependentUpon>ItemForm.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ItemPosForm.resx">
+      <DependentUpon>ItemPosForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
