@@ -9,13 +9,15 @@ namespace DosjunEditor.Jun
         {
             { Op.Jump, 2 },
             { Op.JumpFalse, 2 },
-            { Op.PopGlobal, 1 },
-            { Op.PopLocal, 1 },
+            { Op.PopFlag, 2 },
+            { Op.PopGlobal, 2 },
+            { Op.PopLocal, 2 },
             { Op.PopTemp, 1 },
-            { Op.PushGlobal, 1 },
+            { Op.PushFlag, 2 },
+            { Op.PushGlobal, 2 },
             { Op.PushInternal, 1 },
             { Op.PushLiteral, 2 },
-            { Op.PushLocal, 1 },
+            { Op.PushLocal, 2 },
             { Op.PushTemp, 1 },
         };
 

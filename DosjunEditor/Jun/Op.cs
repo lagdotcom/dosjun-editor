@@ -8,11 +8,13 @@
         PushLocal,
         PushTemp,
         PushInternal,
+        PushFlag,
         PushLiteral = 0x1F,
 
         PopGlobal = 0x20,
         PopLocal,
         PopTemp,
+        PopFlag,
 
         Add = 0x30,
         Sub,

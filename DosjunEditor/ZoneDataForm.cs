@@ -15,6 +15,8 @@ namespace DosjunEditor
         public ZoneDataForm()
         {
             InitializeComponent();
+
+            LocalBox.Maximum = Jun.Env.MaxLocals;
         }
 
         public Context Context { get; private set; }

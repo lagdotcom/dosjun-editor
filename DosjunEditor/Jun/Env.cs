@@ -8,6 +8,10 @@ namespace DosjunEditor.Jun
     {
         private static bool initialised;
 
+        public static int MaxGlobals => short.MaxValue;
+        public static int MaxFlags => short.MaxValue;
+        public static int MaxLocals => short.MaxValue;
+
         public static Dictionary<string, Internal> Internals { get; private set; }
         public static Dictionary<string, ICmd> Commands { get; private set; }
         

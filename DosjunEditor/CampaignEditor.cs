@@ -15,6 +15,9 @@ namespace DosjunEditor
         public CampaignEditor()
         {
             InitializeComponent();
+
+            NumGlobals.Maximum = Jun.Env.MaxGlobals;
+            NumFlags.Maximum = Jun.Env.MaxFlags;
         }
 
         public Context Context { get; private set; }

@@ -2,7 +2,7 @@
 {
     public class Variable
     {
-        public byte Index { get; set; }
+        public short Index { get; set; }
         public string Name { get; set; }
         public Scope Scope { get; set; }
 

@@ -24,6 +24,7 @@ namespace DosjunEditor.Jun
         public void Parse(IList<Token> tokens)
         {
             Counts[Scope.Global] = 0;
+            Counts[Scope.Flag] = 0;
             Counts[Scope.Local] = 0;
             Counts[Scope.Temp] = 0;
             Counts[Scope.Const] = 0;
@@ -323,7 +324,8 @@ namespace DosjunEditor.Jun
             switch (scope)
             {
                 case Scope.Global: return Context.Djn.Campaign.NumGlobals;
-                case Scope.Local: return MaxLocals;
+                case Scope.Flag: return Context.Djn.Campaign.NumFlags;
+                case Scope.Local: return MaxLocals; // TODO: this depends on the current zone!
                 case Scope.Temp: return MaxTemps;
             }
 
@@ -381,6 +383,11 @@ namespace DosjunEditor.Jun
                     Emit(v.Index);
                     break;
 
+                case Scope.Flag:
+                    Emit(Op.PushFlag);
+                    Emit(v.Index);
+                    break;
+
                 case Scope.Local:
                     Emit(Op.PushLocal);
                     Emit(v.Index);
@@ -388,13 +395,15 @@ namespace DosjunEditor.Jun
 
                 case Scope.Temp:
                     Emit(Op.PushTemp);
-                    Emit(v.Index);
+                    Emit((byte)v.Index);
                     break;
 
                 case Scope.Const:
                     Emit(Op.PushLiteral);
                     Emit(Constants[v.Name]);
                     break;
+
+                default: throw new ParseException($"Cannot push a {v.Scope}");
             }
         }
 
@@ -407,6 +416,11 @@ namespace DosjunEditor.Jun
                     Emit(v.Index);
                     break;
 
+                case Scope.Flag:
+                    Emit(Op.PopFlag);
+                    Emit(v.Index);
+                    break;
+
                 case Scope.Local:
                     Emit(Op.PopLocal);
                     Emit(v.Index);
@@ -414,10 +428,10 @@ namespace DosjunEditor.Jun
 
                 case Scope.Temp:
                     Emit(Op.PopTemp);
-                    Emit(v.Index);
+                    Emit((byte)v.Index);
                     break;
 
-                case Scope.Const: throw new ParseException("Cannot pop a const");
+                default: throw new ParseException($"Cannot pop a {v.Scope}");
             }
         }
 

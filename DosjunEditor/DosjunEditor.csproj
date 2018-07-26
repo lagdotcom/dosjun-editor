@@ -163,6 +163,7 @@
     <Compile Include="Jun\Cmd\EndScript.cs" />
     <Compile Include="Jun\Cmd\EndState.cs" />
     <Compile Include="Jun\Cmd\EquipItem.cs" />
+    <Compile Include="Jun\Cmd\Flag.cs" />
     <Compile Include="Jun\Cmd\GetAttitude.cs" />
     <Compile Include="Jun\Cmd\GiveItem.cs" />
     <Compile Include="Jun\Cmd\Global.cs" />
