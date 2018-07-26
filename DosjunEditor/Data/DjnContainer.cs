@@ -28,6 +28,7 @@ namespace DosjunEditor
         public IEnumerable<Grf> Fonts => GrfSubtype(ResourceSubtype.Font);
         public IEnumerable<Grf> Graphics => Type<Grf>();
         public IEnumerable<Item> Items => Type<Item>();
+        public IEnumerable<Music> Music => Type<Music>();
         public Palette Palette => Type<Palette>().FirstOrDefault();
         public IEnumerable<Grf> Portraits => GrfSubtype(ResourceSubtype.Portrait);
         public IEnumerable<CompiledScript> PublicScripts => Scripts.Where(s => !s.Resource.Flags.HasFlag(ResourceFlags.Private));
@@ -149,6 +150,9 @@ namespace DosjunEditor
 
                 case ResourceType.Monster:
                     return new Monster(r);
+
+                case ResourceType.Music:
+                    return new Music(r);
 
                 case ResourceType.NPC:
                     return new NPC(r);

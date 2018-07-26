@@ -48,6 +48,8 @@
             this.CombatBg = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.MenuMusic = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.NumGlobals)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumFlags)).BeginInit();
             this.SuspendLayout();
@@ -234,12 +236,31 @@
             this.label9.TabIndex = 19;
             this.label9.Text = "Combat Background";
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(12, 315);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(91, 13);
+            this.label10.TabIndex = 21;
+            this.label10.Text = "Main Menu Music";
+            // 
+            // MenuMusic
+            // 
+            this.MenuMusic.FormattingEnabled = true;
+            this.MenuMusic.Location = new System.Drawing.Point(154, 312);
+            this.MenuMusic.Name = "MenuMusic";
+            this.MenuMusic.Size = new System.Drawing.Size(263, 21);
+            this.MenuMusic.TabIndex = 20;
+            // 
             // CampaignEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.CancelBtn;
             this.ClientSize = new System.Drawing.Size(432, 531);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.MenuMusic);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.CombatBg);
@@ -291,5 +312,7 @@
         private System.Windows.Forms.ComboBox CombatBg;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ComboBox MenuMusic;
     }
 }

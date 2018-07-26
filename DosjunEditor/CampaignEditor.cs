@@ -36,6 +36,7 @@ namespace DosjunEditor
             Globals.Populate(MenuBg, ctx.Djn.Screens);
             Globals.Populate(DungeonBg, ctx.Djn.Screens);
             Globals.Populate(CombatBg, ctx.Djn.Screens);
+            Globals.Populate(MenuMusic, ctx.Djn.Music);
 
             NumGlobals.Value = Campaign.NumGlobals;
             NumFlags.Value = Campaign.NumFlags;
@@ -46,6 +47,7 @@ namespace DosjunEditor
             MenuBg.SelectedItem = Globals.Resolve(ctx, Campaign.MenuBgId);
             DungeonBg.SelectedItem = Globals.Resolve(ctx, Campaign.DungeonBgId);
             CombatBg.SelectedItem = Globals.Resolve(ctx, Campaign.CombatBgId);
+            MenuMusic.SelectedItem = Globals.Resolve(ctx, Campaign.MenuMusicId);
         }
 
         private void CancelBtn_Click(object sender, EventArgs e)
@@ -64,6 +66,7 @@ namespace DosjunEditor
             Campaign.MenuBgId = (MenuBg.SelectedItem as Resource).ID;
             Campaign.DungeonBgId = (DungeonBg.SelectedItem as Resource).ID;
             Campaign.CombatBgId = (CombatBg.SelectedItem as Resource).ID;
+            Campaign.MenuMusicId = (MenuMusic.SelectedItem as Resource).ID;
 
             Saved?.Invoke(this, null);
             Context.UnsavedChanges = true;

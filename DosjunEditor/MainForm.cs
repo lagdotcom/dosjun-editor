@@ -412,6 +412,7 @@ namespace DosjunEditor
                 case ResourceType.Graphic: return Import<Grf>(res, br);
                 case ResourceType.Item: return Import<Item>(res, br);
                 case ResourceType.Monster: return Import<Monster>(res, br);
+                case ResourceType.Music: return Import<Music>(res, br);
                 case ResourceType.Palette: return Import<Palette>(res, br);
                 case ResourceType.NPC: return Import<NPC>(res, br);
                 case ResourceType.PC: return Import<PC>(res, br);
