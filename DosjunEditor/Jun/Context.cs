@@ -14,6 +14,7 @@ namespace DosjunEditor.Jun
         public string Name { get; set; }
         public List<int> Offsets { get; private set; }
         public int Start { get; set; }
+        public int Before { get; set; }
 
         public override string ToString() => $"{Name} @{Start}";
     }
