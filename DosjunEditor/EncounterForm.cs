@@ -22,6 +22,9 @@ namespace DosjunEditor
             Zone = zone;
             Encounter = encounter;
 
+            MinLevel.Value = Encounter.MinLevel;
+            MaxLevel.Value = Encounter.MaxLevel;
+
             rows = new Row[Globals.EncounterSize];
             for (var i = 0; i < Globals.EncounterSize; i++)
                 rows[i] = new Row(i, this);
@@ -29,6 +32,9 @@ namespace DosjunEditor
 
         public void Apply()
         {
+            Encounter.MinLevel = (ushort)MinLevel.Value;
+            Encounter.MaxLevel = (ushort)MaxLevel.Value;
+
             for (var i = 0; i < Globals.EncounterSize; i++)
             {
                 Encounter.Minimums[i] = rows[i].Minimum;
