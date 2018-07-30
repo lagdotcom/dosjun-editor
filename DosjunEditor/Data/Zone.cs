@@ -5,7 +5,7 @@ namespace DosjunEditor
 {
     public class Zone : IHasResource
     {
-        public const int Padding = 10;
+        public const int Padding = 8;
         public Resource Resource { get; set; }
 
         public Zone(Resource r)
@@ -35,6 +35,7 @@ namespace DosjunEditor
             NameId = br.ReadUInt16();
             LocalCount = br.ReadUInt16();
             ushort itemCount = br.ReadUInt16();
+            ExitScript = br.ReadUInt16();
 
             br.ReadBytes(Padding);
 
@@ -68,6 +69,7 @@ namespace DosjunEditor
             bw.Write(NameId);
             bw.Write(LocalCount);
             bw.Write(ItemCount);
+            bw.Write(ExitScript);
 
             bw.WritePadding(Padding);
 
@@ -100,6 +102,7 @@ namespace DosjunEditor
         public ushort NameId { get; set; }
         public ushort LocalCount { get; set; }
         public ushort ItemCount => (ushort)Items.Count;
+        public ushort ExitScript { get; set; }
 
         public TileBag Tiles { get; private set; }
         public List<Encounter> Encounters { get; private set; }

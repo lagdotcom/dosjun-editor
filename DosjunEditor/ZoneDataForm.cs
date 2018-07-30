@@ -27,17 +27,19 @@ namespace DosjunEditor
             Context = ctx;
             Zone = zone;
 
+            Globals.Populate(EnterBox, Context.Djn.PublicScripts);
+            Globals.Populate(MoveBox, Context.Djn.PublicScripts);
+            Globals.Populate(ExitBox, Context.Djn.PublicScripts);
+
             NameBox.Text = ctx.GetString(Zone.NameId);
             WidthBox.Text = Zone.Width.ToString();
             HeightBox.Text = Zone.Height.ToString();
             FloorBox.Value = Zone.Floor;
             LocalBox.Value = Zone.LocalCount;
 
-            Globals.Populate(EnterBox, Context.Djn.PublicScripts);
             EnterBox.SelectedItem = Globals.Resolve(Context, Zone.EnterScript);
-
-            Globals.Populate(MoveBox, Context.Djn.PublicScripts);
             MoveBox.SelectedItem = Globals.Resolve(Context, Zone.MoveScript);
+            ExitBox.SelectedItem = Globals.Resolve(Context, Zone.ExitScript);
         }
 
         public void Apply()
@@ -47,6 +49,7 @@ namespace DosjunEditor
             Zone.LocalCount = (ushort)LocalBox.Value;
             Zone.EnterScript = (EnterBox.SelectedItem as Resource).ID;
             Zone.MoveScript = (MoveBox.SelectedItem as Resource).ID;
+            Zone.ExitScript = (ExitBox.SelectedItem as Resource).ID;
         }
     }
 }

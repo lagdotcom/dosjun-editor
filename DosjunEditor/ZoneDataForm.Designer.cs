@@ -44,6 +44,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.LocalBox = new System.Windows.Forms.NumericUpDown();
+            this.label8 = new System.Windows.Forms.Label();
+            this.ExitBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.FloorBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LocalBox)).BeginInit();
             this.SuspendLayout();
@@ -63,7 +65,8 @@
             this.WidthBox.Name = "WidthBox";
             this.WidthBox.ReadOnly = true;
             this.WidthBox.Size = new System.Drawing.Size(60, 20);
-            this.WidthBox.TabIndex = 2;
+            this.WidthBox.TabIndex = 0;
+            this.WidthBox.TabStop = false;
             // 
             // HeightBox
             // 
@@ -71,7 +74,8 @@
             this.HeightBox.Name = "HeightBox";
             this.HeightBox.ReadOnly = true;
             this.HeightBox.Size = new System.Drawing.Size(60, 20);
-            this.HeightBox.TabIndex = 4;
+            this.HeightBox.TabIndex = 0;
+            this.HeightBox.TabStop = false;
             // 
             // label3
             // 
@@ -88,7 +92,7 @@
             this.EnterBox.Location = new System.Drawing.Point(126, 92);
             this.EnterBox.Name = "EnterBox";
             this.EnterBox.Size = new System.Drawing.Size(146, 21);
-            this.EnterBox.TabIndex = 6;
+            this.EnterBox.TabIndex = 3;
             // 
             // label4
             // 
@@ -114,7 +118,7 @@
             this.MoveBox.Location = new System.Drawing.Point(126, 119);
             this.MoveBox.Name = "MoveBox";
             this.MoveBox.Size = new System.Drawing.Size(146, 21);
-            this.MoveBox.TabIndex = 8;
+            this.MoveBox.TabIndex = 4;
             // 
             // button1
             // 
@@ -141,7 +145,7 @@
             this.NameBox.Location = new System.Drawing.Point(126, 12);
             this.NameBox.Name = "NameBox";
             this.NameBox.Size = new System.Drawing.Size(146, 20);
-            this.NameBox.TabIndex = 0;
+            this.NameBox.TabIndex = 1;
             // 
             // label1
             // 
@@ -162,7 +166,7 @@
             0});
             this.FloorBox.Name = "FloorBox";
             this.FloorBox.Size = new System.Drawing.Size(60, 20);
-            this.FloorBox.TabIndex = 12;
+            this.FloorBox.TabIndex = 2;
             // 
             // label6
             // 
@@ -176,7 +180,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(12, 148);
+            this.label7.Location = new System.Drawing.Point(12, 175);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(79, 13);
             this.label7.TabIndex = 15;
@@ -184,7 +188,7 @@
             // 
             // LocalBox
             // 
-            this.LocalBox.Location = new System.Drawing.Point(126, 146);
+            this.LocalBox.Location = new System.Drawing.Point(126, 173);
             this.LocalBox.Maximum = new decimal(new int[] {
             255,
             0,
@@ -192,13 +196,32 @@
             0});
             this.LocalBox.Name = "LocalBox";
             this.LocalBox.Size = new System.Drawing.Size(60, 20);
-            this.LocalBox.TabIndex = 14;
+            this.LocalBox.TabIndex = 6;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(12, 149);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(71, 13);
+            this.label8.TabIndex = 17;
+            this.label8.Text = "Script On Exit";
+            // 
+            // ExitBox
+            // 
+            this.ExitBox.FormattingEnabled = true;
+            this.ExitBox.Location = new System.Drawing.Point(126, 146);
+            this.ExitBox.Name = "ExitBox";
+            this.ExitBox.Size = new System.Drawing.Size(146, 21);
+            this.ExitBox.TabIndex = 5;
             // 
             // ZoneDataForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.ExitBox);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.LocalBox);
             this.Controls.Add(this.label6);
@@ -241,5 +264,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.NumericUpDown LocalBox;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ComboBox ExitBox;
     }
 }
