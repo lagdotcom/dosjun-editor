@@ -33,7 +33,7 @@ namespace DosjunEditor
         public void Setup(Context ctx, Zone zone, ETable etable)
         {
             Context = ctx;
-            Zone = Zone;
+            Zone = zone;
             ETable = etable;
 
             SetMaximum(Globals.ETableSize);
