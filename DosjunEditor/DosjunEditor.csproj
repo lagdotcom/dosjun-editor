@@ -165,8 +165,10 @@
     <Compile Include="Jun\Cmd\EndState.cs" />
     <Compile Include="Jun\Cmd\EndWhile.cs" />
     <Compile Include="Jun\Cmd\EquipItem.cs" />
+    <Compile Include="Jun\Cmd\Fade.cs" />
     <Compile Include="Jun\Cmd\Flag.cs" />
     <Compile Include="Jun\Cmd\GetAttitude.cs" />
+    <Compile Include="Jun\Cmd\GetPCInSlot.cs" />
     <Compile Include="Jun\Cmd\GiveItem.cs" />
     <Compile Include="Jun\Cmd\Global.cs" />
     <Compile Include="Jun\Cmd\GotoXY.cs" />

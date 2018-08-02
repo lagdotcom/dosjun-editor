@@ -9,6 +9,7 @@
         PushTemp,
         PushInternal,
         PushFlag,
+        GetPCInSlot,
         PushLiteral = 0x1F,
 
         PopGlobal = 0x20,
@@ -71,5 +72,6 @@
         HasBuff,
         AddBuff,
         RemoveBuff,
+        Fade,
     }
 }
