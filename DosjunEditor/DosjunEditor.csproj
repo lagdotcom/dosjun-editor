@@ -73,6 +73,7 @@
     <Compile Include="Data\Enum\DjnFlags.cs" />
     <Compile Include="Data\Encounter.cs" />
     <Compile Include="Data\Enum\Stat.cs" />
+    <Compile Include="Data\Enum\TileEffect.cs" />
     <Compile Include="Data\NPC.cs" />
     <Compile Include="Data\Music.cs" />
     <Compile Include="EncounterForm.cs">

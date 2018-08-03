@@ -23,6 +23,9 @@ namespace DosjunEditor
                 OnEnterBox,
                 OnUseBox,
             };
+
+            foreach (string name in Tools.GetEnumNames<TileEffect>())
+                EffectBox.Items.Add(name);
         }
 
         public Context Context;
@@ -154,6 +157,7 @@ namespace DosjunEditor
             OnUseBox.SelectedItem = Globals.Resolve(Context, t.OnUseId);
             ThingBox.SelectedItem = Globals.Resolve(Context, t.Thing);
             DangerBox.Value = t.Danger;
+            EffectBox.SelectedIndex = (int)t.Effect;
 
             ImpassableFlag.Checked = t.Flags.HasFlag(TileFlags.Impassable);
 
@@ -485,6 +489,12 @@ namespace DosjunEditor
         {
             EditItemButton.Enabled = ItemList.SelectedItems.Count == 1;
             RemoveItemButton.Enabled = ItemList.SelectedItems.Count > 0;
+        }
+
+        private void EffectBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CurrentTile.Effect = (TileEffect)EffectBox.SelectedIndex;
+            DataElement_Changed(sender, e);
         }
     }
 }

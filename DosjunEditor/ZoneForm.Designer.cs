@@ -78,6 +78,8 @@
             this.DescriptionBox = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.Map = new DosjunEditor.ZoneView();
+            this.EffectBox = new System.Windows.Forms.ComboBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.TopMenu.SuspendLayout();
             this.ZoneTabs.SuspendLayout();
             this.TexturesTab.SuspendLayout();
@@ -164,6 +166,8 @@
             // 
             // TexturesTab
             // 
+            this.TexturesTab.Controls.Add(this.label14);
+            this.TexturesTab.Controls.Add(this.EffectBox);
             this.TexturesTab.Controls.Add(this.WestWall);
             this.TexturesTab.Controls.Add(this.CeilingTexture);
             this.TexturesTab.Controls.Add(this.FloorTexture);
@@ -592,6 +596,25 @@
             this.Map.TileSelected += new DosjunEditor.ZoneView.TileEventHandler(this.Map_TileSelected);
             this.Map.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Map_KeyUp);
             // 
+            // EffectBox
+            // 
+            this.EffectBox.FormattingEnabled = true;
+            this.EffectBox.Location = new System.Drawing.Point(125, 673);
+            this.EffectBox.Name = "EffectBox";
+            this.EffectBox.Size = new System.Drawing.Size(126, 21);
+            this.EffectBox.TabIndex = 55;
+            this.EffectBox.SelectedIndexChanged += new System.EventHandler(this.EffectBox_SelectedIndexChanged);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(6, 676);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(41, 13);
+            this.label14.TabIndex = 56;
+            this.label14.Text = "Effect";
+            // 
             // ZoneForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -670,5 +693,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.ComboBox EffectBox;
     }
 }
