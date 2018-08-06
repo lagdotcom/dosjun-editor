@@ -12,6 +12,7 @@
         Equals,
         Expression,
         Identifier,
+        Graphic,
         Item,
         Music,
         NPC,

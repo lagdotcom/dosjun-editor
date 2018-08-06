@@ -170,6 +170,9 @@ namespace DosjunEditor.Jun
                 case ArgumentType.Expression:
                     return t.Type == TokenType.Expression || t.Type == TokenType.Number;
 
+                case ArgumentType.Graphic:
+                    return CheckResource(t, ResourceType.Graphic);
+
                 case ArgumentType.Item:
                     return CheckResource(t, ResourceType.Item);
 

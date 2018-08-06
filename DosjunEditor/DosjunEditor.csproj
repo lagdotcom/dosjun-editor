@@ -185,6 +185,7 @@
     <Compile Include="Jun\Cmd\Option.cs" />
     <Compile Include="Jun\Cmd\PcAction.cs" />
     <Compile Include="Jun\Cmd\PcSpeak.cs" />
+    <Compile Include="Jun\Cmd\PlaceItem.cs" />
     <Compile Include="Jun\Cmd\Refresh.cs" />
     <Compile Include="Jun\Cmd\RemoveBuff.cs" />
     <Compile Include="Jun\Cmd\RemoveWall.cs" />
@@ -197,10 +198,12 @@
     <Compile Include="Jun\Cmd\SetTileColour.cs" />
     <Compile Include="Jun\Cmd\SetTileDescription.cs" />
     <Compile Include="Jun\Cmd\SetTileThing.cs" />
+    <Compile Include="Jun\Cmd\ShowImage.cs" />
     <Compile Include="Jun\Cmd\State.cs" />
     <Compile Include="Jun\Cmd\Teleport.cs" />
     <Compile Include="Jun\Cmd\Text.cs" />
     <Compile Include="Jun\Cmd\Unlock.cs" />
+    <Compile Include="Jun\Cmd\Wait.cs" />
     <Compile Include="Jun\Cmd\While.cs" />
     <Compile Include="Jun\Evaluator.cs" />
     <Compile Include="Jun\Ex\ArgumentCountException.cs" />

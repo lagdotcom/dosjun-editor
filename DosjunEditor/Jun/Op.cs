@@ -73,5 +73,8 @@
         AddBuff,
         RemoveBuff,
         Fade,
+        PlaceItem,
+        ShowImage,
+        Wait,
     }
 }
