@@ -48,15 +48,16 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.NewContext = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.NewDropTable = new System.Windows.Forms.ToolStripMenuItem();
             this.NewGraphic = new System.Windows.Forms.ToolStripMenuItem();
             this.NewItem = new System.Windows.Forms.ToolStripMenuItem();
             this.NewMonster = new System.Windows.Forms.ToolStripMenuItem();
+            this.NewNPC = new System.Windows.Forms.ToolStripMenuItem();
             this.NewPC = new System.Windows.Forms.ToolStripMenuItem();
             this.NewSource = new System.Windows.Forms.ToolStripMenuItem();
             this.NewZone = new System.Windows.Forms.ToolStripMenuItem();
             this.ImportDialog = new System.Windows.Forms.OpenFileDialog();
             this.DumpDialog = new System.Windows.Forms.FolderBrowserDialog();
-            this.NewNPC = new System.Windows.Forms.ToolStripMenuItem();
             this.TopMenu.SuspendLayout();
             this.ButtonsPanel.SuspendLayout();
             this.NewContext.SuspendLayout();
@@ -221,6 +222,7 @@
             // NewContext
             // 
             this.NewContext.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.NewDropTable,
             this.NewGraphic,
             this.NewItem,
             this.NewMonster,
@@ -229,7 +231,14 @@
             this.NewSource,
             this.NewZone});
             this.NewContext.Name = "NewContext";
-            this.NewContext.Size = new System.Drawing.Size(181, 180);
+            this.NewContext.Size = new System.Drawing.Size(181, 202);
+            // 
+            // NewDropTable
+            // 
+            this.NewDropTable.Name = "NewDropTable";
+            this.NewDropTable.Size = new System.Drawing.Size(180, 22);
+            this.NewDropTable.Text = "&Drop Table...";
+            this.NewDropTable.Click += new System.EventHandler(this.NewDropTable_Click);
             // 
             // NewGraphic
             // 
@@ -251,6 +260,13 @@
             this.NewMonster.Size = new System.Drawing.Size(180, 22);
             this.NewMonster.Text = "&Monster...";
             this.NewMonster.Click += new System.EventHandler(this.NewMonster_Click);
+            // 
+            // NewNPC
+            // 
+            this.NewNPC.Name = "NewNPC";
+            this.NewNPC.Size = new System.Drawing.Size(180, 22);
+            this.NewNPC.Text = "&NPC...";
+            this.NewNPC.Click += new System.EventHandler(this.NewNPC_Click);
             // 
             // NewPC
             // 
@@ -277,13 +293,6 @@
             // 
             this.ImportDialog.Filter = "DOSJUN Files|*.CMP;*.GRF;*.ITM;*.JC;*.JCC;*.MON;*.NPC;*.PAL;*.PC;*.SNG;*.STR;*.WA" +
     "V;*.ZON";
-            // 
-            // NewNPC
-            // 
-            this.NewNPC.Name = "NewNPC";
-            this.NewNPC.Size = new System.Drawing.Size(180, 22);
-            this.NewNPC.Text = "&NPC...";
-            this.NewNPC.Click += new System.EventHandler(this.NewNPC_Click);
             // 
             // MainForm
             // 
@@ -336,6 +345,7 @@
         private System.Windows.Forms.ToolStripMenuItem NewPC;
         private System.Windows.Forms.ToolStripMenuItem NewGraphic;
         private System.Windows.Forms.ToolStripMenuItem NewNPC;
+        private System.Windows.Forms.ToolStripMenuItem NewDropTable;
     }
 }
 

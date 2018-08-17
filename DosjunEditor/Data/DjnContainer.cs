@@ -25,6 +25,7 @@ namespace DosjunEditor
         public Campaign Campaign => Type<Campaign>().FirstOrDefault();
         public IEnumerable<Monster> Monsters => Type<Monster>();
 
+        public IEnumerable<IHasResource> Droppable => Resources.Values.Where(r => r.Resource.Type == ResourceType.DropTable || r.Resource.Type == ResourceType.Item);
         public IEnumerable<Grf> Fonts => GrfSubtype(ResourceSubtype.Font);
         public IEnumerable<Grf> Graphics => Type<Grf>();
         public IEnumerable<Item> Items => Type<Item>();
@@ -141,6 +142,9 @@ namespace DosjunEditor
             {
                 case ResourceType.Campaign:
                     return new Campaign(r);
+
+                case ResourceType.DropTable:
+                    return new DropTable(r);
 
                 case ResourceType.Graphic:
                     return new Grf(r);

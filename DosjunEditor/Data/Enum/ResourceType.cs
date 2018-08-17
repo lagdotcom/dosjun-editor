@@ -18,6 +18,7 @@
         Font__Unused,
         Strings,
         Palette,
+        DropTable,
 
         Party = 0xC0,
         Globals,

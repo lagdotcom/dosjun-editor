@@ -54,6 +54,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\Buff.cs" />
+    <Compile Include="Data\Drop.cs" />
+    <Compile Include="Data\DropTable.cs" />
     <Compile Include="Data\Enum\BuffType.cs" />
     <Compile Include="Data\Enum\AI.cs" />
     <Compile Include="CampaignEditor.cs">
@@ -72,10 +74,17 @@
     <Compile Include="Data\DjnContainer.cs" />
     <Compile Include="Data\Enum\DjnFlags.cs" />
     <Compile Include="Data\Encounter.cs" />
+    <Compile Include="Data\Enum\DropFlags.cs" />
     <Compile Include="Data\Enum\Stat.cs" />
     <Compile Include="Data\Enum\TileEffect.cs" />
     <Compile Include="Data\NPC.cs" />
     <Compile Include="Data\Music.cs" />
+    <Compile Include="DropTableEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DropTableEditor.Designer.cs">
+      <DependentUpon>DropTableEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="EncounterForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -358,6 +367,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CompiledDumpForm.resx">
       <DependentUpon>CompiledDumpForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DropTableEditor.resx">
+      <DependentUpon>DropTableEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EncounterForm.resx">
       <DependentUpon>EncounterForm.cs</DependentUpon>

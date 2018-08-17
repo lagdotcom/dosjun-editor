@@ -196,6 +196,7 @@ namespace DosjunEditor
             switch (ext)
             {
                 case ".CMP": return ResourceType.Campaign;
+                case ".DRP": return ResourceType.DropTable;
                 case ".GRF": return ResourceType.Graphic;
                 case ".ITM": return ResourceType.Item;
                 case ".MON": return ResourceType.Monster;
@@ -218,6 +219,7 @@ namespace DosjunEditor
             switch (r.Resource.Type)
             {
                 case ResourceType.Campaign: return r.Resource.Name + ".CMP";
+                case ResourceType.DropTable: return r.Resource.Name + ".DRP";
                 case ResourceType.Graphic: return r.Resource.Name + ".GRF";
                 case ResourceType.Item: return r.Resource.Name + ".ITM";
                 case ResourceType.Monster: return r.Resource.Name + ".MON";

@@ -202,6 +202,10 @@ namespace DosjunEditor
                         Spawn<CampaignEditor>(r);
                         return;
 
+                    case ResourceType.DropTable:
+                        Spawn<DropTableEditor>(r);
+                        return;
+
                     case ResourceType.Graphic:
                         Spawn<GrfForm>(r);
                         return;
@@ -360,6 +364,11 @@ namespace DosjunEditor
             NewResource<NPC, NPCEditor>();
         }
 
+        private void NewDropTable_Click(object sender, EventArgs e)
+        {
+            NewResource<DropTable, DropTableEditor>();
+        }
+
         private void ImportBtn_Click(object sender, EventArgs e)
         {
             if (ImportDialog.ShowDialog() == DialogResult.OK)
@@ -409,6 +418,7 @@ namespace DosjunEditor
 
             switch (res.Type)
             {
+                case ResourceType.DropTable: return Import<DropTable>(res, br);
                 case ResourceType.Graphic: return Import<Grf>(res, br);
                 case ResourceType.Item: return Import<Item>(res, br);
                 case ResourceType.Monster: return Import<Monster>(res, br);
