@@ -26,12 +26,14 @@ namespace DosjunEditor
             Monster = r as Monster;
 
             Globals.Populate(ImageBox, Context.Djn.GrfSubtype(ResourceSubtype.Monster));
+            Globals.Populate(DropsBox, Context.Djn.Type<DropTable>());
 
             NameBox.Text = Context.GetString(Monster.NameId);
             ImageBox.SelectedItem = Globals.Resolve(Context, Monster.ImageId);
             RowBox.SelectedIndex = (int)Monster.Row;
             AIBox.SelectedIndex = (int)Monster.AI;
             XPBox.Value = Monster.Experience;
+            DropsBox.SelectedItem = Globals.Resolve(Context, Monster.DropsId);
             StatsBoxes.Stats = Monster.Stats;
 
             SkillsList.Values = Monster.Skills;
@@ -46,6 +48,7 @@ namespace DosjunEditor
             Monster.Row = (Row)RowBox.SelectedIndex;
             Monster.AI = (AI)AIBox.SelectedIndex;
             Monster.Experience = (uint)XPBox.Value;
+            Monster.DropsId = (DropsBox.SelectedItem as Resource).ID;
             StatsBoxes.Apply();
 
             Monster.Skills = SkillsList.Values.ToList();

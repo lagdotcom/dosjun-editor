@@ -5,7 +5,7 @@ namespace DosjunEditor
 {
     public class Monster : IHasResource
     {
-        public const int Padding = 15;
+        public const int Padding = 12;
         public Resource Resource { get; set; }
 
         public Monster(Resource r)
@@ -27,7 +27,8 @@ namespace DosjunEditor
             AI = (AI)br.ReadByte();
             Experience = br.ReadUInt32();
             WeaponId = br.ReadUInt16();
-            Flags = (MonsterFlags)br.ReadByte();
+            Flags = (MonsterFlags)br.ReadUInt16();
+            DropsId = br.ReadUInt16();
 
             br.ReadBytes(Padding);
             Stats.Read(br);
@@ -49,7 +50,8 @@ namespace DosjunEditor
             bw.Write((byte)AI);
             bw.Write(Experience);
             bw.Write(WeaponId);
-            bw.Write((byte)Flags);
+            bw.Write((ushort)Flags);
+            bw.Write(DropsId);
 
             bw.WritePadding(Padding);
             Stats.Write(bw);
@@ -67,6 +69,7 @@ namespace DosjunEditor
         public uint Experience { get; set; }
         public ushort WeaponId { get; set; }
         public MonsterFlags Flags { get; set; }
+        public ushort DropsId { get; set; }
         public List<short> Skills { get; set; }
     }
 }

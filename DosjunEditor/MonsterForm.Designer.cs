@@ -41,9 +41,11 @@
             this.XPBox = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
             this.SkillsBox = new System.Windows.Forms.GroupBox();
+            this.SkillsList = new DosjunEditor.SkillsEditor();
             this.ImageBox = new System.Windows.Forms.ComboBox();
             this.StatsBoxes = new DosjunEditor.StatsEditor();
-            this.SkillsList = new DosjunEditor.SkillsEditor();
+            this.label1 = new System.Windows.Forms.Label();
+            this.DropsBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.ImageShow)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.XPBox)).BeginInit();
             this.SkillsBox.SuspendLayout();
@@ -173,6 +175,14 @@
             this.SkillsBox.TabStop = false;
             this.SkillsBox.Text = "Skills";
             // 
+            // SkillsList
+            // 
+            this.SkillsList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SkillsList.Location = new System.Drawing.Point(3, 16);
+            this.SkillsList.Name = "SkillsList";
+            this.SkillsList.Size = new System.Drawing.Size(194, 386);
+            this.SkillsList.TabIndex = 0;
+            // 
             // ImageBox
             // 
             this.ImageBox.FormattingEnabled = true;
@@ -190,19 +200,30 @@
             this.StatsBoxes.Stats = null;
             this.StatsBoxes.TabIndex = 6;
             // 
-            // SkillsList
+            // label1
             // 
-            this.SkillsList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SkillsList.Location = new System.Drawing.Point(3, 16);
-            this.SkillsList.Name = "SkillsList";
-            this.SkillsList.Size = new System.Drawing.Size(194, 386);
-            this.SkillsList.TabIndex = 0;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 277);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 108;
+            this.label1.Text = "Drops";
+            // 
+            // DropsBox
+            // 
+            this.DropsBox.FormattingEnabled = true;
+            this.DropsBox.Location = new System.Drawing.Point(75, 274);
+            this.DropsBox.Name = "DropsBox";
+            this.DropsBox.Size = new System.Drawing.Size(220, 21);
+            this.DropsBox.TabIndex = 107;
             // 
             // MonsterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(779, 425);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.DropsBox);
             this.Controls.Add(this.ImageBox);
             this.Controls.Add(this.SkillsBox);
             this.Controls.Add(this.XPBox);
@@ -245,5 +266,7 @@
         private System.Windows.Forms.GroupBox SkillsBox;
         private System.Windows.Forms.ComboBox ImageBox;
         private SkillsEditor SkillsList;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox DropsBox;
     }
 }
