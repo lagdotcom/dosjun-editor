@@ -252,22 +252,6 @@ namespace DosjunEditor
 
             switch (e.KeyCode)
             {
-                case Keys.Left:
-                    Map.Carve(-1, 0);
-                    break;
-
-                case Keys.Up:
-                    Map.Carve(0, -1);
-                    break;
-
-                case Keys.Right:
-                    Map.Carve(1, 0);
-                    break;
-
-                case Keys.Down:
-                    Map.Carve(0, 1);
-                    break;
-
                 case Keys.N:
                     if (e.Shift) NorthWall.CycleTexture();
                     else NorthWall.CycleType();
@@ -495,6 +479,26 @@ namespace DosjunEditor
         {
             CurrentTile.Effect = (TileEffect)EffectBox.SelectedIndex;
             DataElement_Changed(sender, e);
+        }
+
+        private void CarveNorth_Click(object sender, EventArgs e)
+        {
+            Map.Carve(0, -1);
+        }
+
+        private void CarveEast_Click(object sender, EventArgs e)
+        {
+            Map.Carve(1, 0);
+        }
+
+        private void CarveSouth_Click(object sender, EventArgs e)
+        {
+            Map.Carve(0, 1);
+        }
+
+        private void CarveWest_Click(object sender, EventArgs e)
+        {
+            Map.Carve(-1, 0);
         }
     }
 }

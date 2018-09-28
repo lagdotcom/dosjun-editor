@@ -188,6 +188,9 @@ namespace DosjunEditor.Jun
                 case ArgumentType.Script:
                     return CheckResource(t, ResourceType.Script);
 
+                case ArgumentType.State:
+                    return CheckResource(t, ResourceType.Script, ResourceSubtype.Unknown, ScriptType.State);
+
                 case ArgumentType.String:
                     return t.Type == TokenType.String;
 
@@ -225,7 +228,7 @@ namespace DosjunEditor.Jun
             return false;
         }
 
-        private bool CheckResource(Token t, ResourceType ty, ResourceSubtype sty = ResourceSubtype.Unknown)
+        private bool CheckResource(Token t, ResourceType ty, ResourceSubtype sty = ResourceSubtype.Unknown, ScriptType scty = ScriptType.Any)
         {
             IHasResource res = null;
 
@@ -249,6 +252,12 @@ namespace DosjunEditor.Jun
             if (res == null) return false;
             if (res.Resource.Type != ty) return false;
             if (sty != ResourceSubtype.Unknown && res.Resource.Subtype != sty) return false;
+
+            if (scty != ScriptType.Any)
+            {
+                if (scty == ScriptType.State && !res.Resource.Flags.HasFlag(ResourceFlags.Private)) return false;
+                if (scty == ScriptType.Script && res.Resource.Flags.HasFlag(ResourceFlags.Private)) return false;
+            }
 
             return true;
         }
@@ -575,13 +584,14 @@ namespace DosjunEditor.Jun
         public int LineNumber { get; private set; }
         public Token LastToken { get; private set; }
         
-        public ushort GetScriptId(string name)
+        public ushort GetScriptId(string name, bool state = false)
         {
             CompiledScript scr = Context.Djn?.FindByName<CompiledScript>(name);
 
             if (scr == null)
             {
                 scr = new CompiledScript();
+                scr.Resource.Flags = state ? ResourceFlags.Private : ResourceFlags.None;
                 scr.Resource.Name = name;
                 scr.Resource.OnlyDesign = true;
                 Context.Djn?.Add(scr);

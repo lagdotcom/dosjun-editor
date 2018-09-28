@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.TopMenu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuZone = new System.Windows.Forms.ToolStripMenuItem();
@@ -38,18 +39,14 @@
             this.MenuETables = new System.Windows.Forms.ToolStripMenuItem();
             this.ZoneTabs = new System.Windows.Forms.TabControl();
             this.TexturesTab = new System.Windows.Forms.TabPage();
-            this.WestWall = new DosjunEditor.WallEditor();
-            this.CeilingTexture = new DosjunEditor.TextureComboBox();
-            this.FloorTexture = new DosjunEditor.TextureComboBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.EffectBox = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.SouthWall = new DosjunEditor.WallEditor();
             this.label2 = new System.Windows.Forms.Label();
-            this.EastWall = new DosjunEditor.WallEditor();
             this.label1 = new System.Windows.Forms.Label();
-            this.NorthWall = new DosjunEditor.WallEditor();
             this.ContentsTab = new System.Windows.Forms.TabPage();
             this.RemoveItemButton = new System.Windows.Forms.Button();
             this.EditItemButton = new System.Windows.Forms.Button();
@@ -77,15 +74,25 @@
             this.label8 = new System.Windows.Forms.Label();
             this.DescriptionBox = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.MapContext = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.CarveNorth = new System.Windows.Forms.ToolStripMenuItem();
+            this.CarveEast = new System.Windows.Forms.ToolStripMenuItem();
+            this.CarveSouth = new System.Windows.Forms.ToolStripMenuItem();
+            this.CarveWest = new System.Windows.Forms.ToolStripMenuItem();
+            this.WestWall = new DosjunEditor.WallEditor();
+            this.CeilingTexture = new DosjunEditor.TextureComboBox();
+            this.FloorTexture = new DosjunEditor.TextureComboBox();
+            this.SouthWall = new DosjunEditor.WallEditor();
+            this.EastWall = new DosjunEditor.WallEditor();
+            this.NorthWall = new DosjunEditor.WallEditor();
             this.Map = new DosjunEditor.ZoneView();
-            this.EffectBox = new System.Windows.Forms.ComboBox();
-            this.label14 = new System.Windows.Forms.Label();
             this.TopMenu.SuspendLayout();
             this.ZoneTabs.SuspendLayout();
             this.TexturesTab.SuspendLayout();
             this.ContentsTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DangerBox)).BeginInit();
             this.FlagsBox.SuspendLayout();
+            this.MapContext.SuspendLayout();
             this.SuspendLayout();
             // 
             // TopMenu
@@ -188,34 +195,24 @@
             this.TexturesTab.Text = "Textures";
             this.TexturesTab.UseVisualStyleBackColor = true;
             // 
-            // WestWall
+            // label14
             // 
-            this.WestWall.Face = DosjunEditor.WallLocation.West;
-            this.WestWall.Location = new System.Drawing.Point(9, 156);
-            this.WestWall.Name = "WestWall";
-            this.WestWall.Size = new System.Drawing.Size(116, 116);
-            this.WestWall.TabIndex = 54;
-            this.WestWall.AnyChanged += new System.EventHandler(this.DataElement_Changed);
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(6, 676);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(41, 13);
+            this.label14.TabIndex = 56;
+            this.label14.Text = "Effect";
             // 
-            // CeilingTexture
+            // EffectBox
             // 
-            this.CeilingTexture.Face = DosjunEditor.WallLocation.Ceiling;
-            this.CeilingTexture.Location = new System.Drawing.Point(125, 551);
-            this.CeilingTexture.Name = "CeilingTexture";
-            this.CeilingTexture.Size = new System.Drawing.Size(126, 116);
-            this.CeilingTexture.TabIndex = 53;
-            this.CeilingTexture.TextureId = ((ushort)(0));
-            this.CeilingTexture.ValueChanged += new System.EventHandler(this.DataElement_Changed);
-            // 
-            // FloorTexture
-            // 
-            this.FloorTexture.Face = DosjunEditor.WallLocation.Floor;
-            this.FloorTexture.Location = new System.Drawing.Point(125, 418);
-            this.FloorTexture.Name = "FloorTexture";
-            this.FloorTexture.Size = new System.Drawing.Size(126, 116);
-            this.FloorTexture.TabIndex = 52;
-            this.FloorTexture.TextureId = ((ushort)(0));
-            this.FloorTexture.ValueChanged += new System.EventHandler(this.DataElement_Changed);
+            this.EffectBox.FormattingEnabled = true;
+            this.EffectBox.Location = new System.Drawing.Point(125, 673);
+            this.EffectBox.Name = "EffectBox";
+            this.EffectBox.Size = new System.Drawing.Size(126, 21);
+            this.EffectBox.TabIndex = 55;
+            this.EffectBox.SelectedIndexChanged += new System.EventHandler(this.EffectBox_SelectedIndexChanged);
             // 
             // label6
             // 
@@ -257,15 +254,6 @@
             this.label3.TabIndex = 48;
             this.label3.Text = "South Wall";
             // 
-            // SouthWall
-            // 
-            this.SouthWall.Face = DosjunEditor.WallLocation.South;
-            this.SouthWall.Location = new System.Drawing.Point(74, 296);
-            this.SouthWall.Name = "SouthWall";
-            this.SouthWall.Size = new System.Drawing.Size(116, 116);
-            this.SouthWall.TabIndex = 47;
-            this.SouthWall.AnyChanged += new System.EventHandler(this.DataElement_Changed);
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -276,15 +264,6 @@
             this.label2.TabIndex = 46;
             this.label2.Text = "East Wall";
             // 
-            // EastWall
-            // 
-            this.EastWall.Face = DosjunEditor.WallLocation.East;
-            this.EastWall.Location = new System.Drawing.Point(135, 156);
-            this.EastWall.Name = "EastWall";
-            this.EastWall.Size = new System.Drawing.Size(116, 116);
-            this.EastWall.TabIndex = 45;
-            this.EastWall.AnyChanged += new System.EventHandler(this.DataElement_Changed);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -294,15 +273,6 @@
             this.label1.Size = new System.Drawing.Size(67, 13);
             this.label1.TabIndex = 43;
             this.label1.Text = "North Wall";
-            // 
-            // NorthWall
-            // 
-            this.NorthWall.Face = DosjunEditor.WallLocation.North;
-            this.NorthWall.Location = new System.Drawing.Point(74, 21);
-            this.NorthWall.Name = "NorthWall";
-            this.NorthWall.Size = new System.Drawing.Size(116, 116);
-            this.NorthWall.TabIndex = 44;
-            this.NorthWall.AnyChanged += new System.EventHandler(this.DataElement_Changed);
             // 
             // ContentsTab
             // 
@@ -585,8 +555,103 @@
             this.label7.TabIndex = 35;
             this.label7.Text = "Description";
             // 
+            // MapContext
+            // 
+            this.MapContext.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.CarveNorth,
+            this.CarveEast,
+            this.CarveSouth,
+            this.CarveWest});
+            this.MapContext.Name = "MapContext";
+            this.MapContext.Size = new System.Drawing.Size(139, 92);
+            // 
+            // CarveNorth
+            // 
+            this.CarveNorth.Name = "CarveNorth";
+            this.CarveNorth.Size = new System.Drawing.Size(138, 22);
+            this.CarveNorth.Text = "Carve &North";
+            this.CarveNorth.Click += new System.EventHandler(this.CarveNorth_Click);
+            // 
+            // CarveEast
+            // 
+            this.CarveEast.Name = "CarveEast";
+            this.CarveEast.Size = new System.Drawing.Size(138, 22);
+            this.CarveEast.Text = "Carve &East";
+            this.CarveEast.Click += new System.EventHandler(this.CarveEast_Click);
+            // 
+            // CarveSouth
+            // 
+            this.CarveSouth.Name = "CarveSouth";
+            this.CarveSouth.Size = new System.Drawing.Size(138, 22);
+            this.CarveSouth.Text = "Carve &South";
+            this.CarveSouth.Click += new System.EventHandler(this.CarveSouth_Click);
+            // 
+            // CarveWest
+            // 
+            this.CarveWest.Name = "CarveWest";
+            this.CarveWest.Size = new System.Drawing.Size(138, 22);
+            this.CarveWest.Text = "Carve &West";
+            this.CarveWest.Click += new System.EventHandler(this.CarveWest_Click);
+            // 
+            // WestWall
+            // 
+            this.WestWall.Face = DosjunEditor.WallLocation.West;
+            this.WestWall.Location = new System.Drawing.Point(9, 156);
+            this.WestWall.Name = "WestWall";
+            this.WestWall.Size = new System.Drawing.Size(116, 116);
+            this.WestWall.TabIndex = 54;
+            this.WestWall.AnyChanged += new System.EventHandler(this.DataElement_Changed);
+            // 
+            // CeilingTexture
+            // 
+            this.CeilingTexture.Face = DosjunEditor.WallLocation.Ceiling;
+            this.CeilingTexture.Location = new System.Drawing.Point(125, 551);
+            this.CeilingTexture.Name = "CeilingTexture";
+            this.CeilingTexture.Size = new System.Drawing.Size(126, 116);
+            this.CeilingTexture.TabIndex = 53;
+            this.CeilingTexture.TextureId = ((ushort)(0));
+            this.CeilingTexture.ValueChanged += new System.EventHandler(this.CeilingTexture_ValueChanged);
+            // 
+            // FloorTexture
+            // 
+            this.FloorTexture.Face = DosjunEditor.WallLocation.Floor;
+            this.FloorTexture.Location = new System.Drawing.Point(125, 418);
+            this.FloorTexture.Name = "FloorTexture";
+            this.FloorTexture.Size = new System.Drawing.Size(126, 116);
+            this.FloorTexture.TabIndex = 52;
+            this.FloorTexture.TextureId = ((ushort)(0));
+            this.FloorTexture.ValueChanged += new System.EventHandler(this.FloorTexture_ValueChanged);
+            // 
+            // SouthWall
+            // 
+            this.SouthWall.Face = DosjunEditor.WallLocation.South;
+            this.SouthWall.Location = new System.Drawing.Point(74, 296);
+            this.SouthWall.Name = "SouthWall";
+            this.SouthWall.Size = new System.Drawing.Size(116, 116);
+            this.SouthWall.TabIndex = 47;
+            this.SouthWall.AnyChanged += new System.EventHandler(this.DataElement_Changed);
+            // 
+            // EastWall
+            // 
+            this.EastWall.Face = DosjunEditor.WallLocation.East;
+            this.EastWall.Location = new System.Drawing.Point(135, 156);
+            this.EastWall.Name = "EastWall";
+            this.EastWall.Size = new System.Drawing.Size(116, 116);
+            this.EastWall.TabIndex = 45;
+            this.EastWall.AnyChanged += new System.EventHandler(this.DataElement_Changed);
+            // 
+            // NorthWall
+            // 
+            this.NorthWall.Face = DosjunEditor.WallLocation.North;
+            this.NorthWall.Location = new System.Drawing.Point(74, 21);
+            this.NorthWall.Name = "NorthWall";
+            this.NorthWall.Size = new System.Drawing.Size(116, 116);
+            this.NorthWall.TabIndex = 44;
+            this.NorthWall.AnyChanged += new System.EventHandler(this.DataElement_Changed);
+            // 
             // Map
             // 
+            this.Map.ContextMenuStrip = this.MapContext;
             this.Map.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Map.Location = new System.Drawing.Point(0, 24);
             this.Map.Name = "Map";
@@ -595,25 +660,6 @@
             this.Map.TileSize = 16;
             this.Map.TileSelected += new DosjunEditor.ZoneView.TileEventHandler(this.Map_TileSelected);
             this.Map.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Map_KeyUp);
-            // 
-            // EffectBox
-            // 
-            this.EffectBox.FormattingEnabled = true;
-            this.EffectBox.Location = new System.Drawing.Point(125, 673);
-            this.EffectBox.Name = "EffectBox";
-            this.EffectBox.Size = new System.Drawing.Size(126, 21);
-            this.EffectBox.TabIndex = 55;
-            this.EffectBox.SelectedIndexChanged += new System.EventHandler(this.EffectBox_SelectedIndexChanged);
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(6, 676);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(41, 13);
-            this.label14.TabIndex = 56;
-            this.label14.Text = "Effect";
             // 
             // ZoneForm
             // 
@@ -637,6 +683,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.DangerBox)).EndInit();
             this.FlagsBox.ResumeLayout(false);
             this.FlagsBox.PerformLayout();
+            this.MapContext.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -695,5 +742,10 @@
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ComboBox EffectBox;
+        private System.Windows.Forms.ContextMenuStrip MapContext;
+        private System.Windows.Forms.ToolStripMenuItem CarveNorth;
+        private System.Windows.Forms.ToolStripMenuItem CarveEast;
+        private System.Windows.Forms.ToolStripMenuItem CarveSouth;
+        private System.Windows.Forms.ToolStripMenuItem CarveWest;
     }
 }
