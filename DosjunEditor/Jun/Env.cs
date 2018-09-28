@@ -70,22 +70,7 @@ namespace DosjunEditor.Jun
             [TokenType.LeftParens] = 100,
         };
 
-        public static Dictionary<string, short> Constants = new Dictionary<string, short>
-        {
-            ["NORTH"] = (short)Direction.North,
-            ["EAST"] = (short)Direction.East,
-            ["SOUTH"] = (short)Direction.South,
-            ["WEST"] = (short)Direction.West,
-            ["UP"] = (short)Direction.Up,
-            ["DOWN"] = (short)Direction.Down,
-
-            ["FIGHTER"] = (short)Job.Fighter,
-            ["CLERIC"] = (short)Job.Cleric,
-            ["MAGE"] = (short)Job.Mage,
-            ["ROGUE"] = (short)Job.Rogue,
-            ["RANGER"] = (short)Job.Ranger,
-            ["BARD"] = (short)Job.Bard,
-        };
+        public static Dictionary<string, short> Constants = new Dictionary<string, short>();
 
         public static void Initialise()
         {
@@ -108,7 +93,23 @@ namespace DosjunEditor.Jun
             foreach (string name in Tools.GetEnumNames<Internal>())
                 Internals[name] = (Internal)Enum.Parse(typeof(Internal), name);
 
+            // Load Constants
+            ImportConstants<Direction>();
+            ImportConstants<Job>();
+            ImportConstants<Event>();
+            ImportConstants<ListenerExpiry>();
+
             initialised = true;
+        }
+
+        private static void ImportConstants<T>()
+        {
+            Type enumType = typeof(T);
+            string[] names = Enum.GetNames(enumType);
+            int index = 0;
+
+            foreach (var v in Enum.GetValues(enumType))
+                Constants[names[index++].ToUpper()] = Convert.ToInt16(v);
         }
     }
 }

@@ -10,6 +10,11 @@
         SuccessUNUSED,
         ReturnUNUSED,
         PartyFull,
+        Zone,
+        EventAttacker,
+        EventTarget,
+        EventPC,
+        EventItem,
 
         Invalid = 0xFF
     }

@@ -185,6 +185,9 @@ namespace DosjunEditor.Jun
                 case ArgumentType.PC:
                     return CheckResource(t, ResourceType.PC);
 
+                case ArgumentType.Script:
+                    return CheckResource(t, ResourceType.Script);
+
                 case ArgumentType.String:
                     return t.Type == TokenType.String;
 

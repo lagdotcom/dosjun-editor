@@ -158,6 +158,8 @@
     </Compile>
     <Compile Include="Jun\Argument.cs" />
     <Compile Include="Jun\ArgumentType.cs" />
+    <Compile Include="Jun\ListenerExpiry.cs" />
+    <Compile Include="Jun\Event.cs" />
     <Compile Include="Jun\Cmd\AddBuff.cs" />
     <Compile Include="Jun\Cmd\AddItem.cs" />
     <Compile Include="Jun\Cmd\Call.cs" />
@@ -187,6 +189,7 @@
     <Compile Include="Jun\Cmd\InParty.cs" />
     <Compile Include="Jun\Cmd\JoinParty.cs" />
     <Compile Include="Jun\Cmd\LeaveParty.cs" />
+    <Compile Include="Jun\Cmd\Listen.cs" />
     <Compile Include="Jun\Cmd\Local.cs" />
     <Compile Include="Jun\Cmd\Music.cs" />
     <Compile Include="Jun\Cmd\NpcAction.cs" />
