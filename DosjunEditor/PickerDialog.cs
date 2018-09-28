@@ -23,7 +23,7 @@ namespace DosjunEditor
         }
 
         public int SelectedIndex => Options.SelectedIndex;
-        public object SelectedValue => Options.SelectedValue;
+        public object SelectedItem => Options.SelectedItem;
 
         private void LoadItems()
         {
