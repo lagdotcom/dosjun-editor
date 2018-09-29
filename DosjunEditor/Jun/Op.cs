@@ -77,5 +77,7 @@
         ShowImage,
         Wait,
         Listen,
+        HasItem,
+        TakeItem,
     }
 }
