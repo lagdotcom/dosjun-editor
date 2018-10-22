@@ -268,6 +268,7 @@ namespace DosjunEditor.Jun
             Token next;
             bool isEnd = false;
             bool lastWasOperator = false;
+            bool argumentList = false;
 
             // grab tokens until we have a whole expression
             while (!isEnd)
@@ -284,8 +285,16 @@ namespace DosjunEditor.Jun
                         if (lastWasOperator)
                             throw new ParseException("Ended expression after an operator");
 
-                        if (next.Type == TokenType.Separator) Consume();
-                        isEnd = true;
+                        if (next.Type == TokenType.Separator)
+                        {
+                            Consume();
+                            isEnd = !argumentList;
+                        }
+                        else
+                        {
+                            isEnd = true;
+                        }
+
                         break;
 
                     case TokenType.Assignment:
@@ -308,10 +317,24 @@ namespace DosjunEditor.Jun
                         Consume();
                         break;
 
+                    case TokenType.ArgumentListBegin:
+                        lastWasOperator = false;
+                        argumentList = true;
+                        tokens.Add(Consume());
+                        break;
+
+                    case TokenType.ArgumentListEnd:
+                        if (!argumentList)
+                            throw new ParseException("Right parens without left parens");
+
+                        lastWasOperator = false;
+                        tokens.Add(Consume());
+                        isEnd = true;
+                        break;
+
                     default:
                         lastWasOperator = false;
-                        tokens.Add(next);
-                        Consume();
+                        tokens.Add(Consume());
                         break;
                 }
             }
