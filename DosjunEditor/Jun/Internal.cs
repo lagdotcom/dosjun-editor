@@ -15,6 +15,9 @@
         EventTarget,
         EventPC,
         EventItem,
+        Steps,
+        Hours,
+        Minutes,
 
         Invalid = 0xFF
     }
