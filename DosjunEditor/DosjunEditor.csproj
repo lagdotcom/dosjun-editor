@@ -159,6 +159,7 @@
     <Compile Include="Jun\Argument.cs" />
     <Compile Include="Jun\ArgumentType.cs" />
     <Compile Include="Jun\Cmd\HasItem.cs" />
+    <Compile Include="Jun\Cmd\ItemAt.cs" />
     <Compile Include="Jun\Cmd\TakeItem.cs" />
     <Compile Include="Jun\ListenerExpiry.cs" />
     <Compile Include="Jun\Event.cs" />
