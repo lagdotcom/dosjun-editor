@@ -10,12 +10,12 @@ namespace DosjunEditor
         {
             Walls = new Wall[Globals.NumWalls];
             for (var i = 0; i < 4; i++)
-                Walls[i] = new Wall();
+                Walls[i] = new Wall((Direction)i);
         }
 
         public void Read(BinaryReader br)
         {
-            Walls = br.ReadArray<Wall>(Globals.NumWalls);
+            br.ReadArray(Walls);
             FloorTexture = br.ReadUInt16();
             CeilingTexture = br.ReadUInt16();
             DescriptionId = br.ReadUInt16();
@@ -61,5 +61,7 @@ namespace DosjunEditor
         public ushort OnUseId { get; set; }
         public byte Danger { get; set; }
         public TileEffect Effect { get; set; }
+
+        public override string ToString() => $"{X},{Y}";
     }
 }

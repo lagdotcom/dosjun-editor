@@ -53,6 +53,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cartographer\CartographerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cartographer\CartographerForm.Designer.cs">
+      <DependentUpon>CartographerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cartographer\ITool.cs" />
+    <Compile Include="Cartographer\WallTypeCycler.cs" />
+    <Compile Include="Controls\CartographerUi.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CartographerUi.Designer.cs">
+      <DependentUpon>CartographerUi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ToolPalette.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ToolPalette.Designer.cs">
+      <DependentUpon>ToolPalette.cs</DependentUpon>
+    </Compile>
     <Compile Include="Data\Buff.cs" />
     <Compile Include="Data\Drop.cs" />
     <Compile Include="Data\DropTable.cs" />
@@ -249,6 +269,7 @@
     <Compile Include="Jun\TokenType.cs" />
     <Compile Include="Jun\Variable.cs" />
     <Compile Include="Jun\Visualizer.cs" />
+    <Compile Include="LineDrawer.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -371,8 +392,17 @@
     <EmbeddedResource Include="CampaignEditor.resx">
       <DependentUpon>CampaignEditor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Cartographer\CartographerForm.resx">
+      <DependentUpon>CartographerForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CompiledDumpForm.resx">
       <DependentUpon>CompiledDumpForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CartographerUi.resx">
+      <DependentUpon>CartographerUi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ToolPalette.resx">
+      <DependentUpon>ToolPalette.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DropTableEditor.resx">
       <DependentUpon>DropTableEditor.cs</DependentUpon>

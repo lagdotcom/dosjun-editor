@@ -8,5 +8,7 @@
         West,
         Up,
         Down,
+
+        Invalid = 0xff,
     }
 }

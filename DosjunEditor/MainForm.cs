@@ -239,7 +239,7 @@ namespace DosjunEditor
                         return;
 
                     case ResourceType.Zone:
-                        Spawn<ZoneForm>(r);
+                        Spawn<Cartographer.CartographerForm>(r);
                         return;
 
                     default:

@@ -10,7 +10,7 @@ namespace DosjunEditor
 
         public WallEditor()
         {
-            wall = new Wall();
+            wall = new Wall(Direction.Invalid);
             InitializeComponent();
 
             foreach (string name in Tools.GetEnumNames<WallType>())

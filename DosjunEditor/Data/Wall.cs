@@ -6,6 +6,11 @@ namespace DosjunEditor
     {
         public const int Padding = 1;
 
+        public Wall(Direction dir)
+        {
+            Direction = dir;
+        }
+
         public void Read(BinaryReader br)
         {
             TextureId = br.ReadUInt16();
@@ -22,9 +27,10 @@ namespace DosjunEditor
             bw.WritePadding(Padding);
         }
 
+        public Direction Direction { get; private set; }
         public ushort TextureId { get; set; }
         public WallType Type { get; set; }
 
-        public override string ToString() => $"{Type} #{TextureId}";
+        public override string ToString() => $"{Direction}: {Type} #{TextureId}";
     }
 }

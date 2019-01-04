@@ -43,6 +43,7 @@ namespace DosjunEditor
         {
             private TileBag bag;
             private int x, y;
+            private int remaining;
 
             public TileBagEnumerator(TileBag parent)
             {
@@ -57,19 +58,19 @@ namespace DosjunEditor
 
             public bool MoveNext()
             {
-                if (x == bag.Width)
-                { 
-                    if (y == bag.Height) return false;
-
-                    x = 0;
-                    y++;
-                }
-                else
-                {
-                    x++;
-                }
+                if (remaining == 0)
+                    return false;
 
                 Current = bag.At(x, y);
+
+                x++;
+                if (x == bag.Width)
+                {
+                    y++;
+                    x = 0;
+                }
+
+                remaining--;
                 return true;
             }
 
@@ -77,6 +78,7 @@ namespace DosjunEditor
             {
                 x = 0;
                 y = 0;
+                remaining = bag.Width * bag.Height;
             }
         }
     }

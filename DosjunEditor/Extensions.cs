@@ -61,18 +61,10 @@ namespace DosjunEditor
             return data.TrimEnd('\0');
         }
 
-        public static T[] ReadArray<T>(this BinaryReader br, int count) where T : IBinaryData, new()
+        public static void ReadArray<T>(this BinaryReader br, T[] array) where T : IBinaryData
         {
-            T[] array = new T[count];
-
-            for (int i = 0; i < count; i++)
-            {
-                T item = new T();
-                item.Read(br);
-                array[i] = item;
-            }
-
-            return array;
+            for (int i = 0; i < array.Length; i++)
+                array[i].Read(br);
         }
 
         public static List<T> ReadMany<T>(this BinaryReader br, int count) where T : IBinaryData, new()
