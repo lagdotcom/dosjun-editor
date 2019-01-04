@@ -13,6 +13,7 @@ namespace DosjunEditor.Jun
         private bool endOfLine;
         private string currentToken;
         private LexerState afterWord;
+        private int parensDepth;
 
         public Tokenizer(DosjunEditor.Context ctx)
         {
@@ -50,6 +51,7 @@ namespace DosjunEditor.Jun
         public void Tokenize(IEnumerable<string> lines)
         {
             afterWord = LexerState.None;
+            parensDepth = 0;
 
             Line = 0;
             foreach (string line in lines)
@@ -535,7 +537,19 @@ namespace DosjunEditor.Jun
                 case LexerState.Whitespace:
                     return State;
 
+                case LexerState.LeftParens:
+                    parensDepth++;
+                    AddToken(TokenType.LeftParens, "(");
+                    return State;
+
                 case LexerState.RightParens:
+                    if (parensDepth > 0)
+                    {
+                        parensDepth--;
+                        AddToken(TokenType.RightParens, ")");
+                        return State;
+                    }
+
                     Append(ch);
                     AddOperatorToken();
                     afterWord = LexerState.None;

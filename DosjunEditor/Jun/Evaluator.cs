@@ -219,6 +219,9 @@ namespace DosjunEditor.Jun
 
             public override void Close()
             {
+                /* TODO: this is wrong! ArgumentList is not emit yet, so if it contained a sub-expression,
+                 * the operators within will get emitted before the arguments do, as the arguments are
+                 * emitted when Command.Apply() is run. */
                 while (Operators.Count > 0)
                     Parser.EmitOperator(Operators.Pop());
 
