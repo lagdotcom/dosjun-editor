@@ -31,10 +31,12 @@
             this.StatusBar = new System.Windows.Forms.StatusStrip();
             this.CellHighlightLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.WallHighlightLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.TopPanel = new System.Windows.Forms.Panel();
-            this.Tools = new DosjunEditor.Controls.ToolPalette();
-            this.Ui = new DosjunEditor.Controls.CartographerUi();
             this.AreaHighlightLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.TopPanel = new System.Windows.Forms.Panel();
+            this.ZoomIn = new System.Windows.Forms.Button();
+            this.ZoomOut = new System.Windows.Forms.Button();
+            this.Ui = new DosjunEditor.Controls.CartographerUi();
+            this.Tools = new DosjunEditor.Controls.ToolPalette();
             this.StatusBar.SuspendLayout();
             this.TopPanel.SuspendLayout();
             this.SuspendLayout();
@@ -63,6 +65,12 @@
             this.WallHighlightLabel.Size = new System.Drawing.Size(12, 17);
             this.WallHighlightLabel.Text = "-";
             // 
+            // AreaHighlightLabel
+            // 
+            this.AreaHighlightLabel.Name = "AreaHighlightLabel";
+            this.AreaHighlightLabel.Size = new System.Drawing.Size(12, 17);
+            this.AreaHighlightLabel.Text = "-";
+            // 
             // TopPanel
             // 
             this.TopPanel.Controls.Add(this.Tools);
@@ -71,6 +79,42 @@
             this.TopPanel.Name = "TopPanel";
             this.TopPanel.Size = new System.Drawing.Size(800, 40);
             this.TopPanel.TabIndex = 2;
+            // 
+            // ZoomIn
+            // 
+            this.ZoomIn.Location = new System.Drawing.Point(12, 46);
+            this.ZoomIn.Name = "ZoomIn";
+            this.ZoomIn.Size = new System.Drawing.Size(23, 23);
+            this.ZoomIn.TabIndex = 4;
+            this.ZoomIn.TabStop = false;
+            this.ZoomIn.Text = "+";
+            this.ZoomIn.UseVisualStyleBackColor = true;
+            this.ZoomIn.Click += new System.EventHandler(this.ZoomIn_Click);
+            // 
+            // ZoomOut
+            // 
+            this.ZoomOut.Location = new System.Drawing.Point(12, 75);
+            this.ZoomOut.Name = "ZoomOut";
+            this.ZoomOut.Size = new System.Drawing.Size(23, 23);
+            this.ZoomOut.TabIndex = 5;
+            this.ZoomOut.TabStop = false;
+            this.ZoomOut.Text = "-";
+            this.ZoomOut.UseVisualStyleBackColor = true;
+            this.ZoomOut.Click += new System.EventHandler(this.ZoomOut_Click);
+            // 
+            // Ui
+            // 
+            this.Ui.Centre = new System.Drawing.Point(0, 0);
+            this.Ui.Context = null;
+            this.Ui.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Ui.Location = new System.Drawing.Point(0, 40);
+            this.Ui.Name = "Ui";
+            this.Ui.Size = new System.Drawing.Size(800, 388);
+            this.Ui.TabIndex = 3;
+            this.Ui.TileSize = 32;
+            this.Ui.Zone = null;
+            this.Ui.TileHighlighted += new System.EventHandler(this.Ui_TileHighlighted);
+            this.Ui.ToolUsed += new System.EventHandler(this.Ui_ToolUsed);
             // 
             // Tools
             // 
@@ -82,34 +126,16 @@
             this.Tools.TabIndex = 0;
             this.Tools.ToolChanged += new System.EventHandler(this.Tools_ToolChanged);
             // 
-            // Ui
-            // 
-            this.Ui.Centre = new System.Drawing.Point(0, 0);
-            this.Ui.Context = null;
-            this.Ui.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Ui.Location = new System.Drawing.Point(0, 0);
-            this.Ui.Name = "Ui";
-            this.Ui.Size = new System.Drawing.Size(800, 450);
-            this.Ui.TabIndex = 0;
-            this.Ui.TileSize = 32;
-            this.Ui.Zone = null;
-            this.Ui.TileHighlighted += new System.EventHandler(this.Ui_TileHighlighted);
-            this.Ui.ToolUsed += new System.EventHandler(this.Ui_ToolUsed);
-            // 
-            // AreaHighlightLabel
-            // 
-            this.AreaHighlightLabel.Name = "AreaHighlightLabel";
-            this.AreaHighlightLabel.Size = new System.Drawing.Size(12, 17);
-            this.AreaHighlightLabel.Text = "-";
-            // 
             // CartographerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.ZoomOut);
+            this.Controls.Add(this.ZoomIn);
+            this.Controls.Add(this.Ui);
             this.Controls.Add(this.TopPanel);
             this.Controls.Add(this.StatusBar);
-            this.Controls.Add(this.Ui);
             this.Name = "CartographerForm";
             this.Text = "Cartographer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CartographerForm_FormClosing);
@@ -122,13 +148,14 @@
         }
 
         #endregion
-
-        private Controls.CartographerUi Ui;
         private System.Windows.Forms.StatusStrip StatusBar;
         private System.Windows.Forms.ToolStripStatusLabel CellHighlightLabel;
         private System.Windows.Forms.Panel TopPanel;
         private Controls.ToolPalette Tools;
         private System.Windows.Forms.ToolStripStatusLabel WallHighlightLabel;
         private System.Windows.Forms.ToolStripStatusLabel AreaHighlightLabel;
+        private Controls.CartographerUi Ui;
+        private System.Windows.Forms.Button ZoomIn;
+        private System.Windows.Forms.Button ZoomOut;
     }
 }

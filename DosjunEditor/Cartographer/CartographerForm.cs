@@ -121,5 +121,16 @@ namespace DosjunEditor.Cartographer
                 e.Cancel = CheckChanged();
             }
         }
+
+        private void ZoomIn_Click(object sender, EventArgs e)
+        {
+            Ui.TileSize += 4;
+        }
+
+        private void ZoomOut_Click(object sender, EventArgs e)
+        {
+            int newSize = Ui.TileSize - 4;
+            Ui.TileSize = newSize < 16 ? 16 : newSize;
+        }
     }
 }
