@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace DosjunEditor.Cartographer
@@ -22,6 +23,7 @@ namespace DosjunEditor.Cartographer
             Zone = r as Zone;
 
             Context.UnsavedChangesChanged += Context_UnsavedChangesChanged;
+            Ui.Centre = new Point(Zone.Width / 2, Zone.Height / 2);
             Ui.Context = ctx;
             Ui.Zone = Zone;
 
