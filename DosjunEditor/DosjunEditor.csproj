@@ -99,6 +99,7 @@
     <Compile Include="Data\Enum\TileEffect.cs" />
     <Compile Include="Data\NPC.cs" />
     <Compile Include="Data\Music.cs" />
+    <Compile Include="Data\Wip.cs" />
     <Compile Include="DropTableEditor.cs">
       <SubType>Form</SubType>
     </Compile>

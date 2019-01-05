@@ -90,6 +90,14 @@ namespace DosjunEditor
             Context = new Context { Djn = Djn };
             Context.UnsavedChangesChanged += Context_UnsavedChangesChanged;
             Djn.ResourceChanged += Djn_ResourceChanged;
+
+            if (Djn.Wip == null)
+            {
+                Wip wip = new Wip();
+                wip.Resource.Name = "EDITOR-DATA";
+
+                Djn.Add(wip);
+            }
         }
 
         private void Djn_ResourceChanged(object sender, IHasResource e)

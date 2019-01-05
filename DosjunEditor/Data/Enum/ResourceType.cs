@@ -20,6 +20,8 @@
         Palette,
         DropTable,
 
+        Wip = 0x80,
+
         Party = 0xC0,
         Globals,
         Overlay,
