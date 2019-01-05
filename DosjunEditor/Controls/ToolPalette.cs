@@ -8,6 +8,7 @@ namespace DosjunEditor.Controls
 {
     public partial class ToolPalette : UserControl
     {
+        private Control toolOptions = null;
         private List<CheckBox> checkboxes = new List<CheckBox>();
         private List<ITool> tools = new List<ITool>();
         private ITool current = null;
@@ -25,11 +26,7 @@ namespace DosjunEditor.Controls
             set
             {
                 current = value;
-
-                foreach (CheckBox chk in checkboxes)
-                    chk.Checked = chk.Tag == value;
-
-                ToolChanged?.Invoke(this, null);
+                SetTool(current);
             }
         }
 
@@ -61,6 +58,31 @@ namespace DosjunEditor.Controls
         {
             if ((sender as Control).Tag is ITool tool)
                 Current = tool;
+        }
+
+        private void SetTool(ITool tool)
+        {
+            foreach (CheckBox chk in checkboxes)
+                chk.Checked = chk.Tag == tool;
+
+            if (toolOptions != null)
+            {
+                Controls.Remove(toolOptions);
+                toolOptions = null;
+            }
+
+            if (current != null)
+            {
+                current.Activate();
+                ToolChanged?.Invoke(this, null);
+
+                toolOptions = tool.Options;
+                if (toolOptions != null)
+                {
+                    toolOptions.Dock = DockStyle.Right;
+                    Controls.Add(toolOptions);
+                }
+            }
         }
     }
 }

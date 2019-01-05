@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Windows.Forms;
 
 namespace DosjunEditor.Cartographer
 {
@@ -14,7 +11,10 @@ namespace DosjunEditor.Cartographer
         }
 
         public Context Context { get; private set; }
+        public Control Options => null;
         public string Name => "Change Wall";
+
+        public void Activate() { }
 
         public void Apply(Tile tile) { }
 
