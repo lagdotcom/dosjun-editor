@@ -23,7 +23,7 @@ namespace DosjunEditor.Controls
         public Zone Zone { get; private set; }
         public Wip.ZoneData ZoneData => Wip.Zones[Zone.Resource.ID];
 
-        public event EventHandler Changed;
+        public event EventHandler AreaChanged;
 
         public void Setup(Zone z, Context ctx)
         {
@@ -45,7 +45,7 @@ namespace DosjunEditor.Controls
             DeleteButton.Enabled = area != null;
             RenameButton.Enabled = area != null;
 
-            Changed?.Invoke(this, null);
+            AreaChanged?.Invoke(this, null);
         }
 
         private void AddArea_Click(object sender, EventArgs e)

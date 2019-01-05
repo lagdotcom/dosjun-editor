@@ -31,7 +31,7 @@ namespace DosjunEditor.Cartographer
             Ui.Zone = Zone;
 
             Tools.Add(new WallTypeCycler(Context));
-            Tools.Add(new AreaDefiner(Zone, Context));
+            Tools.Add(new AreaDefiner(Zone, Ui, Context));
         }
 
         public bool CheckChanged()

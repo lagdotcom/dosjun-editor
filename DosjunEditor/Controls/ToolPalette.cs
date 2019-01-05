@@ -24,8 +24,7 @@ namespace DosjunEditor.Controls
             get => current;
             set
             {
-                current = value;
-                SetTool(current);
+                SetTool(value);
             }
         }
 
@@ -64,8 +63,9 @@ namespace DosjunEditor.Controls
             foreach (CheckBox chk in checkboxes)
                 chk.Checked = chk.Tag == tool;
 
-            if (current != null)
-                current.Activate();
+            current?.Deactivate();
+            current = tool;
+            tool?.Activate();
 
             ToolChanged?.Invoke(this, null);
         }

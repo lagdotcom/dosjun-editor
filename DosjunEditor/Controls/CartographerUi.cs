@@ -48,6 +48,8 @@ namespace DosjunEditor.Controls
 
         public Tile CurrentTile => currentTarget?.Tile;
         public Wall CurrentWall => currentTarget?.Wall;
+
+        public Tile PaintingTile { get; private set; }
         
         public int TileSize
         {
@@ -68,10 +70,14 @@ namespace DosjunEditor.Controls
         }
 
         public event EventHandler TileHighlighted;
+        public event PaintEventHandler TilePainted;
         public event EventHandler ToolUsed;
+        public event PaintEventHandler ZonePainted;
 
         protected override void OnPaint(PaintEventArgs e)
         {
+            Region original = e.Graphics.Clip;
+
             if (zone == null)
             {
                 e.Graphics.FillRectangle(Brushes.DarkRed, ClientRectangle);
@@ -93,6 +99,9 @@ namespace DosjunEditor.Controls
 
                 PaintTile(e.Graphics, t, cx + dx * TileSize, cy + dy * TileSize);
             }
+
+            e.Graphics.Clip = original;
+            ZonePainted?.Invoke(this, e);
         }
 
         protected bool PaintTile(Graphics g, Tile t, int x, int y)
@@ -106,6 +115,8 @@ namespace DosjunEditor.Controls
             Point p = new Point(t.X, t.Y);
             bool highlighted = CurrentTile == t;
 
+            g.Clip = new Region(rect);
+
             // TODO: floor colour
             if (t.FloorTexture > 0)
                 g.FillRectangle(highlighted ? TileHighlightBrush : Brushes.Black, rect);
@@ -117,6 +128,9 @@ namespace DosjunEditor.Controls
 
             rect.Inflate(-WallThickness, -WallThickness);
             hotspots.Add(rect, new Target { Tile = t, Layer = TileLayer });
+
+            PaintingTile = t;
+            TilePainted?.Invoke(this, new PaintEventArgs(g, rect));
             return true;
         }
 

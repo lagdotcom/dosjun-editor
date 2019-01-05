@@ -8,6 +8,7 @@ namespace DosjunEditor.Cartographer
         string Name { get; }
 
         void Activate();
+        void Deactivate();
 
         void Apply(Tile tile);
         void Apply(Tile tile, Wall wall);

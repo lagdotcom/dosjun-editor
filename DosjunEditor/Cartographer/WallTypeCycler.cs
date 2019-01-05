@@ -15,6 +15,7 @@ namespace DosjunEditor.Cartographer
         public string Name => "Change Wall";
 
         public void Activate() { }
+        public void Deactivate() { }
 
         public void Apply(Tile tile) { }
 
