@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace DosjunEditor.Cartographer
 {
     public partial class CartographerForm : Form, IResourceEditor
     {
+        private Control toolOptions = null;
+
         public CartographerForm()
         {
             InitializeComponent();
@@ -28,6 +31,19 @@ namespace DosjunEditor.Cartographer
             Ui.Zone = Zone;
 
             Tools.Add(new WallTypeCycler(Context));
+            Tools.Add(new AreaDefiner(Zone, Context));
+        }
+
+        public bool CheckChanged()
+        {
+            if (Context.UnsavedChanges)
+            {
+                DialogResult result = MessageBox.Show("Save changes?", "Don't lose your work!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                if (result == DialogResult.Cancel) return true;
+                if (result == DialogResult.Yes) SaveAll();
+            }
+
+            return false;
         }
 
         private void Context_UnsavedChangesChanged(object sender, EventArgs e)
@@ -50,14 +66,60 @@ namespace DosjunEditor.Cartographer
 
         private void Ui_TileHighlighted(object sender, EventArgs e)
         {
-            CellHighlightLabel.Text = Ui.CurrentTile?.ToString();
-            WallHighlightLabel.Text = Ui.CurrentWall?.ToString();
+            if (Ui.CurrentTile != null)
+            {
+                CellHighlightLabel.Text = Ui.CurrentTile.ToString();
+                AreaHighlightLabel.Text = string.Join(", ", Context.Djn.Wip.Zones[Zone.Resource.ID].Areas.Where(a => a.Contains(Ui.CurrentTile.X, Ui.CurrentTile.Y)).Select(a => a.Name));
+            }
+            else
+            {
+                CellHighlightLabel.Text = "-";
+                AreaHighlightLabel.Text = "-";
+            }
+
+            if (Ui.CurrentWall != null)
+            {
+                WallHighlightLabel.Text = Ui.CurrentWall.ToString();
+            }
+            else
+            {
+                WallHighlightLabel.Text = "-";
+            }
         }
 
         private void Ui_ToolUsed(object sender, EventArgs e)
         {
             if (Ui.CurrentWall == null) Tools.Current.Apply(Ui.CurrentTile);
             else Tools.Current.Apply(Ui.CurrentTile, Ui.CurrentWall);
+        }
+
+        private void Tools_ToolChanged(object sender, EventArgs e)
+        {
+            ITool tool = Tools.Current;
+
+            if (toolOptions != null)
+            {
+                Controls.Remove(toolOptions);
+                toolOptions = null;
+            }
+
+            if (tool != null)
+            {
+                toolOptions = tool.Options;
+                if (toolOptions != null)
+                {
+                    toolOptions.Dock = DockStyle.Right;
+                    Controls.Add(toolOptions);
+                }
+            }
+        }
+
+        private void CartographerForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                e.Cancel = CheckChanged();
+            }
         }
     }
 }

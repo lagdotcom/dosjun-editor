@@ -30,10 +30,11 @@
         {
             this.StatusBar = new System.Windows.Forms.StatusStrip();
             this.CellHighlightLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.WallHighlightLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.TopPanel = new System.Windows.Forms.Panel();
             this.Tools = new DosjunEditor.Controls.ToolPalette();
             this.Ui = new DosjunEditor.Controls.CartographerUi();
-            this.WallHighlightLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.AreaHighlightLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.StatusBar.SuspendLayout();
             this.TopPanel.SuspendLayout();
             this.SuspendLayout();
@@ -42,7 +43,8 @@
             // 
             this.StatusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.CellHighlightLabel,
-            this.WallHighlightLabel});
+            this.WallHighlightLabel,
+            this.AreaHighlightLabel});
             this.StatusBar.Location = new System.Drawing.Point(0, 428);
             this.StatusBar.Name = "StatusBar";
             this.StatusBar.Size = new System.Drawing.Size(800, 22);
@@ -54,6 +56,12 @@
             this.CellHighlightLabel.Name = "CellHighlightLabel";
             this.CellHighlightLabel.Size = new System.Drawing.Size(12, 17);
             this.CellHighlightLabel.Text = "-";
+            // 
+            // WallHighlightLabel
+            // 
+            this.WallHighlightLabel.Name = "WallHighlightLabel";
+            this.WallHighlightLabel.Size = new System.Drawing.Size(12, 17);
+            this.WallHighlightLabel.Text = "-";
             // 
             // TopPanel
             // 
@@ -72,6 +80,7 @@
             this.Tools.Name = "Tools";
             this.Tools.Size = new System.Drawing.Size(800, 40);
             this.Tools.TabIndex = 0;
+            this.Tools.ToolChanged += new System.EventHandler(this.Tools_ToolChanged);
             // 
             // Ui
             // 
@@ -87,11 +96,11 @@
             this.Ui.TileHighlighted += new System.EventHandler(this.Ui_TileHighlighted);
             this.Ui.ToolUsed += new System.EventHandler(this.Ui_ToolUsed);
             // 
-            // WallHighlightLabel
+            // AreaHighlightLabel
             // 
-            this.WallHighlightLabel.Name = "WallHighlightLabel";
-            this.WallHighlightLabel.Size = new System.Drawing.Size(12, 17);
-            this.WallHighlightLabel.Text = "-";
+            this.AreaHighlightLabel.Name = "AreaHighlightLabel";
+            this.AreaHighlightLabel.Size = new System.Drawing.Size(12, 17);
+            this.AreaHighlightLabel.Text = "-";
             // 
             // CartographerForm
             // 
@@ -103,6 +112,7 @@
             this.Controls.Add(this.Ui);
             this.Name = "CartographerForm";
             this.Text = "Cartographer";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CartographerForm_FormClosing);
             this.StatusBar.ResumeLayout(false);
             this.StatusBar.PerformLayout();
             this.TopPanel.ResumeLayout(false);
@@ -119,5 +129,6 @@
         private System.Windows.Forms.Panel TopPanel;
         private Controls.ToolPalette Tools;
         private System.Windows.Forms.ToolStripStatusLabel WallHighlightLabel;
+        private System.Windows.Forms.ToolStripStatusLabel AreaHighlightLabel;
     }
 }

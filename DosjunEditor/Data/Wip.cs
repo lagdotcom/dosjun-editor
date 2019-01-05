@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace DosjunEditor
 {
@@ -110,6 +112,17 @@ namespace DosjunEditor
 
             public string Name { get; set; }
             public List<ZonePoint> Points { get; private set; }
+
+            public override string ToString() => Name;
+
+            public bool Contains(int x, int y) => Points.Any(p => p.X == x && p.Y == y);
+            public void Add(int x, int y) => Points.Add(new ZonePoint { X = x, Y = y });
+
+            public void Remove(int x, int y)
+            {
+                ZonePoint zp = Points.Find(p => p.X == x && p.Y == y);
+                if (zp != null) Points.Remove(zp);
+            }
         }
 
         public class ZonePoint : IBinaryData

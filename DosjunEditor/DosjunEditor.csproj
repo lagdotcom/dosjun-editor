@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cartographer\AreaDefiner.cs" />
     <Compile Include="Cartographer\CartographerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -61,6 +62,12 @@
     </Compile>
     <Compile Include="Cartographer\ITool.cs" />
     <Compile Include="Cartographer\WallTypeCycler.cs" />
+    <Compile Include="Controls\AreaDefinerOptions.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\AreaDefinerOptions.Designer.cs">
+      <DependentUpon>AreaDefinerOptions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\CartographerUi.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -398,6 +405,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CompiledDumpForm.resx">
       <DependentUpon>CompiledDumpForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\AreaDefinerOptions.resx">
+      <DependentUpon>AreaDefinerOptions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CartographerUi.resx">
       <DependentUpon>CartographerUi.cs</DependentUpon>
