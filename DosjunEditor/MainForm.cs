@@ -97,6 +97,7 @@ namespace DosjunEditor
                 wip.Resource.Name = "EDITOR-DATA";
 
                 Djn.Add(wip);
+                Changed = true;
             }
         }
 

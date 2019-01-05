@@ -177,6 +177,9 @@ namespace DosjunEditor
                 case ResourceType.Source:
                     return new ScriptSource(r);
 
+                case ResourceType.Wip:
+                    return new Wip(r);
+
                 case ResourceType.Zone:
                     return new Zone(r);
 
