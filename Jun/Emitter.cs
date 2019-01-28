@@ -6,11 +6,14 @@ namespace Jun
     public class Emitter
     {
         private const short UnknownJump = -1;
+        private Dictionary<string, Op> builtinOps;
 
         public Emitter()
         {
             Handlers = new Dictionary<string, Action<Emitter, int, bool>>();
             Scripts = new Dictionary<string, Script>();
+
+            InitBuiltins();
 
             CompoundOps.Initialise(Handlers);
         }
@@ -18,6 +21,16 @@ namespace Jun
         public Dictionary<string, Action<Emitter, int, bool>> Handlers { get; private set; }
         public Dictionary<string, Script> Scripts { get; private set; }
         public Script Current { get; private set; }
+
+        private void InitBuiltins()
+        {
+            builtinOps = new Dictionary<string, Op>();
+
+            string[] names = Enum.GetNames(typeof(Op));
+            int index = 0;
+            foreach (object o in Enum.GetValues(typeof(Op)))
+                builtinOps[names[index++].ToUpper()] = (Op)o;
+        }
 
         public void BeginScript(string name)
         {
@@ -42,7 +55,7 @@ namespace Jun
             if (Handlers.ContainsKey(name))
                 Handlers[name](this, args, returnResult);
             else
-                Current.Write(AsBuiltin(name));
+                Current.Write(builtinOps[name]);
         }
 
         public void Call(Var v, int args, bool returnResult)
@@ -159,22 +172,6 @@ namespace Jun
                 case VarScope.Local: return Op.PopLocal;
                 case VarScope.Temp: return Op.PopTemp;
                 default: throw new Exception($"Invalid var scope to pop: {s}");
-            }
-        }
-
-        private Op AsBuiltin(string s)
-        {
-            switch (s)
-            {
-                case "ABLE": return Op.Able;
-                case "GETBESTWEAPONRANGE": return Op.GetBestWeaponRange;
-                case "INPARTY": return Op.InParty;
-                case "RANDOM": return Op.Random;
-                case "RETURN": return Op.Return;
-                case "SELECTACTION": return Op.SelectAction;
-                case "SELECTTARGET": return Op.SelectTarget;
-
-                default: throw new Exception($"No opcode for builtin: {s}");
             }
         }
     }
