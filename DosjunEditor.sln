@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DosjunEditor", "DosjunEdito
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompilerTest", "CompilerTest\CompilerTest.csproj", "{606CA653-20C4-4A10-ACAC-94265AA644E1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jun", "Jun\Jun.csproj", "{5C66A92C-8399-4BF0-98EE-98C068BCBAAD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JunApp", "JunApp\JunApp.csproj", "{4D2A1567-54F9-4436-9589-404385E5B0C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,8 +25,19 @@ Global
 		{606CA653-20C4-4A10-ACAC-94265AA644E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{606CA653-20C4-4A10-ACAC-94265AA644E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{606CA653-20C4-4A10-ACAC-94265AA644E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C66A92C-8399-4BF0-98EE-98C068BCBAAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C66A92C-8399-4BF0-98EE-98C068BCBAAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C66A92C-8399-4BF0-98EE-98C068BCBAAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C66A92C-8399-4BF0-98EE-98C068BCBAAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D2A1567-54F9-4436-9589-404385E5B0C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D2A1567-54F9-4436-9589-404385E5B0C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D2A1567-54F9-4436-9589-404385E5B0C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D2A1567-54F9-4436-9589-404385E5B0C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0C67B48D-766D-46DD-A34B-0E1ABFC62522}
 	EndGlobalSection
 EndGlobal

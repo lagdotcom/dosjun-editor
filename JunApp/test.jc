@@ -1,0 +1,51 @@
+﻿Include "GLOB"
+
+Global g_spoons
+
+Script ai_mindless
+	SelectEnemies @Self
+	FilterAliveTargets
+	FilterTargetsByRange GetBestWeaponRange(@Self)
+	SelectAction aAttack
+	SelectRandomTarget
+EndScript
+
+Script ai_rogue
+	If Random(1) == 1 & Able(@Self, aHide)
+		SelectAction aHide
+		SelectTarget @Self
+		Return
+	EndIf
+
+	SelectEnemies @Self
+	FilterAliveTargets
+	SelectRandomTarget
+
+	If Able(@Self, aSneakAttack)
+		SelectAction aSneakAttack
+	Else
+		SelectAction aAttack
+	EndIf
+EndScript
+
+Script ai_healer
+	If Random(2) == 2 & Able(@Self, aCureLight)
+		SelectAllies @Self
+		FilterAliveTargets
+		FilterHPBelowTargets 50
+		If SelectRandomTarget()
+			SelectAction aCureLight
+			Return
+		EndIf
+	EndIf
+
+	$ai_mindless()
+EndScript
+
+Script testfunc(a, b, c)
+	Return a + b + c
+EndScript
+
+Script testcaller
+	z = $testfunc(3, @X, InParty($someguy))
+EndScript
