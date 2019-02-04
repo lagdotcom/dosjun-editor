@@ -54,6 +54,7 @@ namespace DosjunEditor.Jun
 
         public static Dictionary<TokenType, int> Precedence = new Dictionary<TokenType, int>
         {
+            [TokenType.Invert] = 1,
             [TokenType.Divide] = 3,
             [TokenType.Multiply] = 3,
             [TokenType.Add] = 4,
@@ -66,7 +67,6 @@ namespace DosjunEditor.Jun
             [TokenType.NotEqual] = 7,
             [TokenType.And] = 8,
             [TokenType.Or] = 10,
-            [TokenType.Invert] = 90,
             [TokenType.LeftParens] = 100,
         };
 
