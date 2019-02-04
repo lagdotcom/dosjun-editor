@@ -8,7 +8,7 @@ namespace DosjunEditor.Jun
 
         public ExpressionToken(List<Token> tokens)
         {
-            Tokens = tokens;
+            Tokens = new List<Token>(tokens);
             Type = TokenType.Expression;
             Value = "...";
         }

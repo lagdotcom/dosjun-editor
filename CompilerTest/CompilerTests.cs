@@ -8,7 +8,7 @@ namespace CompilerTest
 {
     public abstract class CompilerTests
     {
-        private Dictionary<TokenType, string> defaultTokenValues = new Dictionary<TokenType, string>
+        private readonly Dictionary<TokenType, string> defaultTokenValues = new Dictionary<TokenType, string>
         {
             { TokenType.Add, "+" },
             { TokenType.And, "&" },
@@ -117,6 +117,7 @@ namespace CompilerTest
             Parser p = new Parser(ctx);
             p.Parse(tokens);
 
+            System.Diagnostics.Debug.WriteLine(Visualizer.Show(code, "Expected"));
             System.Diagnostics.Debug.WriteLine(Visualizer.Show(p.Scripts));
 
             var compiled = p.Scripts[0].Code;

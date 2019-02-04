@@ -225,7 +225,7 @@ namespace DosjunEditor.Jun
             }
 
             // TODO
-            return false;
+            return true;
         }
 
         private bool CheckResource(Token t, ResourceType ty, ResourceSubtype sty = ResourceSubtype.Unknown, ScriptType scty = ScriptType.Any)

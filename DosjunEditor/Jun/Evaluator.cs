@@ -27,66 +27,7 @@ namespace DosjunEditor.Jun
 
             Scopes.Peek().Close();
         }
-
-        private void Parse(IEnumerable<Token> tokens)
-        { 
-            Stack<Token> operators = new Stack<Token>();
-            int topPrecedence;
-
-            // convert Infix to Postfix
-            foreach (Token tok in tokens)
-            {
-                switch (tok.Type)
-                {
-                    case TokenType.LeftParens:
-                        operators.Push(tok);
-                        break;
-
-                    case TokenType.RightParens:
-                        while (true)
-                        {
-                            if (operators.Count == 0)
-                                throw new Ex.ParseException("Right parenthesis without left");
-
-                            Token important = operators.Pop();
-                            if (important.Type == TokenType.LeftParens) break;
-                            else Parser.EmitOperator(important);
-                        }
-                        break;
-
-                    case TokenType.Add:
-                    case TokenType.And:
-                    case TokenType.Divide:
-                    case TokenType.Equals:
-                    case TokenType.GT:
-                    case TokenType.GTE:
-                    case TokenType.Invert:
-                    case TokenType.LT:
-                    case TokenType.LTE:
-                    case TokenType.Multiply:
-                    case TokenType.NotEqual:
-                    case TokenType.Or:
-                    case TokenType.Subtract:
-                        topPrecedence = operators.Count > 0 ? Env.Precedence[operators.Peek().Type] : 100;
-                        if (topPrecedence < Env.Precedence[tok.Type])
-                        {
-                            Token important = operators.Pop();
-                            Parser.EmitOperator(important);
-                        }
-
-                        operators.Push(tok);
-                        break;
-
-                    default:
-                        Parser.EmitArgument(tok);
-                        break;
-                }
-            }
-
-            while (operators.Count > 0)
-                Parser.EmitOperator(operators.Pop());
-        }
-
+        
         interface IEvaluatorScope
         {
             void Parse(Token tok);
@@ -146,16 +87,11 @@ namespace DosjunEditor.Jun
                         break;
 
                     default:
-                        EmitArgument(tok);
+                        Parser.EmitArgument(tok);
                         break;
                 }
             }
-
-            protected virtual void EmitArgument(Token tok)
-            {
-                Parser.EmitArgument(tok);
-            }
-
+            
             public virtual void Close()
             {
                 while (Operators.Count > 0)
@@ -190,10 +126,12 @@ namespace DosjunEditor.Jun
             {
                 ArgumentList = new List<Token>();
                 Command = Env.Commands[tok.Value];
+                CurrentArgument = new List<Token>();
             }
             
             public ICmd Command { get; }
             public List<Token> ArgumentList { get; }
+            public List<Token> CurrentArgument { get; }
 
             public override void Parse(Token tok)
             {
@@ -203,28 +141,37 @@ namespace DosjunEditor.Jun
                         break;
 
                     case TokenType.ArgumentListEnd:
+                        FinishArgument();
                         Close();
                         break;
 
+                    case TokenType.Separator:
+                        FinishArgument();
+                        break;
+                        
                     default:
-                        base.Parse(tok);
+                        CurrentArgument.Add(tok);
                         break;
                 }
             }
-
-            protected override void EmitArgument(Token tok)
+            
+            protected void FinishArgument()
             {
-                ArgumentList.Add(tok);
+                if (CurrentArgument.Count == 0)
+                    throw new Ex.ParseException($"No expression given for argument");
+                else if (CurrentArgument.Count == 1)
+                    ArgumentList.Add(CurrentArgument[0]);
+                else
+                {
+                    // note: this is kinda cheeky; Parser will now have to spawn another Evaluator to handle this!
+                    ArgumentList.Add(new ExpressionToken(CurrentArgument));
+                }
+
+                CurrentArgument.Clear();
             }
 
             public override void Close()
             {
-                /* TODO: this is wrong! ArgumentList is not emit yet, so if it contained a sub-expression,
-                 * the operators within will get emitted before the arguments do, as the arguments are
-                 * emitted when Command.Apply() is run. */
-                while (Operators.Count > 0)
-                    Parser.EmitOperator(Operators.Pop());
-
                 if (ArgumentList.Count != Command.Args.Length)
                     throw new Ex.ArgumentCountException($"Wrong number of arguments to {Command.Name}");
 
