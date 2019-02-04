@@ -51,8 +51,9 @@ namespace DosjunEditor
                 Reset();
             }
 
-            public Tile Current { get; private set; }
-            object IEnumerator.Current => Current;
+            public Tile Value { get; private set; }
+            public Tile Current => Value;
+            object IEnumerator.Current => Value;
 
             public void Dispose() { }
 
@@ -61,7 +62,7 @@ namespace DosjunEditor
                 if (remaining == 0)
                     return false;
 
-                Current = bag.At(x, y);
+                Value = bag.At(x, y);
 
                 x++;
                 if (x == bag.Width)

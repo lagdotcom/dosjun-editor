@@ -532,6 +532,7 @@ namespace DosjunEditor.Jun
                     return guess;
 
                 case LexerState.Reference:
+                case LexerState.Internal:
                     return guess;
 
                 case LexerState.Whitespace:

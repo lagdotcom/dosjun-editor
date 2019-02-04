@@ -168,7 +168,7 @@ namespace DosjunEditor.Jun
                     return CheckResource(t, ResourceType.PC) || CheckResource(t, ResourceType.NPC);
 
                 case ArgumentType.Expression:
-                    return t.Type == TokenType.Expression || t.Type == TokenType.Number;
+                    return t.Type == TokenType.Expression || t.Type == TokenType.Number || t.Type == TokenType.Internal;
 
                 case ArgumentType.Graphic:
                     return CheckResource(t, ResourceType.Graphic);
@@ -329,7 +329,6 @@ namespace DosjunEditor.Jun
 
                         lastWasOperator = false;
                         tokens.Add(Consume());
-                        isEnd = true;
                         break;
 
                     default:
