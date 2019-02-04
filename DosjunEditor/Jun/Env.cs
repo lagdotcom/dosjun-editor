@@ -12,6 +12,15 @@ namespace DosjunEditor.Jun
         public static int MaxFlags => short.MaxValue;
         public static int MaxLocals => short.MaxValue;
 
+        public const short SelectAll = 0;
+        public const short SelectAllies = 1;
+        public const short SelectEnemies = 2;
+        public const short SelectRandom = -1;
+
+        public const short FilterAlive = 0;
+        public const short FilterRange = 1;
+        public const short FilterHPBelow = 2;
+
         public static Dictionary<string, Internal> Internals { get; private set; }
         public static Dictionary<string, ICmd> Commands { get; private set; }
         
@@ -98,6 +107,7 @@ namespace DosjunEditor.Jun
             ImportConstants<Job>();
             ImportConstants<Event>();
             ImportConstants<ListenerExpiry>();
+            ImportConstants<Action>();
 
             initialised = true;
         }

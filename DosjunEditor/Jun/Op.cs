@@ -80,5 +80,13 @@
         HasItem,
         TakeItem,
         ItemAt,
+        Random,
+
+        SelectTargets = 0xE0,
+        FilterTargets,
+        SelectAction,
+        SelectTarget,
+        GetBestWeaponRange,
+        Able,
     }
 }

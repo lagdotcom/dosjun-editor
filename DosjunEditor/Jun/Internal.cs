@@ -19,6 +19,9 @@
         Hours,
         Minutes,
 
+        Self = 0xE0,
+        Target,
+
         Invalid = 0xFF
     }
 }

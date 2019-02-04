@@ -4,6 +4,7 @@
     {
         Any,
         Script,
-        State
+        State,
+        AIProfile,
     }
 }

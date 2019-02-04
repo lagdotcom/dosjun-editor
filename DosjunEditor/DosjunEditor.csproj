@@ -184,10 +184,25 @@
     <Compile Include="ItemPosForm.Designer.cs">
       <DependentUpon>ItemPosForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Jun\Action.cs" />
     <Compile Include="Jun\Argument.cs" />
     <Compile Include="Jun\ArgumentType.cs" />
+    <Compile Include="Jun\Cmd\Able.cs" />
+    <Compile Include="Jun\Cmd\AIProfile.cs" />
+    <Compile Include="Jun\Cmd\EndAIProfile.cs" />
+    <Compile Include="Jun\Cmd\FilterAliveTargets.cs" />
+    <Compile Include="Jun\Cmd\FilterHPBelowTargets.cs" />
+    <Compile Include="Jun\Cmd\FilterTargetsByRange.cs" />
+    <Compile Include="Jun\Cmd\GetBestWeaponRange.cs" />
     <Compile Include="Jun\Cmd\HasItem.cs" />
     <Compile Include="Jun\Cmd\ItemAt.cs" />
+    <Compile Include="Jun\Cmd\Random.cs" />
+    <Compile Include="Jun\Cmd\SelectAction.cs" />
+    <Compile Include="Jun\Cmd\SelectAll.cs" />
+    <Compile Include="Jun\Cmd\SelectAllies.cs" />
+    <Compile Include="Jun\Cmd\SelectEnemies.cs" />
+    <Compile Include="Jun\Cmd\SelectRandomTarget.cs" />
+    <Compile Include="Jun\Cmd\SelectTarget.cs" />
     <Compile Include="Jun\Cmd\TakeItem.cs" />
     <Compile Include="Jun\ListenerExpiry.cs" />
     <Compile Include="Jun\Event.cs" />

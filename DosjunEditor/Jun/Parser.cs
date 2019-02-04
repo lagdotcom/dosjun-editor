@@ -472,6 +472,12 @@ namespace DosjunEditor.Jun
             }
         }
 
+        public void EmitArgument(short b)
+        {
+            Emit(Op.PushLiteral);
+            Emit(b);
+        }
+
         public void EmitArgument(Token tok)
         {
             switch (tok.Type)
