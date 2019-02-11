@@ -10,5 +10,6 @@
         Thing,
         Monster,
         Font,
+        AIProfile,
     }
 }

@@ -21,7 +21,7 @@ namespace DosjunEditor.Jun.Cmd
             Token identifier = a["Identifier"];
 
             p.CurrentScript = new Jun.Script { Name = identifier.Value, Type = ScriptType.Script };
-            p.AddConstant(identifier.Value, (short)p.GetScriptId(identifier.Value));
+            p.AddConstant(identifier.Value, (short)p.GetScriptId(identifier.Value, ScriptType.Script));
             p.Scripts.Add(p.CurrentScript);
 
             p.InScript = true;

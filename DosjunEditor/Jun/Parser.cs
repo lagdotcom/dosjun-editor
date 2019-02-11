@@ -287,7 +287,7 @@ namespace DosjunEditor.Jun
 
                         if (next.Type == TokenType.Separator)
                         {
-                            Consume();
+                            tokens.Add(Consume());
                             isEnd = !argumentList;
                         }
                         else
@@ -612,16 +612,17 @@ namespace DosjunEditor.Jun
         public int LineNumber { get; private set; }
         public Token LastToken { get; private set; }
         
-        public ushort GetScriptId(string name, bool state = false)
+        public ushort GetScriptId(string name, ScriptType type)
         {
             CompiledScript scr = Context.Djn?.FindByName<CompiledScript>(name);
 
             if (scr == null)
             {
                 scr = new CompiledScript();
-                scr.Resource.Flags = state ? ResourceFlags.Private : ResourceFlags.None;
+                scr.Resource.Flags = (type == ScriptType.Script) ? ResourceFlags.None : ResourceFlags.Private;
                 scr.Resource.Name = name;
                 scr.Resource.OnlyDesign = true;
+                scr.Resource.Subtype = (type == ScriptType.AIProfile) ? ResourceSubtype.AIProfile : ResourceSubtype.Unknown;
                 Context.Djn?.Add(scr);
 
                 TemporaryScripts.Add(scr);

@@ -14,7 +14,6 @@ namespace DosjunEditor.Jun.Cmd
         public void Apply(Parser p, Dictionary<string, Token> a)
         {
             p.EmitArgument(Env.SelectAll);
-            p.EmitArgument(0);
             p.Emit(Op);
         }
     }

@@ -84,7 +84,6 @@
     <Compile Include="Data\Drop.cs" />
     <Compile Include="Data\DropTable.cs" />
     <Compile Include="Data\Enum\BuffType.cs" />
-    <Compile Include="Data\Enum\AI.cs" />
     <Compile Include="CampaignEditor.cs">
       <SubType>Form</SubType>
     </Compile>
